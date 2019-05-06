@@ -1,0 +1,12 @@
+*~
+*.o
+*.a
+*.so
+#*#
+vgcore.*
+Makefile
+CMakeFiles
+CMakeCache.txt
+cmake_install.cmake
+bomberman
+Bomberman
