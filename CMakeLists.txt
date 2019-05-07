@@ -8,7 +8,7 @@ set(SRCDIR Src/)
 set(INCDIR Include/)
 
 include_directories(Include)
-include_directories(${INCDIR}Irrlicht)
+include_directories(/usr/include/irrlicht) # TODO modif path
 
 link_directories(Lib)
 
@@ -16,10 +16,16 @@ link_directories(Lib)
 set(SRC
   ${SRCDIR}Main.cpp
   ${SRCDIR}World.cpp
+  ${SRCDIR}Entity.cpp
+  ${SRCDIR}PowerUp.cpp
+  ${SRCDIR}Player.cpp
   )
 
 set(INCLUDE
   ${INCDIR}World.hpp
+  ${INCDIR}Entity.hpp
+  ${INCDIR}PowerUp.hpp
+  ${INCDIR}Player.hpp
   )
 
 set(CMAKE_CXX_FLAGS "-W -Wall -Wextra")
