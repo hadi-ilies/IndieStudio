@@ -6,35 +6,43 @@
 */
 
 #include <iostream>
-#include <cstring>
-#include "World.hpp"
+#include <cstring> // ?
+#include <irrlicht.h>
+//#include "World.hpp"
 
 using namespace std;
+using namespace irr;
+
+using namespace core;
+using namespace scene;
+using namespace video;
+using namespace io;
+using namespace gui;
 
 bool tmp2()
 {
-    World world("// TODO");
+    /*World world("// TODO");
 
-    world.debugAff();
+      world.debugAff();*/
 
     IrrlichtDevice *device = createDevice(video::EDT_SOFTWARE, dimension2d<u32>(640, 480));
 
-    if (!device)
+    /* if (!device)
         return false;
-    device->setWindowCaption(L"Bomberman");
+        device->setWindowCaption(L"Bomberman");
 
     IVideoDriver *driver = device->getVideoDriver();
-    ISceneManager *smgr = device->getSceneManager();
+    ISceneManager *smgr = device->getSceneManager();*/
     /*scene::ISceneNode *cube = smgr->addCubeSceneNode();
 
     if (cube)
     cube->setMaterialTexture(0, driver->getTexture("Resources/Texture/Wall.png"));*/
 
-    smgr->addCameraSceneNodeFPS();
-    device->getCursorControl()->setVisible(false);
+    //smgr->addCameraSceneNodeFPS();
+    //device->getCursorControl()->setVisible(false);
 
-    world.aff(driver, smgr);
-    while(device->run()) {
+    //world.aff(driver, smgr);
+    /*while(device->run()) {
         driver->beginScene(true, true, video::SColor(255,113,113,133));
 
         smgr->drawAll(); // draw the 3d scene
@@ -42,7 +50,7 @@ bool tmp2()
 
         driver->endScene();
     }
-    device->drop();
+    device->drop();*/
     return true;
 }
 

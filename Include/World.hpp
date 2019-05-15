@@ -11,7 +11,7 @@
 #include <string>
 #include "Block.hpp"
 
-typedef Vector<3, uint> Vector3u; // ? move in Type.hpp
+typedef vector2d<uint> vector2du; // ? move in Type.hpp
 
 struct Tab
 {
@@ -23,10 +23,10 @@ class World
 public:
     World(const string &_fileName); // TODO
     ~World();
-    const Vector3u &getSize() const;
-    const Tab &getTab(const Vector3u &pos) const;
-    void setTab(const Vector3u &pos, const Tab &tab);
-    void explode(const Vector3u &pos, const uint &power); // ? explode 2D or 3D
+    const vector2du &getSize() const;
+    const Tab &getTab(const vector2du &pos) const;
+    void setTab(const vector2du &pos, const Tab &tab);
+    void explode(const vector2du &pos, const uint &power); // ? explode 2D or 3D
     //const void aff(IVideoDriver *driver, ISceneManager *smgr) const; // TODO
     const void debugAff() const; // tmp
 
