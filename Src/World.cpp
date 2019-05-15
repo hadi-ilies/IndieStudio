@@ -23,6 +23,12 @@ World::World(const std::string &_fileName)
 
 World::~World()
 {
+    for (uint i = 0; i < size.X; i++) {
+        for (uint j = 0; j < size.Y; j++)
+            delete [] tab[i][j];
+        delete [] tab[i];
+    }
+    delete [] tab;
 }
 
 const vector3du &World::getSize() const
@@ -84,17 +90,11 @@ const void World::aff(IVideoDriver *driver, ISceneManager *smgr) const
 World::World(const vector3du &_size)
     : size(_size)
 {
-    /*tab = unique_ptr<Tab[][]>(new Tab** [size.X]);
-    for (uint i = 0; i < size.X; i++) {
-        tab[i] = unique_ptr<Tab[]>(new Tab* [size.Y]);
-        for (uint j = 0; j < size.Y; j++)
-            tab[i][j] = unique_ptr<Tab>(new Tab [size.Z]);
-            }*/
-
     tab = new Tab** [size.X];
     for (uint i = 0; i < size.X; i++) {
         tab[i] = new Tab* [size.Y];
         for (uint j = 0; j < size.Y; j++)
             tab[i][j] = new Tab [size.Z];
     }
+
 }

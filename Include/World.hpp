@@ -9,7 +9,7 @@
 #define WORLD_HPP
 
 #include <string>
-#include <memory>
+#include <memory> // ?
 //#include "Block.hpp" // TODO
 
 #include <irrlicht/irrlicht.h>
@@ -48,7 +48,6 @@ private:
 
 private:
     vector3du size;
-    //unique_ptr<unique_ptr<unique_ptr<Tab>>> tab;
     Tab ***tab;
 };
 
