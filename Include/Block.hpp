@@ -9,6 +9,7 @@
 #define BLOCK_HPP
 
 #include <string>
+#include <memory>
 #include <map> // ?
 
 using namespace std;
