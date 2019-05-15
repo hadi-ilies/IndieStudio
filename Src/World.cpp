@@ -7,7 +7,7 @@
 
 #include "World.hpp"
 
-World::World(const string &_fileName)
+World::World(const std::string &_fileName)
     : World(vector3du(10, 10, 2)) // tmp
 {
     for (uint i = 0; i < size.X; i++) // tmp
@@ -25,22 +25,22 @@ World::~World()
 {
 }
 
-const Vector3u &World::getSize() const
+const vector3du &World::getSize() const
 {
     return size;
 }
 
-const Tab &World::getTab(const Vector3u &pos) const
+const Tab &World::getTab(const vector3du &pos) const
 {
     return tab[pos.X][pos.Y][pos.Z];
 }
 
-void setTab(const Vector3u &pos, const Tab &tab)
+void World::setTab(const vector3du &pos, const Tab &_tab)
 {
-    tab[pos.X][pos.Y][pos.Z] = tab; // ?
+    tab[pos.X][pos.Y][pos.Z] = _tab; // ?
 }
 
-void World::explode(const Vector3u &pos, const uint &power)
+void World::explode(const vector3du &pos, const uint &power)
 {
     // TODO
 }
@@ -81,13 +81,20 @@ const void World::aff(IVideoDriver *driver, ISceneManager *smgr) const
                 }
 }
 
-World::World(const Vector3u &_size)
+World::World(const vector3du &_size)
     : size(_size)
 {
-    tab = unique_ptr<Tab**>(new Tab** [size.X]);
+    /*tab = unique_ptr<Tab[][]>(new Tab** [size.X]);
     for (uint i = 0; i < size.X; i++) {
-        tab[i] = unique_ptr<Tab**>(new Tab* [size.Y]);
+        tab[i] = unique_ptr<Tab[]>(new Tab* [size.Y]);
         for (uint j = 0; j < size.Y; j++)
-            tab[i][j] = unique_ptr<Tab**>(new Tab [size.Z]);
+            tab[i][j] = unique_ptr<Tab>(new Tab [size.Z]);
+            }*/
+
+    tab = new Tab** [size.X];
+    for (uint i = 0; i < size.X; i++) {
+        tab[i] = new Tab* [size.Y];
+        for (uint j = 0; j < size.Y; j++)
+            tab[i][j] = new Tab [size.Z];
     }
 }

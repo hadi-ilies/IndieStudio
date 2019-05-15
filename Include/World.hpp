@@ -9,33 +9,47 @@
 #define WORLD_HPP
 
 #include <string>
-#include "Block.hpp"
+#include <memory>
+//#include "Block.hpp" // TODO
 
-typedef vector2d<uint> vector2du; // ? move in Type.hpp
+#include <irrlicht/irrlicht.h>
+
+using namespace std;
+using namespace irr;
+
+using namespace core; // tmp
+using namespace scene;
+using namespace video;
+using namespace io;
+using namespace gui;
+
+typedef vector3d<uint> vector3du; // ? move in Type.hpp
 
 struct Tab
 {
-    unique_ptr<Block> block;
+    std::string type;
+    //unique_ptr<Block> block;
 };
 
 class World
 {
 public:
-    World(const string &_fileName); // TODO
+    World(const std::string &_fileName); // TODO
     ~World();
-    const vector2du &getSize() const;
-    const Tab &getTab(const vector2du &pos) const;
-    void setTab(const vector2du &pos, const Tab &tab);
-    void explode(const vector2du &pos, const uint &power); // ? explode 2D or 3D
-    //const void aff(IVideoDriver *driver, ISceneManager *smgr) const; // TODO
+    const vector3du &getSize() const;
+    const Tab &getTab(const vector3du &pos) const;
+    void setTab(const vector3du &pos, const Tab &_tab);
+    void explode(const vector3du &pos, const uint &power); // ? explode 2D or 3D // TODO ?
+    const void aff(IVideoDriver *driver, ISceneManager *smgr) const; // TODO
     const void debugAff() const; // tmp
 
 private:
     World(const vector3du &_size);
 
 private:
-    Vector3u size;
-    unique_ptr<unique_ptr<unique_ptr<Tab>>> tab;
+    vector3du size;
+    //unique_ptr<unique_ptr<unique_ptr<Tab>>> tab;
+    Tab ***tab;
 };
 
 #endif
