@@ -11,6 +11,8 @@
 #include <string>
 #include <map> // ?
 
+using namespace std;
+
 class Block
 {
 public:
