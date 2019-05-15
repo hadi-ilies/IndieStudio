@@ -8,9 +8,12 @@ set(SRCDIR Src/)
 set(INCDIR Include/)
 
 include_directories(Include)
+#include_directories(${INCDIR}Irrlicht) # if local include
+
+#link_directories(Lib) # if local lib
 
 # copy resource.cfg next to our binaries where OGRE looks for it
-file(COPY ${OGRE_CONFIG_DIR}/resources.cfg DESTINATION ${CMAKE_BINARY_DIR})
+#file(COPY ${OGRE_CONFIG_DIR}/resources.cfg DESTINATION ${CMAKE_BINARY_DIR}) # if use ogre
 
 # Crée des variables avec les fichiers à compiler
 set(SRC
@@ -34,7 +37,4 @@ set(CMAKE_CXX_FLAGS "-W -Wall -Wextra")
 
 # On indique que l'on veut un exécutable "bomberman" compilé à partir des fichiers décrits par les variables SRC et INCLUDE
 add_executable(Bomberman ${SRC} ${INCLUDE})
-find_package(OGRE 1.11 REQUIRED COMPONENTS Bites RTShaderSystem)
-target_link_libraries(Bomberman OgreBites OgreRTShaderSystem)
-
-
+target_link_libraries(Bomberman Irrlicht)
