@@ -8,17 +8,23 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include <string>
-#include "Entity.hpp"
+#include <list>
+#include "Character.hpp"
+#include "Bomb.hpp"
 
-class Player : public Entity
+class Player : public Character
 {
 public:
-    Player(const std::string &_name, const vector3du &pos); // TODO add args (texture ?)
+    Player(const string &_name, World &world, const vector3du &pos); // TODO add args (texture ?) or add type var
     ~Player();
+    bool putBomb();
 
 private:
-    std::string name;
+    string name; // ?
+    string bombType;
+    uint bombPower;
+    uint nbBomb;
+    list<unique_ptr<Bomb>> bombList;
 };
 
 #endif

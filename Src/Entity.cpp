@@ -7,8 +7,8 @@
 
 #include "Entity.hpp"
 
-Entity::Entity(const vector3du &_pos)
-    : pos(_pos)
+Entity::Entity(World &_world, const Vector3u &_pos)
+    : world(_world), pos(_pos)
 {
 }
 
@@ -16,7 +16,7 @@ Entity::~Entity()
 {
 }
 
-const vector3du &Entity::getPos() const
+const Vector3u &Entity::getPos() const
 {
     return pos;
 }

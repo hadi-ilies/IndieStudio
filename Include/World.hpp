@@ -9,39 +9,33 @@
 #define WORLD_HPP
 
 #include <string>
-#include <irrlicht.h> // tmp
+#include "Block.hpp"
 
-using namespace std;
-using namespace irr;
-using namespace core;
-using namespace scene;
-using namespace video;
-using namespace io;
-using namespace gui;
-
-typedef vector3d<uint> vector3du; // ? move in Type.hpp
+typedef Vector<3, uint> Vector3u; // ? move in Type.hpp
 
 struct Tab
 {
-    std::string type;
+    unique_ptr<Block> block;
 };
 
 class World
 {
 public:
-    World(const std::string &_fileName); // TODO
+    World(const string &_fileName); // TODO
     ~World();
-    const vector3du &getSize() const;
-    const Tab &getTab(const vector3du &pos) const;
-    const void aff(IVideoDriver *driver, ISceneManager *smgr) const;
+    const Vector3u &getSize() const;
+    const Tab &getTab(const Vector3u &pos) const;
+    void setTab(const Vector3u &pos, const Tab &tab);
+    void explode(const Vector3u &pos, const uint &power); // ? explode 2D or 3D
+    //const void aff(IVideoDriver *driver, ISceneManager *smgr) const; // TODO
     const void debugAff() const; // tmp
 
 private:
     World(const vector3du &_size);
 
 private:
-    vector3du size;
-    Tab ***tab;
+    Vector3u size;
+    unique_ptr<unique_ptr<unique_ptr<Tab>>> tab;
 };
 
 #endif

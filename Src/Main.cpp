@@ -48,6 +48,7 @@ bool tmp2()
 
 int main(int argc, char **argv)
 {
+    srand(time(NULL));
     if (argc == 2 && strncmp(argv[1], "server", strlen(argv[1])) == 0)
         cout << "server" << endl;
     else if (argc == 1)

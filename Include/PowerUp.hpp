@@ -8,17 +8,16 @@
 #ifndef POWERUP_HPP
 #define POWERUP_HPP
 
-#include <string>
 #include "Entity.hpp"
 
 class PowerUp : public Entity
 {
 public:
-    PowerUp(const std::string &_type, const vector3du &pos); // TODO add args (texture ?)
+    PowerUp(const string &_type, World &world, const vector3du &pos);
     ~PowerUp();
 
 private:
-    std::string type;
+    string type;
 };
 
 #endif
