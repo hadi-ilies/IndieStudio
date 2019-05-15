@@ -10,3 +10,6 @@ CMakeCache.txt
 cmake_install.cmake
 bomberman
 Bomberman
+\.idea/
+
+cmake-build-debug/Bomberman\.cbp
