@@ -17,17 +17,17 @@ using namespace std;
 class Block
 {
 public:
-    Block(const string &fileName); // TODO
+    Block(const std::string &fileName); // TODO
     ~Block();
-    const string &getType() const;
+    const std::string &getType() const;
     const bool &getOpaque() const;
 
 private:
-    string type;
+    std::string type;
     bool opaque;
     // TODO add var (sprite and texture ?)
 };
 
-const map<string, unique_ptr<Block>> createBlockMap(const string &path = "Resources/Block");
+const map<std::string, unique_ptr<Block>> createBlockMap(const std::string &path = "Resources/Block");
 
 #endif

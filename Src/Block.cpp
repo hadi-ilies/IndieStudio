@@ -5,18 +5,21 @@
 ** Block.cpp
 */
 
-#include <iostream>
+#include <iostream> // ?
 #include "Block.hpp"
+#include "Globpp.hpp"
+#include "Error.hpp"
 
-Block::Block(const string &fileName)
+Block::Block(const std::string &fileName)
 {
+    // TODO
 }
 
 Block::~Block()
 {
 }
 
-const string &Block::getType() const
+const std::string &Block::getType() const
 {
     return type;
 }
@@ -26,18 +29,18 @@ const bool &Block::getOpaque() const
     return opaque;
 }
 
-const map<string, unique_ptr<Block>> createBlockMap(const string &path)
+const map<std::string, unique_ptr<Block>> createBlockMap(const std::string &path)
 {
-    map<string, unique_ptr<Block>> blockMap;
-    const vector<string> blockPathList = globpp(path + "/*"); // TODO add globpp
+    map<std::string, unique_ptr<Block>> blockMap;
+    const vector<std::string> blockPathList = globpp(path + "/*"); // TODO add globpp
 
-    for (const string &blockPath : blockPathList) {
+    for (const std::string &blockPath : blockPathList) {
         try {
-            unique_ptr<Block> block(blockPath);
+            unique_ptr<Block> block(new Block(blockPath));
 
-            blockMap[block.getType] = block; // ?? it works
+            blockMap[block->getType()] = move(block); // ? it works
         }
-        catch (const extension &e) { // TODO add Error
+        catch (const exception &e) {
             cerr << e.what() << endl;
         }
     }

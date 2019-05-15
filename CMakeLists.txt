@@ -18,7 +18,9 @@ include_directories(Include)
 # Crée des variables avec les fichiers à compiler
 set(SRC
   ${SRCDIR}Main.cpp
-  #${SRCDIR}Block.cpp
+  ${SRCDIR}Error.cpp
+  #${SRCDIR}Globpp.cpp # TODO or (Utility.cpp and rename Globpp.hpp in Utility.hpp)
+  ${SRCDIR}Block.cpp
   ${SRCDIR}World.cpp
   #${SRCDIR}Entity.cpp
   #${SRCDIR}PowerUp.cpp
@@ -27,7 +29,9 @@ set(SRC
   )
 
 set(INCLUDE
-  #${INCDIR}Block.hpp
+  ${INCDIR}Error.hpp
+  ${INCDIR}Globpp.hpp
+  ${INCDIR}Block.hpp
   ${INCDIR}World.hpp
   #${INCDIR}Entity.hpp
   #${INCDIR}PowerUp.hpp
