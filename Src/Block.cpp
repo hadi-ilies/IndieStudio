@@ -32,13 +32,13 @@ const bool &Block::getOpaque() const
 const map<std::string, unique_ptr<Block>> createBlockMap(const std::string &path)
 {
     map<std::string, unique_ptr<Block>> blockMap;
-    const vector<std::string> blockPathList = globpp(path + "/*"); // TODO add globpp
+    const vector<std::string> blockPathList = globpp(path + "/*");
 
     for (const std::string &blockPath : blockPathList) {
         try {
             unique_ptr<Block> block(new Block(blockPath));
 
-            blockMap[block->getType()] = move(block); // ? it works
+            blockMap[block->getType()] = move(block); // ? it works (to test)
         }
         catch (const exception &e) {
             cerr << e.what() << endl;
