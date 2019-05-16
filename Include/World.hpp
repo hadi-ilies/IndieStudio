@@ -38,7 +38,7 @@ public:
     ~World();
     const vector3du &getSize() const;
     const Tab &getTab(const vector3du &pos) const;
-    void setTab(const vector3du &pos, const Tab &_tab);
+    void setTab(const vector3du &pos, const Tab &_tab); // ?
     void explode(const vector3du &pos, const uint &power); // ? explode 2D or 3D // TODO ?
     const void aff(IVideoDriver *driver, ISceneManager *smgr) const; // TODO
     const void debugAff() const; // tmp

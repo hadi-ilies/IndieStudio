@@ -23,8 +23,12 @@ public:
     const bool &getOpaque() const;
 
 private:
+    void getProperty(const std::string &fileName);
+
+private:
     std::string type;
     bool opaque;
+    bool destructible; // ? name
     // TODO add var (sprite and texture ?)
 };
 

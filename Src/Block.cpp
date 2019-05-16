@@ -6,13 +6,20 @@
 */
 
 #include <iostream> // ?
+#include <fstream> // ?
 #include "Block.hpp"
 #include "Globpp.hpp"
 #include "Error.hpp"
 
 Block::Block(const std::string &fileName)
 {
-    // TODO
+    try {
+        getProperty(fileName + "/Property");
+        // TODO
+    }
+    catch (const exception &e) {
+        cerr << e.what() << endl;
+    }
 }
 
 Block::~Block()
@@ -27,6 +34,15 @@ const std::string &Block::getType() const
 const bool &Block::getOpaque() const
 {
     return opaque;
+}
+
+void Block::getProperty(const std::string &fileName)
+{
+    ifstream file(fileName);
+
+    if (!file)
+        throw Error("\"" + fileName + "\" cant be open");
+    // TODO
 }
 
 const map<std::string, unique_ptr<Block>> createBlockMap(const std::string &path)
