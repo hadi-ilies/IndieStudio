@@ -11,5 +11,5 @@ cmake_install.cmake
 bomberman
 Bomberman
 \.idea/
-
+*.vscode
 cmake-build-debug/Bomberman\.cbp
