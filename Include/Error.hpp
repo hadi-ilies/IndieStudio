@@ -16,11 +16,11 @@ using namespace std;
 class Error : public exception
 {
 public:
-    Error(const string &_message);
+    Error(const std::string &_message);
     const char *what() const throw();
 
 private:
-    const string message;
+    const std::string message;
 };
 
 #endif

@@ -6,16 +6,21 @@
 */
 
 #include "Window.hpp"
+#include "Error.hpp"
 
-Window::Window(const string &windowName, const dimension2d<u32> &size, const bool &fullscreen)
-    : device(video::EDT_SOFTWARE, size, 16, fullscreen, false, false, TODO)
+Window::Window(const std::string &windowName, dimension2d<u32> size, const bool &fullscreen)
 {
+    device = createDevice(video::EDT_SOFTWARE, size, 16, fullscreen, false, false, NULL);
     if (!device)
         throw Error("device cant bo create");
-    device->setWindowCaption(windowName);
+    //device->setWindowCaption(windowName.c_str()); // TODO
+    device->setWindowCaption(L"TODO : use windowName of Window ctor"); // tmp
     driver = device->getVideoDriver();
     smgr = device->getSceneManager();
     guienv = device->getGUIEnvironment();
+
+    smgr->addCameraSceneNodeFPS(); // tmp
+    device->getCursorControl()->setVisible(false); // tmp
 }
 
 Window::~Window()
@@ -28,9 +33,17 @@ bool Window::isOpen()
     return device->run();
 }
 
-IAnimatedMeshSceneNode *Window::addAnimatedMesh(const string &model, const string &texture)
+void Window::display(const SColor &color)
 {
-    IAnimatedMesh *mesh = smgr->getMesh(model);
+    driver->beginScene(true, true, color);
+    smgr->drawAll();
+    //device->getGUIEnvironment()->drawAll();
+    driver->endScene();
+}
+
+IAnimatedMeshSceneNode *Window::addAnimatedMesh(const std::string &model, const std::string &texture)
+{
+    IAnimatedMesh *mesh = smgr->getMesh(model.c_str());
     IAnimatedMeshSceneNode *node;
 
     if (!mesh)
@@ -39,7 +52,7 @@ IAnimatedMeshSceneNode *Window::addAnimatedMesh(const string &model, const strin
     if (node) {
         node->setMaterialFlag(EMF_LIGHTING, false);
         node->setMD2Animation(scene::EMAT_STAND);
-        node->setMaterialTexture(0, driver->getTexture(texture));
+        node->setMaterialTexture(0, driver->getTexture(texture.c_str()));
     }
     return node;
 }

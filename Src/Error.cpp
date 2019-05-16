@@ -7,7 +7,7 @@
 
 #include "Error.hpp"
 
-Error::Error(const string &_message)
+Error::Error(const std::string &_message)
     : message(_message)
 {
 }
