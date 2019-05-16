@@ -20,7 +20,7 @@ using namespace video;
 using namespace io;
 using namespace gui;
 
-/*class EventReceiver : public IEventReceiver
+class EventReceiver : public IEventReceiver
 {
 public:
     virtual bool OnEvent(const SEvent &event) // ? virtual
@@ -47,7 +47,7 @@ public:
 private:
     // We use this array to store the current state of each key
     bool KeyIsDown[KEY_KEY_CODES_COUNT];
-    };*/
+};
 
 class Window
 {

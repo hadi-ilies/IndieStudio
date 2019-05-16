@@ -8,15 +8,15 @@
 #include "World.hpp"
 
 World::World(const std::string &_fileName)
-    : World(vector3du(10, 10, 2)) // tmp
+    : World(vector3du(30, 30, 2)) // tmp
 {
     for (uint i = 0; i < size.X; i++) // tmp
         for (uint j = 0; j < size.Y; j++) {
             tab[i][j][0].type = "Wall";
-            if (i == 0 || j == 0 || i == 9 || j == 9)
+            if (i == 0 || j == 0 || i == size.X - 1 || j == size.Y - 1)
                 tab[i][j][1].type = "Wall";
             else
-                if (rand() % 5 == 0)
+                if (rand() % 2)
                     tab[i][j][1].type = "Box";
         }
 }
@@ -71,17 +71,11 @@ const void World::aff(IVideoDriver *driver, ISceneManager *smgr) const
         for (uint j = 0; j < size.Y; j++)
             for (uint k = 0; k < size.Z; k++)
                 if (!tab[i][j][k].type.empty()) {
-                    //const io::path fileName = L"Resources/Texture/" + tab[i][j][k].type + L".png";
-                    scene::ISceneNode *cube = smgr->addCubeSceneNode();
+                    const std::string fileName = "Resources/Texture/" + tab[i][j][k].type + ".png"; // tmp
+                    scene::ISceneNode *cube = smgr->addCubeSceneNode(); // tmp
 
                     if (cube) {
-                        //cube->setMaterialTexture(0, driver->getTexture(fileName)); // TODO
-                        if (k == 0 || i == 0 || i == 9 || j == 0 || j == 9) // tmp
-                            cube->setMaterialTexture(0, driver->getTexture("Resources/Texture/Wall.png")); // tmp
-                        else
-                            cube->setMaterialTexture(0, driver->getTexture("Resources/Texture/Box.png")); // tmp
-                        const aabbox3d<f32> size = cube->getTransformedBoundingBox();
-                        cerr << tab[i][j][k].type << ": " << size.MaxEdge.X << " " << size.MaxEdge.Y << " " << size.MaxEdge.Z << endl;
+                        cube->setMaterialTexture(0, driver->getTexture(fileName.c_str()));
                         cube->setPosition(vector3df(i * 10, j * 10, k * 10));
                     }
                 }

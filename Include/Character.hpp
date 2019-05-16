@@ -10,6 +10,8 @@
 
 #include "Entity.hpp"
 
+typedef unsigned float ufloat; // ?
+
 class Character
 {
 public:
@@ -18,7 +20,7 @@ public:
     bool move(const Vector2f &dir); // ? Vector2f or Vector3f
 
 private:
-    float speed;
+    ufloat speed;
 };
 
 #endif

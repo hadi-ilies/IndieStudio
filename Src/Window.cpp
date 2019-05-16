@@ -30,7 +30,6 @@ bool Window::isOpen()
 
 IAnimatedMeshSceneNode *Window::addAnimatedMesh(const string &model, const string &texture)
 {
-    scene::ISceneManager* smgr = device->getSceneManager();
     IAnimatedMesh *mesh = smgr->getMesh(model);
     IAnimatedMeshSceneNode *node;
 

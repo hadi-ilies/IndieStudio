@@ -33,10 +33,10 @@ bool tmp2()
 
     IVideoDriver *driver = device->getVideoDriver();
     ISceneManager *smgr = device->getSceneManager();
-    scene::ISceneNode *cube = smgr->addCubeSceneNode();
+    /*scene::ISceneNode *cube = smgr->addCubeSceneNode();
 
     if (cube)
-    cube->setMaterialTexture(0, driver->getTexture("Resources/Texture/Wall.png"));
+    cube->setMaterialTexture(0, driver->getTexture("Resources/Texture/Wall.png"));*/
 
     smgr->addCameraSceneNodeFPS();
     device->getCursorControl()->setVisible(false);
