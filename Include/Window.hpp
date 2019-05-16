@@ -10,6 +10,7 @@
 
 #include <string>
 #include <irrlicht/irrlicht.h>
+#include "EventReceiver.hpp"
 
 using namespace std;
 using namespace irr;
@@ -30,7 +31,7 @@ public:
     IAnimatedMeshSceneNode *addAnimatedMesh(const std::string &model, const std::string &texture);
 
 private:
-    //EventReceiver receiver; // TODO
+    EventReceiver receiver;
     IrrlichtDevice *device;
     IVideoDriver *driver;
     ISceneManager *smgr;
