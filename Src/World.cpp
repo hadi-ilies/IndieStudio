@@ -7,9 +7,10 @@
 
 #include "World.hpp"
 
-World::World(const std::string &_fileName)
-    : World(vector3du(30, 30, 2)) // tmp
+World::World(Window &_window, const std::string &_fileName)
+    : window(_window) // tmp
 {
+    create(vector3du(30, 30, 2));
     for (uint i = 0; i < size.X; i++) // tmp
         for (uint j = 0; j < size.Y; j++) {
             tab[i][j][0].type = "Wall";
@@ -51,8 +52,22 @@ void World::explode(const vector3du &pos, const uint &power)
     // TODO
 }
 
+void World::aff()
+{
+    for (uint i = 0; i < size.X; i++)
+        for (uint j = 0; j < size.Y; j++)
+            for (uint k = 0; k < size.Z; k++)
+                if (!tab[i][j][k].type.empty()) {
+                    const std::string fileName = "Resources/Block/" + tab[i][j][k].type + "/Texture.png"; // tmp
+                    ISceneNode *node = window.addCube(10, fileName); // tmp
+
+                    if (node)
+                        node->setPosition(vector3df(i * 10, j * 10, k * 10));
+                }
+}
+
 #include <iostream> // tmp
-const void World::debugAff() const
+void World::debugAff() const
 {
     cerr << "size : (" << size.X << ", " << size.Y << ", " << size.Z << ")" << endl;
     for (uint k = 0; k < size.Z; k++) {
@@ -65,30 +80,13 @@ const void World::debugAff() const
     }
 }
 
-const void World::aff(IVideoDriver *driver, ISceneManager *smgr) const
+void World::create(const vector3du &_size)
 {
-    for (uint i = 0; i < size.X; i++)
-        for (uint j = 0; j < size.Y; j++)
-            for (uint k = 0; k < size.Z; k++)
-                if (!tab[i][j][k].type.empty()) {
-                    const std::string fileName = "Resources/Texture/" + tab[i][j][k].type + ".png"; // tmp
-                    scene::ISceneNode *cube = smgr->addCubeSceneNode(); // tmp
-
-                    if (cube) {
-                        cube->setMaterialTexture(0, driver->getTexture(fileName.c_str()));
-                        cube->setPosition(vector3df(i * 10, j * 10, k * 10));
-                    }
-                }
-}
-
-World::World(const vector3du &_size)
-    : size(_size)
-{
+    size = _size;
     tab = new Tab** [size.X];
     for (uint i = 0; i < size.X; i++) {
         tab[i] = new Tab* [size.Y];
         for (uint j = 0; j < size.Y; j++)
             tab[i][j] = new Tab [size.Z];
     }
-
 }

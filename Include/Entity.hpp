@@ -19,7 +19,7 @@ public:
 
 protected:
     World &world;
-    Vector3f pos;
+    vector3du pos;
 };
 
 #endif
