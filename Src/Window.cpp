@@ -10,7 +10,7 @@
 
 Window::Window(const std::string &windowName, dimension2d<u32> size, const bool &fullscreen)
 {
-    device = createDevice(video::EDT_SOFTWARE, size, 16, fullscreen, false, false, &receiver);
+    device = createDevice(video::EDT_OPENGL, size, 16, fullscreen, false, false, &receiver);
     if (!device)
         throw Error("device cant bo create");
     //device->setWindowCaption(windowName.c_str()); // TODO

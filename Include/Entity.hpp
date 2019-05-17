@@ -13,11 +13,13 @@
 class Entity
 {
 public:
-    Entity(World &world, const vector3du &_pos);
+    Entity(Window &window, const std::string &fileName, World &world, const vector3du &_pos); // ? fileName
     ~Entity();
     const vector3du &getPos() const;
+    void aff(); // ? const
 
 protected:
+    IAnimatedMeshSceneNode *mech; // TODO
     World &world;
     vector3du pos;
 };

@@ -62,7 +62,7 @@ void World::aff()
                     ISceneNode *node = window.addCube(10, fileName); // tmp
 
                     if (node)
-                        node->setPosition(vector3df(i * 10, j * 10, k * 10));
+                        node->setPosition(vector3df(i * 10, k * 10, j * 10));
                 }
 }
 

@@ -5,8 +5,8 @@ cmake_minimum_required(VERSION 3.11)
 project(Bomberman)
 
 set(SRCDIR Src/)
-set(NETWORKDIR ${SRCDIR}/Network/)
 set(ENTITYDIR ${SRCDIR}/Entity/)
+set(NETWORKDIR ${SRCDIR}/Network/)
 set(INCDIR Include/)
 
 include_directories(Include)
@@ -25,12 +25,12 @@ set(SRC
   #${SRCDIR}Globpp.cpp # TODO or (Utility.cpp and rename Globpp.hpp in Utility.hpp)
   ${SRCDIR}Block.cpp
   ${SRCDIR}World.cpp
-  #${SRCDIR}Entity.cpp
+  ${SRCDIR}Entity.cpp
   #${ENTITYDIR}Bomb.cpp
   #${ENTITYDIR}PowerUp.cpp
   #${ENTITYDIR}Character.cpp
   #${ENTITYDIR}Player.cpp
-  ${NETWORKDIR}Socket.cpp
+  #${NETWORKDIR}Socket.cpp # TODO
   )
 
 set(INCLUDE
@@ -39,7 +39,7 @@ set(INCLUDE
   ${INCDIR}Globpp.hpp
   ${INCDIR}Block.hpp
   ${INCDIR}World.hpp
-  #${INCDIR}Entity.hpp
+  ${INCDIR}Entity.hpp
   #${INCDIR}PowerUp.hpp
   #${INCDIR}Character.hpp
   #${INCDIR}Player.hpp
