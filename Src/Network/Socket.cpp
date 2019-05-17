@@ -16,14 +16,6 @@
 Socket::Socket(socketType type = TCP)
 {
 
-/*    if (type == TCP)
-        createTcp();
-    else if (type == UDP)
-        createUdp();
-    else
-        throw Error("Error: Unknown socket type !\n");
-    ip_addr = inet_ntoa(addr.sin_addr);
-*/
 }
 
 Socket::~Socket()

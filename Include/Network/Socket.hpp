@@ -16,15 +16,7 @@ public:
 public:
 	Socket(socketType type);
 	~Socket();
-	socketType getSocketType() const;
 protected:
-	int sockfd;
-	struct sockaddr_in addr;
-	char *ip_addr;
-
 private:
-	void createTcp();
-	void createUdp();
-	socketType type;
 };
 #endif /* !Socket */
