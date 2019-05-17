@@ -19,7 +19,7 @@ public:
         for (irr::u32 i = 0; i < irr::KEY_KEY_CODES_COUNT; ++i)
             KeyIsDown[i] = false;
     }
-    bool OnEvent(const irr::SEvent& event) {
+    bool OnEvent(const irr::SEvent &event) {
         if (event.EventType == irr::EET_KEY_INPUT_EVENT)
             KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
         return false;
