@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** for_norme
+** Bomberman
 ** File description:
 ** World.hpp
 */
