@@ -28,6 +28,7 @@ public:
     ~Window();
     bool isOpen();
     void display(const SColor &color);
+    ISceneNode *addCube(const f32 &size, const std::string &texture);
     IAnimatedMeshSceneNode *addAnimatedMesh(const std::string &model, const std::string &texture);
 
 private:

@@ -23,10 +23,10 @@ using namespace gui;
 bool tmp2()
 {
     Window window("Bomberman", dimension2d<u32>(640, 480), false);
-    World world("// TODO");
+    World world(window, "TODO");
 
     //world.debugAff();
-    //world.aff(driver, smgr); // ? who aff world
+    world.aff(); // ? who aff world
     while (window.isOpen()) {
         // TODO
         window.display(video::SColor(255,113,113,133));

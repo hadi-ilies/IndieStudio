@@ -41,6 +41,17 @@ void Window::display(const SColor &color)
     driver->endScene();
 }
 
+ISceneNode *Window::addCube(const f32 &size, const std::string &texture)
+{
+    scene::ISceneNode *node = smgr->addCubeSceneNode();
+
+    if (!node)
+        return NULL;
+    node->setMaterialTexture(0, driver->getTexture(texture.c_str()));
+    node->setMaterialFlag(video::EMF_LIGHTING, false);
+    return node;
+}
+
 IAnimatedMeshSceneNode *Window::addAnimatedMesh(const std::string &model, const std::string &texture)
 {
     IAnimatedMesh *mesh = smgr->getMesh(model.c_str());
