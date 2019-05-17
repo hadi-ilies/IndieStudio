@@ -1,14 +1,15 @@
 /*
 ** EPITECH PROJECT, 2019
-** eventReceiver
+** Bomberman
 ** File description:
-** EventReceiver
+** EventReceiver.hpp
 */
 
-#ifndef EVENTRECEIVER_HPP_
-#define EVENTRECEIVER_HPP_
+#ifndef EVENTRECEIVER_HPP
+#define EVENTRECEIVER_HPP
 
 #include <irrlicht/irrlicht.h>
+
 using namespace irr;
 
 class EventReceiver : public IEventReceiver
@@ -18,7 +19,6 @@ public:
         for (irr::u32 i = 0; i < irr::KEY_KEY_CODES_COUNT; ++i)
             KeyIsDown[i] = false;
     }
-public:
     bool OnEvent(const irr::SEvent& event) {
         if (event.EventType == irr::EET_KEY_INPUT_EVENT)
             KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
@@ -28,8 +28,9 @@ public:
     {
         return KeyIsDown[keyCode];
     }
+
 private:
     bool KeyIsDown[irr::KEY_KEY_CODES_COUNT];
 };
 
-#endif /* !EVENTRECEIVER_HPP_ */
+#endif
