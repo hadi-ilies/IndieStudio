@@ -28,8 +28,9 @@ public:
     ~Window();
     bool isOpen();
     void display(const SColor &color);
-    ISceneNode *addCube(const f32 &size, const std::string &texture);
+    ISceneNode *addCube(const std::string &texture); // ? ISceneNode or IMeshSceneNode
     IAnimatedMeshSceneNode *addAnimatedMesh(const std::string &model, const std::string &texture);
+    bool isKeyPressed(const irr::EKEY_CODE &keyCode) const;
 
 private:
     EventReceiver receiver;
