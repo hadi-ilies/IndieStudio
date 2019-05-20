@@ -5,6 +5,7 @@
 ** World.cpp
 */
 
+#include <vector>
 #include "World.hpp"
 
 World::World(Window &_window, const std::string &_fileName)
@@ -49,7 +50,28 @@ void World::setTab(const vector3du &pos, const Tab &_tab)
 
 void World::explode(const vector3du &pos, const uint &power)
 {
-    // TODO
+    vector<vector3du> dirList = {
+        vector3du(-1, 0, 0),
+        vector3du(1, 0, 0),
+        vector3du(0, -1, 0),
+        vector3du(0, 1, 0),
+        vector3du(0, 0, -1), // ? 3D
+        vector3du(0, 0, 1) // ? 3D
+    };
+
+    for (uint i = 0; i < power; i++) {
+        for (uint j = 0; j < dirList.size(); j++) {
+            const vector3du newPos = pos + dirList[j];
+
+            if (newPos.X >= size.X || newPos.Y >= size.Y || newPos.Z >= size.Z)
+                continue;
+            if (!tab[newPos.X][newPos.Z][newPos.Y].type.empty()) {
+                if (tab[newPos.X][newPos.Z][newPos.Y].type == "Box") // tmp use getDestructible of block
+                    tab[newPos.X][newPos.Z][newPos.Y].type = "";
+                dirList[j] = vector3du(0, 0, 0);
+            }
+        }
+    }
 }
 
 void World::aff()
