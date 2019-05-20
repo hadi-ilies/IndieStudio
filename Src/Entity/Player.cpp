@@ -5,7 +5,7 @@
 ** Player.cpp
 */
 
-#include "Player.hpp"
+#include "Entity/Player.hpp"
 
 Player::Player(const std::string &_name, World &world, const Vector3u &pos)
     : Entity(world, pos), name(_name), bombType("Timer"), bombPower(3), nbBomb(1)

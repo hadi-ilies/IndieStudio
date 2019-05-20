@@ -5,7 +5,7 @@
 ** Bomb.cpp
 */
 
-#include "Bomb.hpp"
+#include "Entity/Bomb.hpp"
 
 Bomb::Bomb(const string &_type, const uint &_power, World &world, const vector3du &pos)
     : Entity(world, pos), type(_type), power(_power)

@@ -10,17 +10,15 @@
 
 #include "Entity.hpp"
 
-typedef unsigned float ufloat; // ?
-
-class Character
+class Character : public Entity
 {
 public:
-    Character(World &world, const vector3du &pos);
+    Character(Window &window, const std::string &fileName, World &world, const vector3du &pos);
     ~Character();
-    bool move(const Vector2f &dir); // ? Vector2f or Vector3f
+    bool move(const vector2di &dir); // ? Vector2f or Vector3f
 
 private:
-    ufloat speed;
+    //
 };
 
 #endif

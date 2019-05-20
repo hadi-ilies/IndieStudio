@@ -5,10 +5,10 @@
 ** Character.cpp
 */
 
-#include "Character.hpp"
+#include "Entity/Character.hpp"
 
-Character::Character(World &world, const Vector3u &pos)
-    : Entity(world, pos), speed(1)
+Character::Character(Window &window, const std::string &fileName, World &world, const vector3du &pos)
+    : Entity(window, fileName, world, pos)
 {
 }
 
@@ -16,12 +16,12 @@ Character::~Character()
 {
 }
 
-bool Character::move(const Vector2i &dir)
+bool Character::move(const vector2di &dir)
 {
-    if () // TODO collision
-        return false;
+    /*if () // TODO collision
+      return false;*/
     // TODO animation
-    pos.x += dir.x;
-    pos.y += dir.y;
+    pos.X += dir.X;
+    pos.Z += dir.Y; // for Z
     return true;
 }

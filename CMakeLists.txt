@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.11)
 project(Bomberman)
 
 set(SRCDIR Src/)
-set(ENTITYDIR ${SRCDIR}/Entity/)
+set(ENTITYDIR Entity/)
 set(INCDIR Include/)
 
 include_directories(Include)
@@ -25,11 +25,10 @@ set(SRC
   ${SRCDIR}Block.cpp
   ${SRCDIR}World.cpp
   ${SRCDIR}Entity.cpp
-  #${ENTITYDIR}Bomb.cpp
-  #${ENTITYDIR}PowerUp.cpp
-  #${ENTITYDIR}Character.cpp
-  #${ENTITYDIR}Player.cpp
-  #${NETWORKDIR}Socket.cpp # TODO
+  #${SRCDIR}${ENTITYDIR}Bomb.cpp
+  #${SRCDIR}${ENTITYDIR}PowerUp.cpp
+  ${SRCDIR}${ENTITYDIR}Character.cpp
+  #${SRCDIR}${ENTITYDIR}Player.cpp
   )
 
 set(INCLUDE
@@ -39,9 +38,10 @@ set(INCLUDE
   ${INCDIR}Block.hpp
   ${INCDIR}World.hpp
   ${INCDIR}Entity.hpp
-  #${INCDIR}PowerUp.hpp
-  #${INCDIR}Character.hpp
-  #${INCDIR}Player.hpp
+  #${INCDIR}${ENTITYDIR}Bomb.hpp
+  #${INCDIR}${ENTITYDIR}PowerUp.hpp
+  ${INCDIR}${ENTITYDIR}Character.hpp
+  #${INCDIR}${ENTITYDIR}Player.hpp
   )
 
 #set(CMAKE_CXX_FLAGS "-W -Wall -Wextra")
