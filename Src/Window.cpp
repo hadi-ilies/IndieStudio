@@ -19,7 +19,7 @@ Window::Window(const std::string &windowName, dimension2d<u32> size, const bool 
     smgr = device->getSceneManager();
     guienv = device->getGUIEnvironment();
 
-    smgr->addCameraSceneNodeFPS(); // tmp
+    smgr->addCameraSceneNodeFPS(0, 100, 0.05); // tmp
     device->getCursorControl()->setVisible(false); // tmp
 }
 
@@ -41,9 +41,9 @@ void Window::display(const SColor &color)
     driver->endScene();
 }
 
-ISceneNode *Window::addCube(const f32 &size, const std::string &texture)
+ISceneNode *Window::addCube(const std::string &texture)
 {
-    scene::ISceneNode *node = smgr->addCubeSceneNode();
+    scene::ISceneNode *node = smgr->addCubeSceneNode(1);
 
     if (!node)
         return NULL;
@@ -66,4 +66,9 @@ IAnimatedMeshSceneNode *Window::addAnimatedMesh(const std::string &model, const 
         node->setMaterialTexture(0, driver->getTexture(texture.c_str()));
     }
     return node;
+}
+
+bool Window::isKeyPressed(const irr::EKEY_CODE &keyCode) const
+{
+    return receiver.IsKeyDown(keyCode);
 }

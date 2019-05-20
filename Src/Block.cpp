@@ -11,11 +11,11 @@
 #include "Globpp.hpp"
 #include "Error.hpp"
 
-Block::Block(const std::string &fileName)
+Block::Block(Window &window, const std::string &fileName)
 {
     try {
         getProperty(fileName + "/Property");
-        // TODO
+        window.addCube(fileName + "/Texture.png");
     }
     catch (const exception &e) {
         cerr << e.what() << endl;
@@ -45,14 +45,14 @@ void Block::getProperty(const std::string &fileName)
     // TODO
 }
 
-const map<std::string, unique_ptr<Block>> createBlockMap(const std::string &path)
+const std::map<std::string, unique_ptr<Block>> createBlockMap(Window &window, const std::string &path)
 {
-    map<std::string, unique_ptr<Block>> blockMap;
+    std::map<std::string, unique_ptr<Block>> blockMap;
     const vector<std::string> blockPathList = globpp(path + "/*");
 
     for (const std::string &blockPath : blockPathList) {
         try {
-            unique_ptr<Block> block(new Block(blockPath));
+            unique_ptr<Block> block(new Block(window, blockPath));
 
             blockMap[block->getType()] = move(block); // ? it works (to test)
         }

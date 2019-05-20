@@ -11,13 +11,22 @@
 #include <string>
 #include <memory> // ?
 #include <map> // ?
+#include <irrlicht/irrlicht.h>
+#include "Window.hpp"
 
 using namespace std;
+using namespace irr;
+
+using namespace core; // tmp
+using namespace scene;
+using namespace video;
+using namespace io;
+using namespace gui;
 
 class Block
 {
 public:
-    Block(const std::string &fileName); // TODO
+    Block(Window &window, const std::string &fileName); // TODO
     ~Block();
     const std::string &getType() const;
     const bool &getOpaque() const;
@@ -29,9 +38,10 @@ private:
     std::string type;
     bool opaque;
     bool destructible; // ? name
-    // TODO add var (sprite and texture ?)
+    ISceneNode *cude;
+    // or mesh
 };
 
-const map<std::string, unique_ptr<Block>> createBlockMap(const std::string &path = "Resources/Block");
+const std::map<std::string, unique_ptr<Block>> createBlockMap(Window &window, const std::string &path = "Resources/Block");
 
 #endif
