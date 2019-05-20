@@ -7,6 +7,7 @@ vgcore.*
 Makefile
 CMakeFiles
 CMakeCache.txt
+CMakeSave.txt
 cmake_install.cmake
 bomberman
 Bomberman
