@@ -31,11 +31,11 @@ bool tmp2()
     world.aff(); // ? who aff world
     while (window.isOpen()) {
         // TODO
-        if (window.isKeyPressed(KEY_KEY_Q))
+        if (window.isKeyPressed(KEY_KEY_Q) || window.isKeyPressed(KEY_KEY_A))
             player.move(vector2di(-1, 0));
         else if (window.isKeyPressed(KEY_KEY_D))
             player.move(vector2di(1, 0));
-        else if (window.isKeyPressed(KEY_KEY_Z))
+        else if (window.isKeyPressed(KEY_KEY_Z) || window.isKeyPressed(KEY_KEY_W))
             player.move(vector2di(0, 1));
         else if (window.isKeyPressed(KEY_KEY_S))
             player.move(vector2di(0, -1));
