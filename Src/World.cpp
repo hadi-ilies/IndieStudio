@@ -11,7 +11,7 @@
 World::World(Window &_window, const std::string &_fileName)
     : window(_window) // tmp
 {
-    create(vector3du(10, 2, 10));
+    create(vector3du(20, 2, 20));
     for (uint i = 0; i < size.X; i++) // tmp
         for (uint j = 0; j < size.Z; j++) {
             tab[i][0][j].type = "Wall";
