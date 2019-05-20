@@ -6,7 +6,6 @@ project(Bomberman)
 
 set(SRCDIR Src/)
 set(ENTITYDIR ${SRCDIR}/Entity/)
-set(NETWORKDIR ${SRCDIR}/Network/)
 set(INCDIR Include/)
 
 include_directories(Include)
