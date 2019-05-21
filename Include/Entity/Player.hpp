@@ -21,7 +21,6 @@ public:
     void aff();
 
 private:
-    Window &window;
     std::string name; // ?
     std::string bombType;
     uint bombPower;

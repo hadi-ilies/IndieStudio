@@ -69,6 +69,13 @@ IAnimatedMeshSceneNode *Window::addAnimatedMesh(const std::string &model, const 
     return node;
 }
 
+ISceneNodeAnimator *Window::createTranslation(const vector3df &initial, const vector3df &dest, u32 timestamp)
+{
+    scene::ISceneNodeAnimator* anim = smgr->createFlyStraightAnimator(initial, dest, timestamp);
+    return anim;
+}
+
+
 bool Window::isKeyPressed(const irr::EKEY_CODE &keyCode) const
 {
     return receiver.IsKeyDown(keyCode);

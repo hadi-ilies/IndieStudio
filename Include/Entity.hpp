@@ -19,6 +19,7 @@ public:
     void aff();
 
 protected:
+    Window &window;
     IAnimatedMeshSceneNode *mech; // TODO
     World &world;
     vector3du pos;
