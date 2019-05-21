@@ -30,7 +30,7 @@ public:
     void display(const SColor &color);
     ISceneNode *addCube(const std::string &texture); // ? ISceneNode or IMeshSceneNode
     IAnimatedMeshSceneNode *addAnimatedMesh(const std::string &model, const std::string &texture);
-    ISceneNodeAnimator *createTranslation(const vector3df &initial, const vector3df &dest, u32 timestamp);
+    ISceneNodeAnimator *createTranslation(const vector3df &initPos, const vector3df &destPos, const u32 &timestamp);
     bool isKeyPressed(const irr::EKEY_CODE &keyCode) const;
 
 private:

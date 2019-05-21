@@ -7,8 +7,8 @@
 
 #include "Entity/Player.hpp"
 
-Player::Player(Window &_window, const std::string &fileName, const std::string &_name, World &world, const vector3du &pos)
-    : Character(_window, fileName, world, pos), name(_name), bombType("Timer"), bombPower(3), nbBomb(10)
+Player::Player(Window &window, const std::string &fileName, const std::string &_name, World &world, const vector3du &pos)
+    : Character(window, fileName, world, pos), name(_name), bombType("Timer"), bombPower(3), nbBomb(10)
 {
 }
 
