@@ -30,9 +30,9 @@ bool Character::move(const vector2di &dir)
     u32 timestamp = 3500;
 
     scene::ISceneNodeAnimator* anim = window.createTranslation(init_pos, dest_pos, timestamp);
-	if (anim) {
-		mech->addAnimator(anim);
-		anim->drop();
-	}
+        if (anim) {
+                mech->addAnimator(anim);
+                anim->drop();
+        }
     return true;
 }

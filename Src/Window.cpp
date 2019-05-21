@@ -69,10 +69,9 @@ IAnimatedMeshSceneNode *Window::addAnimatedMesh(const std::string &model, const 
     return node;
 }
 
-ISceneNodeAnimator *Window::createTranslation(const vector3df &initial, const vector3df &dest, u32 timestamp)
+ISceneNodeAnimator *Window::createTranslation(const vector3df &initPos, const vector3df &destPos, const u32 &timestamp)
 {
-    scene::ISceneNodeAnimator* anim = smgr->createFlyStraightAnimator(initial, dest, timestamp);
-    return anim;
+    return smgr->createFlyStraightAnimator(initPos, destPos, timestamp);
 }
 
 
