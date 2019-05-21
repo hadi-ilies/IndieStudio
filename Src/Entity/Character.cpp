@@ -32,10 +32,27 @@ bool Character::move(const vector2di &dir)
     if (!anim || anim->hasFinished()) {
         if (anim)
             anim->drop();
+        if (modelMap.find() != modelMap.end())
+            mesh->setMesh(modelMap["Walk"]);
         anim = window.createTranslation(initPos, destPos, timestamp);
         if (anim)
             mesh->addAnimator(anim);
         pos = newPos;
-    }
+
+    //take direction
+    irr::core::vector3df rotation;
+
+        if (dir.X == -1 && dir.Y == 0)
+            rotation.Y = 0;
+        else if (dir.X == 1 && dir.Y == 0)
+            rotation.Y = 180;
+        else if (dir.X == 0 && dir.Y == -1)
+            rotation.Y = -90;
+        else if (dir.X == 0 && dir.Y == 1)
+            rotation.Y = 90;
+        mesh->setRotation(rotation);
+    } else
+        if (modelMap.find() != modelMap.end())
+            mesh->setMesh(modelMap["standUp"]);
     return true;
 }
