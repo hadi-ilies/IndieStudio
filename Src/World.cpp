@@ -41,7 +41,7 @@ const vector3du &World::getSize() const
     return size;
 }
 
-const Block *World::getTab(const vector3du &pos) const
+const Block *World::getBlock(const vector3du &pos) const
 {
     return tab[pos.X][pos.Y][pos.Z];
 }

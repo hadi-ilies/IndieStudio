@@ -32,7 +32,7 @@ public:
     World(Window &_window, const std::string &_fileName); // TODO
     ~World();
     const vector3du &getSize() const;
-    const Block *getTab(const vector3du &pos) const;
+    const Block *getBlock(const vector3du &pos) const;
     void explode(const vector3du &pos, const uint &power); // ? explode 2D or 3D // TODO ?
     void aff(); // TODO
     void debugAff() const; // tmp
