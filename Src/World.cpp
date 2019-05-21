@@ -14,20 +14,23 @@ World::World(Window &_window, const std::string &_fileName)
     create(vector3du(20, 2, 20));
     for (uint i = 0; i < size.X; i++) // tmp
         for (uint j = 0; j < size.Z; j++) {
-            tab[i][0][j].type = "Wall";
+            addBlock(vector3du(i, 0, j), "Wall");
             if (i == 0 || j == 0 || i == size.X - 1 || j == size.Z - 1)
-                tab[i][1][j].type = "Wall";
+                addBlock(vector3du(i, 1, j), "Wall");
             else
                 if (rand() % 2)
-                    tab[i][1][j].type = "Box";
+                    addBlock(vector3du(i, 1, j), "Box");
         }
 }
 
 World::~World()
 {
     for (uint i = 0; i < size.X; i++) {
-        for (uint j = 0; j < size.Y; j++)
+        for (uint j = 0; j < size.Y; j++) {
+            for (uint k = 0; k < size.Z; k++)
+                removeBlock(vector3du(i, j, k));
             delete [] tab[i][j];
+        }
         delete [] tab[i];
     }
     delete [] tab;
@@ -38,17 +41,11 @@ const vector3du &World::getSize() const
     return size;
 }
 
-const Tab &World::getTab(const vector3du &pos) const
+const Block *World::getTab(const vector3du &pos) const
 {
     return tab[pos.X][pos.Y][pos.Z];
 }
 
-void World::setTab(const vector3du &pos, const Tab &_tab)
-{
-    tab[pos.X][pos.Y][pos.Z] = _tab; // ?
-}
-
-#include <iostream>
 void World::explode(const vector3du &pos, const uint &power)
 {
     vector<vector3du> dirList = {
@@ -66,9 +63,9 @@ void World::explode(const vector3du &pos, const uint &power)
 
             if (newPos.X >= size.X || newPos.Y >= size.Y || newPos.Z >= size.Z)
                 continue;
-            if (!tab[newPos.X][newPos.Y][newPos.Z].type.empty()) {
-                if (tab[newPos.X][newPos.Y][newPos.Z].type == "Box") // tmp use getDestructible of block
-                    tab[newPos.X][newPos.Y][newPos.Z].type = "";
+            if (tab[newPos.X][newPos.Y][newPos.Z]) {
+                if (tab[newPos.X][newPos.Y][newPos.Z]->getDestructible()) // tmp use getDestructible of block
+                    removeBlock(newPos);
                 dirList[j] = vector3du(0, 0, 0);
             }
         }
@@ -80,13 +77,8 @@ void World::aff()
     for (uint i = 0; i < size.X; i++)
         for (uint j = 0; j < size.Y; j++)
             for (uint k = 0; k < size.Z; k++)
-                if (!tab[i][j][k].type.empty()) {
-                    const std::string fileName = "Resources/Block/" + tab[i][j][k].type + "/Texture.png"; // tmp
-                    ISceneNode *node = window.addCube(fileName); // tmp
-
-                    if (node)
-                        node->setPosition(vector3df(i, j, k));
-                }
+                if (tab[i][j][k])
+                    tab[i][j][k]->setPosition(vector3du(i, j, k)); // ?
 }
 
 #include <iostream> // tmp
@@ -96,7 +88,7 @@ void World::debugAff() const
     for (uint k = 0; k < size.Z; k++) {
         for (uint j = 0; j < size.Y; j++) {
             for (uint i = 0; i < size.X; i++)
-                cerr << "\"" << tab[i][j][k].type << "\" ";
+                cerr << "\"" << (tab[i][j][k] ? tab[i][j][k]->getType() : "NULL") << "\" ";
             cerr << endl;
         }
         cerr << endl;
@@ -106,10 +98,30 @@ void World::debugAff() const
 void World::create(const vector3du &_size)
 {
     size = _size;
-    tab = new Tab** [size.X];
+    tab = new Block*** [size.X];
     for (uint i = 0; i < size.X; i++) {
-        tab[i] = new Tab* [size.Y];
-        for (uint j = 0; j < size.Y; j++)
-            tab[i][j] = new Tab [size.Z];
+        tab[i] = new Block** [size.Y];
+        for (uint j = 0; j < size.Y; j++) {
+            tab[i][j] = new Block* [size.Z];
+            for (uint k = 0; k < size.Z; k++)
+                tab[i][j][k] = NULL;
+        }
     }
+}
+
+bool World::addBlock(const vector3du &pos, const std::string &type)
+{
+    if (tab[pos.X][pos.Y][pos.Z])
+        return false;
+    tab[pos.X][pos.Y][pos.Z] = new Block(window, "Resources/Block/" + type); // ?
+    return true;
+}
+
+bool World::removeBlock(const vector3du &pos)
+{
+    if (!tab[pos.X][pos.Y][pos.Z])
+        return false;
+    delete tab[pos.X][pos.Y][pos.Z];
+    tab[pos.X][pos.Y][pos.Z] = NULL;
+    return true;
 }

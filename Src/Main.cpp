@@ -29,7 +29,6 @@ bool tmp2()
     bool tmp = false;
 
     //world.debugAff();
-    world.aff(); // ? who aff world
     while (window.isOpen()) {
         // TODO
         if (window.isKeyPressed(KEY_KEY_Q) || window.isKeyPressed(KEY_KEY_A))
@@ -47,6 +46,7 @@ bool tmp2()
         }
         else
             tmp = false;
+        world.aff(); // ? who aff world
         player.aff(); // ? who aff entity
         window.display(video::SColor(255,113,113,133));
     }

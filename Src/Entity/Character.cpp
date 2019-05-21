@@ -21,7 +21,7 @@ bool Character::move(const vector2di &dir)
     vector3du newPos(pos.X + dir.X, pos.Y, pos.Z + dir.Y); // vct2.Y is the vec3.Z
     if (newPos.X > world.getSize().X || newPos.Y > world.getSize().Y || newPos.Z > world.getSize().Z) // TODO collision
         return false;
-    if (!world.getTab(newPos).type.empty()) // TODO use getOpaque
+    if (world.getTab(newPos)->getOpaque()) // TODO use getOpaque
         return false;
     // TODO animation
     pos = newPos;

@@ -10,7 +10,7 @@
 
 #include <string>
 #include <memory> // ?
-//#include "Block.hpp" // TODO
+#include "Block.hpp" // TODO
 
 #include <irrlicht/irrlicht.h>
 #include "Window.hpp"
@@ -24,13 +24,7 @@ using namespace video;
 using namespace io;
 using namespace gui;
 
-typedef vector3d<uint> vector3du; // ? move in Type.hpp
-
-struct Tab
-{
-    std::string type;
-    //unique_ptr<Block> block;
-};
+typedef vector3d<uint> vector3du; // TODO ? move in Type.hpp or Utility.hpp
 
 class World
 {
@@ -38,19 +32,20 @@ public:
     World(Window &_window, const std::string &_fileName); // TODO
     ~World();
     const vector3du &getSize() const;
-    const Tab &getTab(const vector3du &pos) const;
-    void setTab(const vector3du &pos, const Tab &_tab); // ?
+    const Block *getTab(const vector3du &pos) const;
     void explode(const vector3du &pos, const uint &power); // ? explode 2D or 3D // TODO ?
     void aff(); // TODO
     void debugAff() const; // tmp
 
 private:
     void create(const vector3du &_size);
+    bool addBlock(const vector3du &pos, const std::string &type);
+    bool removeBlock(const vector3du &pos);
 
 private:
     Window &window;
     vector3du size;
-    Tab ***tab;
+    Block ****tab;
 };
 
 #endif

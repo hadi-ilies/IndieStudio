@@ -9,7 +9,7 @@
 #define BLOCK_HPP
 
 #include <string>
-#include <memory> // ?
+//#include <memory> // ?
 #include <map> // ?
 #include <irrlicht/irrlicht.h>
 #include "Window.hpp"
@@ -23,6 +23,8 @@ using namespace video;
 using namespace io;
 using namespace gui;
 
+typedef vector3d<uint> vector3du; // TODO ? move in Type.hpp or Utility.hpp
+
 class Block
 {
 public:
@@ -30,18 +32,19 @@ public:
     ~Block();
     const std::string &getType() const;
     const bool &getOpaque() const;
+    const bool &getDestructible() const;
+    void setPosition(const vector3du &pos);
 
 private:
     void getProperty(const std::string &fileName);
 
 private:
     std::string type;
-    bool opaque;
+    bool opaque; // ?
     bool destructible; // ? name
-    ISceneNode *cude;
-    // or mesh
+    ISceneNode *cube; // or mesh
 };
 
-const std::map<std::string, unique_ptr<Block>> createBlockMap(Window &window, const std::string &path = "Resources/Block");
+//const std::map<std::string, unique_ptr<Block>> createBlockMap(Window &window, const std::string &path = "Resources/Block");
 
 #endif

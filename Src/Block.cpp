@@ -15,7 +15,7 @@ Block::Block(Window &window, const std::string &fileName)
 {
     try {
         getProperty(fileName + "/Property");
-        window.addCube(fileName + "/Texture.png");
+        cube = window.addCube(fileName + "/Texture.png");
     }
     catch (const exception &e) {
         cerr << e.what() << endl;
@@ -36,6 +36,18 @@ const bool &Block::getOpaque() const
     return opaque;
 }
 
+const bool &Block::getDestructible() const
+{
+    return destructible;
+}
+
+void Block::setPosition(const vector3du &pos)
+{
+    const vector3df floatPos(pos.X, pos.Y, pos.Z);
+
+    cube->setPosition(floatPos);
+}
+
 void Block::getProperty(const std::string &fileName)
 {
     ifstream file(fileName);
@@ -45,7 +57,7 @@ void Block::getProperty(const std::string &fileName)
     // TODO
 }
 
-const std::map<std::string, unique_ptr<Block>> createBlockMap(Window &window, const std::string &path)
+/*const std::map<std::string, unique_ptr<Block>> createBlockMap(Window &window, const std::string &path)
 {
     std::map<std::string, unique_ptr<Block>> blockMap;
     const vector<std::string> blockPathList = globpp(path + "/*");
@@ -61,4 +73,4 @@ const std::map<std::string, unique_ptr<Block>> createBlockMap(Window &window, co
         }
     }
     return blockMap;
-}
+    }*/
