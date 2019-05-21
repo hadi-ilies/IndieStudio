@@ -7,8 +7,8 @@
 
 #include "Entity/Bomb.hpp"
 
-Bomb::Bomb(const string &_type, const uint &_power, World &world, const vector3du &pos)
-    : Entity(world, pos), type(_type), power(_power)
+Bomb::Bomb(Window &window, const std::string &_type, const uint &_power, World &world, const vector3du &pos)
+    : Entity(window,"Resources/Entity/Bomb" + _type, world, pos), type(_type), power(_power)
 {
     // TODO ? put a invisible block
 }
@@ -22,10 +22,3 @@ void Bomb::detonate()
 {
     world.explode(pos, power);
 }
-
-private:
-    string type;
-    uint power;
-};
-
-#endif

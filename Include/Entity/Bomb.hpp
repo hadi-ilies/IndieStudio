@@ -13,12 +13,12 @@
 class Bomb : public Entity
 {
 public:
-    Bomb(const string &_type, const uint &_power, World &world, const vector3du &pos);
+    Bomb(Window &window, const std::string &_type, const uint &_power, World &world, const vector3du &pos);
     ~Bomb();
     void detonate(); // ? const
 
 private:
-    string type; // ?
+    std::string type; // ?
     uint power;
 };
 

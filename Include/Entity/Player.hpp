@@ -9,22 +9,23 @@
 #define PLAYER_HPP
 
 #include <list>
-#include "Character.hpp"
-#include "Bomb.hpp"
+#include "Entity/Character.hpp"
+#include "Entity/Bomb.hpp"
 
 class Player : public Character
 {
 public:
-    Player(const string &_name, World &world, const vector3du &pos); // TODO add args (texture ?) or add type var
+    Player(Window &_window, const std::string &fileName, const std::string &_name, World &world, const vector3du &pos); // TODO add args (texture ?) or add type var
     ~Player();
     bool putBomb();
 
 private:
-    string name; // ?
-    string bombType;
+    Window &window;
+    std::string name; // ?
+    std::string bombType;
     uint bombPower;
     uint nbBomb;
-    list<unique_ptr<Bomb>> bombList;
+    std::list<unique_ptr<Bomb>> bombList;
 };
 
 #endif

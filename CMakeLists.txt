@@ -25,10 +25,10 @@ set(SRC
   ${SRCDIR}Block.cpp
   ${SRCDIR}World.cpp
   ${SRCDIR}Entity.cpp
-  #${SRCDIR}${ENTITYDIR}Bomb.cpp
+  ${SRCDIR}${ENTITYDIR}Bomb.cpp
   #${SRCDIR}${ENTITYDIR}PowerUp.cpp
   ${SRCDIR}${ENTITYDIR}Character.cpp
-  #${SRCDIR}${ENTITYDIR}Player.cpp
+  ${SRCDIR}${ENTITYDIR}Player.cpp
   )
 
 set(INCLUDE
@@ -38,10 +38,10 @@ set(INCLUDE
   ${INCDIR}Block.hpp
   ${INCDIR}World.hpp
   ${INCDIR}Entity.hpp
-  #${INCDIR}${ENTITYDIR}Bomb.hpp
+  ${INCDIR}${ENTITYDIR}Bomb.hpp
   #${INCDIR}${ENTITYDIR}PowerUp.hpp
   ${INCDIR}${ENTITYDIR}Character.hpp
-  #${INCDIR}${ENTITYDIR}Player.hpp
+  ${INCDIR}${ENTITYDIR}Player.hpp
   )
 
 #set(CMAKE_CXX_FLAGS "-W -Wall -Wextra")
