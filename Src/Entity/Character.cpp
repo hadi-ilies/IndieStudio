@@ -32,7 +32,7 @@ bool Character::move(const vector2di &dir)
     if (!anim || anim->hasFinished()) {
         if (anim)
             anim->drop();
-        if (modelMap.find() != modelMap.end())
+        if (modelMap.find("Walk") != modelMap.end())
             mesh->setMesh(modelMap["Walk"]);
         anim = window.createTranslation(initPos, destPos, timestamp);
         if (anim)
@@ -52,7 +52,7 @@ bool Character::move(const vector2di &dir)
             rotation.Y = 90;
         mesh->setRotation(rotation);
     } else
-        if (modelMap.find() != modelMap.end())
-            mesh->setMesh(modelMap["standUp"]);
+        if (modelMap.find("Idle") != modelMap.end())
+            mesh->setMesh(modelMap["Idle"]);
     return true;
 }

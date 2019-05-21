@@ -42,6 +42,11 @@ void Window::display(const SColor &color)
     driver->endScene();
 }
 
+IAnimatedMesh *Window::getModel(const std::string &fileName)
+{
+    return smgr->getMesh(fileName.c_str());
+}
+
 ISceneNode *Window::addCube(const std::string &texture)
 {
     scene::ISceneNode *node = smgr->addCubeSceneNode(1);

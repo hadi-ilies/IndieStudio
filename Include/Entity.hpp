@@ -8,6 +8,7 @@
 #ifndef ENTITY_HPP
 #define ENTITY_HPP
 
+#include <map>
 #include "World.hpp"
 
 class Entity
@@ -18,9 +19,13 @@ public:
     const vector3du &getPos() const;
     void aff();
 
+private:
+    void getModel(const std::string &fileName);
+
 protected:
     Window &window;
-    IAnimatedMeshSceneNode *mesh; // TODO
+    std::map<std::string, IAnimatedMesh*> modelMap; // TODO private and add function changeModel
+    IAnimatedMeshSceneNode *mesh;
     World &world;
     vector3du pos;
 };

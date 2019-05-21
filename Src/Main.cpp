@@ -26,7 +26,7 @@ bool tmp2()
     Window window("Bomberman", dimension2d<u32>(640, 480), false);
     World world(window, "TODO");
     Player player(window, "Resources/Entity/Bomberman", "Bob", world, vector3du(1, 1, 1));
-    bool tmp = false;
+    bool tmp = false; // tmp
 
     //world.debugAff();
     while (window.isOpen()) {

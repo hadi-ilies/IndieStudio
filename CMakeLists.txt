@@ -21,7 +21,7 @@ set(SRC
   ${SRCDIR}Main.cpp
   ${SRCDIR}Window.cpp
   ${SRCDIR}Error.cpp
-  #${SRCDIR}Globpp.cpp # TODO or (Utility.cpp and rename Globpp.hpp in Utility.hpp)
+  ${SRCDIR}Globpp.cpp # TODO or (Utility.cpp and rename Globpp.hpp in Utility.hpp)
   ${SRCDIR}Block.cpp
   ${SRCDIR}World.cpp
   ${SRCDIR}Entity.cpp
