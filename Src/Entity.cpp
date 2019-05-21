@@ -5,6 +5,7 @@
 ** Entity.cpp
 */
 
+#include <regex>
 #include "Entity.hpp"
 #include "Globpp.hpp"
 
@@ -36,15 +37,14 @@ void Entity::aff()
     mesh->setPosition(vector3df(pos.X, pos.Y, pos.Z));
 }
 
+#include <iostream> // tmp
 void Entity::getModel(const std::string &fileName)
 {
     const vector<std::string> modelStrList = globpp(fileName + "/*");
+    smatch match;
 
-    for (const std::string &modelStr : modelStrList) {
-        IAnimatedMesh *model = window.getModel(modelStr);
-        std::string name = modelStr.substr(modelStr.rfind("/"));
-
-        if (model)
-            modelMap[name] = model;
-    }
+    for (const std::string &modelStr : modelStrList)
+        if (regex_search(modelStr, match, regex(R"(/(\w+).md2$)")))
+            if (IAnimatedMesh *model = window.getModel(modelStr))
+                modelMap[match[1]] = model;
 }
