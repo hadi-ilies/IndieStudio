@@ -8,7 +8,7 @@
 #include "Entity/Character.hpp"
 
 Character::Character(Window &window, const std::string &fileName, World &world, const vector3du &pos)
-    : Entity(window, fileName, world, pos), anim (NULL)
+    : Entity(window, fileName, world, pos), anim(NULL)
 {
 }
 
@@ -16,6 +16,7 @@ Character::~Character()
 {
 }
 
+#include <iostream>
 bool Character::move(const vector2di &dir)
 {
     vector3du newPos(pos.X + dir.X, pos.Y, pos.Z + dir.Y); // vct2.Y is the vec3.Z
@@ -29,9 +30,7 @@ bool Character::move(const vector2di &dir)
     const vector3df destPos (newPos.X, newPos.Y, newPos.Z);
     const u32 timestamp = 500;
 
-    if (!anim || anim->hasFinished()) {
-        if (anim)
-            anim->drop();
+    if (!anim) {
         if (modelMap.find("Walk") != modelMap.end())
             mesh->setMesh(modelMap["Walk"]);
         anim = window.createTranslation(initPos, destPos, timestamp);
@@ -51,8 +50,12 @@ bool Character::move(const vector2di &dir)
         else if (dir.X == 0 && dir.Y == 1)
             rotation.Y = 90;
         mesh->setRotation(rotation);
-    } else
+    } else if (anim->hasFinished()) {
+        anim->drop();
+        anim = NULL;
         if (modelMap.find("Idle") != modelMap.end())
             mesh->setMesh(modelMap["Idle"]);
+    }
+   // mesh->setMaterialFlag(irr::video::EMF_LIGHTING, true);
     return true;
 }
