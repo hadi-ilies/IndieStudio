@@ -7,6 +7,7 @@
 
 #include <iostream> // ?
 #include <fstream> // ?
+#include <regex>
 #include "Block.hpp"
 #include "Globpp.hpp"
 #include "Error.hpp"
@@ -51,10 +52,17 @@ void Block::setPosition(const vector3du &pos)
 void Block::getProperty(const std::string &fileName)
 {
     ifstream file(fileName);
+    std::string line;
+    smatch match;
 
     if (!file)
         throw Error("\"" + fileName + "\" cant be open");
-    // TODO
+    while (getline(file, line)) {
+        if (regex_search(line, match, regex(R"(^opaque *: *(false|true)$)")))
+            opaque = match[1] == "true" ? true : false;
+        else if (regex_search(line, match, regex(R"(^destructible *: *(false|true)$)")))
+            destructible = match[1] == "true" ? true : false;
+    }
 }
 
 /*const std::map<std::string, unique_ptr<Block>> createBlockMap(Window &window, const std::string &path)

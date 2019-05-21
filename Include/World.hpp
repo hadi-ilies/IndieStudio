@@ -10,7 +10,7 @@
 
 #include <string>
 #include <memory> // ?
-#include "Block.hpp" // TODO
+#include "Block.hpp"
 
 #include <irrlicht/irrlicht.h>
 #include "Window.hpp"
@@ -23,8 +23,6 @@ using namespace scene;
 using namespace video;
 using namespace io;
 using namespace gui;
-
-typedef vector3d<uint> vector3du; // TODO ? move in Type.hpp or Utility.hpp
 
 class World
 {
