@@ -18,10 +18,12 @@ Character::~Character()
 
 bool Character::move(const vector2di &dir)
 {
-    /*if () // TODO collision
-      return false;*/
+    vector3du newPos(pos.X + dir.X, pos.Y, pos.Z + dir.Y); // vct2.Y is the vec3.Z
+    if (newPos.X > world.getSize().X || newPos.Y > world.getSize().Y || newPos.Z > world.getSize().Z) // TODO collision
+        return false;
+    if (!world.getTab(newPos).type.empty()) // TODO use getOpaque
+        return false;
     // TODO animation
-    pos.X += dir.X;
-    pos.Z += dir.Y; // for Z
+    pos = newPos;
     return true;
 }
