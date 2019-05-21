@@ -18,6 +18,7 @@ public:
     bool move(const vector2di &dir); // ? Vector2f or Vector3f
 
 private:
+    scene::ISceneNodeAnimator *anim;
 };
 
 #endif

@@ -23,16 +23,18 @@ bool Character::move(const vector2di &dir)
         return false;
     if (world.getBlock(newPos) && world.getBlock(newPos)->getOpaque()) // TODO use getOpaque
         return false;
-    pos = newPos;
-    // TODO animation
-    vector3df init_pos (pos.X, pos.Y, pos.Z);
-    vector3df dest_pos (newPos.X, newPos.Y, newPos.Z);
-    u32 timestamp = 3500;
 
-    scene::ISceneNodeAnimator* anim = window.createTranslation(init_pos, dest_pos, timestamp);
-	if (anim) {
-		mech->addAnimator(anim);
-		anim->drop();
-	}
+    const vector3df init_pos (pos.X, pos.Y, pos.Z);
+    const vector3df dest_pos (newPos.X, newPos.Y, newPos.Z);
+    const u32 timestamp = 500;
+
+    if (!anim || anim->hasFinished()) {
+        if (anim)
+            anim->drop();
+        anim = window.createTranslation(init_pos, dest_pos, timestamp);
+        if (anim)
+            mesh->addAnimator(anim);
+        pos = newPos;
+    }
     return true;
 }
