@@ -18,6 +18,7 @@ public:
     Player(Window &_window, const std::string &fileName, const std::string &_name, World &world, const vector3du &pos); // TODO add args (texture ?) or add type var
     ~Player();
     bool putBomb();
+    void aff();
 
 private:
     Window &window;

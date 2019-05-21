@@ -16,7 +16,7 @@ public:
     Entity(Window &window, const std::string &fileName, World &world, const vector3du &_pos); // ? fileName
     ~Entity();
     const vector3du &getPos() const;
-    void aff(); // ? const
+    void aff();
 
 protected:
     IAnimatedMeshSceneNode *mech; // TODO

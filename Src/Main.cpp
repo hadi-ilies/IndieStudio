@@ -10,7 +10,7 @@
 #include <irrlicht/irrlicht.h>
 #include "Window.hpp"
 #include "World.hpp"
-#include "Entity/Character.hpp"
+#include "Entity/Player.hpp"
 
 using namespace std;
 using namespace irr;
@@ -25,7 +25,8 @@ bool tmp2()
 {
     Window window("Bomberman", dimension2d<u32>(640, 480), false);
     World world(window, "TODO");
-    Character player(window, "Resources/Entity/Bomberman", world, vector3du(1, 1, 1));
+    Player player(window, "Resources/Entity/Bomberman", "Bob", world, vector3du(1, 1, 1));
+    bool tmp = false;
 
     //world.debugAff();
     world.aff(); // ? who aff world
@@ -39,6 +40,13 @@ bool tmp2()
             player.move(vector2di(0, 1));
         else if (window.isKeyPressed(KEY_KEY_S))
             player.move(vector2di(0, -1));
+        else if (window.isKeyPressed(KEY_SPACE)) {
+            if (!tmp)
+                player.putBomb();
+            tmp = true;
+        }
+        else
+            tmp = false;
         player.aff(); // ? who aff entity
         window.display(video::SColor(255,113,113,133));
     }

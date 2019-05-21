@@ -48,6 +48,7 @@ void World::setTab(const vector3du &pos, const Tab &_tab)
     tab[pos.X][pos.Y][pos.Z] = _tab; // ?
 }
 
+#include <iostream>
 void World::explode(const vector3du &pos, const uint &power)
 {
     vector<vector3du> dirList = {
@@ -59,9 +60,9 @@ void World::explode(const vector3du &pos, const uint &power)
         vector3du(0, 1, 0), // ? 3D
     };
 
-    for (uint i = 0; i < power; i++) {
+    for (uint i = 0; i <= power; i++) {
         for (uint j = 0; j < dirList.size(); j++) {
-            const vector3du newPos = pos + dirList[j];
+            const vector3du newPos = pos + dirList[j] * i;
 
             if (newPos.X >= size.X || newPos.Y >= size.Y || newPos.Z >= size.Z)
                 continue;
