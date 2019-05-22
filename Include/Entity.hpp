@@ -19,7 +19,7 @@ public:
     const vector3du &getPos() const;
     bool changeModel(const std::string &model);
     bool changeTexture(const std::string &texture);
-    void aff();
+    void aff(); // ?
 
 private:
     void getModel(const std::string &fileName);
