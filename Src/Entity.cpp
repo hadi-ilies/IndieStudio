@@ -15,6 +15,7 @@ Entity::Entity(Window &_window, const std::string &fileName, World &_world, cons
     const vector3df size = mesh->getTransformedBoundingBox().getExtent();
     float scale = 1 / size.X;
 
+    mesh->setAnimationSpeed(350);
     getModel(fileName + "/Model"); // TODO set in init
     getTexture(fileName + "/Texture"); // TODO set in init
     if (1 / size.Y < scale)

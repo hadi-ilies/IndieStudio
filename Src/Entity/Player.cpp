@@ -18,14 +18,17 @@ Player::~Player()
 
 bool Player::putBomb()
 {
-    if (bombList.size() >= nbBomb) {
-        for (unique_ptr<Bomb> &bomb : bombList) // tmp for test
-            bomb->detonate();
-        bombList.erase(bombList.begin(), bombList.end()); // tmp for test
+    if (bombList.size() >= nbBomb)
         return false;
-    }
     bombList.push_back(unique_ptr<Bomb>(new Bomb(window, bombType, bombPower, world, pos)));
     return true;
+}
+
+void Player::update()
+{
+    for (unique_ptr<Bomb> &bomb : bombList)
+        bomb->update();
+    //bombList.remove_if([](auto &bomb){!bomb->getPower();}); // TODO
 }
 
 void Player::aff()
