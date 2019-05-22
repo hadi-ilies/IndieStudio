@@ -53,6 +53,11 @@ IAnimatedMesh *Window::getModel(const std::string &fileName)
     return smgr->getMesh(fileName.c_str());
 }
 
+ITexture *Window::getTexture(const std::string &fileName)
+{
+    return driver->getTexture(fileName.c_str());
+}
+
 ISceneNode *Window::addCube(const std::string &texture)
 {
     scene::ISceneNode *node = smgr->addCubeSceneNode(1);

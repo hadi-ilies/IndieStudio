@@ -15,7 +15,7 @@ using namespace irr;
 class EventReceiver : public IEventReceiver
 {
 public:
-    EventReceiver()
+    EventReceiver() // TODO move in cpp
         {
             for (irr::u32 i = 0; i < irr::KEY_KEY_CODES_COUNT; ++i)
                 KeyIsDown[i] = false;
