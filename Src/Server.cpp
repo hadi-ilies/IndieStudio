@@ -7,7 +7,6 @@
 
 #include <iostream> // ?
 #include <list>
-#include <SFML/Network.hpp>
 #include "Window.hpp"
 #include "World.hpp"
 #include "Entity/Player.hpp"

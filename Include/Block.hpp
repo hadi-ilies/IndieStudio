@@ -28,7 +28,7 @@ typedef vector3d<uint> vector3du; // TODO ? move in Type.hpp or Utility.hpp
 class Block
 {
 public:
-    Block(Window &window, const std::string &fileName); // TODO
+    Block(Window &window, const std::string &fileName);
     ~Block();
     const std::string &getType() const;
     const bool &getOpaque() const;

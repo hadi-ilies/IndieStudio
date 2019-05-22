@@ -7,8 +7,8 @@
 
 #include "Entity/PowerUp.hpp"
 
-PowerUp::PowerUp(const std::string &_type, World &world, const Vector3u &pos)
-    : Entity(world, pos), type(_type)
+PowerUp::PowerUp(Window &window, const std::string &_type, World &world, const vector3du &pos)
+    : Entity(window, "Resources/Entity/" + _type, world, pos), type(_type)
 {
 }
 

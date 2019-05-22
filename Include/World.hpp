@@ -32,6 +32,8 @@ public:
     const vector3du &getSize() const;
     const Block *getBlock(const vector3du &pos) const;
     void explode(const vector3du &pos, const uint &power); // ? explode 2D or 3D // TODO ?
+    bool load(const std::string &_fileName); // TODO
+    bool save(const std::string &_fileName = ""); // TODO
     void aff(); // TODO
     void debugAff() const; // tmp
 
@@ -41,6 +43,7 @@ private:
     bool removeBlock(const vector3du &pos);
 
 private:
+    std::string fileName;
     Window &window;
     vector3du size;
     Block ****tab;

@@ -12,6 +12,8 @@
 Entity::Entity(Window &_window, const std::string &fileName, World &_world, const vector3du &_pos)
     : window(_window), mesh(_window.addAnimatedMesh(fileName + "/Model/Idle.md2", fileName + "/Texture/Default.png")), world(_world), pos(_pos), textureUse("Default")
 {
+    if (!mesh)
+        throw Error("mesh can't be create");
     const vector3df size = mesh->getTransformedBoundingBox().getExtent();
     float scale = 1 / size.X;
 

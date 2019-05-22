@@ -13,11 +13,11 @@
 class PowerUp : public Entity
 {
 public:
-    PowerUp(const string &_type, World &world, const vector3du &pos);
+    PowerUp(Window &window, const std::string &_type, World &world, const vector3du &pos);
     ~PowerUp();
 
 private:
-    string type;
+    std::string type;
 };
 
 #endif

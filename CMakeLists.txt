@@ -28,7 +28,7 @@ set(SRC
   ${SRCDIR}World.cpp
   ${SRCDIR}Entity.cpp
   ${SRCDIR}${ENTITYDIR}Bomb.cpp
-  #${SRCDIR}${ENTITYDIR}PowerUp.cpp
+  ${SRCDIR}${ENTITYDIR}PowerUp.cpp
   ${SRCDIR}${ENTITYDIR}Character.cpp
   ${SRCDIR}${ENTITYDIR}Player.cpp
   )
@@ -41,7 +41,7 @@ set(INCLUDE
   ${INCDIR}World.hpp
   ${INCDIR}Entity.hpp
   ${INCDIR}${ENTITYDIR}Bomb.hpp
-  #${INCDIR}${ENTITYDIR}PowerUp.hpp
+  ${INCDIR}${ENTITYDIR}PowerUp.hpp
   ${INCDIR}${ENTITYDIR}Character.hpp
   ${INCDIR}${ENTITYDIR}Player.hpp
   )

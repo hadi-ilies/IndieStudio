@@ -14,13 +14,10 @@
 
 Block::Block(Window &window, const std::string &fileName)
 {
-    try {
-        getProperty(fileName + "/Property");
-        cube = window.addCube(fileName + "/Texture.png");
-    }
-    catch (const exception &e) {
-        cerr << e.what() << endl;
-    }
+    getProperty(fileName + "/Property");
+    cube = window.addCube(fileName + "/Texture.png");
+    if (!cube)
+        throw Error("cube can't be create");
 }
 
 Block::~Block()

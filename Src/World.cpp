@@ -5,13 +5,17 @@
 ** World.cpp
 */
 
+//#include <fstream>
 #include <vector>
 #include "World.hpp"
+#include "Error.hpp"
 
 World::World(Window &_window, const std::string &_fileName)
     : window(_window) // tmp
 {
-    create(vector3du(21, 2, 21));
+    /*if (!load(_fileName)) // TODO
+      throw Error("load faild");*/
+    create(vector3du(21, 2, 21)); // tmp
     for (uint i = 0; i < size.X; i++) // tmp
         for (uint j = 0; j < size.Z; j++) {
             addBlock(vector3du(i, 0, j), "Wall");
@@ -69,6 +73,18 @@ void World::explode(const vector3du &pos, const uint &power)
             }
         }
     }
+}
+
+bool load(const std::string &_fileName)
+{
+    //
+    return true;
+}
+
+bool save(const std::string &_fileName)
+{
+    //
+    return true;
 }
 
 void World::aff()
