@@ -47,8 +47,10 @@ bool tmp2()
                 player.putBomb();
             spacePress = true;
         }
-        else
-        spacePress = false;
+        else {
+            player.move(vector2di(0, 0));
+            spacePress = false;
+        }
         world.aff(); // ? who aff world
         player.aff(); // ? who aff entity
         window.display(video::SColor(255, 113, 113, 233));

@@ -30,32 +30,28 @@ bool Character::move(const vector2di &dir)
     const vector3df destPos (newPos.X, newPos.Y, newPos.Z);
     const u32 timestamp = 500;
 
-    if (!anim) {
-            cerr << "LOL3" << endl;
+    if (dir.Y == 0 && dir.X == 0) {
+        changeModel("Idle");
+        anim = NULL;
+    } else if (anim == NULL || anim->hasFinished()) {
         changeModel("Walk");
         anim = window.createTranslation(initPos, destPos, timestamp);
         if (anim)
-            mesh->addAnimator(anim);
+        mesh->addAnimator(anim);
         pos = newPos;
 
     //take direction
     irr::core::vector3df rotation;
 
-        if (dir.X == -1 && dir.Y == 0)
-            rotation.Y = 0;
-        else if (dir.X == 1 && dir.Y == 0)
-            rotation.Y = 180;
-        else if (dir.X == 0 && dir.Y == -1)
-            rotation.Y = -90;
-        else if (dir.X == 0 && dir.Y == 1)
-            rotation.Y = 90;
-        mesh->setRotation(rotation);
-    } else if (anim->hasFinished()) {
-        cerr << "LOL" << endl;
-        anim->drop();
-        anim = NULL;
-        cerr << "LOL2" << endl;
-      changeModel("Idle");
+    if (dir.X == -1 && dir.Y == 0)
+        rotation.Y = 0;
+    else if (dir.X == 1 && dir.Y == 0)
+        rotation.Y = 180;
+    else if (dir.X == 0 && dir.Y == -1)
+        rotation.Y = -90;
+    else if (dir.X == 0 && dir.Y == 1)
+        rotation.Y = 90;
+    mesh->setRotation(rotation);
     }
     mesh->setAnimationSpeed(350);
     return true;
