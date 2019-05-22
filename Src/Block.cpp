@@ -25,6 +25,7 @@ Block::Block(Window &window, const std::string &fileName)
 
 Block::~Block()
 {
+    cube->remove();
 }
 
 const std::string &Block::getType() const

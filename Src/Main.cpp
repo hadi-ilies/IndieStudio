@@ -23,15 +23,18 @@ using namespace gui;
 
 bool tmp2()
 {
-    Window window("Bomberman", dimension2d<u32>(640, 480), false);
+    Window window("Bomberman", dimension2d<u32>(1920 / 2, 1080 / 2), false);
+    //Window window("Bomberman", dimension2d<u32>(1920, 1080), true);
     World world(window, "TODO");
     Player player(window, "Resources/Entity/Bomberman", "Bob", world, vector3du(1, 1, 1));
-    bool tmp = false; // tmp
+    bool spacePress = false; // tmp
 
     //world.debugAff();
     while (window.isOpen()) {
         // TODO
-        if (window.isKeyPressed(KEY_KEY_Q) || window.isKeyPressed(KEY_KEY_A))
+        if (window.isKeyPressed(KEY_ESCAPE))
+            window.close();
+        else if (window.isKeyPressed(KEY_KEY_Q) || window.isKeyPressed(KEY_KEY_A))
             player.move(vector2di(-1, 0));
         else if (window.isKeyPressed(KEY_KEY_D))
             player.move(vector2di(1, 0));
@@ -40,18 +43,22 @@ bool tmp2()
         else if (window.isKeyPressed(KEY_KEY_S))
             player.move(vector2di(0, -1));
         else if (window.isKeyPressed(KEY_SPACE)) {
-            if (!tmp)
+            if (!spacePress)
                 player.putBomb();
-            tmp = true;
+            spacePress = true;
         }
         else
-            tmp = false;
+        spacePress = false;
         world.aff(); // ? who aff world
         player.aff(); // ? who aff entity
-        window.display(video::SColor(255,113,113,133));
+        window.display(video::SColor(255, 113, 113, 233));
     }
     return true;
 }
+
+/*bool tmp1()
+{
+}*/
 
 int main(int argc, char **argv)
 { // TODO try catch
@@ -63,5 +70,6 @@ int main(int argc, char **argv)
     else
         cerr << "USE : " << argv[0] << " [server]" << endl;
     tmp2(); // tmp
+    //while (1)cerr << "inf"; // tmp
     return 0;
 }

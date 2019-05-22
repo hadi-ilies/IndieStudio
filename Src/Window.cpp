@@ -26,7 +26,13 @@ Window::Window(const std::string &windowName, dimension2d<u32> size, const bool 
 
 Window::~Window()
 {
+    close();
     device->drop();
+}
+
+void Window::close()
+{
+    device->closeDevice();
 }
 
 bool Window::isOpen()

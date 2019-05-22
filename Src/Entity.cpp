@@ -25,6 +25,7 @@ Entity::Entity(Window &_window, const std::string &fileName, World &_world, cons
 
 Entity::~Entity()
 {
+    mesh->remove();
 }
 
 const vector3du &Entity::getPos() const

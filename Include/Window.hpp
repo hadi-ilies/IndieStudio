@@ -26,6 +26,7 @@ class Window
 public:
     Window(const std::string &windowName, dimension2d<u32> size, const bool &fullscreen);
     ~Window();
+    void close();
     bool isOpen();
     void display(const SColor &color);
     IAnimatedMesh *getModel(const std::string &fileName);
