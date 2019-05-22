@@ -47,8 +47,7 @@ bool Entity::changeTexture(const std::string &texture)
 {
     if (textureMap.find(texture) == textureMap.end())
         return false;
-    node->setMaterialFlag(EMF_LIGHTING, false);
-    //node->setMD2Animation(scene::EMAT_STAND);
+    mesh->setMaterialFlag(EMF_LIGHTING, false);
     mesh->setMaterialTexture(0, textureMap[texture]);
     textureUse = texture;
     return true;

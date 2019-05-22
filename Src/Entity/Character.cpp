@@ -31,8 +31,8 @@ bool Character::move(const vector2di &dir)
     const u32 timestamp = 500;
 
     if (!anim) {
-        if (modelMap.find("Walk") != modelMap.end())
-            mesh->setMesh(modelMap["Walk"]);
+            cerr << "LOL3" << endl;
+        changeModel("Walk");
         anim = window.createTranslation(initPos, destPos, timestamp);
         if (anim)
             mesh->addAnimator(anim);
@@ -51,10 +51,11 @@ bool Character::move(const vector2di &dir)
             rotation.Y = 90;
         mesh->setRotation(rotation);
     } else if (anim->hasFinished()) {
+        cerr << "LOL" << endl;
         anim->drop();
         anim = NULL;
-        if (modelMap.find("Idle") != modelMap.end())
-            mesh->setMesh(modelMap["Idle"]);
+        cerr << "LOL2" << endl;
+      changeModel("Idle");
     }
     mesh->setAnimationSpeed(350);
     return true;
