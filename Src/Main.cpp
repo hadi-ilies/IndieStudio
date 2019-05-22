@@ -15,11 +15,14 @@
 using namespace std;
 using namespace irr;
 
-using namespace core;
+using namespace core; // tmp
 using namespace scene;
 using namespace video;
 using namespace io;
 using namespace gui;
+
+void server(const std::string &worldFileName, const size_t &nbPlayer);
+void client();
 
 bool tmp2()
 {
@@ -58,20 +61,15 @@ bool tmp2()
     return true;
 }
 
-/*bool tmp1()
-{
-}*/
-
 int main(int argc, char **argv)
 { // TODO try catch
     srand(time(NULL));
     if (argc == 2 && strncmp(argv[1], "server", strlen(argv[1])) == 0)
-        cout << "server" << endl;
+        server("TODO", 2);
     else if (argc == 1)
-        cout << "client" << endl;
+        client();
     else
         cerr << "USE : " << argv[0] << " [server]" << endl;
     tmp2(); // tmp
-    //while (1)cerr << "inf"; // tmp
     return 0;
 }
