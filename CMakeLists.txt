@@ -19,6 +19,8 @@ include_directories(Include)
 # Crée des variables avec les fichiers à compiler
 set(SRC
   ${SRCDIR}Main.cpp
+  ${SRCDIR}Server.cpp
+  ${SRCDIR}Client.cpp
   ${SRCDIR}Window.cpp
   ${SRCDIR}Error.cpp
   ${SRCDIR}Globpp.cpp # TODO or (Utility.cpp and rename Globpp.hpp in Utility.hpp)
@@ -50,3 +52,5 @@ set(CMAKE_CXX_FLAGS "-pedantic")
 # On indique que l'on veut un exécutable "bomberman" compilé à partir des fichiers décrits par les variables SRC et INCLUDE
 add_executable(Bomberman ${SRC} ${INCLUDE})
 target_link_libraries(Bomberman Irrlicht)
+find_package(SFML 2.5 COMPONENTS system audio network REQUIRED)
+target_link_libraries(Bomberman sfml-system sfml-audio sfml-network)

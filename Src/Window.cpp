@@ -26,7 +26,13 @@ Window::Window(const std::string &windowName, dimension2d<u32> size, const bool 
 
 Window::~Window()
 {
+    close();
     device->drop();
+}
+
+void Window::close()
+{
+    device->closeDevice();
 }
 
 bool Window::isOpen()
@@ -45,6 +51,11 @@ void Window::display(const SColor &color)
 IAnimatedMesh *Window::getModel(const std::string &fileName)
 {
     return smgr->getMesh(fileName.c_str());
+}
+
+ITexture *Window::getTexture(const std::string &fileName)
+{
+    return driver->getTexture(fileName.c_str());
 }
 
 ISceneNode *Window::addCube(const std::string &texture)

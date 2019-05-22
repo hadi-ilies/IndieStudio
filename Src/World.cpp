@@ -11,15 +11,14 @@
 World::World(Window &_window, const std::string &_fileName)
     : window(_window) // tmp
 {
-    create(vector3du(20, 2, 20));
+    create(vector3du(21, 2, 21));
     for (uint i = 0; i < size.X; i++) // tmp
         for (uint j = 0; j < size.Z; j++) {
             addBlock(vector3du(i, 0, j), "Wall");
             if (i == 0 || j == 0 || i == size.X - 1 || j == size.Z - 1)
                 addBlock(vector3du(i, 1, j), "Wall");
-            else
-                if (rand() % 2)
-                    addBlock(vector3du(i, 1, j), "Box");
+            else if (((i + 1) * (j + 1)) % 2)
+                addBlock(vector3du(i, 1, j), "Box");
         }
 }
 

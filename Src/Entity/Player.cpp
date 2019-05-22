@@ -24,6 +24,13 @@ bool Player::putBomb()
     return true;
 }
 
+void Player::update()
+{
+    for (unique_ptr<Bomb> &bomb : bombList)
+        bomb->update();
+    //bombList.remove_if([](auto &bomb){!bomb->getPower();}); // TODO
+}
+
 void Player::aff()
 {
     Entity::aff();
