@@ -21,6 +21,6 @@ static void game(Window &window)
 
 void client()
 {
-    Window window("Bomberman", dimension2d<u32>(1920, 1080), true);
+    //Window window("Bomberman", dimension2d<u32>(1920, 1080), true);
     // TODO
 }
