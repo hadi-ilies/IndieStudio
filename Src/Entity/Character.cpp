@@ -56,6 +56,6 @@ bool Character::move(const vector2di &dir)
         if (modelMap.find("Idle") != modelMap.end())
             mesh->setMesh(modelMap["Idle"]);
     }
-   // mesh->setMaterialFlag(irr::video::EMF_LIGHTING, true);
+    mesh->setAnimationSpeed(350);
     return true;
 }
