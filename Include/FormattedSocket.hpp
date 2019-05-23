@@ -33,6 +33,7 @@ public:
     ushort getRemotePort() const;
     bool connect(const IpAddress &remoteAddress, ushort remotePort, Time timeout=Time::Zero);
     void disconnect();
+    bool isConnected() const;
     bool sendStartTurn();
     bool sendMessage(const std::string &message);
     bool sendPlayerMove(const vector2di &dir);
@@ -48,6 +49,7 @@ public:
     vector2di dir;
 
 //private: // tmp
+    bool connected;
     TcpSocket socket;
 };
 

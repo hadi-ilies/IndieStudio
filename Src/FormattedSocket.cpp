@@ -8,6 +8,7 @@
 #include "FormattedSocket.hpp"
 
 FormattedSocket::FormattedSocket()
+    : connected(false)
 {
 }
 
@@ -32,14 +33,20 @@ ushort FormattedSocket::getRemotePort() const
 
 bool FormattedSocket::connect(const IpAddress &remoteAddress, ushort remotePort, Time timeout)
 {
-    return socket.connect(remoteAddress, remotePort, timeout) == Socket::Done;
+    connected = socket.connect(remoteAddress, remotePort, timeout) == Socket::Done;
+    return connected;
 }
 
 void FormattedSocket::disconnect()
 {
     socket.disconnect();
+    connected = false;
 }
 
+bool FormattedSocket::isConnected() const
+{
+    return connected;
+}
 
 bool FormattedSocket::sendStartTurn()
 {

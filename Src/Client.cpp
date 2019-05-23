@@ -18,7 +18,6 @@ using namespace irr;
 using namespace sf;
 
 bool startTurn = false; // tmp
-bool windowIsOpen = true;
 
 void serverLoop(FormattedSocket *client)
 {
@@ -26,7 +25,7 @@ void serverLoop(FormattedSocket *client)
         if (client->type == StartTurn) {
                 startTurn = true;
                 //tmp2
-                while (startTurn && windowIsOpen);
+                while (startTurn && client->isConnected());
             }
         }
 }
@@ -69,7 +68,7 @@ static void game(Window &window, FormattedSocket &client)
     }
     client.disconnect();
     startTurn = true;
-    windowIsOpen = false;
+    //windowIsOpen = false;
     loop.join();
 }
 
