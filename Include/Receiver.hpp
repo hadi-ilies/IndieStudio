@@ -2,11 +2,11 @@
 ** EPITECH PROJECT, 2019
 ** Bomberman
 ** File description:
-** Sender.hpp
+** Receiver.hpp
 */
 
-#ifndef SENDER_HPP
-#define SENDER_HPP
+#ifndef RECEIVER_HPP
+#define RECEIVER_HPP
 
 #include <SFML/Network.hpp>
 #include "World.hpp" // ?
@@ -22,18 +22,24 @@ enum DataType
     // ...
 };
 
-class Sender
+class Receiver
 {
 public:
-    Sender(TcpSocket &_socket);
-    ~Sender();
-    bool sendStartTurn();
-    bool sendMessage(const std::string &message);
-    //bool sendWorld(const World &world);
-    //bool sendPlayer(const Player &player);
+    Receiver(TcpSocket &_socket);
+    ~Receiver();
+    bool receive();
+
+public:
+    DataType type;
+    union
+    {
+        std::string message;
+    };
 
 private:
     TcpSocket &socket;
 };
+
+Packet &operator>>(Packet &packet, DataType &dataType);
 
 #endif

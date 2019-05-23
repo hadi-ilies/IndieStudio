@@ -20,6 +20,7 @@ include_directories(Include)
 set(SRC
   ${SRCDIR}Main.cpp
   ${SRCDIR}Sender.cpp
+  ${SRCDIR}Receiver.cpp
   ${SRCDIR}Server.cpp
   ${SRCDIR}Client.cpp
   ${SRCDIR}Window.cpp
@@ -36,6 +37,7 @@ set(SRC
 
 set(INCLUDE
   ${INCDIR}Sender.hpp
+  ${INCDIR}Receiver.hpp
   ${INCDIR}Window.hpp
   ${INCDIR}Error.hpp
   ${INCDIR}Globpp.hpp
