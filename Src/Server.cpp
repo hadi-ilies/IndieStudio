@@ -73,8 +73,6 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
         else
             throw Error("bad type");
         // TODO
-        if (sender.sendMessage("My"))
-            throw Error("send failed");
     }
 
 }
