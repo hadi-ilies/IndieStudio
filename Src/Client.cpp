@@ -22,12 +22,25 @@ static void game(Window &window)
 
 void client(char *ip, int port)
 {
-    //cerr << ip << "  " << port << endl;
-    Window window("Bomberman", dimension2d<u32>(1920, 1080), true);
+    cerr << ip << "  " << port << endl;
+    //Window window("Bomberman", dimension2d<u32>(1920, 1080), true);
     IpAddress ipAddr(ip);
     TcpSocket client;
-    client.connect(ipAddr, port);
-    exit(0);
+
+
+    cerr << client.connect(ipAddr, port) << endl;
+    //if (client.connect(ipAddr, port) != Socket::Done)
+    //    cerr << lient.connect(ipAddr, port) << endl;
+    Packet packet;
+    int type;
+    client.receive(packet);
+    packet >> type;
+    cout << type << endl;
+    if (type == Message) {
+        std::string msg;
+        packet >> msg;
+        cout <<  msg << endl;
+    }
     //structure enum type data
     // union
 }
