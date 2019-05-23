@@ -13,6 +13,7 @@
 
 using namespace std;
 using namespace irr;
+using namespace sf;
 
 static void game(Window &window)
 {
@@ -21,10 +22,12 @@ static void game(Window &window)
 
 void client(char *ip, int port)
 {
+    //cerr << ip << "  " << port << endl;
     Window window("Bomberman", dimension2d<u32>(1920, 1080), true);
-    IpAddress::IpAddress ipAddr(ip);
-    TcpSocket client();
-    client.connect(ipAddr, port, seconds(1));
+    IpAddress ipAddr(ip);
+    TcpSocket client;
+    client.connect(ipAddr, port);
+    exit(0);
     //structure enum type data
     // union
 }
