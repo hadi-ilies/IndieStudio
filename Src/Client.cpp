@@ -30,25 +30,33 @@ static void game(Window &window, Receiver &receiver, Sender &sender)
                 cout << "RECEIVED :" << receiver.message << endl;
             }
 
-            //tmp2
-            if (window.isKeyPressed(KEY_ESCAPE))
-                window.close();
-            else if (window.isKeyPressed(KEY_KEY_Q) || window.isKeyPressed(KEY_KEY_A))
-                sender.sendPlayerMove(vector2di(-1, 0));
-            else if (window.isKeyPressed(KEY_KEY_D))
-                sender.sendPlayerMove(vector2di(1, 0));
-            else if (window.isKeyPressed(KEY_KEY_Z) || window.isKeyPressed(KEY_KEY_W))
-                sender.sendPlayerMove(vector2di(0, 1));
-            else if (window.isKeyPressed(KEY_KEY_S))
-                sender.sendPlayerMove(vector2di(0, -1));
-            else if (window.isKeyPressed(KEY_SPACE))
-                sender.sendPlayerPutBomb();
-            else
-                sender.sendPlayerMove(vector2di(0, 0));
-            world.update();
-            player.update();
-            window.display(video::SColor(255, 113, 113, 233));
+            if (receiver.type == StartTurn) {
+                //tmp2
+                if (window.isKeyPressed(KEY_ESCAPE))
+                    window.close();
+                else if (window.isKeyPressed(KEY_KEY_Q) || window.isKeyPressed(KEY_KEY_A))
+                    sender.sendPlayerMove(vector2di(-1, 0));
+                else if (window.isKeyPressed(KEY_KEY_D))
+                    sender.sendPlayerMove(vector2di(1, 0));
+                else if (window.isKeyPressed(KEY_KEY_Z) || window.isKeyPressed(KEY_KEY_W))
+                    sender.sendPlayerMove(vector2di(0, 1));
+                else if (window.isKeyPressed(KEY_KEY_S))
+                    sender.sendPlayerMove(vector2di(0, -1));
+                else if (window.isKeyPressed(KEY_SPACE))
+                    sender.sendPlayerPutBomb();
+                else
+                    sender.sendPlayerMove(vector2di(0, 0));
+                if (receiver.receive()) {
+                    if (receiver.type == PlayerMove)
+                        player.move(receiver.dir);
+                    else if (receiver.type == PlayerPutBomb)
+                        player.putBomb();
+                }
+                world.update();
+                player.update();
+                window.display(video::SColor(255, 113, 113, 233));
             }
+        }
     }
 }
 
