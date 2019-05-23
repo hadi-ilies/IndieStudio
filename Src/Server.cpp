@@ -43,6 +43,7 @@ using namespace sf;
         }
 }*/
 
+#include <unistd.h> // tmp
 void server(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer)
 {
     TcpListener listener;
@@ -63,6 +64,7 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
     cerr << "client connected" << endl;
 
     while (true) {
+        usleep(500); // tmp
         if (!socket.sendStartTurn())
             throw Error("send failed");
         if (!socket.receive())

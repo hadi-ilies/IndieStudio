@@ -44,9 +44,9 @@ void serverLoop(FormattedSocket *client, Window *window, World *world, Player *p
                     else if (client->type == PlayerPutBomb)
                         player->putBomb();
                 }
+                cerr << "update" << endl;
                 world->update();
                 player->update();
-                window->display(video::SColor(255, 113, 113, 233));
             }
         }
     }
@@ -60,6 +60,10 @@ static void game(Window &window, FormattedSocket &client)
     Player player(window, "Resources/Entity/Bomberman", "Bob", world, vector3du(1, 1, 1));
     std::thread loop(serverLoop, &client, &window, &world, &player);
 
+    while (window.isOpen()) {
+        cout << "loop" << endl;
+        window.display(video::SColor(255, 113, 113, 233));
+    }
     loop.join();
     //
 }
