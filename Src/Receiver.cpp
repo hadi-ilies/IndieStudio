@@ -26,9 +26,18 @@ bool Receiver::receive()
         return false;
     if (type == Message) {
         if (!(packet >> message))
-        return false;
+            return false;
     }
-    // else if (type == ...) // TODO
+    else if (type == PlayerMove) {
+        int x;
+        int y;
+
+        if (!(packet >> x >> y))
+            return false;
+        dir.X = x;
+        dir.Y = y;
+    }
+    //else if (type == ...) // TODO
     return true;
 }
 

@@ -25,10 +25,11 @@ public:
 
 public:
     DataType type;
-    union
-    {
-        std::string message;
-    };
+    //union // ?
+    //{
+    std::string message;
+    vector2di dir;
+    //};
 
 private:
     TcpSocket &socket;

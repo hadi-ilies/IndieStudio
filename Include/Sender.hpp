@@ -23,6 +23,8 @@ public:
     ~Sender();
     bool sendStartTurn();
     bool sendMessage(const std::string &message);
+    bool sendPlayerMove(const vector2di &dir);
+    bool sendPlayerPutBomb();
     //bool sendWorld(const World &world);
     //bool sendPlayer(const Player &player);
 

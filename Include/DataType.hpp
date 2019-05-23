@@ -12,7 +12,8 @@ enum DataType
 {
     StartTurn,
     Message,
-    // ...
+    PlayerMove,
+    PlayerPutBomb,
 };
 
 #endif

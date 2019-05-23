@@ -32,3 +32,21 @@ bool Sender::sendMessage(const std::string &message)
     packet << message;
     return socket.send(packet) == Socket::Done;
 }
+
+bool Sender::sendPlayerMove(const vector2di &dir)
+{
+    Packet packet;
+
+    PlayerMove << PlayerMove;
+    PlayerMove << dir.X;
+    PlayerMove << dir.Y;
+    return socket.send(packet) == Socket::Done;
+}
+
+bool Sender::sendPlayerPutBomb()
+{
+    Packet packet;
+
+    packet << PlayerPutBomb;
+    return socket.send(packet) == Socket::Done;
+}

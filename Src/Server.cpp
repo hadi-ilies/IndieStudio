@@ -12,6 +12,7 @@
 #include "Entity/Player.hpp"
 #include "Error.hpp"
 #include "Sender.hpp"
+#include "Receiver.hpp"
 
 using namespace std;
 using namespace irr;
@@ -56,16 +57,18 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
     listener.close();
     cerr << "client connected" << endl;
     Sender sender(socket);
+    Receiver receiver(socket);
 
-    //sender.sendStartTurn();
-    if (sender.sendMessage("My"))
-        cerr << "send failed" << endl;
-    if (sender.sendMessage("Name"))
-        cerr << "send failed" << endl;
-    if (sender.sendMessage("Is"))
-        cerr << "send failed" << endl;
-    if (sender.sendMessage("Bob"))
-        cerr << "send failed" << endl;
-    cerr << "msg send" << endl;
+    while (true) {
+        if (sender.sendStartTurn())
+            throw Error("send failed");
+        if (!receiver.receive())
+            throw Error("send failed");
+        if (receiver.type != Message)
+            throw Error("bad type");
+        //receiver // TODO
+        if (sender.sendMessage("My"))
+            throw Error("send failed");
+    }
 
 }
