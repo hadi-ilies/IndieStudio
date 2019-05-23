@@ -9,11 +9,8 @@
 #define PLAYER_HPP
 
 #include <list>
-#include <SFML/Network.hpp>
 #include "Entity/Character.hpp"
 #include "Entity/Bomb.hpp"
-
-using namespace sf;
 
 class Player : public Character
 {
@@ -24,7 +21,6 @@ public:
     void update();
 
 private:
-    TcpSocket socket;
     std::string name; // ?
     std::string bombType;
     uint bombPower;

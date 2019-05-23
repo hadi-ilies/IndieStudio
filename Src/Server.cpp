@@ -11,12 +11,12 @@
 #include "World.hpp"
 #include "Entity/Player.hpp"
 #include "Error.hpp"
+#include "Sender.hpp"
 
 using namespace std;
 using namespace irr;
-using namespace sf;
 
-void server(const std::string &worldFileName, const size_t &nbPlayer)
+/*void server(const std::string &worldFileName, const size_t &nbPlayer)
 {
     Window window("Bomberman", dimension2d<u32>(800, 600), false);
     World world(window, worldFileName);
@@ -34,10 +34,18 @@ void server(const std::string &worldFileName, const size_t &nbPlayer)
         cerr << "wait player" << i + 1 << endl;
         if (listener.accept(socket) != sf::Socket::Done)
             throw Error("accept failed");
-    }
+            }
 
 
-    /*while (window.isOpen()) {
+    while (window.isOpen()) {
         // TODO
-        }*/
+        }
+}*/
+
+void server(const std::string &worldFileName, const size_t &nbPlayer)
+{
+    TcpSocket socket;
+    Sender sender(socket);
+
+    //socket
 }

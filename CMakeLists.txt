@@ -19,6 +19,7 @@ include_directories(Include)
 # Crée des variables avec les fichiers à compiler
 set(SRC
   ${SRCDIR}Main.cpp
+  ${SRCDIR}Sender.cpp
   ${SRCDIR}Server.cpp
   ${SRCDIR}Client.cpp
   ${SRCDIR}Window.cpp
@@ -34,6 +35,7 @@ set(SRC
   )
 
 set(INCLUDE
+  ${INCDIR}Sender.hpp
   ${INCDIR}Window.hpp
   ${INCDIR}Error.hpp
   ${INCDIR}Globpp.hpp

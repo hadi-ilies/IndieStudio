@@ -9,11 +9,10 @@
 #include "Window.hpp"
 #include "World.hpp"
 #include "Entity/Player.hpp"
-#include "sender.hpp"
+#include "Sender.hpp"
 
 using namespace std;
 using namespace irr;
-using namespace sf;
 
 static void game(Window &window)
 {
