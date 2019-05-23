@@ -15,6 +15,7 @@
 
 using namespace std;
 using namespace irr;
+using namespace sf;
 
 /*void server(const std::string &worldFileName, const size_t &nbPlayer)
 {
@@ -44,8 +45,15 @@ using namespace irr;
 
 void server(const std::string &worldFileName, const size_t &nbPlayer)
 {
+    TcpListener listener;
     TcpSocket socket;
+
+    if (listener.listen(53000) != Socket::Done)
+        throw Error("listen failed");
+    if (listener.accept(socket) != Socket::Done)
+        throw Error("accept failed");
     Sender sender(socket);
 
-    //socket
+    sender.sendStartTurn();
+    sender.sendMessage("Test");
 }
