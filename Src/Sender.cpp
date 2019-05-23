@@ -16,19 +16,19 @@ Sender::~Sender()
 {
 }
 
-Socket::Status Sender::sendStartTurn()
+bool Sender::sendStartTurn()
 {
     Packet packet;
 
     packet << StartTurn;
-    return socket.send(packet);
+    return socket.send(packet) == Socket::Done;
 }
 
-Socket::Status Sender::sendMessage(const std::string &message)
+bool Sender::sendMessage(const std::string &message)
 {
     Packet packet;
 
     packet << Message;
     packet << message;
-    return socket.send(packet);
+    return socket.send(packet) == Socket::Done;
 }

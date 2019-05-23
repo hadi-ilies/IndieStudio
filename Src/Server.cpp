@@ -57,7 +57,7 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
     Sender sender(socket);
 
     //sender.sendStartTurn();
-    if (sender.sendMessage("Test") != Socket::Done)
+    if (sender.sendMessage("Test"))
         cerr << "send faild" << endl;
     cerr << "msg send" << endl;
 

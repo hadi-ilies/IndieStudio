@@ -36,10 +36,10 @@ class Sender
 public:
     Sender(TcpSocket &_socket);
     ~Sender();
-    Socket::Status sendStartTurn();
-    Socket::Status sendMessage(const std::string &message);
-    //Status sendWorld(const World &world);
-    //Status sendPlayer(const Player &player);
+    bool sendStartTurn();
+    bool sendMessage(const std::string &message);
+    //bool sendWorld(const World &world);
+    //bool sendPlayer(const Player &player);
 
 private:
     TcpSocket &socket;
