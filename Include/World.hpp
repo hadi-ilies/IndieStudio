@@ -34,8 +34,7 @@ public:
     void explode(const vector3du &pos, const uint &power); // ? explode 2D or 3D // TODO ?
     bool load(const std::string &_fileName); // TODO
     bool save(const std::string &_fileName = ""); // TODO
-    void aff(); // TODO
-    void debugAff() const; // tmp
+    void update();
 
 private:
     void create(const vector3du &_size);

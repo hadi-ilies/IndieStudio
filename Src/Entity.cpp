@@ -9,12 +9,14 @@
 #include "Entity.hpp"
 #include "Globpp.hpp"
 
+#include <iostream> // tmp
 Entity::Entity(Window &_window, const std::string &fileName, World &_world, const vector3du &_pos)
     : window(_window), mesh(_window.addAnimatedMesh(fileName + "/Model/Idle.md2", fileName + "/Texture/Default.png")), world(_world), pos(_pos), textureUse("Default")
 {
     if (!mesh)
         throw Error("mesh can't be create");
-    const vector3df size = mesh->getTransformedBoundingBox().getExtent();
+    const core::aabbox3d<f32> boundingBox = mesh->getTransformedBoundingBox();
+    const vector3df size = boundingBox.getExtent();
     float scale = 1 / size.X;
 
     mesh->setAnimationSpeed(350);
@@ -56,7 +58,7 @@ bool Entity::changeTexture(const std::string &texture)
     return true;
 }
 
-void Entity::aff()
+void Entity::update()
 {
     mesh->setPosition(vector3df(pos.X, pos.Y, pos.Z));
 }
@@ -72,7 +74,6 @@ void Entity::getModel(const std::string &fileName)
                 modelMap[match[1]] = model;
 }
 
-#include <iostream> // tmp
 void Entity::getTexture(const std::string &fileName)
 {
     const vector<std::string> textureStrList = globpp(fileName + "/*");

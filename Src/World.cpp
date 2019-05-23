@@ -87,27 +87,13 @@ bool save(const std::string &_fileName)
     return true;
 }
 
-void World::aff()
+void World::update()
 {
     for (uint i = 0; i < size.X; i++)
         for (uint j = 0; j < size.Y; j++)
             for (uint k = 0; k < size.Z; k++)
                 if (tab[i][j][k])
                     tab[i][j][k]->setPosition(vector3du(i, j, k)); // ?
-}
-
-#include <iostream> // tmp
-void World::debugAff() const
-{
-    cerr << "size : (" << size.X << ", " << size.Y << ", " << size.Z << ")" << endl;
-    for (uint k = 0; k < size.Z; k++) {
-        for (uint j = 0; j < size.Y; j++) {
-            for (uint i = 0; i < size.X; i++)
-                cerr << "\"" << (tab[i][j][k] ? tab[i][j][k]->getType() : "NULL") << "\" ";
-            cerr << endl;
-        }
-        cerr << endl;
-    }
 }
 
 void World::create(const vector3du &_size)

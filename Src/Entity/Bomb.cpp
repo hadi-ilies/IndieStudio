@@ -37,7 +37,7 @@ void Bomb::update()
     }
 }
 
-#include <iostream>
+#include <iostream> // tmp
 void Bomb::detonate()
 {
     world.explode(pos, power);

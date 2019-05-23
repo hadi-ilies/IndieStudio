@@ -54,9 +54,8 @@ bool tmp2()
             player.move(vector2di(0, 0));
             spacePress = false;
         }
+        world.update();
         player.update();
-        world.aff(); // ? who aff world
-        player.aff(); // ? who aff entity
         window.display(video::SColor(255, 113, 113, 233));
     }
     return true;

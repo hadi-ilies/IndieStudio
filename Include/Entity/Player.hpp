@@ -22,7 +22,6 @@ public:
     ~Player();
     bool putBomb();
     void update();
-    void aff();
 
 private:
     TcpSocket socket;

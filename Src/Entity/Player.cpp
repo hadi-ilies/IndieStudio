@@ -23,22 +23,15 @@ bool Player::putBomb()
     bombList.push_back(unique_ptr<Bomb>(new Bomb(window, bombType, bombPower, world, pos)));
     return true;
 }
-#include <iostream> //tmp
+
 void Player::update()
 {
-    for (unique_ptr<Bomb> &bomb : bombList)
+    Entity::update();
+    for (unique_ptr<Bomb> &bomb : bombList) // TODO fusion of two for
         bomb->update();
     for (auto it = bombList.begin(); it != bombList.end();)
         if (!(*it)->getPower())
             it = bombList.erase(it);
         else
             it++;
-    //bombList.remove_if([u = move(u)]{!bomb->getPower();}); // TODO remove lamda function
-}
-
-void Player::aff()
-{
-    Entity::aff();
-    for (unique_ptr<Bomb> &bomb : bombList)
-        bomb->aff();
 }
