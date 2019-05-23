@@ -22,7 +22,7 @@ using namespace io;
 using namespace gui;
 
 void server(const std::string &worldFileName, const size_t &nbPlayer);
-void client();
+void client(char *ip, int port);
 
 bool tmp2()
 {
@@ -67,7 +67,7 @@ int main(int argc, char **argv)
     if (argc == 2 && strncmp(argv[1], "server", strlen(argv[1])) == 0)
         server("TODO", 2);
     else if (argc == 1)
-        client();
+        client(argv[1], std::atoi(argv[2]));
     else {
         cerr << "USE : " << argv[0] << " [server]" << endl;
         tmp2(); // tmp
