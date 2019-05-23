@@ -63,7 +63,7 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
         if (sender.sendStartTurn())
             throw Error("send failed");
         if (!receiver.receive())
-            throw Error("send failed");
+            throw Error("receiver failed");
         if (receiver.type == PlayerMove) {
             sender.sendPlayerMove(receiver.dir); // tmp
         }
