@@ -43,12 +43,12 @@ using namespace sf;
         }
 }*/
 
-void server(const std::string &worldFileName, const size_t &nbPlayer)
+void server(const std::string &worldFileName, const size_t port, const size_t &nbPlayer)
 {
     TcpListener listener;
     TcpSocket socket;
 
-    if (listener.listen(4242) != Socket::Done)
+    if (listener.listen(port) != Socket::Done)
         throw Error("listen failed");
     cerr << "listen start" << endl;
     if (listener.accept(socket) != Socket::Done)

@@ -21,7 +21,7 @@ using namespace video;
 using namespace io;
 using namespace gui;
 
-void server(const std::string &worldFileName, const size_t &nbPlayer);
+void server(const std::string &worldFileName, const size_t port, const size_t &nbPlayer);
 void client(char *ip, int port);
 
 bool tmp2()
@@ -64,9 +64,9 @@ bool tmp2()
 int main(int argc, char **argv)
 { // TODO try catch
     srand(time(NULL));
-    if (argc == 2 && strncmp(argv[1], "server", strlen(argv[1])) == 0)
-        server("TODO", 2);
-    if (argc == 4 && strncmp(argv[1], "client", strlen(argv[1])) == 0)
+    if (argc == 4 && strncmp(argv[1], "server", strlen(argv[1])) == 0)
+        server("TODO", std::atoi(argv[2]), std::atoi(argv[3]));
+    else if (argc == 4 && strncmp(argv[1], "client", strlen(argv[1])) == 0)
         client(argv[2], std::atoi(argv[3]));
     else {
         cerr << "USE : " << argv[0] << " [server]" << endl;
