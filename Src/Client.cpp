@@ -61,20 +61,13 @@ void client(const IpAddress &ip, const ushort &port)
     if (client.connect(ip, port) != Socket::Done)
         throw Error("an Error has been detected in Connect function");
     Window window("Bomberman", dimension2d<u32>(1920, 1080), false);
-    Packet packet;
-    int type;
     Receiver receiver(client);
 
     while (window.isOpen()) {
-        receiver.receive();
-
-        cout << "RECEIVED :" << receiver.message << endl;
-        packet >> type;
-        cout << type << endl;
-        if (type == Message) {
-            std::string msg;
-            packet >> msg;
-            cout <<  msg << endl;
+        if (receiver.receive()) {
+            if (receiver.type == Message) {
+                cout << "RECEIVED :" << receiver.message << endl;
+            }
         }
     }
     //structure enum type data
