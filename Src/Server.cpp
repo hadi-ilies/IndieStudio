@@ -64,11 +64,11 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
             throw Error("send failed");
         if (!receiver.receive())
             throw Error("send failed");
-        if (receiver.type != PlayerMove) {
-            sender.PlayerMove(receiver.dir); // tmp
+        if (receiver.type == PlayerMove) {
+            sender.sendPlayerMove(receiver.dir); // tmp
         }
-        else if (receiver.type != putBomb) {
-            sender.PlayerPutBomb(); // tmp
+        else if (receiver.type == PlayerPutBomb) {
+            sender.sendPlayerPutBomb(); // tmp
         }
         else
             throw Error("bad type");
