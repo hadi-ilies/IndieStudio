@@ -19,19 +19,22 @@ Receiver::~Receiver()
 bool Receiver::receive()
 {
     Packet packet;
-    Uint32 tmp;
 
     if (socket.receive(packet) != Socket::Done)
         return false;
-    packet >> tmp;
-    type = (DataType)tmp;
-    // TODO
+    if (!(packet >> type))
+        return false;
+    if (type == Message) {
+        if (!(packet >> message))
+        return false;
+    }
+    // else if (type == ...) // TODO
     return true;
 }
 
 Packet &operator>>(Packet &packet, DataType &dataType)
 {
-    Uint32 tmp; // ??
+    Uint32 tmp;
 
     packet >> tmp;
     dataType = (DataType)tmp;
