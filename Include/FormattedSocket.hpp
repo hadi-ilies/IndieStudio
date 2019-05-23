@@ -49,7 +49,7 @@ public:
     vector2di dir;
 
 //private: // tmp
-    bool connected;
+    bool connected; // TODO set to false if Status == Socket::Disconnected or Socket::Error
     TcpSocket socket;
 };
 
