@@ -9,18 +9,12 @@
 #define SENDER_HPP
 
 #include <SFML/Network.hpp>
+#include "DataType.hpp"
 #include "World.hpp" // ?
 #include "Entity/Player.hpp" // ?
 
 using namespace std;
 using namespace sf;
-
-enum DataType
-{
-    StartTurn,
-    Message,
-    // ...
-};
 
 class Sender
 {
