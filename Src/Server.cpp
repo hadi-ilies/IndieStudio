@@ -63,7 +63,7 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
     cerr << "client connected" << endl;
 
     while (true) {
-        if (socket.sendStartTurn())
+        if (!socket.sendStartTurn())
             throw Error("send failed");
         if (!socket.receive())
             throw Error("receiver failed");
