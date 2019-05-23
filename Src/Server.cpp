@@ -11,8 +11,7 @@
 #include "World.hpp"
 #include "Entity/Player.hpp"
 #include "Error.hpp"
-#include "Sender.hpp"
-#include "Receiver.hpp"
+#include "FormattedSocket.hpp"
 
 using namespace std;
 using namespace irr;
@@ -46,14 +45,19 @@ using namespace sf;
 
 void server(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer)
 {
-    TcpListener listener;
-    TcpSocket socket;
+    /*TcpListener listener;
+    std::list<TcpSocket> socketList;
 
     if (listener.listen(port) != Socket::Done)
         throw Error("listen failed");
     cerr << "listen start" << endl;
-    if (listener.accept(socket) != Socket::Done)
-        throw Error("accept failed");
+    for (size_t i = 0; i < nbPlayer; i++) {
+        TcpSocket socket;
+
+        if (listener.accept(socket) != Socket::Done)
+            throw Error("accept failed");
+        socketList.push_back(socket);
+    }
     listener.close();
     cerr << "client connected" << endl;
     Sender sender(socket);
@@ -73,5 +77,5 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
         else
             throw Error("bad type");
         // TODO
-    }
+        }*/
 }
