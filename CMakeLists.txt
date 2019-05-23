@@ -56,3 +56,5 @@ add_executable(Bomberman ${SRC} ${INCLUDE})
 target_link_libraries(Bomberman Irrlicht)
 find_package(SFML 2.5 COMPONENTS system audio network REQUIRED)
 target_link_libraries(Bomberman sfml-system sfml-audio sfml-network)
+target_link_libraries(Bomberman -lpthread)
+
