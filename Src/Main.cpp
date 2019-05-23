@@ -68,8 +68,9 @@ int main(int argc, char **argv)
         server("TODO", 2);
     else if (argc == 1)
         client();
-    else
+    else {
         cerr << "USE : " << argv[0] << " [server]" << endl;
-    tmp2(); // tmp
+        tmp2(); // tmp
+    }
     return 0;
 }
