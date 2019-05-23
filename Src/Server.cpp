@@ -48,12 +48,17 @@ void server(const std::string &worldFileName, const size_t &nbPlayer)
     TcpListener listener;
     TcpSocket socket;
 
-    if (listener.listen(53000) != Socket::Done)
+    if (listener.listen(4242) != Socket::Done)
         throw Error("listen failed");
+    cerr << "listen start" << endl;
     if (listener.accept(socket) != Socket::Done)
         throw Error("accept failed");
+    cerr << "client connected" << endl;
     Sender sender(socket);
 
-    sender.sendStartTurn();
-    sender.sendMessage("Test");
+    //sender.sendStartTurn();
+    if (sender.sendMessage("Test") != Socket::Done)
+        cerr << "send faild" << endl;
+    cerr << "msg send" << endl;
+
 }
