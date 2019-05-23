@@ -47,7 +47,7 @@ public:
     std::string message;
     vector2di dir;
 
-private:
+//private: // tmp
     TcpSocket socket;
 };
 

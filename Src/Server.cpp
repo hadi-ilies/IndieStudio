@@ -45,37 +45,36 @@ using namespace sf;
 
 void server(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer)
 {
-    /*TcpListener listener;
-    std::list<TcpSocket> socketList;
+    TcpListener listener;
+    //std::list<FormattedSocket> socketList;
+    FormattedSocket socket;
 
     if (listener.listen(port) != Socket::Done)
         throw Error("listen failed");
     cerr << "listen start" << endl;
-    for (size_t i = 0; i < nbPlayer; i++) {
-        TcpSocket socket;
+    /*for (size_t i = 0; i < nbPlayer; i++) {
+      TcpSocket socket;*/
 
-        if (listener.accept(socket) != Socket::Done)
+        if (listener.accept(socket.socket) != Socket::Done)
             throw Error("accept failed");
-        socketList.push_back(socket);
-    }
+        //socketList.push_back(socket);
+        //}
     listener.close();
     cerr << "client connected" << endl;
-    Sender sender(socket);
-    Receiver receiver(socket);
 
     while (true) {
-        if (sender.sendStartTurn())
+        if (socket.sendStartTurn())
             throw Error("send failed");
-        if (!receiver.receive())
+        if (!socket.receive())
             throw Error("receiver failed");
-        if (receiver.type == PlayerMove) {
-            sender.sendPlayerMove(receiver.dir); // tmp
+        if (socket.type == PlayerMove) {
+            socket.sendPlayerMove(socket.dir); // tmp
         }
-        else if (receiver.type == PlayerPutBomb) {
-            sender.sendPlayerPutBomb(); // tmp
+        else if (socket.type == PlayerPutBomb) {
+            socket.sendPlayerPutBomb(); // tmp
         }
         else
             throw Error("bad type");
         // TODO
-        }*/
+    }
 }
