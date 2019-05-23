@@ -23,7 +23,6 @@ static void game(Window &window, Receiver &receiver, Sender &sender)
     //Window window("Bomberman", dimension2d<u32>(1920, 1080), true);
     World world(window, "TODO");
     Player player(window, "Resources/Entity/Bomberman", "Bob", world, vector3du(1, 1, 1));
-    bool spacePress = false; // tmp
 
     while (window.isOpen()) {
         if (receiver.receive()) {
@@ -42,9 +41,8 @@ static void game(Window &window, Receiver &receiver, Sender &sender)
                 sender.sendPlayerMove(vector2di(0, 1));
             else if (window.isKeyPressed(KEY_KEY_S))
                 sender.sendPlayerMove(vector2di(0, -1));
-            else if (window.isKeyPressed(KEY_SPACE)) {
-                if (!spacePress)
-                    sender.sendPlayerPutBomb;
+            else if (window.isKeyPressed(KEY_SPACE))
+                sender.sendPlayerPutBomb();
             else
                 sender.sendPlayerMove(vector2di(0, 0));
             world.update();
