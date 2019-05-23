@@ -74,5 +74,4 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
             throw Error("bad type");
         // TODO
     }
-
 }
