@@ -37,9 +37,9 @@ bool Sender::sendPlayerMove(const vector2di &dir)
 {
     Packet packet;
 
-    PlayerMove << PlayerMove;
-    PlayerMove << dir.X;
-    PlayerMove << dir.Y;
+    packet << PlayerMove;
+    packet << dir.X;
+    packet << dir.Y;
     return socket.send(packet) == Socket::Done;
 }
 

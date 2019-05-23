@@ -26,10 +26,7 @@ static void game(Window &window, Receiver &receiver, Sender &sender)
 
     while (window.isOpen()) {
         if (receiver.receive()) {
-            if (receiver.type == Message) {
-                cout << "RECEIVED :" << receiver.message << endl;
-            }
-
+            cerr << "receiver.type : " << receiver.type << endl; // tmp
             if (receiver.type == StartTurn) {
                 //tmp2
                 if (window.isKeyPressed(KEY_ESCAPE))
