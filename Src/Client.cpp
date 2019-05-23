@@ -17,36 +17,18 @@ using namespace std;
 using namespace irr;
 using namespace sf;
 
+bool startTurn = false; // tmp
+
 void serverLoop(FormattedSocket *client, Window *window, World *world, Player *player)
 {
-    while (window->isOpen()) {
+    while (true) {
+        while (startTurn);
         if (client->receive()) {
             cerr << "receiver->type : " << client->type << endl; // tmp
             if (client->type == StartTurn) {
+                cerr << "startTurn" << endl;
+                startTurn = true;
                 //tmp2
-                if (window->isKeyPressed(KEY_ESCAPE))
-                    window->close();
-                else if (window->isKeyPressed(KEY_KEY_Q) || window->isKeyPressed(KEY_KEY_A))
-                    client->sendPlayerMove(vector2di(-1, 0));
-                else if (window->isKeyPressed(KEY_KEY_D))
-                    client->sendPlayerMove(vector2di(1, 0));
-                else if (window->isKeyPressed(KEY_KEY_Z) || window->isKeyPressed(KEY_KEY_W))
-                    client->sendPlayerMove(vector2di(0, 1));
-                else if (window->isKeyPressed(KEY_KEY_S))
-                    client->sendPlayerMove(vector2di(0, -1));
-                else if (window->isKeyPressed(KEY_SPACE))
-                    client->sendPlayerPutBomb();
-                else
-                    client->sendPlayerMove(vector2di(0, 0));
-                if (client->receive()) {
-                    if (client->type == PlayerMove)
-                        player->move(client->dir);
-                    else if (client->type == PlayerPutBomb)
-                        player->putBomb();
-                }
-                cerr << "update" << endl;
-                world->update();
-                player->update();
             }
         }
     }
@@ -61,7 +43,32 @@ static void game(Window &window, FormattedSocket &client)
     std::thread loop(serverLoop, &client, &window, &world, &player);
 
     while (window.isOpen()) {
-        cout << "loop" << endl;
+        if (startTurn) {
+            if (window.isKeyPressed(KEY_ESCAPE))
+                window.close();
+            else if (window.isKeyPressed(KEY_KEY_Q) || window.isKeyPressed(KEY_KEY_A))
+                client.sendPlayerMove(vector2di(-1, 0));
+            else if (window.isKeyPressed(KEY_KEY_D))
+                client.sendPlayerMove(vector2di(1, 0));
+            else if (window.isKeyPressed(KEY_KEY_Z) || window.isKeyPressed(KEY_KEY_W))
+                client.sendPlayerMove(vector2di(0, 1));
+            else if (window.isKeyPressed(KEY_KEY_S))
+                client.sendPlayerMove(vector2di(0, -1));
+            else if (window.isKeyPressed(KEY_SPACE))
+                client.sendPlayerPutBomb();
+            else
+                client.sendPlayerMove(vector2di(0, 0));
+            if (client.receive()) {
+                if (client.type == PlayerMove)
+                    player.move(client.dir);
+                else if (client.type == PlayerPutBomb)
+                    player.putBomb();
+            }
+            cerr << "update" << endl;
+            world.update();
+            player.update();
+            startTurn = false;
+        }
         window.display(video::SColor(255, 113, 113, 233));
     }
     loop.join();
