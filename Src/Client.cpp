@@ -18,20 +18,17 @@ using namespace irr;
 using namespace sf;
 
 bool startTurn = false; // tmp
+bool windowIsOpen = true;
 
-void serverLoop(FormattedSocket *client, Window *window, World *world, Player *player)
+void serverLoop(FormattedSocket *client)
 {
-    while (true) {
-        while (startTurn);
-        if (client->receive()) {
-            cerr << "receiver->type : " << client->type << endl; // tmp
-            if (client->type == StartTurn) {
-                cerr << "startTurn" << endl;
+    while (client->receive()) {
+        if (client->type == StartTurn) {
                 startTurn = true;
                 //tmp2
+                while (startTurn && windowIsOpen);
             }
         }
-    }
 }
 
 static void game(Window &window, FormattedSocket &client)
@@ -40,13 +37,13 @@ static void game(Window &window, FormattedSocket &client)
     //Window window("Bomberman", dimension2d<u32>(1920, 1080), true);
     World world(window, "TODO");
     Player player(window, "Resources/Entity/Bomberman", "Bob", world, vector3du(1, 1, 1));
-    std::thread loop(serverLoop, &client, &window, &world, &player);
+    std::thread loop(serverLoop, &client);
 
     while (window.isOpen()) {
-        if (startTurn) {
-            if (window.isKeyPressed(KEY_ESCAPE))
+        if (window.isKeyPressed(KEY_ESCAPE))
                 window.close();
-            else if (window.isKeyPressed(KEY_KEY_Q) || window.isKeyPressed(KEY_KEY_A))
+        if (startTurn) {
+            if (window.isKeyPressed(KEY_KEY_Q) || window.isKeyPressed(KEY_KEY_A))
                 client.sendPlayerMove(vector2di(-1, 0));
             else if (window.isKeyPressed(KEY_KEY_D))
                 client.sendPlayerMove(vector2di(1, 0));
@@ -64,15 +61,16 @@ static void game(Window &window, FormattedSocket &client)
                 else if (client.type == PlayerPutBomb)
                     player.putBomb();
             }
-            cerr << "update" << endl;
             world.update();
             player.update();
             startTurn = false;
         }
         window.display(video::SColor(255, 113, 113, 233));
     }
+    client.disconnect();
+    startTurn = true;
+    windowIsOpen = false;
     loop.join();
-    //
 }
 
 void client(const IpAddress &ip, const ushort &port)
