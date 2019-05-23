@@ -20,7 +20,7 @@ static void game(Window &window)
     //World world(window, worldFileName); // TODO create with socket
 }
 
-void client(char *ip, int port)
+void client(const IpAddress &ip, const ushort &port)
 {
     cerr << ip << "  " << port << endl;
     //Window window("Bomberman", dimension2d<u32>(1920, 1080), true);

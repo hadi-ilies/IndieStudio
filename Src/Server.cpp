@@ -43,7 +43,7 @@ using namespace sf;
         }
 }*/
 
-void server(const std::string &worldFileName, const size_t port, const size_t &nbPlayer)
+void server(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer)
 {
     TcpListener listener;
     TcpSocket socket;

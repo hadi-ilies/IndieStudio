@@ -8,12 +8,14 @@
 #include <iostream>
 #include <cstring> // ?
 #include <irrlicht/irrlicht.h>
+#include <SFML/Network.hpp> // ?
 #include "Window.hpp"
 #include "World.hpp"
 #include "Entity/Player.hpp"
 
 using namespace std;
 using namespace irr;
+using namespace sf;
 
 using namespace core; // tmp
 using namespace scene;
@@ -21,8 +23,10 @@ using namespace video;
 using namespace io;
 using namespace gui;
 
-void server(const std::string &worldFileName, const size_t port, const size_t &nbPlayer);
-void client(char *ip, int port);
+//typedef unsigned short ushort; // TODO move in Type.hpp
+
+void server(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer);
+void client(const IpAddress &ip, const ushort &port);
 
 bool tmp2()
 {
@@ -64,10 +68,10 @@ bool tmp2()
 int main(int argc, char **argv)
 { // TODO try catch
     srand(time(NULL));
-    if (argc == 4 && strncmp(argv[1], "server", strlen(argv[1])) == 0)
-        server("TODO", std::atoi(argv[2]), std::atoi(argv[3]));
+    if (argc == 5 && strncmp(argv[1], "server", strlen(argv[1])) == 0)
+        server(std::atoi(argv[2]), argv[3], std::atoi(argv[4]));
     else if (argc == 4 && strncmp(argv[1], "client", strlen(argv[1])) == 0)
-        client(argv[2], std::atoi(argv[3]));
+        client(IpAddress(argv[2]), std::atoi(argv[3]));
     else {
         cerr << "USE : " << argv[0] << " [server]" << endl;
         tmp2(); // tmp
