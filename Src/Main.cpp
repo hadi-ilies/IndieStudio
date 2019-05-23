@@ -66,8 +66,8 @@ int main(int argc, char **argv)
     srand(time(NULL));
     if (argc == 2 && strncmp(argv[1], "server", strlen(argv[1])) == 0)
         server("TODO", 2);
-    else if (argc == 1)
-        client(argv[1], std::atoi(argv[2]));
+    else if (argc == 3) // argc == 1 with menu TODO
+        client(argv[1], std::atoi(argv[2])); // tmp
     else {
         cerr << "USE : " << argv[0] << " [server]" << endl;
         tmp2(); // tmp
