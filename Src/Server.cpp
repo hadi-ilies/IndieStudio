@@ -53,12 +53,19 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
     cerr << "listen start" << endl;
     if (listener.accept(socket) != Socket::Done)
         throw Error("accept failed");
+    listener.close();
     cerr << "client connected" << endl;
     Sender sender(socket);
 
     //sender.sendStartTurn();
-    if (sender.sendMessage("Test"))
-        cerr << "send faild" << endl;
+    if (sender.sendMessage("My"))
+        cerr << "send failed" << endl;
+    if (sender.sendMessage("Name"))
+        cerr << "send failed" << endl;
+    if (sender.sendMessage("Is"))
+        cerr << "send failed" << endl;
+    if (sender.sendMessage("Bob"))
+        cerr << "send failed" << endl;
     cerr << "msg send" << endl;
 
 }
