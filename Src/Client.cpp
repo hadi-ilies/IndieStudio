@@ -28,6 +28,7 @@ void serverLoop(FormattedSocket *client)
             while (startTurn && client->isConnected());
         }
     }
+    throw Error ("Thread failed");
 }
 
 static void game(Window &window, FormattedSocket &client, World &world, vector<unique_ptr<Player>> &playerList)
@@ -65,12 +66,16 @@ static void game(Window &window, FormattedSocket &client, World &world, vector<u
             else if (!client.sendPlayerMove(vector2di(0, 0)))
                 throw Error("Error sendPlayerMove(0, 0)");
             for (unique_ptr<Player> &player: playerList) {
-                if (!client.receive())
-                    throw Error("Error client Receiver");
+                if (!client.receive()) {
+                    cerr << "LOL I am failing " << endl;
+                    //throw Error("Error client Receiver");
+                }
+                cerr << "YO1" << endl;
                 if (client.type == PlayerMove)
                     player->move(client.dir);
                 else if (client.type == PlayerPutBomb)
                     player->putBomb();
+                cerr << "YO2" << endl;
                 player->update();
             }
             world.update();
