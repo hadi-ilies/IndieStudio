@@ -84,11 +84,11 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
         for (unique_ptr<FormattedSocket> &socket : socketList)
             for (unique_ptr<FormattedSocket> &socket2 : socketList)
                 if (socket2->type == PlayerMove) {
-                    if (socket->sendPlayerMove(socket2->dir)) // tmp
+                    if (!socket->sendPlayerMove(socket2->dir)) // tmp
                         throw Error("send failed");
                 }
                 else if (socket2->type == PlayerPutBomb) {
-                    if (socket->sendPlayerPutBomb()) // tmp
+                    if (!socket->sendPlayerPutBomb()) // tmp
                         throw Error("send failed");
                 }
                 else
