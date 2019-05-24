@@ -23,12 +23,13 @@ bool startTurn = false; // tmp
 void serverLoop(FormattedSocket *client)
 {
     while (client->receive()) {
-        if (client->type == StartTurn) {
-            startTurn = true;
-            while (startTurn && client->isConnected());
-        }
+        if (client->type != StartTurn)
+            throw Error("Thread failed 1");
+        startTurn = true;
+        while (startTurn && client->isConnected());
     }
-    throw Error ("Thread failed");
+    if (client->isConnected())
+        throw Error("Thread failed");
 }
 
 static void game(Window &window, FormattedSocket &client, World &world, vector<unique_ptr<Player>> &playerList)
