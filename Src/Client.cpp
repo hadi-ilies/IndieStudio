@@ -33,12 +33,18 @@ void serverLoop(FormattedSocket *client)
         throw Error("Thread failed");
 }
 
+static bool turnhasfinished(vector<unique_ptr<Player>> &playerList)
+{
+    bool check = true;
+
+    for (unique_ptr<Player> &player: playerList)
+        if (!player->animHasFinished())
+            check = false;
+    return check;
+}
+
 static void game(Window &window, FormattedSocket &client, World &world, vector<unique_ptr<Player>> &playerList)
 {
-    //World world(window, worldFileName); // TODO create with socket
-    //Window window("Bomberman", dimension2d<u32>(1920, 1080), true);
-    //World world(window, "TODO");
-    //Player player(window, "Resources/Entity/Bomberman", "Bob", world, vector3du(1, 1, 1));
     thread loop(serverLoop, &client);
 
     while (window.isOpen() && client.isConnected()) {
@@ -68,10 +74,8 @@ static void game(Window &window, FormattedSocket &client, World &world, vector<u
             else if (!client.sendPlayerMove(vector2di(0, 0)))
                 throw Error("Error sendPlayerMove(0, 0)");
             for (unique_ptr<Player> &player: playerList) {
-                if (!client.receive()) {
-                    cerr << "LOL I am failing " << endl;
-                    //throw Error("Error client Receiver");
-                }
+                if (!client.receive())
+                    throw Error("Error client Receiver");
                 cerr << "YO1" << endl;
                 if (client.type == PlayerMove)
                     player->move(client.dir);
@@ -84,13 +88,8 @@ static void game(Window &window, FormattedSocket &client, World &world, vector<u
             startTurn = false;
             endTurn = true;
         }
-        // todo put in func and throw
         if (endTurn) {
-            bool lol = true;
-            for (unique_ptr<Player> &player: playerList)
-                if (!player->animHasFinished())
-                    lol = false;
-            if (lol) {
+            if (turnhasfinished(playerList)) {
                 client.sendEndTurn();
                 endTurn = false;
             }
@@ -99,7 +98,6 @@ static void game(Window &window, FormattedSocket &client, World &world, vector<u
     }
     client.disconnect();
     startTurn = true;
-    //windowIsOpen = false;
     loop.join();
 }
 
@@ -112,19 +110,20 @@ void client(const IpAddress &ip, const ushort &port)
     size_t nbPlayers = 1;
 
     if (!client.receive())
-        throw Error("TODO");
+        throw Error("receive error 1");
     if (client.type != Message)
-        throw Error("TODO");
+        throw Error("message error");
     cout << client.message << endl;
     World world(window, client.message);
     if (!client.receive())
-        throw Error("TODO");
+        throw Error("receive error 2");
     if (client.type != DataType::Uint32)
-        throw Error("TODO");
+        throw Error("uint 32 error");
     nbPlayers = client.num;
     vector <unique_ptr<Player>> playerList;
     for (size_t i = 0; i < nbPlayers; i++)
         playerList.push_back(unique_ptr<Player>(new Player(window, "Resources/Entity/Bomberman", "Bob", world, vector3du(1, 1, 1))));
+    //playerList.front()->changeTexture("Dark"); // tmp in menu
     game(window, client, world, playerList);
     //structure enum type data
     // union
