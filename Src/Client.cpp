@@ -45,21 +45,25 @@ static void game(Window &window, FormattedSocket &client, World &world, vector<u
             if (window.isKeyPressed(KEY_KEY_Q) || window.isKeyPressed(KEY_KEY_A)) {
                 if (!client.sendPlayerMove(vector2di(-1, 0)))
                     throw Error("Error SendPlayer(-1, 0)");
-            } else if (window.isKeyPressed(KEY_KEY_D)) {
+            }
+            else if (window.isKeyPressed(KEY_KEY_D)) {
                 if (!client.sendPlayerMove(vector2di(1, 0)))
                     throw Error("Error SendPlayer(1, 0)");
-            } else if (window.isKeyPressed(KEY_KEY_Z) || window.isKeyPressed(KEY_KEY_W)) {
+            }
+            else if (window.isKeyPressed(KEY_KEY_Z) || window.isKeyPressed(KEY_KEY_W)) {
                 if (!client.sendPlayerMove(vector2di(0, 1)))
                     throw Error("Error SendPlayer(0, 1)");
-            } else if (window.isKeyPressed(KEY_KEY_S)) {
+            }
+            else if (window.isKeyPressed(KEY_KEY_S)) {
                 if (!client.sendPlayerMove(vector2di(0, -1)))
                     throw Error("Error SendPlayer(0, -1)");
-            } else if (window.isKeyPressed(KEY_SPACE)) {
+            }
+            else if (window.isKeyPressed(KEY_SPACE)) {
                 if (!client.sendPlayerPutBomb())
                     throw Error("Error SendPlayerBomb");
-            } else
-                if (!client.sendPlayerMove(vector2di(0, 0)))
-                    throw Error("Error sendPlayerMove(0, 0)");
+            }
+            else if (!client.sendPlayerMove(vector2di(0, 0)))
+                throw Error("Error sendPlayerMove(0, 0)");
             for (unique_ptr<Player> &player: playerList) {
                 if (!client.receive())
                     throw Error("Error client Receiver");
@@ -88,20 +92,21 @@ void client(const IpAddress &ip, const ushort &port)
     Window window("Bomberman", dimension2d<u32>(1920 / 2, 1080 / 2), false);
     size_t nbPlayers = 1;
 
-    if (client.receive()) {
-        if (client.type == Message) {
-            cout << client.message << endl;
-                World world(window, client.message);
-                if (client.receive()) {
-                    if (client.type == DataType::Uint32)
-                        nbPlayers = client.num;
-                    vector <unique_ptr<Player>> playerList;
-                    for (size_t i = 0; i < nbPlayers; i++)
-                        playerList.push_back(unique_ptr<Player> (new Player(window, "Resources/Entity/Bomberman", "Bob", world, vector3du(1, 1, 1))));
-                    game(window, client, world, playerList);
-                }
-        }
-    }
+    if (!client.receive())
+        throw Error("TODO");
+    if (client.type != Message)
+        throw Error("TODO");
+    cout << client.message << endl;
+    World world(window, client.message);
+    if (!client.receive())
+        throw Error("TODO");
+    if (client.type != DataType::Uint32)
+        throw Error("TODO");
+    nbPlayers = client.num;
+    vector <unique_ptr<Player>> playerList;
+    for (size_t i = 0; i < nbPlayers; i++)
+        playerList.push_back(unique_ptr<Player>(new Player(window, "Resources/Entity/Bomberman", "Bob", world, vector3du(1, 1, 1))));
+    game(window, client, world, playerList);
     //structure enum type data
     // union
 }

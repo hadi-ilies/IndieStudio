@@ -18,6 +18,7 @@ using namespace sf;
 enum DataType
 {
     StartTurn,
+    EndTurn,
     Message,
     Uint32,
     PlayerMove,
@@ -37,6 +38,7 @@ public:
     void disconnect();
     bool isConnected() const;
     bool sendStartTurn();
+    bool sendEndTurn();
     bool sendMessage(const std::string &message);
     bool sendUint32(const sf::Uint32 &nb);
     bool sendPlayerMove(const vector2di &dir);

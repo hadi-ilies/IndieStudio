@@ -62,6 +62,14 @@ bool FormattedSocket::sendStartTurn()
     return sendPacket(packet);
 }
 
+bool FormattedSocket::sendEndTurn()
+{
+    Packet packet;
+
+    packet << EndTurn;
+    return sendPacket(packet);
+}
+
 bool FormattedSocket::sendMessage(const std::string &message)
 {
     Packet packet;
