@@ -42,26 +42,32 @@ static void game(Window &window, FormattedSocket &client, World &world, vector<u
         if (window.isKeyPressed(KEY_ESCAPE))
             window.close();
         if (startTurn) {
-            if (window.isKeyPressed(KEY_KEY_Q) || window.isKeyPressed(KEY_KEY_A))
-                client.sendPlayerMove(vector2di(-1, 0));
-            else if (window.isKeyPressed(KEY_KEY_D))
-                client.sendPlayerMove(vector2di(1, 0));
-            else if (window.isKeyPressed(KEY_KEY_Z) || window.isKeyPressed(KEY_KEY_W))
-                client.sendPlayerMove(vector2di(0, 1));
-            else if (window.isKeyPressed(KEY_KEY_S))
-                client.sendPlayerMove(vector2di(0, -1));
-            else if (window.isKeyPressed(KEY_SPACE))
-                client.sendPlayerPutBomb();
-            else
-                client.sendPlayerMove(vector2di(0, 0));
+            if (window.isKeyPressed(KEY_KEY_Q) || window.isKeyPressed(KEY_KEY_A)) {
+                if (!client.sendPlayerMove(vector2di(-1, 0)))
+                    throw Error("Error SendPlayer(-1, 0)");
+            } else if (window.isKeyPressed(KEY_KEY_D)) {
+                if (!client.sendPlayerMove(vector2di(1, 0)))
+                    throw Error("Error SendPlayer(1, 0)");
+            } else if (window.isKeyPressed(KEY_KEY_Z) || window.isKeyPressed(KEY_KEY_W)) {
+                if (!client.sendPlayerMove(vector2di(0, 1)))
+                    throw Error("Error SendPlayer(0, 1)");
+            } else if (window.isKeyPressed(KEY_KEY_S)) {
+                if (!client.sendPlayerMove(vector2di(0, -1)))
+                    throw Error("Error SendPlayer(0, -1)");
+            } else if (window.isKeyPressed(KEY_SPACE)) {
+                if (!client.sendPlayerPutBomb())
+                    throw Error("Error SendPlayerBomb");
+            } else
+                if (!client.sendPlayerMove(vector2di(0, 0)))
+                    throw Error("Error sendPlayerMove(0, 0)");
             for (unique_ptr<Player> &player: playerList) {
-                if (client.receive()) {
-                    if (client.type == PlayerMove)
-                        player->move(client.dir);
-                    else if (client.type == PlayerPutBomb)
-                        player->putBomb();
-                    player->update();
-                }
+                if (!client.receive())
+                    throw Error("Error client Receiver");
+                if (client.type == PlayerMove)
+                    player->move(client.dir);
+                else if (client.type == PlayerPutBomb)
+                    player->putBomb();
+                player->update();
             }
             world.update();
             startTurn = false;
