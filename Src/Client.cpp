@@ -82,6 +82,12 @@ static void game(Window &window, FormattedSocket &client, World &world, vector<u
             world.update();
             startTurn = false;
         }
+        bool lol = true;
+        for (unique_ptr<Player> &player: playerList)
+            if (!player->animHasFinished())
+                lol = false;
+        if (lol)
+            client.sendEndTurn();
         window.display(video::SColor(255, 113, 113, 233));
     }
     client.disconnect();
