@@ -19,6 +19,7 @@ using namespace irr;
 using namespace sf;
 
 bool startTurn = false; // tmp
+bool endTurn = false;
 
 void serverLoop(FormattedSocket *client)
 {
@@ -81,13 +82,19 @@ static void game(Window &window, FormattedSocket &client, World &world, vector<u
             }
             world.update();
             startTurn = false;
+            endTurn = true;
         }
-        bool lol = true;
-        for (unique_ptr<Player> &player: playerList)
-            if (!player->animHasFinished())
-                lol = false;
-        if (lol)
-            client.sendEndTurn();
+        // todo put in func and throw
+        if (endTurn) {
+            bool lol = true;
+            for (unique_ptr<Player> &player: playerList)
+                if (!player->animHasFinished())
+                    lol = false;
+            if (lol) {
+                client.sendEndTurn();
+                endTurn = false;
+            }
+        }
         window.display(video::SColor(255, 113, 113, 233));
     }
     client.disconnect();
