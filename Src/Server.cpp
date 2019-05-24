@@ -73,7 +73,6 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
           }*/
     }
 
-
     // loop
     while (!socketList.empty()) {
         for (unique_ptr<FormattedSocket> &socket : socketList)
@@ -82,27 +81,18 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
         for (unique_ptr<FormattedSocket> &socket : socketList)
             if (!socket->receive())
                 throw Error("receiver failed");
-        for (unique_ptr<FormattedSocket> &socket : socketList) {
-            /*if (socket->type == PlayerMove) {
-              socket->sendPlayerMove(socket->dir); // tmp
-              }
-              else if (socket->type == PlayerPutBomb) {
-              socket->sendPlayerPutBomb(); // tmp
-              }
-              else
-              throw Error("bad type");*/
+        for (unique_ptr<FormattedSocket> &socket : socketList)
             for (unique_ptr<FormattedSocket> &socket2 : socketList)
-                //if (socket != socket2) {
                 if (socket2->type == PlayerMove) {
-                    socket->sendPlayerMove(socket2->dir); // tmp
+                    if (socket->sendPlayerMove(socket2->dir)) // tmp
+                        throw Error("send failed");
                 }
                 else if (socket2->type == PlayerPutBomb) {
-                    socket->sendPlayerPutBomb(); // tmp
+                    if (socket->sendPlayerPutBomb()) // tmp
+                        throw Error("send failed");
                 }
                 else
                     throw Error("bad type");
-            //}
-        }
         // TODO
     }
     cerr << "stop server" << endl;
