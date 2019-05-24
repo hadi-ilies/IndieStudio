@@ -67,10 +67,10 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
     for (unique_ptr<FormattedSocket> &socket : socketList) {
         socket->sendMessage(worldFileName); // tmp TODO send World
         socket->sendUint32(socketList.size());
-        for (unique_ptr<FormattedSocket> &socket : socketList) {
+        /*for (unique_ptr<FormattedSocket> &socket : socketList) {
             socket->sendMessage("Resources/Entity/Bomberman"); // tmp TODO send player
             // TODO
-        }
+            }*/
     }
 
 
@@ -82,16 +82,28 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
         for (unique_ptr<FormattedSocket> &socket : socketList)
             if (!socket->receive())
                 throw Error("receiver failed");
-        for (unique_ptr<FormattedSocket> &socket : socketList)
-            if (socket->type == PlayerMove) {
-                socket->sendPlayerMove(socket->dir); // tmp
-            }
-            else if (socket->type == PlayerPutBomb) {
-                socket->sendPlayerPutBomb(); // tmp
-            }
-            else
-                throw Error("bad type");
-        // TODO
+        for (unique_ptr<FormattedSocket> &socket : socketList) {
+            /*if (socket->type == PlayerMove) {
+              socket->sendPlayerMove(socket->dir); // tmp
+              }
+              else if (socket->type == PlayerPutBomb) {
+              socket->sendPlayerPutBomb(); // tmp
+              }
+              else
+              throw Error("bad type");*/
+            for (unique_ptr<FormattedSocket> &socket2 : socketList)
+                //if (socket != socket2) {
+                if (socket2->type == PlayerMove) {
+                    socket->sendPlayerMove(socket2->dir); // tmp
+                }
+                else if (socket2->type == PlayerPutBomb) {
+                    socket->sendPlayerPutBomb(); // tmp
+                }
+                else
+                    throw Error("bad type");
+        }
     }
-    cerr << "stop server" << endl;
+    // TODO
+}
+cerr << "stop server" << endl;
 }
