@@ -53,8 +53,6 @@ bool Entity::changeModel(const std::string &model)
 
 bool Entity::changeTexture(const std::string &texture)
 {
-    if (texture == textureUse)
-        return false;
     if (textureMap.find(texture) == textureMap.end())
         return false;
     mesh->setMaterialFlag(EMF_LIGHTING, false);
