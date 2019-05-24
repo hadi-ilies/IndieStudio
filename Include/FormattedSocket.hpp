@@ -19,6 +19,7 @@ enum DataType
 {
     StartTurn,
     Message,
+    Uint32,
     PlayerMove,
     PlayerPutBomb,
 };
@@ -37,6 +38,7 @@ public:
     bool isConnected() const;
     bool sendStartTurn();
     bool sendMessage(const std::string &message);
+    bool sendUint32(const sf::Uint32 &nb);
     bool sendPlayerMove(const vector2di &dir);
     bool sendPlayerPutBomb();
     //bool sendWorld(const World &world);
@@ -51,6 +53,7 @@ public:
     DataType type;
     // union // ???
     std::string message;
+    sf::Uint32 num;
     vector2di dir;
 
 private:

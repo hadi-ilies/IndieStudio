@@ -71,6 +71,15 @@ bool FormattedSocket::sendMessage(const std::string &message)
     return sendPacket(packet);
 }
 
+bool FormattedSocket::sendUint32(const sf::Uint32 &nb)
+{
+    Packet packet;
+
+    packet << DataType::Uint32;
+    packet << nb;
+    return sendPacket(packet);
+}
+
 bool FormattedSocket::sendPlayerMove(const vector2di &dir)
 {
     Packet packet;
@@ -99,6 +108,10 @@ bool FormattedSocket::receive()
         return false;
     if (type == Message) {
         if (!(packet >> message))
+            return false;
+    }
+    else if (type == DataType::Uint32) {
+        if (!(packet >> num))
             return false;
     }
     else if (type == PlayerMove) {
@@ -134,7 +147,7 @@ bool FormattedSocket::receivePacket(Packet &packet)
 
 Packet &operator>>(Packet &packet, DataType &dataType)
 {
-    Uint32 tmp;
+    sf::Uint32 tmp;
 
     packet >> tmp;
     dataType = (DataType)tmp;
