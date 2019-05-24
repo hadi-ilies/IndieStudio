@@ -32,6 +32,7 @@ protected:
     vector3du pos;
 
 private:
+    std::string modelUse;
     std::string textureUse;
     std::map<std::string, IAnimatedMesh*> modelMap;
     std::map<std::string, ITexture*> textureMap;
