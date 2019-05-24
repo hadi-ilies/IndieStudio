@@ -20,6 +20,7 @@ using namespace sf;
 
 bool startTurn = false; // tmp
 bool endTurn = false;
+enum Command {UP, DOWN, LEFT, RIGHT, DROPBOMB};
 
 void serverLoop(FormattedSocket *client)
 {
@@ -43,51 +44,73 @@ static bool turnhasfinished(vector<unique_ptr<Player>> &playerList)
     return check;
 }
 
+static Command getKey(Window &window)
+{
+    Command key;
+    if (window.isKeyPressed(KEY_SPACE))
+        key = DROPBOMB;
+    else if (window.isKeyPressed(KEY_KEY_Q) || window.isKeyPressed(KEY_KEY_A))
+        key = LEFT;
+    else if (window.isKeyPressed(KEY_KEY_D))
+        key = RIGHT;
+    else if (window.isKeyPressed(KEY_KEY_Z) || window.isKeyPressed(KEY_KEY_W))
+        key = UP;
+    else if (window.isKeyPressed(KEY_KEY_S))
+        key = DOWN;
+    return key;
+}
+
+static void Commands(Command &key, FormattedSocket &client, World &world, vector<unique_ptr<Player>> &playerList)
+{
+    if (key == DROPBOMB) {
+        if (!client.sendPlayerPutBomb())
+            throw Error("Error SendPlayerBomb");
+        }
+        else if (key == LEFT) {
+            if (!client.sendPlayerMove(vector2di(-1, 0)))
+                throw Error("Error SendPlayer(-1, 0)");
+        }
+        else if (key == RIGHT) {
+            if (!client.sendPlayerMove(vector2di(1, 0)))
+                throw Error("Error SendPlayer(1, 0)");
+        }
+        else if (key == UP) {
+            if (!client.sendPlayerMove(vector2di(0, 1)))
+                throw Error("Error SendPlayer(0, 1)");
+        }
+        else if (key == DOWN) {
+            if (!client.sendPlayerMove(vector2di(0, -1)))
+                throw Error("Error SendPlayer(0, -1)");
+        }
+        else if (!client.sendPlayerMove(vector2di(0, 0)))
+            throw Error("Error sendPlayerMove(0, 0)");
+        for (unique_ptr<Player> &player: playerList) {
+            if (!client.receive())
+                throw Error("Error client Receiver");
+            cerr << "YO1" << endl;
+            if (client.type == PlayerMove)
+                player->move(client.dir);
+            else if (client.type == PlayerPutBomb)
+                player->putBomb();
+            cerr << "YO2" << endl;
+            player->update();
+        }
+        world.update();
+        startTurn = false;
+        endTurn = true;
+}
+
 static void game(Window &window, FormattedSocket &client, World &world, vector<unique_ptr<Player>> &playerList)
 {
     thread loop(serverLoop, &client);
+    Command key;
 
     while (window.isOpen() && client.isConnected()) {
         if (window.isKeyPressed(KEY_ESCAPE))
             window.close();
-        if (startTurn) {
-            if (window.isKeyPressed(KEY_KEY_Q) || window.isKeyPressed(KEY_KEY_A)) {
-                if (!client.sendPlayerMove(vector2di(-1, 0)))
-                    throw Error("Error SendPlayer(-1, 0)");
-            }
-            else if (window.isKeyPressed(KEY_KEY_D)) {
-                if (!client.sendPlayerMove(vector2di(1, 0)))
-                    throw Error("Error SendPlayer(1, 0)");
-            }
-            else if (window.isKeyPressed(KEY_KEY_Z) || window.isKeyPressed(KEY_KEY_W)) {
-                if (!client.sendPlayerMove(vector2di(0, 1)))
-                    throw Error("Error SendPlayer(0, 1)");
-            }
-            else if (window.isKeyPressed(KEY_KEY_S)) {
-                if (!client.sendPlayerMove(vector2di(0, -1)))
-                    throw Error("Error SendPlayer(0, -1)");
-            }
-            else if (window.isKeyPressed(KEY_SPACE)) {
-                if (!client.sendPlayerPutBomb())
-                    throw Error("Error SendPlayerBomb");
-            }
-            else if (!client.sendPlayerMove(vector2di(0, 0)))
-                throw Error("Error sendPlayerMove(0, 0)");
-            for (unique_ptr<Player> &player: playerList) {
-                if (!client.receive())
-                    throw Error("Error client Receiver");
-                cerr << "YO1" << endl;
-                if (client.type == PlayerMove)
-                    player->move(client.dir);
-                else if (client.type == PlayerPutBomb)
-                    player->putBomb();
-                cerr << "YO2" << endl;
-                player->update();
-            }
-            world.update();
-            startTurn = false;
-            endTurn = true;
-        }
+        key = getKey(window);
+        if (startTurn)
+            Commands(key, client, world, playerList);
         if (endTurn) {
             if (turnhasfinished(playerList)) {
                 client.sendEndTurn();
