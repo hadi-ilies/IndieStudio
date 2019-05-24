@@ -63,15 +63,15 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
     listener.close();
     cerr << "clients connected" << endl;
 
-    /*// init
+    // init
     for (unique_ptr<FormattedSocket> &socket : socketList) {
         socket->sendMessage(worldFileName); // tmp TODO send World
         socket->sendUint32(socketList.size());
         /*for (unique_ptr<FormattedSocket> &socket : socketList) {
             socket->sendMessage("Resources/Entity/Bomberman"); // tmp TODO send player
             // TODO
-        }
-    }*/
+            }*/
+    }
 
 
     // loop
