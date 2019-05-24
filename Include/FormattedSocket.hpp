@@ -32,6 +32,7 @@ public:
     IpAddress getRemoteAddress() const;
     ushort getRemotePort() const;
     bool connect(const IpAddress &remoteAddress, ushort remotePort, Time timeout=Time::Zero);
+    bool accept(TcpListener &listener); // connect for server
     void disconnect();
     bool isConnected() const;
     bool sendStartTurn();
@@ -42,13 +43,17 @@ public:
     //bool sendPlayer(const Player &player);
     bool receive();
 
+private:
+    bool sendPacket(Packet &packet);
+    bool receivePacket(Packet &packet);
+
 public:
     DataType type;
     // union // ???
     std::string message;
     vector2di dir;
 
-//private: // tmp
+private:
     bool connected; // TODO set to false if Status == Socket::Disconnected or Socket::Error
     TcpSocket socket;
 };

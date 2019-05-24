@@ -47,35 +47,39 @@ using namespace sf;
 void server(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer)
 {
     TcpListener listener;
-    //std::list<FormattedSocket> socketList;
-    FormattedSocket socket;
+    std::list<unique_ptr<FormattedSocket>> socketList;
 
+    cerr << "start server" << endl;
     if (listener.listen(port) != Socket::Done)
         throw Error("listen failed");
-    cerr << "listen start" << endl;
-    /*for (size_t i = 0; i < nbPlayer; i++) {
-      TcpSocket socket;*/
+    for (size_t i = 0; i < nbPlayer; i++) {
+        unique_ptr<FormattedSocket> socket = unique_ptr<FormattedSocket>(new FormattedSocket);
 
-        if (listener.accept(socket.socket) != Socket::Done)
+        if (!socket->accept(listener))
             throw Error("accept failed");
-        //socketList.push_back(socket);
-        //}
+        cerr << "new client" << endl;
+        socketList.push_back(move(socket));
+    }
     listener.close();
-    cerr << "client connected" << endl;
+    cerr << "clients connected" << endl;
 
-    while (true) {
-        if (!socket.sendStartTurn())
-            throw Error("send failed");
-        if (!socket.receive())
-            throw Error("receiver failed");
-        if (socket.type == PlayerMove) {
-            socket.sendPlayerMove(socket.dir); // tmp
-        }
-        else if (socket.type == PlayerPutBomb) {
-            socket.sendPlayerPutBomb(); // tmp
-        }
-        else
-            throw Error("bad type");
+    while (!socketList.empty()) {
+        for (unique_ptr<FormattedSocket> &socket : socketList)
+            if (!socket->sendStartTurn())
+                throw Error("send failed");
+        for (unique_ptr<FormattedSocket> &socket : socketList)
+            if (!socket->receive())
+                throw Error("receiver failed");
+        for (unique_ptr<FormattedSocket> &socket : socketList)
+            if (socket->type == PlayerMove) {
+                socket->sendPlayerMove(socket->dir); // tmp
+            }
+            else if (socket->type == PlayerPutBomb) {
+                socket->sendPlayerPutBomb(); // tmp
+            }
+            else
+                throw Error("bad type");
         // TODO
     }
+    cerr << "stop server" << endl;
 }

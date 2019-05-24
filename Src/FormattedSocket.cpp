@@ -37,6 +37,12 @@ bool FormattedSocket::connect(const IpAddress &remoteAddress, ushort remotePort,
     return connected;
 }
 
+bool FormattedSocket::accept(TcpListener &listener)
+{
+    connected = listener.accept(socket) == Socket::Done;
+    return connected;
+}
+
 void FormattedSocket::disconnect()
 {
     socket.disconnect();
@@ -53,7 +59,7 @@ bool FormattedSocket::sendStartTurn()
     Packet packet;
 
     packet << StartTurn;
-    return socket.send(packet) == Socket::Done;
+    return sendPacket(packet);
 }
 
 bool FormattedSocket::sendMessage(const std::string &message)
@@ -62,7 +68,7 @@ bool FormattedSocket::sendMessage(const std::string &message)
 
     packet << Message;
     packet << message;
-    return socket.send(packet) == Socket::Done;
+    return sendPacket(packet);
 }
 
 bool FormattedSocket::sendPlayerMove(const vector2di &dir)
@@ -72,7 +78,7 @@ bool FormattedSocket::sendPlayerMove(const vector2di &dir)
     packet << PlayerMove;
     packet << dir.X;
     packet << dir.Y;
-    return socket.send(packet) == Socket::Done;
+    return sendPacket(packet);
 }
 
 bool FormattedSocket::sendPlayerPutBomb()
@@ -80,14 +86,14 @@ bool FormattedSocket::sendPlayerPutBomb()
     Packet packet;
 
     packet << PlayerPutBomb;
-    return socket.send(packet) == Socket::Done;
+    return sendPacket(packet);
 }
 
 bool FormattedSocket::receive()
 {
     Packet packet;
 
-    if (socket.receive(packet) != Socket::Done)
+    if (!receivePacket(packet))
         return false;
     if (!(packet >> type))
         return false;
@@ -106,6 +112,24 @@ bool FormattedSocket::receive()
     }
     //else if (type == ...) // TODO
     return true;
+}
+
+bool FormattedSocket::sendPacket(Packet &packet)
+{
+    const Socket::Status status = socket.send(packet);
+
+    if (status == Socket::Disconnected)
+        connected = false;
+    return status == Socket::Done;
+}
+
+bool FormattedSocket::receivePacket(Packet &packet)
+{
+    const Socket::Status status = socket.receive(packet);
+
+    if (status == Socket::Disconnected)
+        connected = false;
+    return status == Socket::Done;
 }
 
 Packet &operator>>(Packet &packet, DataType &dataType)

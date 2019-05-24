@@ -23,11 +23,11 @@ void serverLoop(FormattedSocket *client)
 {
     while (client->receive()) {
         if (client->type == StartTurn) {
-                startTurn = true;
-                //tmp2
-                while (startTurn && client->isConnected());
-            }
+            startTurn = true;
+            //tmp2
+            while (startTurn && client->isConnected());
         }
+    }
 }
 
 static void game(Window &window, FormattedSocket &client)
@@ -36,11 +36,11 @@ static void game(Window &window, FormattedSocket &client)
     //Window window("Bomberman", dimension2d<u32>(1920, 1080), true);
     World world(window, "TODO");
     Player player(window, "Resources/Entity/Bomberman", "Bob", world, vector3du(1, 1, 1));
-    std::thread loop(serverLoop, &client);
+    thread loop(serverLoop, &client);
 
-    while (window.isOpen()) {
+    while (window.isOpen() && client.isConnected()) {
         if (window.isKeyPressed(KEY_ESCAPE))
-                window.close();
+            window.close();
         if (startTurn) {
             if (window.isKeyPressed(KEY_KEY_Q) || window.isKeyPressed(KEY_KEY_A))
                 client.sendPlayerMove(vector2di(-1, 0));
