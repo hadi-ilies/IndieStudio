@@ -75,12 +75,17 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
 
     // loop
     while (!socketList.empty()) {
+        cerr << "start turn : ";
         for (unique_ptr<FormattedSocket> &socket : socketList)
             if (!socket->sendStartTurn())
                 throw Error("send failed");
+        cerr << "OK" << endl;
+        cerr << "receive action : ";
         for (unique_ptr<FormattedSocket> &socket : socketList)
             if (!socket->receive())
                 throw Error("receiver failed");
+        cerr << "OK" << endl;
+        cerr << "transmit action : ";
         for (unique_ptr<FormattedSocket> &socket : socketList)
             for (unique_ptr<FormattedSocket> &socket2 : socketList)
                 if (socket2->type == PlayerMove) {
@@ -93,12 +98,15 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
                 }
                 else
                     throw Error("bad type");
+        cerr << "OK" << endl;
+        cerr << "end turn : ";
         for (unique_ptr<FormattedSocket> &socket : socketList) {
             if (!socket->receive())
                 throw Error("receiver failed");
             if (socket->type != EndTurn)
                 throw Error("bad type");
         }
+        cerr << "OK" << endl;
     }
     cerr << "stop server" << endl;
 }
