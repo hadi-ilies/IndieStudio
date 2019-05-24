@@ -97,14 +97,6 @@ bool Window::isKeyPressed(const irr::EKEY_CODE &keyCode) const
     return receiver.IsKeyDown(keyCode);
 }
 
-IVideoDriver *Window::getDriver() const {
-    return driver;
-}
-
-IGUIEnvironment *Window::getGuienv() const {
-    return guienv;
-}
-
 void Window::displayFPS() {
     wchar_t text[255];
     const s32 currentFPS = this->driver->getFPS();

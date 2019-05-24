@@ -28,8 +28,6 @@ public:
     ~Window();
     void close();
     bool isOpen();
-    IVideoDriver *getDriver() const;
-    IGUIEnvironment *getGuienv() const;
     void display(const SColor &color);
     IAnimatedMesh *getModel(const std::string &fileName);
     ITexture *getTexture(const std::string &fileName);
