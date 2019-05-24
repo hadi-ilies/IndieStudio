@@ -68,9 +68,9 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
         socket->sendMessage(worldFileName); // tmp TODO send World
         socket->sendUint32(socketList.size());
         /*for (unique_ptr<FormattedSocket> &socket : socketList) {
-            socket->sendMessage("Resources/Entity/Bomberman"); // tmp TODO send player
-            // TODO
-            }*/
+          socket->sendMessage("Resources/Entity/Bomberman"); // tmp TODO send player
+          // TODO
+          }*/
     }
 
 
@@ -101,9 +101,9 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
                 }
                 else
                     throw Error("bad type");
+            //}
         }
+        // TODO
     }
-    // TODO
-}
-cerr << "stop server" << endl;
+    cerr << "stop server" << endl;
 }
