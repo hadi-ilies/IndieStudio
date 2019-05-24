@@ -16,6 +16,11 @@ Character::~Character()
 {
 }
 
+bool Character::animHasFinished() const
+{
+    return !anim || anim->hasFinished();
+}
+
 bool Character::move(const vector2di &dir)
 {
     vector3du newPos(pos.X + dir.X, pos.Y, pos.Z + dir.Y); // vct2.Y is the vec3.Z
@@ -29,9 +34,11 @@ bool Character::move(const vector2di &dir)
     const vector3df destPos (newPos.X, newPos.Y, newPos.Z);
     const u32 timestamp = 500;
 
-    if (dir.Y == 0 && dir.X == 0)
+    if (dir.Y == 0 && dir.X == 0) {
         changeModel("Idle");
-    else if (!anim || anim->hasFinished()) {
+        return true;
+    }
+    else if (!anim || anim->hasFinished()) { // TODO use animHasFinished
         changeModel("Walk");
         anim = window.createTranslation(initPos, destPos, timestamp);
         if (anim) {
@@ -51,6 +58,7 @@ bool Character::move(const vector2di &dir)
         else if (dir.X == 0 && dir.Y == 1)
             rotation.Y = 90;
         mesh->setRotation(rotation);
+        return true;
     }
-    return true;
+    return false;
 }

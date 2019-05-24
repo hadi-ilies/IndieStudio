@@ -93,12 +93,12 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
                 }
                 else
                     throw Error("bad type");
-        /*for (unique_ptr<FormattedSocket> &socket : socketList) {
+        for (unique_ptr<FormattedSocket> &socket : socketList) {
             if (!socket->receive())
                 throw Error("receiver failed");
             if (socket->type != EndTurn)
                 throw Error("bad type");
-                }*/
+        }
     }
     cerr << "stop server" << endl;
 }
