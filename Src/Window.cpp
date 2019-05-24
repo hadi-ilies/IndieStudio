@@ -97,7 +97,8 @@ bool Window::isKeyPressed(const irr::EKEY_CODE &keyCode) const
     return receiver.IsKeyDown(keyCode);
 }
 
-void Window::displayFPS() {
+void Window::displayFPS()
+{
     wchar_t text[255];
     const s32 currentFPS = this->driver->getFPS();
 
