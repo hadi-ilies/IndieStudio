@@ -28,6 +28,8 @@ public:
     ~Window();
     void close();
     bool isOpen();
+    IVideoDriver *getDriver() const;
+    IGUIEnvironment *getGuienv() const;
     void display(const SColor &color);
     IAnimatedMesh *getModel(const std::string &fileName);
     ITexture *getTexture(const std::string &fileName);
@@ -35,13 +37,14 @@ public:
     IAnimatedMeshSceneNode *addAnimatedMesh(const std::string &model, const std::string &texture);
     ISceneNodeAnimator *createTranslation(const vector3df &initPos, const vector3df &destPos, const u32 &timestamp);
     bool isKeyPressed(const irr::EKEY_CODE &keyCode) const;
-
+    void displayFPS();
 private:
     EventReceiver receiver;
     IrrlichtDevice *device;
     IVideoDriver *driver;
     ISceneManager *smgr;
     IGUIEnvironment *guienv;
+    s32 lastfps;
 };
 
 #endif

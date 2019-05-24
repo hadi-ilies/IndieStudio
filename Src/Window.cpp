@@ -22,6 +22,7 @@ Window::Window(const std::string &windowName, dimension2d<u32> size, const bool 
 
     smgr->addCameraSceneNodeFPS(0, 100, 0.05); // tmp
     device->getCursorControl()->setVisible(false); // tmp
+    this->lastfps = 0;
 }
 
 Window::~Window()
@@ -44,7 +45,7 @@ void Window::display(const SColor &color)
 {
     driver->beginScene(true, true, color);
     smgr->drawAll();
-    //device->getGUIEnvironment()->drawAll();
+    guienv->drawAll();
     driver->endScene();
 }
 
@@ -94,4 +95,26 @@ ISceneNodeAnimator *Window::createTranslation(const vector3df &initPos, const ve
 bool Window::isKeyPressed(const irr::EKEY_CODE &keyCode) const
 {
     return receiver.IsKeyDown(keyCode);
+}
+
+IVideoDriver *Window::getDriver() const {
+    return driver;
+}
+
+IGUIEnvironment *Window::getGuienv() const {
+    return guienv;
+}
+
+void Window::displayFPS() {
+    wchar_t text[255];
+    const s32 currentFPS = this->driver->getFPS();
+
+    swprintf(text, 255, L"FPS: %3d", this->driver->getFPS());
+    if (currentFPS != lastfps) {
+        this->guienv->clear();
+        IGUISkin *skin = this->guienv->getSkin();
+        skin->setColor(gui::EGDC_BUTTON_TEXT, video::SColor(255, 255, 255, 0));
+        this->guienv->addStaticText(text, rect<s32>(10, 10, 55, 22), true);
+        lastfps = currentFPS;
+    }
 }
