@@ -43,7 +43,6 @@ using namespace sf;
         }
 }*/
 
-#include <unistd.h> // tmp
 void server(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer)
 {
     TcpListener listener;

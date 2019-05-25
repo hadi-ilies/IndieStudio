@@ -67,15 +67,21 @@ bool tmp2()
 }
 
 int main(int argc, char **argv)
-{ // TODO try catch
-    srand(time(NULL));
-    if (argc == 5 && strncmp(argv[1], "server", strlen(argv[1])) == 0)
-        server(std::atoi(argv[2]), argv[3], std::atoi(argv[4]));
-    else if (argc == 4 && strncmp(argv[1], "client", strlen(argv[1])) == 0)
-        client(IpAddress(argv[2]), std::atoi(argv[3]));
-    else {
-        cerr << "USE : " << argv[0] << " [server]" << endl;
-        tmp2(); // tmp
+{
+    try {
+        srand(time(NULL));
+        if (argc == 5 && strncmp(argv[1], "server", strlen(argv[1])) == 0)
+            server(std::atoi(argv[2]), argv[3], std::atoi(argv[4]));
+        else if (argc == 4 && strncmp(argv[1], "client", strlen(argv[1])) == 0)
+            client(IpAddress(argv[2]), std::atoi(argv[3]));
+        else {
+            cerr << "USE : " << argv[0] << " [server]" << endl;
+            tmp2(); // tmp
+        }
+    }
+    catch (const exception &e) {
+        cerr << "ERROR : " << e.what() << endl;
+        return 84;
     }
     return 0;
 }
