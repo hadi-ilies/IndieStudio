@@ -36,7 +36,9 @@ bool tmp2()
     Player player(window, "Resources/Entity/Bomberman", "Bob", world, vector3du(1, 1, 1));
     bool spacePress = false; // tmp
 
+
     //world.debugAff();
+    window.setDebugMode(true); // tmp
     while (window.isOpen()) {
         // TODO
         if (window.isKeyPressed(KEY_ESCAPE))
@@ -61,21 +63,26 @@ bool tmp2()
         world.update();
         player.update();
         window.display(video::SColor(255, 113, 113, 233));
-        window.displayFPS();
     }
     return true;
 }
 
 int main(int argc, char **argv)
-{ // TODO try catch
-    srand(time(NULL));
-    if (argc == 5 && strncmp(argv[1], "server", strlen(argv[1])) == 0)
-        server(std::atoi(argv[2]), argv[3], std::atoi(argv[4]));
-    else if (argc == 4 && strncmp(argv[1], "client", strlen(argv[1])) == 0)
-        client(IpAddress(argv[2]), std::atoi(argv[3]));
-    else {
-        cerr << "USE : " << argv[0] << " [server]" << endl;
-        tmp2(); // tmp
+{
+    try {
+        srand(time(NULL));
+        if (argc == 5 && strncmp(argv[1], "server", strlen(argv[1])) == 0)
+            server(std::atoi(argv[2]), argv[3], std::atoi(argv[4]));
+        else if (argc == 4 && strncmp(argv[1], "client", strlen(argv[1])) == 0)
+            client(IpAddress(argv[2]), std::atoi(argv[3]));
+        else {
+            cerr << "USE : " << argv[0] << " [server]" << endl;
+            tmp2(); // tmp
+        }
+    }
+    catch (const exception &e) {
+        cerr << "ERROR : " << e.what() << endl;
+        return 84;
     }
     return 0;
 }

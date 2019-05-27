@@ -11,7 +11,7 @@
 
 #include <iostream> // tmp
 Entity::Entity(Window &_window, const std::string &fileName, World &_world, const vector3du &_pos)
-    : window(_window), mesh(_window.addAnimatedMesh(fileName + "/Model/Idle.md2", fileName + "/Texture/Default.png")), world(_world), pos(_pos), textureUse("Default")
+    : window(_window), mesh(_window.addAnimatedMesh(fileName + "/Model/Idle.md2", fileName + "/Texture/Default.png")), world(_world), pos(_pos), modelUse("Idle"), textureUse("Default")
 {
     if (!mesh)
         throw Error("mesh can't be create");
@@ -41,10 +41,13 @@ const vector3du &Entity::getPos() const
 
 bool Entity::changeModel(const std::string &model)
 {
+    if (model == modelUse)
+        return false;
     if (modelMap.find(model) == modelMap.end())
         return false;
     mesh->setMesh(modelMap[model]);
     changeTexture(textureUse);
+    modelUse = model;
     return true;
 }
 

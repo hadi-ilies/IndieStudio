@@ -18,8 +18,10 @@ using namespace std;
 using namespace irr;
 using namespace sf;
 
-bool startTurn = false; // tmp
-bool endTurn = false;
+bool startTurn = false; // tmp no global
+bool endTurn = false; // tmp no global
+
+enum PlayerAction {None, Up, Down, Left, Right, PutBomb};
 
 void serverLoop(FormattedSocket *client)
 {
@@ -33,7 +35,7 @@ void serverLoop(FormattedSocket *client)
         throw Error("Thread failed");
 }
 
-static bool turnhasfinished(vector<unique_ptr<Player>> &playerList)
+static bool turnHasFinished(vector<unique_ptr<Player>> &playerList)
 {
     bool check = true;
 
@@ -43,61 +45,81 @@ static bool turnhasfinished(vector<unique_ptr<Player>> &playerList)
     return check;
 }
 
+static PlayerAction getKey(const Window &window)
+{
+    PlayerAction key = None;
+
+    if (window.isKeyPressed(KEY_SPACE))
+        key = PutBomb;
+    else if (window.isKeyPressed(KEY_KEY_Q) || window.isKeyPressed(KEY_KEY_A))
+        key = Left;
+    else if (window.isKeyPressed(KEY_KEY_D) || window.isKeyPressed(KEY_KEY_E))
+        key = Right;
+    else if (window.isKeyPressed(KEY_KEY_Z) || window.isKeyPressed(KEY_KEY_W))
+        key = Up;
+    else if (window.isKeyPressed(KEY_KEY_S))
+        key = Down;
+    return key;
+}
+
+static void execPlayerAction(PlayerAction &key, FormattedSocket &client, World &world, vector<unique_ptr<Player>> &playerList)
+{
+    if (key == PutBomb) {
+        if (!client.sendPlayerPutBomb())
+            throw Error("SendPlayerBomb");
+    }
+    else if (key == Left) {
+        if (!client.sendPlayerMove(vector2di(-1, 0)))
+            throw Error("SendPlayer(-1, 0)");
+    }
+    else if (key == Right) {
+        if (!client.sendPlayerMove(vector2di(1, 0)))
+            throw Error("SendPlayer(1, 0)");
+    }
+    else if (key == Up) {
+        if (!client.sendPlayerMove(vector2di(0, 1)))
+            throw Error("SendPlayer(0, 1)");
+    }
+    else if (key == Down) {
+        if (!client.sendPlayerMove(vector2di(0, -1)))
+            throw Error("SendPlayer(0, -1)");
+    }
+    else if (!client.sendPlayerMove(vector2di(0, 0)))
+        throw Error("sendPlayerMove(0, 0)");
+    for (unique_ptr<Player> &player: playerList) {
+        if (!client.receive())
+            throw Error("client Receiver");
+        if (client.type == PlayerMove)
+            player->move(client.dir);
+        else if (client.type == PlayerPutBomb)
+            player->putBomb();
+        player->update();
+    }
+    world.update();
+    startTurn = false;
+    endTurn = true;
+}
+
 static void game(Window &window, FormattedSocket &client, World &world, vector<unique_ptr<Player>> &playerList)
 {
     thread loop(serverLoop, &client);
+    PlayerAction key = None;
 
     while (window.isOpen() && client.isConnected()) {
         if (window.isKeyPressed(KEY_ESCAPE))
             window.close();
-        if (startTurn) {
-            if (window.isKeyPressed(KEY_KEY_Q) || window.isKeyPressed(KEY_KEY_A)) {
-                if (!client.sendPlayerMove(vector2di(-1, 0)))
-                    throw Error("Error SendPlayer(-1, 0)");
-            }
-            else if (window.isKeyPressed(KEY_KEY_D)) {
-                if (!client.sendPlayerMove(vector2di(1, 0)))
-                    throw Error("Error SendPlayer(1, 0)");
-            }
-            else if (window.isKeyPressed(KEY_KEY_Z) || window.isKeyPressed(KEY_KEY_W)) {
-                if (!client.sendPlayerMove(vector2di(0, 1)))
-                    throw Error("Error SendPlayer(0, 1)");
-            }
-            else if (window.isKeyPressed(KEY_KEY_S)) {
-                if (!client.sendPlayerMove(vector2di(0, -1)))
-                    throw Error("Error SendPlayer(0, -1)");
-            }
-            else if (window.isKeyPressed(KEY_SPACE)) {
-                if (!client.sendPlayerPutBomb())
-                    throw Error("Error SendPlayerBomb");
-            }
-            else if (!client.sendPlayerMove(vector2di(0, 0)))
-                throw Error("Error sendPlayerMove(0, 0)");
-            for (unique_ptr<Player> &player: playerList) {
-                if (!client.receive())
-                    throw Error("Error client Receiver");
-                cerr << "YO1" << endl;
-                if (client.type == PlayerMove)
-                    player->move(client.dir);
-                else if (client.type == PlayerPutBomb)
-                    player->putBomb();
-                cerr << "YO2" << endl;
-                player->update();
-            }
-            world.update();
-            startTurn = false;
-            endTurn = true;
-        }
-        if (endTurn) {
-            if (turnhasfinished(playerList)) {
+        key = getKey(window);
+        if (startTurn)
+            execPlayerAction(key, client, world, playerList);
+        if (endTurn)
+            if (turnHasFinished(playerList)) {
                 client.sendEndTurn();
                 endTurn = false;
             }
-        }
         window.display(video::SColor(255, 113, 113, 233));
     }
     client.disconnect();
-    startTurn = true;
+    startTurn = true; // for exit thread
     loop.join();
 }
 
@@ -105,7 +127,7 @@ void client(const IpAddress &ip, const ushort &port)
 {
     FormattedSocket client;
     if (!client.connect(ip, port))
-        throw Error("an Error has been detected in Connect function");
+        throw Error("an error has been detected in Connect function");
     Window window("Bomberman", dimension2d<u32>(1920 / 2, 1080 / 2), false);
     size_t nbPlayers = 1;
 
