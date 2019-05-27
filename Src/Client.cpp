@@ -172,6 +172,8 @@ void client(const IpAddress &ip, const ushort &port) //put player in param
         if (client.type != Message)
             throw Error("name error");
         std::string name = client.message;
+        if (!client.receive())
+            throw Error("receive error 5");
         if (client.type != DataType::Position)
             throw Error("Position error");
         vector3du pos = client.pos;
