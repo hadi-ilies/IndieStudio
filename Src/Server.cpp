@@ -6,7 +6,7 @@
 */
 
 #include <iostream> // ?
-#include <list>
+#include <vector> // ?
 #include "Window.hpp"
 #include "World.hpp"
 #include "Entity/Player.hpp"
@@ -17,47 +17,55 @@ using namespace std;
 using namespace irr;
 using namespace sf;
 
-/*void server(const std::string &worldFileName, const size_t &nbPlayer)
+void server(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer)
 {
     Window window("Bomberman", dimension2d<u32>(800, 600), false);
     World world(window, worldFileName);
-    //std::list<Player> playerList;
-    std::list<TcpSocket> socketList;
+    std::vector<unique_ptr<Player>> playerList;
 
     TcpListener listener;
-
-    if (listener.listen(53000) != sf::Socket::Done)
-        throw Error("listen failed");
-
-    for (size_t i = 0; i < nbPlayer; i++) {
-        TcpSocket socket;
-
-        cerr << "wait player" << i + 1 << endl;
-        if (listener.accept(socket) != sf::Socket::Done)
-            throw Error("accept failed");
-            }
-
-
-    while (window.isOpen()) {
-        // TODO
-        }
-}*/
-
-void server(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer)
-{
-    TcpListener listener;
-    std::list<unique_ptr<FormattedSocket>> socketList;
+    std::vector<unique_ptr<FormattedSocket>> socketList;
 
     cerr << "start server" << endl;
     if (listener.listen(port) != Socket::Done)
         throw Error("listen failed");
-    for (size_t i = 0; i < nbPlayer; i++) {
+    while (playerList.size() < nbPlayer) {
         unique_ptr<FormattedSocket> socket = unique_ptr<FormattedSocket>(new FormattedSocket);
+        std::string model;
+        std::string texture;
+        std::string name;
 
         if (!socket->accept(listener))
             throw Error("accept failed");
         cerr << "new client" << endl;
-        socketList.push_back(move(socket));
+        if (!socket->receive())
+            throw Error("receive failed");
+        if (socket->type != Message)
+            throw Error("bad type");
+        model = socket->message;
+        if (!socket->receive())
+            throw Error("receive failed");
+        if (socket->type != Message)
+            throw Error("bad type");
+        texture = socket->message;
+        if (!socket->receive())
+            throw Error("receive failed");
+        if (socket->type != Message)
+            throw Error("bad type");
+        name = socket->message;
+        cerr << "client validate" << endl;
+        try {
+            unique_ptr<Player> player = unique_ptr<Player>(new Player(window, "Resources/Entity/Player/" + model, name, world, vector3du(1, 1, 1))); // TODO change pos
+
+            if (!player->changeTexture(texture))
+                throw Error("texture doesn't exist");
+            playerList.push_back(move(player));
+            socketList.push_back(move(socket));
+        }
+        catch (const exception &e) {
+            cerr << e.what() << endl;
+            cerr << "client reject" << endl;
+        }
     }
     listener.close();
     cerr << "clients connected" << endl;
@@ -66,10 +74,12 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
     for (unique_ptr<FormattedSocket> &socket : socketList) {
         socket->sendMessage(worldFileName); // tmp TODO send World
         socket->sendUint32(socketList.size());
-        /*for (unique_ptr<FormattedSocket> &socket : socketList) {
-          socket->sendMessage("Resources/Entity/Bomberman"); // tmp TODO send player
-          // TODO
-          }*/
+        for (unique_ptr<Player> &player : playerList) {
+            socket->sendMessage("Bomberman"); // TODO
+            socket->sendMessage("Default"); // TODO
+            socket->sendMessage(player->getName());
+            socket->sendPosition(vector3du(1, 1, 1));
+        }
     }
 
     // loop

@@ -11,7 +11,7 @@
 
 #include <iostream> // tmp
 Entity::Entity(Window &_window, const std::string &fileName, World &_world, const vector3du &_pos)
-    : window(_window), mesh(_window.addAnimatedMesh(fileName + "/Model/Idle.md2", fileName + "/Texture/Default.png")), world(_world), pos(_pos), modelUse("Idle"), textureUse("Default")
+    : window(_window), mesh(_window.addAnimatedMesh("Resources/Entity/" + fileName + "/Model/Idle.md2", "Resources/Entity/" + fileName + "/Texture/Default.png")), world(_world), pos(_pos), modelUse("Idle"), textureUse("Default")
 {
     if (!mesh)
         throw Error("mesh can't be create");
@@ -20,8 +20,8 @@ Entity::Entity(Window &_window, const std::string &fileName, World &_world, cons
     float scale = 1 / size.X;
 
     mesh->setAnimationSpeed(350); // ?
-    getModel(fileName + "/Model"); // TODO set in init
-    getTexture(fileName + "/Texture"); // TODO set in init
+    getModel("Resources/Entity/" + fileName + "/Model"); // TODO set in init
+    getTexture("Resources/Entity/" + fileName + "/Texture"); // TODO set in init
     if (1 / size.Y < scale)
         scale = 1 / size.Y;
     if (1 / size.Z < scale)

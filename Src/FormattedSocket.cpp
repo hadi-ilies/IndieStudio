@@ -88,6 +88,17 @@ bool FormattedSocket::sendUint32(const sf::Uint32 &nb)
     return sendPacket(packet);
 }
 
+bool FormattedSocket::sendPosition(const vector3du &pos)
+{
+    Packet packet;
+
+    packet << Position;
+    packet << pos.X;
+    packet << pos.Y;
+    packet << pos.Z;
+    return sendPacket(packet);
+}
+
 bool FormattedSocket::sendPlayerMove(const vector2di &dir)
 {
     Packet packet;
@@ -121,6 +132,17 @@ bool FormattedSocket::receive()
     else if (type == DataType::Uint32) {
         if (!(packet >> num))
             return false;
+    }
+    else if (type == Position) {
+        uint x;
+        uint y;
+        uint z;
+
+        if (!(packet >> x >> y >> z))
+            return false;
+        pos.X = x;
+        pos.Y = y;
+        pos.Z = z;
     }
     else if (type == PlayerMove) {
         int x;

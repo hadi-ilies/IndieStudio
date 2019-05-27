@@ -21,6 +21,7 @@ enum DataType
     EndTurn,
     Message,
     Uint32,
+    Position,
     PlayerMove,
     PlayerPutBomb,
 };
@@ -41,6 +42,7 @@ public:
     bool sendEndTurn();
     bool sendMessage(const std::string &message);
     bool sendUint32(const sf::Uint32 &nb);
+    bool sendPosition(const vector3du &pos);
     bool sendPlayerMove(const vector2di &dir);
     bool sendPlayerPutBomb();
     //bool sendWorld(const World &world);
@@ -56,6 +58,7 @@ public:
     // union // ???
     std::string message;
     sf::Uint32 num;
+    vector3du pos;
     vector2di dir;
 
 private:

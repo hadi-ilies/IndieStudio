@@ -16,6 +16,11 @@ Player::~Player()
 {
 }
 
+const std::string &Player::getName() const
+{
+    return name;
+}
+
 #include <iostream> // tmp
 bool Player::putBomb()
 {
