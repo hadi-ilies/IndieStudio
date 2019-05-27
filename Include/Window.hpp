@@ -51,7 +51,6 @@ private:
     IVideoDriver *driver;
     ISceneManager *smgr;
     IGUIEnvironment *guienv;
-    s32 lastFps;
     bool debug;
 };
 
