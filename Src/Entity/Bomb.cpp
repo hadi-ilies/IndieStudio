@@ -8,7 +8,7 @@
 #include "Entity/Bomb.hpp"
 
 Bomb::Bomb(Window &window, const std::string &_type, const uint &_power, World &world, const vector3du &pos)
-    : Entity(window,"Bomb" + _type, world, pos), type(_type), power(_power), tick(9)
+    : Entity(window, "Bomb" + _type, world, pos), type(_type), power(_power), tick(9)
 {
     // TODO ? put a invisible block
 }

@@ -13,7 +13,6 @@
 Entity::Entity(Window &_window, const std::string &_fileName, World &_world, const vector3du &_pos)
     : window(_window), mesh(_window.addAnimatedMesh("Resources/Entity/" + _fileName + "/Model/Idle.md2", "Resources/Entity/" + _fileName + "/Texture/Default.png")), world(_world), pos(_pos), fileName(_fileName), modelUse("Idle"), textureUse("Default")
 {
-    //cerr << "PASS : " << (std::string)("Resources/Entity/" + fileName + "/Model/Idle.md2") << endl;
     if (!mesh)
         throw Error("mesh can't be create");
     const core::aabbox3d<f32> boundingBox = mesh->getTransformedBoundingBox();
