@@ -17,6 +17,8 @@ public:
     Entity(Window &_window, const std::string &fileName, World &world, const vector3du &_pos); // ? fileName
     ~Entity();
     const vector3du &getPos() const;
+    const std::string &getModel() const;
+    const std::string &getTexture() const;
     bool changeModel(const std::string &model);
     bool changeTexture(const std::string &texture);
     void update();

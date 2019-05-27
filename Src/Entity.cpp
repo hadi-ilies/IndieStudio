@@ -39,6 +39,16 @@ const vector3du &Entity::getPos() const
     return pos;
 }
 
+const std::string &Entity::getModel() const
+{
+    return modelUse;
+}
+
+const std::string &Entity::getTexture() const
+{
+    return textureUse;
+}
+
 bool Entity::changeModel(const std::string &model)
 {
     if (model == modelUse)
