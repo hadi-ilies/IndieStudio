@@ -131,15 +131,15 @@ void client(const IpAddress &ip, const ushort &port) //put player in param
     FormattedSocket client;
     Window window("Bomberman", dimension2d<u32>(1920 / 2, 1080 / 2), false);
     World myWorld(window, "TODO"); // Todo put pointer on world constructor. this we allow us to put NULL in constructor
-    Player myPlayer(window, "Bomberman", "BOB", myWorld, vector3du(1, 1 ,1));
+    Player myPlayer(window, "Bomberman", "Bob", myWorld, vector3du(1, 1 ,1));
     myPlayer.changeTexture("Dark");
     if (!client.connect(ip, port))
         throw Error("an error has been detected in Connect function");
     size_t nbPlayers = 1;
 
-    client.sendMessage("Bomberman");
-    client.sendMessage("Dark");
-    client.sendMessage("BOB");
+    client.sendMessage(myPlayer.getModel());
+    client.sendMessage(myPlayer.getTexture());
+    client.sendMessage(myPlayer.getName());
 
     if (!client.receive())
         throw Error("receive error 1");
