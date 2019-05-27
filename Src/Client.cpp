@@ -161,16 +161,22 @@ void client(const IpAddress &ip, const ushort &port) //put player in param
             throw Error("receive error 3");
         if (client.type != Message)
             throw Error("model error");
-        std::string model = client.message;
+        std::string fileName = client.message;
         if (!client.receive())
-            throw Error("receive error 2");
+            throw Error("receive error 4");
+        if (client.type != Message)
+            throw Error("Texture error");
+        std::string texture = client.message;
+        if (!client.receive())
+            throw Error("receive error 5");
         if (client.type != Message)
             throw Error("name error");
         std::string name = client.message;
         if (client.type != DataType::Position)
             throw Error("Position error");
         vector3du pos = client.pos;
-            playerList.push_back(unique_ptr<Player>(new Player(window, model, name, world, pos)));
+            playerList.push_back(unique_ptr<Player>(new Player(window, fileName, name, world, pos)));
+            playerList.back()->changeTexture(texture);
     }
     game(window, client, world, playerList);
 }
