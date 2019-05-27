@@ -43,7 +43,7 @@ public:
 
 private:
     void debugMode();
-    void demoAnimation(core::array<core::vector3df> points, const core::vector3df& lookAt);
+    void demoAnimation(core::array<core::vector3df> points, const core::vector3df& lookAt); // tmp
 
 private:
     EventReceiver receiver;
