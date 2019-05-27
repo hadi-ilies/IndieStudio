@@ -137,7 +137,10 @@ void client(const IpAddress &ip, const ushort &port) //put player in param
         throw Error("an error has been detected in Connect function");
     size_t nbPlayers = 1;
 
-    client.sendMessage(myPlayer.getModel());
+    std::cout << myPlayer.getModel() << std::endl;
+    std::cout << myPlayer.getTexture() << std::endl;
+    std::cout << myPlayer.getName() << std::endl;
+    client.sendMessage(myPlayer.getFileName());
     client.sendMessage(myPlayer.getTexture());
     client.sendMessage(myPlayer.getName());
 
