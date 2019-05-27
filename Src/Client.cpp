@@ -126,13 +126,20 @@ static void game(Window &window, FormattedSocket &client, World &world, vector<u
     loop.join();
 }
 
-void client(const IpAddress &ip, const ushort &port)
+void client(const IpAddress &ip, const ushort &port) //put player in param
 {
     FormattedSocket client;
+    Window window("Bomberman", dimension2d<u32>(1920 / 2, 1080 / 2), false);
+    World myWorld(window, "TODO"); // Todo put pointer on world constructor. this we allow us to put NULL in constructor
+    Player myPlayer(window, "Bomberman", "BOB", myWorld, vector3du(1, 1 ,1));
+    myPlayer.changeTexture("Dark");
     if (!client.connect(ip, port))
         throw Error("an error has been detected in Connect function");
-    Window window("Bomberman", dimension2d<u32>(1920 / 2, 1080 / 2), false);
     size_t nbPlayers = 1;
+
+    client.sendMessage("Bomberman");
+    client.sendMessage("Dark");
+    client.sendMessage("BOB");
 
     if (!client.receive())
         throw Error("receive error 1");
@@ -146,10 +153,21 @@ void client(const IpAddress &ip, const ushort &port)
         throw Error("uint 32 error");
     nbPlayers = client.num;
     vector <unique_ptr<Player>> playerList;
-    for (size_t i = 0; i < nbPlayers; i++)
-        playerList.push_back(unique_ptr<Player>(new Player(window, "Resources/Entity/Bomberman", "Bob", world, vector3du(1, 1, 1))));
-    //playerList.front()->changeTexture("Dark"); // tmp in menu
+    for (size_t i = 0; i < nbPlayers; i++) {
+        if (!client.receive())
+            throw Error("receive error 3");
+        if (client.type != Message)
+            throw Error("model error");
+        std::string model = client.message;
+        if (!client.receive())
+            throw Error("receive error 2");
+        if (client.type != Message)
+            throw Error("name error");
+        std::string name = client.message;
+        if (client.type != DataType::Position)
+            throw Error("Position error");
+        vector3du pos = client.pos;
+            playerList.push_back(unique_ptr<Player>(new Player(window, model, name, world, pos)));
+    }
     game(window, client, world, playerList);
-    //structure enum type data
-    // union
 }
