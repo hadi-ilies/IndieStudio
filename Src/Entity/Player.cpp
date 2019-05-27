@@ -21,13 +21,10 @@ bool Player::putBomb()
 {
     const vector3df floatPos(pos.X, pos.Y, pos.Z);
 
-    cerr << "step1" << endl;
     if (bombList.size() >= nbBomb)
         return false;
-    cerr << "step2" << endl;
     if (!animHasFinished())
         return false;
-    cerr << "step3" << endl;
     changeModel("Put");
     if (anim = window.createTranslation(floatPos, floatPos, TIMESTAMP))
         mesh->addAnimator(anim);
