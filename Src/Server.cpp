@@ -75,8 +75,8 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
         socket->sendMessage(worldFileName); // tmp TODO send World
         socket->sendUint32(socketList.size());
         for (unique_ptr<Player> &player : playerList) {
-            socket->sendMessage(player.getModel());
-            socket->sendMessage(player.getTexture());
+            socket->sendMessage(player->getModel());
+            socket->sendMessage(player->getTexture());
             socket->sendMessage(player->getName());
             socket->sendPosition(vector3du(1, 1, 1));
         }
