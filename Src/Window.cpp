@@ -23,7 +23,6 @@ Window::Window(const std::string &windowName, dimension2d<u32> size, const bool 
 
     smgr->addCameraSceneNodeFPS(0, 100, 0.05); // tmp
     device->getCursorControl()->setVisible(false); // tmp
-    this->lastFps = 0;
 
     //device->getCursorControl()->setVisible(false); // tmp
 }
