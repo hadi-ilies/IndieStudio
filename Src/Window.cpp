@@ -23,6 +23,9 @@ Window::Window(const std::string &windowName, dimension2d<u32> size, const bool 
 
     smgr->addCameraSceneNodeFPS(0, 100, 0.05); // tmp
     device->getCursorControl()->setVisible(false); // tmp
+    this->lastFps = 0;
+
+    //device->getCursorControl()->setVisible(false); // tmp
 }
 
 Window::~Window()
@@ -119,4 +122,84 @@ void Window::debugMode()
     skin = guienv->getSkin();
     skin->setColor(gui::EGDC_BUTTON_TEXT, video::SColor(255, 255, 255, 0));
     guienv->addStaticText(text, rect<s32>(10, 10, 55, 22), true);
+}
+
+IrrlichtDevice *Window::getDevice() const {
+    return device;
+}
+
+void Window::runDemo() {
+    core::array<core::vector3df> points;
+
+    // Down to up
+    points.push_back(core::vector3df(11, -10, -15));
+    points.push_back(core::vector3df(11, -5, -15));
+    points.push_back(core::vector3df(11, 0, -15));
+    points.push_back(core::vector3df(11, 5, -15));
+    points.push_back(core::vector3df(11, 10, -15));
+    points.push_back(core::vector3df(11, 15, -15));
+    points.push_back(core::vector3df(11, 20, -15));
+
+    // Rotate to corner left
+    points.push_back(core::vector3df(5, 20, -15));
+    points.push_back(core::vector3df(0, 20, -15));
+    points.push_back(core::vector3df(-5, 20, -15));
+    points.push_back(core::vector3df(-10, 20, -15));
+    points.push_back(core::vector3df(-15, 20, -15));
+
+    // Left side
+    points.push_back(core::vector3df(-15, 20, -10));
+    points.push_back(core::vector3df(-15, 20, -5));
+    points.push_back(core::vector3df(-15, 20, 0));
+    points.push_back(core::vector3df(-15, 20, 5));
+    points.push_back(core::vector3df(-15, 20, 10));
+    points.push_back(core::vector3df(-15, 20, 15));
+    points.push_back(core::vector3df(-15, 20, 20));
+    points.push_back(core::vector3df(-15, 20, 25));
+    points.push_back(core::vector3df(-15, 20, 30));
+    points.push_back(core::vector3df(-15, 20, 35));
+
+    // Front Side
+    points.push_back(core::vector3df(-5, 20, 35));
+    points.push_back(core::vector3df(0, 20, 35));
+    points.push_back(core::vector3df(5, 20, 35));
+    points.push_back(core::vector3df(10, 20, 35));
+    points.push_back(core::vector3df(15, 20, 35));
+    points.push_back(core::vector3df(20, 20, 35));
+    points.push_back(core::vector3df(25, 20, 35));
+    points.push_back(core::vector3df(30, 20, 35));
+    points.push_back(core::vector3df(35, 20, 30));
+
+    // Right side
+    points.push_back(core::vector3df(35, 20, 25));
+    points.push_back(core::vector3df(35, 20, 20));
+    points.push_back(core::vector3df(35, 20, 15));
+    points.push_back(core::vector3df(35, 20, 10));
+    points.push_back(core::vector3df(35, 20, 5));
+    points.push_back(core::vector3df(35, 20, 0));
+    points.push_back(core::vector3df(35, 20, -5));
+    points.push_back(core::vector3df(35, 20, -10));
+    points.push_back(core::vector3df(35, 20, -15));
+
+    // Return to origin point
+    points.push_back(core::vector3df(30, 20, -15));
+    points.push_back(core::vector3df(25, 20, -15));
+    points.push_back(core::vector3df(20, 20, -15));
+    points.push_back(core::vector3df(15, 20, -15));
+    points.push_back(core::vector3df(11, 20, -15));
+
+    // Go to the top
+    points.push_back(core::vector3df(11, 20, 11));
+
+    this->demoAnimation(points, core::vector3df(10.5 ,10.5,10.5));
+}
+
+void Window::demoAnimation(core::array<core::vector3df> points, const core::vector3df& lookAt) {
+    scene::ICameraSceneNode* camera = nullptr;
+    scene::ISceneNodeAnimator* sa = nullptr;
+
+    camera = smgr->addCameraSceneNode(0, points[0], lookAt);
+    sa = smgr->createFollowSplineAnimator(this->getDevice()->getTimer()->getTime(), points, 4, 0.5, false, false);
+    camera->addAnimator(sa);
+    sa->drop();
 }
