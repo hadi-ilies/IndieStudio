@@ -14,9 +14,10 @@
 class Entity
 {
 public:
-    Entity(Window &_window, const std::string &fileName, World &world, const vector3du &_pos); // ? fileName
+    Entity(Window &_window, const std::string &_fileName, World &world, const vector3du &_pos); // ? fileName
     ~Entity();
     const vector3du &getPos() const;
+    const std::string &getFileName() const;
     const std::string &getModel() const;
     const std::string &getTexture() const;
     bool changeModel(const std::string &model);
@@ -34,6 +35,7 @@ protected:
     vector3du pos;
 
 private:
+    const std::string fileName;
     std::string modelUse;
     std::string textureUse;
     std::map<std::string, IAnimatedMesh*> modelMap;

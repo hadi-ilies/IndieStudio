@@ -10,8 +10,8 @@
 #include "Globpp.hpp"
 
 #include <iostream> // tmp
-Entity::Entity(Window &_window, const std::string &fileName, World &_world, const vector3du &_pos)
-    : window(_window), mesh(_window.addAnimatedMesh("Resources/Entity/" + fileName + "/Model/Idle.md2", "Resources/Entity/" + fileName + "/Texture/Default.png")), world(_world), pos(_pos), modelUse("Idle"), textureUse("Default")
+Entity::Entity(Window &_window, const std::string &_fileName, World &_world, const vector3du &_pos)
+    : window(_window), mesh(_window.addAnimatedMesh("Resources/Entity/" + _fileName + "/Model/Idle.md2", "Resources/Entity/" + _fileName + "/Texture/Default.png")), world(_world), pos(_pos), fileName(_fileName), modelUse("Idle"), textureUse("Default")
 {
     //cerr << "PASS : " << (std::string)("Resources/Entity/" + fileName + "/Model/Idle.md2") << endl;
     if (!mesh)
@@ -38,6 +38,11 @@ Entity::~Entity()
 const vector3du &Entity::getPos() const
 {
     return pos;
+}
+
+const std::string &Entity::getFileName() const
+{
+    return fileName;
 }
 
 const std::string &Entity::getModel() const

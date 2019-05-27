@@ -31,7 +31,7 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
         throw Error("listen failed");
     while (playerList.size() < nbPlayer) {
         unique_ptr<FormattedSocket> socket = unique_ptr<FormattedSocket>(new FormattedSocket);
-        std::string model;
+        std::string fileName;
         std::string texture;
         std::string name;
 
@@ -42,7 +42,7 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
             throw Error("receive failed");
         if (socket->type != Message)
             throw Error("bad type");
-        model = socket->message;
+        fileName = socket->message;
         if (!socket->receive())
             throw Error("receive failed");
         if (socket->type != Message)
@@ -55,7 +55,7 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
         name = socket->message;
         cerr << "client validate" << endl;
         try {
-            unique_ptr<Player> player = unique_ptr<Player>(new Player(window, model, name, world, vector3du(1, 1, 1))); // TODO change pos
+            unique_ptr<Player> player = unique_ptr<Player>(new Player(window, fileName, name, world, vector3du(1, 1, 1))); // TODO change pos
 
             if (!player->changeTexture(texture))
                 throw Error("texture doesn't exist");
@@ -75,7 +75,7 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
         socket->sendMessage(worldFileName); // tmp TODO send World
         socket->sendUint32(socketList.size());
         for (unique_ptr<Player> &player : playerList) {
-            socket->sendMessage(player->getModel());
+            socket->sendMessage(player->getFileName());
             socket->sendMessage(player->getTexture());
             socket->sendMessage(player->getName());
             socket->sendPosition(vector3du(1, 1, 1));
