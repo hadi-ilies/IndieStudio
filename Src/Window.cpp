@@ -9,6 +9,7 @@
 #include "Error.hpp"
 
 Window::Window(const std::string &windowName, dimension2d<u32> size, const bool &fullscreen)
+    : debug(false)
 {
     const wstring title(windowName.begin(), windowName.end());
 

@@ -10,16 +10,18 @@
 
 #include "Entity.hpp"
 
+#define TIMESTAMP 500
+
 class Character : public Entity
 {
 public:
     Character(Window &window, const std::string &fileName, World &world, const vector3du &pos);
     ~Character();
-    bool animHasFinished();
-    //bool checkMove(const vector2di &dir); // ?
+    bool animHasFinished() const;
+    //bool checkMove(const vector2di &dir); // TODO
     bool move(const vector2di &dir);
 
-private:
+protected:
     scene::ISceneNodeAnimator *anim;
 };
 

@@ -8,7 +8,7 @@
 #include "Entity/Bomb.hpp"
 
 Bomb::Bomb(Window &window, const std::string &_type, const uint &_power, World &world, const vector3du &pos)
-    : Entity(window,"Resources/Entity/Bomb" + _type, world, pos), type(_type), power(_power), tick(5)
+    : Entity(window,"Resources/Entity/Bomb" + _type, world, pos), type(_type), power(_power), tick(9*3)
 {
     // TODO ? put a invisible block
 }
@@ -28,13 +28,19 @@ const uint &Bomb::getPower() const
     return power;
 }
 
+#include <iostream> // tmp
 void Bomb::update()
 {
-    if (tick) {
+    static clock_t tmp = 0;
+
+    Entity::update();
+    if (tick == 0)
+        detonate();
+    else {
         tick--;
-        if (tick == 0)
-            detonate();
+        cerr << "tick " << tick << " <-> " << clock() - tmp << endl;
     }
+    tmp = clock();
 }
 
 #include <iostream> // tmp

@@ -16,13 +16,9 @@ Character::~Character()
 {
 }
 
-bool Character::animHasFinished()
+bool Character::animHasFinished() const
 {
-    if (!anim || anim->hasFinished()) {
-        changeModel("Idle");
-        return true;
-    }
-    return false;
+    return !anim || anim->hasFinished();
 }
 
 bool Character::move(const vector2di &dir)
@@ -36,14 +32,15 @@ bool Character::move(const vector2di &dir)
     if (!animHasFinished())
         return false;
 
-    const vector3df initPos (pos.X, pos.Y, pos.Z);
-    const vector3df destPos (newPos.X, newPos.Y, newPos.Z);
-    const u32 timestamp = 500;
+    const vector3df initPos(pos.X, pos.Y, pos.Z);
+    const vector3df destPos(newPos.X, newPos.Y, newPos.Z);
 
-    if (dir.X != 0 || dir.Y != 0) {
+    if (anim = window.createTranslation(initPos, destPos, TIMESTAMP))
+        mesh->addAnimator(anim);
+    if (dir.X == 0 && dir.Y == 0)
+        changeModel("Idle");
+    else {
         changeModel("Walk");
-        if (anim = window.createTranslation(initPos, destPos, timestamp))
-            mesh->addAnimator(anim);
 
         // take direction
         irr::core::vector3df rotation;

@@ -45,10 +45,8 @@ static bool turnHasFinished(vector<unique_ptr<Player>> &playerList)
     return check;
 }
 
-static PlayerAction getKey(const Window &window)
+static bool getKey(const Window &window, PlayerAction &key)
 {
-    PlayerAction key = None;
-
     if (window.isKeyPressed(KEY_SPACE))
         key = PutBomb;
     else if (window.isKeyPressed(KEY_KEY_Q) || window.isKeyPressed(KEY_KEY_A))
@@ -59,7 +57,9 @@ static PlayerAction getKey(const Window &window)
         key = Up;
     else if (window.isKeyPressed(KEY_KEY_S))
         key = Down;
-    return key;
+    else
+        return false;
+    return true;
 }
 
 static void execPlayerAction(PlayerAction &key, FormattedSocket &client, World &world, vector<unique_ptr<Player>> &playerList)
@@ -108,13 +108,15 @@ static void game(Window &window, FormattedSocket &client, World &world, vector<u
     while (window.isOpen() && client.isConnected()) {
         if (window.isKeyPressed(KEY_ESCAPE))
             window.close();
-        key = getKey(window);
+        getKey(window, key);
         if (startTurn)
             execPlayerAction(key, client, world, playerList);
         if (endTurn)
             if (turnHasFinished(playerList)) {
-                client.sendEndTurn();
+                if (!client.sendEndTurn())
+                    throw Error("sendEndTurn failed");
                 endTurn = false;
+                key = None;
             }
         window.display(video::SColor(255, 113, 113, 233));
     }
