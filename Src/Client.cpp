@@ -92,7 +92,8 @@ static void execPlayerAction(PlayerAction &key, FormattedSocket &client, World &
         if (client.type == PlayerMove)
             player->move(client.dir);
         else if (client.type == PlayerPutBomb)
-            player->putBomb();
+            if (!player->putBomb())
+                player->move(vector2di(0, 0));
         player->update();
     }
     world.update();
