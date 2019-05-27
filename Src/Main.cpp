@@ -33,7 +33,7 @@ bool tmp2()
     Window window("Bomberman", dimension2d<u32>(1920 / 2, 1080 / 2), false);
     //Window window("Bomberman", dimension2d<u32>(1920, 1080), true);
     World world(window, "TODO");
-    Player player(window, "Resources/Entity/Bomberman", "Bob", world, vector3du(1, 1, 1));
+    Player player(window, "Bomberman", "Bob", world, vector3du(1, 1, 1));
     bool spacePress = false; // tmp
 
 

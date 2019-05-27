@@ -55,7 +55,7 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
         name = socket->message;
         cerr << "client validate" << endl;
         try {
-            unique_ptr<Player> player = unique_ptr<Player>(new Player(window, "Resources/Entity/Player/" + model, name, world, vector3du(1, 1, 1))); // TODO change pos
+            unique_ptr<Player> player = unique_ptr<Player>(new Player(window, model, name, world, vector3du(1, 1, 1))); // TODO change pos
 
             if (!player->changeTexture(texture))
                 throw Error("texture doesn't exist");
