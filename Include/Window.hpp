@@ -32,15 +32,18 @@ public:
     bool isOpen();
     void display(const SColor &color);
     IAnimatedMesh *getModel(const std::string &fileName);
+    IrrlichtDevice *getDevice() const;
     ITexture *getTexture(const std::string &fileName);
     ISceneNode *addCube(const std::string &texture); // ? ISceneNode or IMeshSceneNode
     IAnimatedMeshSceneNode *addAnimatedMesh(const std::string &model, const std::string &texture);
     ISceneNodeAnimator *createTranslation(const vector3df &initPos, const vector3df &destPos, const u32 &timestamp);
     bool isKeyPressed(const irr::EKEY_CODE &keyCode) const;
+    void runDemo();
     void debugMode(const bool &active);
 
 private:
     void debugMode();
+    void demoAnimation(core::array<core::vector3df> points, const core::vector3df& lookAt);
 
 private:
     EventReceiver receiver;
