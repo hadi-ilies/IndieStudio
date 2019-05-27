@@ -26,6 +26,8 @@ class Window
 public:
     Window(const std::string &windowName, dimension2d<u32> size, const bool &fullscreen);
     ~Window();
+    const bool &getDebugMode() const;
+    void setDebugMode(const bool &active);
     void close();
     bool isOpen();
     void display(const SColor &color);
@@ -35,7 +37,10 @@ public:
     IAnimatedMeshSceneNode *addAnimatedMesh(const std::string &model, const std::string &texture);
     ISceneNodeAnimator *createTranslation(const vector3df &initPos, const vector3df &destPos, const u32 &timestamp);
     bool isKeyPressed(const irr::EKEY_CODE &keyCode) const;
-    void displayFPS(); // tmp
+    void debugMode(const bool &active);
+
+private:
+    void debugMode();
 
 private:
     EventReceiver receiver;
@@ -43,7 +48,7 @@ private:
     IVideoDriver *driver;
     ISceneManager *smgr;
     IGUIEnvironment *guienv;
-    s32 lastfps;
+    bool debug;
 };
 
 #endif

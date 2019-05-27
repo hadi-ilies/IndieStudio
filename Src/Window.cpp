@@ -22,13 +22,22 @@ Window::Window(const std::string &windowName, dimension2d<u32> size, const bool 
 
     smgr->addCameraSceneNodeFPS(0, 100, 0.05); // tmp
     device->getCursorControl()->setVisible(false); // tmp
-    this->lastfps = 0;
 }
 
 Window::~Window()
 {
     close();
     device->drop();
+}
+
+const bool &Window::getDebugMode() const
+{
+    return debug;
+}
+
+void Window::setDebugMode(const bool &active)
+{
+    debug = active;
 }
 
 void Window::close()
@@ -43,6 +52,8 @@ bool Window::isOpen()
 
 void Window::display(const SColor &color)
 {
+    if (debug)
+        debugMode();
     driver->beginScene(true, true, color);
     smgr->drawAll();
     guienv->drawAll();
@@ -97,17 +108,14 @@ bool Window::isKeyPressed(const irr::EKEY_CODE &keyCode) const
     return receiver.IsKeyDown(keyCode);
 }
 
-void Window::displayFPS()
+void Window::debugMode()
 {
     wchar_t text[255];
-    const s32 currentFPS = this->driver->getFPS();
+    IGUISkin *skin;
 
-    swprintf(text, 255, L"FPS: %3d", this->driver->getFPS());
-    if (currentFPS != lastfps) {
-        this->guienv->clear();
-        IGUISkin *skin = this->guienv->getSkin();
-        skin->setColor(gui::EGDC_BUTTON_TEXT, video::SColor(255, 255, 255, 0));
-        this->guienv->addStaticText(text, rect<s32>(10, 10, 55, 22), true);
-        lastfps = currentFPS;
-    }
+    guienv->clear();
+    swprintf(text, 255, L"fps: %3d", driver->getFPS()); // ?
+    skin = guienv->getSkin();
+    skin->setColor(gui::EGDC_BUTTON_TEXT, video::SColor(255, 255, 255, 0));
+    guienv->addStaticText(text, rect<s32>(10, 10, 55, 22), true);
 }

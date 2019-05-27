@@ -36,7 +36,9 @@ bool tmp2()
     Player player(window, "Resources/Entity/Bomberman", "Bob", world, vector3du(1, 1, 1));
     bool spacePress = false; // tmp
 
+
     //world.debugAff();
+    window.setDebugMode(true); // tmp
     while (window.isOpen()) {
         // TODO
         if (window.isKeyPressed(KEY_ESCAPE))
@@ -61,7 +63,6 @@ bool tmp2()
         world.update();
         player.update();
         window.display(video::SColor(255, 113, 113, 233));
-        window.displayFPS();
     }
     return true;
 }
