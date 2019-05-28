@@ -10,8 +10,8 @@
 #include "Globpp.hpp"
 
 #include <iostream> // tmp
-Entity::Entity(Window *_window, const std::string &_fileName, World *_world, const vector3du &_pos)
-    : window(_window), mesh(_window ? _window->addAnimatedMesh("Resources/Entity/" + _fileName + "/Model/Idle.md2", "Resources/Entity/" + _fileName + "/Texture/Default.png") : NULL), world(_world), pos(_pos), fileName(_fileName), modelUse("Idle"), textureUse("Default")
+Entity::Entity(Window *_window, const std::string &_fileName, World *_world, const vector3du &_position)
+    : window(_window), mesh(_window ? _window->addAnimatedMesh("Resources/Entity/" + _fileName + "/Model/Idle.md2", "Resources/Entity/" + _fileName + "/Texture/Default.png") : NULL), world(_world), position(_position), fileName(_fileName), modelUse("Idle"), textureUse("Default")
 {
     if (window) {
         getModel("Resources/Entity/" + fileName + "/Model"); // TODO set in init
@@ -37,9 +37,9 @@ Entity::~Entity()
         mesh->remove();
 }
 
-const vector3du &Entity::getPos() const
+const vector3du &Entity::getPosition() const
 {
-    return pos;
+    return position;
 }
 
 const std::string &Entity::getFileName() const
@@ -81,7 +81,7 @@ bool Entity::changeTexture(const std::string &texture)
 
 void Entity::update()
 {
-    mesh->setPosition(vector3df(pos.X, pos.Y, pos.Z));
+    mesh->setPosition(vector3df(position.X, position.Y, position.Z));
 }
 
 void Entity::getModel(const std::string &fileName)

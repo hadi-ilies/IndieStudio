@@ -7,8 +7,8 @@
 
 #include "Entity/Player.hpp"
 
-Player::Player(Window *window, const std::string &fileName, const std::string &_name, World *world, const vector3du &pos)
-    : Character(window, fileName, world, pos), name(_name), bombType("Timer"), bombPower(2), nbBomb(1)
+Player::Player(Window *window, const std::string &fileName, const std::string &_name, World *world, const vector3du &position)
+    : Character(window, fileName, world, position), name(_name), bombType("Timer"), bombPower(2), nbBomb(1)
 {
 }
 
@@ -24,16 +24,16 @@ const std::string &Player::getName() const
 #include <iostream> // tmp
 bool Player::putBomb()
 {
-    const vector3df floatPos(pos.X, pos.Y, pos.Z);
+    const vector3df floatPosition(position.X, position.Y, position.Z);
 
     if (bombList.size() >= nbBomb)
         return false;
     if (!animHasFinished())
         return false;
     changeModel("Put");
-    if (anim = window->createTranslation(floatPos, floatPos, TIMESTAMP))
+    if (anim = window->createTranslation(floatPosition, floatPosition, TIMESTAMP))
         mesh->addAnimator(anim);
-    bombList.push_back(unique_ptr<Bomb>(new Bomb(window, bombType, bombPower, world, pos)));
+    bombList.push_back(unique_ptr<Bomb>(new Bomb(window, bombType, bombPower, world, position)));
     return true;
 }
 

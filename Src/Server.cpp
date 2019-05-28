@@ -72,13 +72,13 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
 
     // init
     for (unique_ptr<FormattedSocket> &socket : socketList) {
-        socket->sendMessage(worldFileName); // tmp TODO send World
-        socket->sendUint32(socketList.size());
+        socket->sendMessage(worldFileName);
+        socket->sendNumber(socketList.size());
         for (unique_ptr<Player> &player : playerList) {
             socket->sendMessage(player->getFileName());
             socket->sendMessage(player->getTexture());
             socket->sendMessage(player->getName());
-            socket->sendPosition(vector3du(1, 1, 1));
+            socket->sendPosition(vector3du(1, 1, 1)); /// tmp get dynamic pos
         }
     }
 
@@ -98,7 +98,7 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
         for (unique_ptr<FormattedSocket> &socket : socketList)
             for (unique_ptr<FormattedSocket> &socket2 : socketList)
                 if (socket2->type == PlayerMove) {
-                    if (!socket->sendPlayerMove(socket2->dir)) // tmp
+                    if (!socket->sendPlayerMove(socket2->direction)) // tmp
                         throw Error("send failed");
                 }
                 else if (socket2->type == PlayerPutBomb) {

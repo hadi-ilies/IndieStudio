@@ -90,7 +90,7 @@ static void execPlayerAction(PlayerAction &key, FormattedSocket &client, World &
         if (!client.receive())
             throw Error("client Receiver");
         if (client.type == PlayerMove)
-            player->move(client.dir);
+            player->move(client.direction);
         else if (client.type == PlayerPutBomb)
             if (!player->putBomb())
                 player->move(vector2di(0, 0));
@@ -155,9 +155,9 @@ void client(const IpAddress &ip, const ushort &port) //put player in param
 
     if (!client.receive())
         throw Error("receive error 2");
-    if (client.type != DataType::Uint32)
+    if (client.type != Number)
         throw Error("uint 32 error");
-    nbPlayer = client.num;
+    nbPlayer = client.number;
 
     for (size_t i = 0; i < nbPlayer; i++) {
         if (!client.receive())
@@ -180,11 +180,11 @@ void client(const IpAddress &ip, const ushort &port) //put player in param
 
         if (!client.receive())
             throw Error("receive error 6");
-        if (client.type != DataType::Position)
+        if (client.type != Position)
             throw Error("Position error");
-        vector3du pos = client.pos;
+        vector3du position = client.position;
 
-        playerList.push_back(unique_ptr<Player>(new Player(&window, fileName, name, &world, pos)));
+        playerList.push_back(unique_ptr<Player>(new Player(&window, fileName, name, &world, position)));
         playerList.back()->changeTexture(texture);
     }
     game(window, client, world, playerList);

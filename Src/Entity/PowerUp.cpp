@@ -7,8 +7,8 @@
 
 #include "Entity/PowerUp.hpp"
 
-PowerUp::PowerUp(Window *window, const std::string &_type, World *world, const vector3du &pos)
-    : Entity(window, _type, world, pos), type(_type)
+PowerUp::PowerUp(Window *window, const std::string &_type, World *world, const vector3du &position)
+    : Entity(window, _type, world, position), type(_type)
 {
 }
 

@@ -31,7 +31,7 @@ ushort FormattedSocket::getRemotePort() const
     return socket.getRemotePort();
 }
 
-bool FormattedSocket::connect(const IpAddress &remoteAddress, ushort remotePort, Time timeout)
+bool FormattedSocket::connect(const IpAddress &remoteAddress, const ushort &remotePort, const Time &timeout)
 {
     connected = socket.connect(remoteAddress, remotePort, timeout) == Socket::Done;
     return connected;
@@ -70,21 +70,21 @@ bool FormattedSocket::sendEndTurn()
     return sendPacket(packet);
 }
 
-bool FormattedSocket::sendMessage(const std::string &message)
+bool FormattedSocket::sendMessage(const std::string &msg)
 {
     Packet packet;
 
     packet << Message;
-    packet << message;
+    packet << msg;
     return sendPacket(packet);
 }
 
-bool FormattedSocket::sendUint32(const sf::Uint32 &nb)
+bool FormattedSocket::sendNumber(const Uint32 &num)
 {
     Packet packet;
 
-    packet << DataType::Uint32;
-    packet << nb;
+    packet << Number;
+    packet << num;
     return sendPacket(packet);
 }
 
@@ -129,8 +129,8 @@ bool FormattedSocket::receive()
         if (!(packet >> message))
             return false;
     }
-    else if (type == DataType::Uint32) {
-        if (!(packet >> num))
+    else if (type == Number) {
+        if (!(packet >> number))
             return false;
     }
     else if (type == Position) {
@@ -140,9 +140,9 @@ bool FormattedSocket::receive()
 
         if (!(packet >> x >> y >> z))
             return false;
-        pos.X = x;
-        pos.Y = y;
-        pos.Z = z;
+        position.X = x;
+        position.Y = y;
+        position.Z = z;
     }
     else if (type == PlayerMove) {
         int x;
@@ -150,8 +150,8 @@ bool FormattedSocket::receive()
 
         if (!(packet >> x >> y))
             return false;
-        dir.X = x;
-        dir.Y = y;
+        direction.X = x;
+        direction.Y = y;
     }
     //else if (type == ...) // TODO
     return true;
@@ -177,7 +177,7 @@ bool FormattedSocket::receivePacket(Packet &packet)
 
 Packet &operator>>(Packet &packet, DataType &dataType)
 {
-    sf::Uint32 tmp;
+    Uint32 tmp;
 
     packet >> tmp;
     dataType = (DataType)tmp;

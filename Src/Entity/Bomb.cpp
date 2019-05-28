@@ -7,8 +7,8 @@
 
 #include "Entity/Bomb.hpp"
 
-Bomb::Bomb(Window *window, const std::string &_type, const uint &_power, World *world, const vector3du &pos)
-    : Entity(window, "Bomb" + _type, world, pos), type(_type), power(_power), tick(5)
+Bomb::Bomb(Window *window, const std::string &_type, const uint &_power, World *world, const vector3du &position)
+    : Entity(window, "Bomb" + _type, world, position), type(_type), power(_power), tick(5)
 {
     // TODO ? put a invisible block
 }
@@ -40,7 +40,7 @@ void Bomb::update()
 #include <iostream> // tmp
 void Bomb::detonate()
 {
-    world->explode(pos, power);
+    world->explode(position, power);
     power = 0;
     cerr << "BOOMMMMM !!!!!" << endl;
 }
