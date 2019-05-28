@@ -7,7 +7,7 @@
 
 #include "Entity/Character.hpp"
 
-Character::Character(Window &window, const std::string &fileName, World &world, const vector3du &pos)
+Character::Character(Window *window, const std::string &fileName, World *world, const vector3du &pos)
     : Entity(window, fileName, world, pos), anim(NULL)
 {
 }
@@ -25,9 +25,9 @@ bool Character::move(const vector2di &dir)
 {
     vector3du newPos(pos.X + dir.X, pos.Y, pos.Z + dir.Y); // vct2.Y is the vec3.Z
 
-    if (newPos.X >= world.getSize().X || newPos.Y >= world.getSize().Y || newPos.Z >= world.getSize().Z)
+    if (newPos.X >= world->getSize().X || newPos.Y >= world->getSize().Y || newPos.Z >= world->getSize().Z)
         return false;
-    if (world.getBlock(newPos) && world.getBlock(newPos)->getOpaque())
+    if (world->getBlock(newPos) && world->getBlock(newPos)->getOpaque())
         return false;
     if (!animHasFinished())
         return false;
@@ -35,7 +35,7 @@ bool Character::move(const vector2di &dir)
     const vector3df initPos(pos.X, pos.Y, pos.Z);
     const vector3df destPos(newPos.X, newPos.Y, newPos.Z);
 
-    if (anim = window.createTranslation(initPos, destPos, TIMESTAMP))
+    if (anim = window->createTranslation(initPos, destPos, TIMESTAMP))
         mesh->addAnimator(anim);
     if (dir.X == 0 && dir.Y == 0)
         changeModel("Idle");

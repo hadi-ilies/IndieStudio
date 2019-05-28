@@ -38,7 +38,7 @@ public:
     IAnimatedMeshSceneNode *addAnimatedMesh(const std::string &model, const std::string &texture);
     ISceneNodeAnimator *createTranslation(const vector3df &initPos, const vector3df &destPos, const u32 &timestamp);
     bool isKeyPressed(const irr::EKEY_CODE &keyCode) const;
-    void runDemo();
+    void runDemo(); // tmp
     void debugMode(const bool &active);
 
 private:

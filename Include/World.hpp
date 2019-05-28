@@ -27,7 +27,7 @@ using namespace gui;
 class World
 {
 public:
-    World(Window &_window, const std::string &_fileName); // TODO
+    World(Window *_window, const std::string &_fileName); // TODO
     ~World();
     const vector3du &getSize() const;
     const Block *getBlock(const vector3du &pos) const;
@@ -43,7 +43,7 @@ private:
 
 private:
     std::string fileName;
-    Window &window;
+    Window *window;
     vector3du size;
     Block ****tab;
 };

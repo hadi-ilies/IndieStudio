@@ -10,28 +10,31 @@
 #include "Globpp.hpp"
 
 #include <iostream> // tmp
-Entity::Entity(Window &_window, const std::string &_fileName, World &_world, const vector3du &_pos)
-    : window(_window), mesh(_window.addAnimatedMesh("Resources/Entity/" + _fileName + "/Model/Idle.md2", "Resources/Entity/" + _fileName + "/Texture/Default.png")), world(_world), pos(_pos), fileName(_fileName), modelUse("Idle"), textureUse("Default")
+Entity::Entity(Window *_window, const std::string &_fileName, World *_world, const vector3du &_pos)
+    : window(_window), mesh(_window ? _window->addAnimatedMesh("Resources/Entity/" + _fileName + "/Model/Idle.md2", "Resources/Entity/" + _fileName + "/Texture/Default.png") : NULL), world(_world), pos(_pos), fileName(_fileName), modelUse("Idle"), textureUse("Default")
 {
-    if (!mesh)
-        throw Error("mesh can't be create");
-    const core::aabbox3d<f32> boundingBox = mesh->getTransformedBoundingBox();
-    const vector3df size = boundingBox.getExtent();
-    float scale = 1 / size.X;
+    if (window) {
+        getModel("Resources/Entity/" + fileName + "/Model"); // TODO set in init
+        getTexture("Resources/Entity/" + fileName + "/Texture"); // TODO set in init
+        if (!mesh)
+            throw Error("mesh can't be create");
+        const core::aabbox3d<f32> boundingBox = mesh->getTransformedBoundingBox();
+        const vector3df size = boundingBox.getExtent();
+        float scale = 1 / size.X;
 
-    mesh->setAnimationSpeed(350); // ?
-    getModel("Resources/Entity/" + fileName + "/Model"); // TODO set in init
-    getTexture("Resources/Entity/" + fileName + "/Texture"); // TODO set in init
-    if (1 / size.Y < scale)
-        scale = 1 / size.Y;
-    if (1 / size.Z < scale)
-        scale = 1 / size.Z;
-    mesh->setScale(vector3df(scale, scale, scale));
+        mesh->setAnimationSpeed(350); // ?
+        if (1 / size.Y < scale)
+            scale = 1 / size.Y;
+        if (1 / size.Z < scale)
+            scale = 1 / size.Z;
+        mesh->setScale(vector3df(scale, scale, scale));
+    }
 }
 
 Entity::~Entity()
 {
-    mesh->remove();
+    if (mesh) // ?
+        mesh->remove();
 }
 
 const vector3du &Entity::getPos() const
@@ -88,7 +91,7 @@ void Entity::getModel(const std::string &fileName)
 
     for (const std::string &modelStr : modelStrList)
         if (regex_search(modelStr, match, regex(R"(/(\w+).md2$)")))
-            if (IAnimatedMesh *model = window.getModel(modelStr))
+            if (IAnimatedMesh *model = window ? window->getModel(modelStr) : NULL)
                 modelMap[match[1]] = model;
 }
 
@@ -99,6 +102,6 @@ void Entity::getTexture(const std::string &fileName)
 
     for (const std::string &textureStr : textureStrList)
         if (regex_search(textureStr, match, regex(R"(/(\w+).png)")))
-            if (ITexture *texture = window.getTexture(textureStr))
+            if (ITexture *texture = window ? window->getTexture(textureStr) : NULL)
                 textureMap[match[1]] = texture;
 }

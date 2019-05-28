@@ -14,7 +14,7 @@
 class Entity
 {
 public:
-    Entity(Window &_window, const std::string &_fileName, World &world, const vector3du &_pos); // ? fileName
+    Entity(Window *_window, const std::string &_fileName, World *world, const vector3du &_pos); // ? fileName
     ~Entity();
     const vector3du &getPos() const;
     const std::string &getFileName() const;
@@ -29,9 +29,9 @@ private:
     void getTexture(const std::string &fileName);
 
 protected:
-    Window &window;
+    Window *window;
     IAnimatedMeshSceneNode *mesh;
-    World &world;
+    World *world;
     vector3du pos;
 
 private:

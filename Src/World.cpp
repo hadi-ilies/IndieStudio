@@ -10,7 +10,7 @@
 #include "World.hpp"
 #include "Error.hpp"
 
-World::World(Window &_window, const std::string &_fileName)
+World::World(Window *_window, const std::string &_fileName)
     : window(_window) // tmp
 {
     /*if (!load(_fileName)) // TODO
@@ -114,7 +114,7 @@ bool World::addBlock(const vector3du &pos, const std::string &type)
 {
     if (tab[pos.X][pos.Y][pos.Z])
         return false;
-    tab[pos.X][pos.Y][pos.Z] = new Block(window, "Resources/Block/" + type); // ?
+    tab[pos.X][pos.Y][pos.Z] = new Block(window, type); // ?
     return true;
 }
 

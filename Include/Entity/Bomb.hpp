@@ -13,7 +13,7 @@
 class Bomb : public Entity
 {
 public:
-    Bomb(Window &window, const std::string &_type, const uint &_power, World &world, const vector3du &pos);
+    Bomb(Window *window, const std::string &_type, const uint &_power, World *world, const vector3du &pos);
     ~Bomb();
     const std::string &getType() const;
     const uint &getPower() const;

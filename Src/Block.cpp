@@ -12,12 +12,14 @@
 #include "Globpp.hpp"
 #include "Error.hpp"
 
-Block::Block(Window &window, const std::string &fileName)
+Block::Block(Window *window, const std::string &fileName)
+    : cube(window ? window->addCube("Resources/Block/" + fileName + "/Texture.png") : NULL)
 {
-    getProperty(fileName + "/Property");
-    cube = window.addCube(fileName + "/Texture.png");
-    if (!cube)
-        throw Error("cube can't be create");
+    getProperty("Resources/Block/" + fileName + "/Property"); // TODO set in init
+    if (window) {
+        if (!cube)
+            throw Error("cube can't be create");
+    }
 }
 
 Block::~Block()

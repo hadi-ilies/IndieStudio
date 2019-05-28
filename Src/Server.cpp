@@ -19,8 +19,8 @@ using namespace sf;
 
 void server(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer)
 {
-    Window window("Bomberman", dimension2d<u32>(800, 600), false);
-    World world(window, worldFileName);
+    //Window window("Bomberman", dimension2d<u32>(800, 600), false);
+    World world(NULL, worldFileName);
     std::vector<unique_ptr<Player>> playerList;
 
     TcpListener listener;
@@ -53,17 +53,17 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
         if (socket->type != Message)
             throw Error("bad type");
         name = socket->message;
-        cerr << "client validate" << endl;
         try {
-            unique_ptr<Player> player = unique_ptr<Player>(new Player(window, fileName, name, world, vector3du(1, 1, 1))); // TODO change pos
+            unique_ptr<Player> player = unique_ptr<Player>(new Player(NULL, fileName, name, &world, vector3du(1, 1, 1))); // TODO change pos
 
-            if (!player->changeTexture(texture))
-                throw Error("texture doesn't exist");
+            player->changeTexture(texture);
+            //throw Error("texture doesn't exist");
             playerList.push_back(move(player));
             socketList.push_back(move(socket));
+            cerr << "client validate" << endl;
         }
         catch (const exception &e) {
-            cerr << e.what() << endl;
+            cerr << "ERROR : " << e.what() << endl;
             cerr << "client reject" << endl;
         }
     }

@@ -131,16 +131,14 @@ void Window::runDemo() {
     core::array<core::vector3df> points;
 
     // Down to up
-    points.push_back(core::vector3df(11, -10, -15));
-    points.push_back(core::vector3df(11, -5, -15));
-    points.push_back(core::vector3df(11, 0, -15));
-    points.push_back(core::vector3df(11, 5, -15));
-    points.push_back(core::vector3df(11, 10, -15));
-    points.push_back(core::vector3df(11, 15, -15));
-    points.push_back(core::vector3df(11, 20, -15));
+    //for (int n = -5; n <= 20; n += 5)
+    //points.push_back(core::vector3df(11, n, -15));
+
+    for (int n = 0; n < 64 * 2; n += 4) // tmp test
+        points.push_back(core::vector3df(cos(n * M_PI / 64) * 20 + 10.5, -5 + n / 4, sin(n * M_PI / 64) * 20 + 10.5));
 
     // Rotate to corner left
-    points.push_back(core::vector3df(5, 20, -15));
+    /*points.push_back(core::vector3df(5, 20, -15));
     points.push_back(core::vector3df(0, 20, -15));
     points.push_back(core::vector3df(-5, 20, -15));
     points.push_back(core::vector3df(-10, 20, -15));
@@ -188,9 +186,9 @@ void Window::runDemo() {
     points.push_back(core::vector3df(11, 20, -15));
 
     // Go to the top
-    points.push_back(core::vector3df(11, 20, 11));
+    points.push_back(core::vector3df(11, 20, 11));*/
 
-    this->demoAnimation(points, core::vector3df(10.5 ,10.5,10.5));
+    this->demoAnimation(points, core::vector3df(10.5, 0.5, 10.5));
 }
 
 void Window::demoAnimation(core::array<core::vector3df> points, const core::vector3df& lookAt) {
@@ -198,7 +196,7 @@ void Window::demoAnimation(core::array<core::vector3df> points, const core::vect
     scene::ISceneNodeAnimator* sa = nullptr;
 
     camera = smgr->addCameraSceneNode(0, points[0], lookAt);
-    sa = smgr->createFollowSplineAnimator(this->getDevice()->getTimer()->getTime(), points, 4, 0.5, false, false);
+    sa = smgr->createFollowSplineAnimator(this->getDevice()->getTimer()->getTime(), points, 4, 0.5, false);
     camera->addAnimator(sa);
     sa->drop();
 }

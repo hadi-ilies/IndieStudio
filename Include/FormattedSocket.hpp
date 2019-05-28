@@ -57,9 +57,9 @@ public:
     DataType type;
     // union // ???
     std::string message;
-    sf::Uint32 num;
-    vector3du pos;
-    vector2di dir;
+    sf::Uint32 num; // TODO rename number
+    vector3du pos; // TODO rename position
+    vector2di dir; // TODO supr and send pos player
 
 private:
     bool connected; // TODO set to false if Status == Socket::Disconnected or Socket::Error

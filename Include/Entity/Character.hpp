@@ -15,7 +15,7 @@
 class Character : public Entity
 {
 public:
-    Character(Window &window, const std::string &fileName, World &world, const vector3du &pos);
+    Character(Window *window, const std::string &fileName, World *world, const vector3du &pos);
     ~Character();
     bool animHasFinished() const;
     //bool checkMove(const vector2di &dir); // TODO

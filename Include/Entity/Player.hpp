@@ -15,7 +15,7 @@
 class Player : public Character
 {
 public:
-    Player(Window &window, const std::string &fileName, const std::string &_name, World &world, const vector3du &pos);
+    Player(Window *window, const std::string &fileName, const std::string &_name, World *world, const vector3du &pos);
     ~Player();
     const std::string &getName() const;
     bool putBomb();
