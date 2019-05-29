@@ -12,8 +12,8 @@
 #include "Globpp.hpp"
 #include "Error.hpp"
 
-Block::Block(Window *window, const std::string &fileName)
-    : cube(window ? window->addCube("Resources/Block/" + fileName + "/Texture.png") : NULL)
+Block::Block(Window *window, const std::string &_type)
+    : type(type), cube(window ? window->addCube("Resources/Block/" + fileName + "/Texture.png") : NULL)
 {
     getProperty("Resources/Block/" + fileName + "/Property"); // TODO set in init
     if (window) {

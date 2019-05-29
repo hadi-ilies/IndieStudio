@@ -99,7 +99,7 @@ void World::update()
         for (uint j = 0; j < size.Y; j++)
             for (uint k = 0; k < size.Z; k++)
                 if (tab[i][j][k]) {
-                    cerr << tab[i][j][k]->getType() << endl;
+                    cerr << "Type : " << tab[i][j][k]->getType() << endl;
                     if (tab[i][j][k]->getType() == "Fire") {
                         removeBlock(vector3du(i, j, k));
                         cerr << "removeBlock : " << i << " " << j << " " << k << endl;
