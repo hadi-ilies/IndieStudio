@@ -23,7 +23,7 @@ bool Character::animHasFinished() const
 
 bool Character::checkMove(const vector2di &dir) const
 {
-    vector3du newPosition(position.X + dir.X, position.Y, position.Z + dir.Y); // vct2.Y is the vec3.Z
+    const vector3du newPosition(position.X + dir.X, position.Y, position.Z + dir.Y); // vct2.Y is the vec3.Z
 
     if (newPosition.X >= world->getSize().X || newPosition.Y >= world->getSize().Y || newPosition.Z >= world->getSize().Z)
         return false;
@@ -34,19 +34,20 @@ bool Character::checkMove(const vector2di &dir) const
 
 bool Character::move(const vector2di &dir)
 {
-    vector3du newPosition(position.X + dir.X, position.Y, position.Z + dir.Y); // vct2.Y is the vec3.Z
+    vector2di newDir = dir;
 
     if (!animHasFinished())
         return false;
     if (!checkMove(dir))
-        newPosition = position;
+        newDir = vector2di(0, 0);
 
+    const vector3du newPosition(position.X + newDir.X, position.Y, position.Z + newDir.Y); // vct2.Y is the vec3.Z
     const vector3df initPosition(position.X, position.Y, position.Z);
     const vector3df destPosition(newPosition.X, newPosition.Y, newPosition.Z);
 
     if (anim = window->createTranslation(initPosition, destPosition, TIMESTAMP))
         mesh->addAnimator(anim);
-    if (dir.X == 0 && dir.Y == 0)
+    if (newDir.X == 0 && newDir.Y == 0)
         changeModel("Idle");
     else {
         changeModel("Walk");
@@ -54,13 +55,13 @@ bool Character::move(const vector2di &dir)
         // take direction
         irr::core::vector3df rotation;
 
-        if (dir.X == -1 && dir.Y == 0)
+        if (newDir.X == -1 && newDir.Y == 0)
             rotation.Y = 0;
-        else if (dir.X == 1 && dir.Y == 0)
+        else if (newDir.X == 1 && newDir.Y == 0)
             rotation.Y = 180;
-        else if (dir.X == 0 && dir.Y == -1)
+        else if (newDir.X == 0 && newDir.Y == -1)
             rotation.Y = -90;
-        else if (dir.X == 0 && dir.Y == 1)
+        else if (newDir.X == 0 && newDir.Y == 1)
             rotation.Y = 90;
         mesh->setRotation(rotation);
         position = newPosition;
