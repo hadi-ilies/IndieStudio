@@ -97,8 +97,12 @@ void World::update()
     for (uint i = 0; i < size.X; i++)
         for (uint j = 0; j < size.Y; j++)
             for (uint k = 0; k < size.Z; k++)
-                if (tab[i][j][k])
-                    tab[i][j][k]->setPosition(vector3du(i, j, k)); // ?
+                if (tab[i][j][k]) {
+                    if (tab[i][j][k]->getType() == "Fire")
+                        removeBlock(vector3du(i, j, k));
+                    else
+                        tab[i][j][k]->setPosition(vector3du(i, j, k)); // ?
+                }
 }
 
 void World::create(const vector3du &_size)
