@@ -62,7 +62,7 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
                 position = vector3du(world.getSize().X - 2, 1, 1);
             else if (playerList.size() == 3)
                 position = vector3du(world.getSize().X - 2, 1, world.getSize().Z - 2);
-            unique_ptr<Player> player = unique_ptr<Player>(new Player(NULL, fileName, name, &world, vector3du(1, 1, 1))); // TODO change pos
+            unique_ptr<Player> player = unique_ptr<Player>(new Player(NULL, fileName, name, &world, position)); // TODO change pos
 
             player->changeTexture(texture);
             //throw Error("texture doesn't exist");
