@@ -28,12 +28,13 @@ typedef vector3d<uint> vector3du; // TODO ? move in Type.hpp or Utility.hpp
 class Block
 {
 public:
-    Block(Window *window, const std::string &_type);
+    Block(Window *window, const std::string &_type, const vector3du &position);
     ~Block();
     const std::string &getType() const;
     const bool &getOpaque() const;
     const bool &getDestructible() const;
-    void setPosition(const vector3du &pos);
+    const uint &getLifeTime() const;
+    void update();
 
 private:
     void getProperty(const std::string &fileName);
@@ -42,7 +43,8 @@ private:
     std::string type;
     bool opaque; // ?
     bool destructible; // ? name
-    ISceneNode *cube; // or mesh
+    uint lifeTime;
+    ISceneNode *cube;
 };
 
 //const std::map<std::string, unique_ptr<Block>> createBlockMap(Window &window, const std::string &path = "Resources/Block");

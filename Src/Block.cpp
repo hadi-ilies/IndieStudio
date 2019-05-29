@@ -12,13 +12,16 @@
 #include "Globpp.hpp"
 #include "Error.hpp"
 
-Block::Block(Window *window, const std::string &_type)
-    : type(_type), cube(window ? window->addCube("Resources/Block/" + _type + "/Texture.png") : NULL)
+Block::Block(Window *window, const std::string &_type, const vector3du &position)
+    : type(_type), lifeTime(-1), cube(window ? window->addCube("Resources/Block/" + _type + "/Texture.png") : NULL)
 {
     getProperty("Resources/Block/" + _type + "/Property"); // TODO set in init
     if (window) {
+        const vector3df floatPos(position.X, position.Y, position.Z);
+
         if (!cube)
             throw Error("cube can't be create");
+        cube->setPosition(floatPos);
     }
 }
 
@@ -42,11 +45,15 @@ const bool &Block::getDestructible() const
     return destructible;
 }
 
-void Block::setPosition(const vector3du &pos)
+const uint &Block::getLifeTime() const
 {
-    const vector3df floatPos(pos.X, pos.Y, pos.Z);
+    return lifeTime;
+}
 
-    cube->setPosition(floatPos);
+void Block::update()
+{
+    if (lifeTime && lifeTime != -1)
+        lifeTime--;
 }
 
 void Block::getProperty(const std::string &fileName)
@@ -62,6 +69,8 @@ void Block::getProperty(const std::string &fileName)
             opaque = match[1] == "true" ? true : false;
         else if (regex_search(line, match, regex(R"(^destructible *: *(false|true)$)")))
             destructible = match[1] == "true" ? true : false;
+        else if (regex_search(line, match, regex(R"(^lifeTime *: *(\d+)$)")))
+            destructible = match[1] == stoi(match[1]);
     }
 }
 
