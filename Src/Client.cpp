@@ -104,7 +104,9 @@ static void execPlayerAction(PlayerAction &key, FormattedSocket &client, World &
         }
         //check colision power up
         for (auto it = powerUpList.begin(); it != powerUpList.end();) {
-            if (player->getPosition() == (*it)->getPosition()) {
+            if (world.getBlock((*it)->getPosition()) && world.getBlock((*it)->getPosition())->getType() == "Fire")
+                it = powerUpList.erase(it);
+            else if (player->getPosition() == (*it)->getPosition()) {
                 player->takePowerUp(**it);
                 it = powerUpList.erase(it);
             }
