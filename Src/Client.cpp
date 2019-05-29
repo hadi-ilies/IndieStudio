@@ -93,6 +93,7 @@ static void execPlayerAction(PlayerAction &key, FormattedSocket &client, World &
         if (client.type == PlayerMove)
             player->move(client.direction);
         //check colision power up
+            world.update();
         for (auto it = powerUpList.begin(); it != powerUpList.end();) {
             if (player->getPosition() == (*it)->getPosition()) {
                 player->takePowerUp(**it);
@@ -106,7 +107,6 @@ static void execPlayerAction(PlayerAction &key, FormattedSocket &client, World &
                 player->move(vector2di(0, 0));
         player->update();
     }
-    world.update();
     startTurn = false;
     endTurn = true;
     key = None;
