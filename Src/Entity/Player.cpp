@@ -8,7 +8,7 @@
 #include "Entity/Player.hpp"
 
 Player::Player(Window *window, const std::string &fileName, const std::string &_name, World *world, const vector3du &position)
-    : Character(window, fileName, world, position), name(_name), bombType("Timer"), bombPower(2), nbBomb(1)
+    : Character(window, fileName, world, position), name(_name), hp(1), bombType("Timer"), bombPower(2), nbBomb(1)
 {
 }
 
@@ -19,6 +19,11 @@ Player::~Player()
 const std::string &Player::getName() const
 {
     return name;
+}
+
+const uint &Player::getHp() const
+{
+    return hp;
 }
 
 #include <iostream> // tmp
@@ -46,6 +51,12 @@ bool Player::takePowerUp(const PowerUp &powerUp)
     else
         return false;
     return true;
+}
+
+void Player::takeDamage()
+{
+    if (hp > 0)
+        hp--;
 }
 
 void Player::update()

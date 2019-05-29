@@ -19,12 +19,15 @@ public:
     Player(Window *window, const std::string &fileName, const std::string &_name, World *world, const vector3du &pos);
     ~Player();
     const std::string &getName() const;
+    const uint &getHp() const;
     bool putBomb();
     bool takePowerUp(const PowerUp &powerUp);
+    void takeDamage();
     void update();
 
 private:
     std::string name; // ?
+    uint hp;
     std::string bombType;
     uint bombPower;
     uint nbBomb;
