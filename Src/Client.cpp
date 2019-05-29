@@ -93,12 +93,11 @@ static void execPlayerAction(PlayerAction &key, FormattedSocket &client, World &
         if (client.type == PlayerMove)
             player->move(client.direction);
         //check colision enenmies
-        if (world.getBlock(player->getPosition())->getType() == "Fire") {
+        if (world.getBlock(player->getPosition()) && world.getBlock(player->getPosition())->getType() == "Fire") {
             player->takeDamage();
             if (!player->getHp())
                 cerr << "LOL you are Dead"<< endl;
         }
-
         //check colision power up
         for (auto it = powerUpList.begin(); it != powerUpList.end();) {
             if (player->getPosition() == (*it)->getPosition()) {
