@@ -57,7 +57,8 @@ void Player::takeDamage()
     if (hp) {
         hp--;
         if (!hp)
-            mesh->setVisible(false);
+            //mesh->setVisible(false); // ??
+            mesh->setRotation(vector3df(0, 0, 90));
     }
 }
 
