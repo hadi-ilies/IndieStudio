@@ -63,14 +63,14 @@ void World::explode(const vector3du &pos, const uint &power)
         vector3du(0, 1, 0), // ? 3D
     };
 
-    for (uint i = 0; i <= power; i++) {
+    for (uint i = 1; i <= power; i++) {
         for (uint j = 0; j < dirList.size(); j++) {
             const vector3du newPos = pos + dirList[j] * i;
 
             if (newPos.X >= size.X || newPos.Y >= size.Y || newPos.Z >= size.Z)
                 continue;
-            if (tab[newPos.X][newPos.Y][newPos.Z]) {
-                if (tab[newPos.X][newPos.Y][newPos.Z]->getDestructible()) // tmp use getDestructible of block
+            if (tab[newPos.X][newPos.Y][newPos.Z] && tab[newPos.X][newPos.Y][newPos.Z]->getOpaque()) {
+                if (tab[newPos.X][newPos.Y][newPos.Z]->getDestructible())
                     removeBlock(newPos);
                 dirList[j] = vector3du(0, 0, 0);
             }
