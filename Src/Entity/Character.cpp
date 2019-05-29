@@ -21,7 +21,7 @@ bool Character::animHasFinished() const
     return !anim || anim->hasFinished();
 }
 
-bool Character::move(const vector2di &dir)
+bool Character::checkMove(const vector2di &dir) const
 {
     vector3du newPosition(position.X + dir.X, position.Y, position.Z + dir.Y); // vct2.Y is the vec3.Z
 
@@ -29,8 +29,17 @@ bool Character::move(const vector2di &dir)
         return false;
     if (world->getBlock(newPosition) && world->getBlock(newPosition)->getOpaque())
         return false;
+    return true;
+}
+
+bool Character::move(const vector2di &dir)
+{
+    vector3du newPosition(position.X + dir.X, position.Y, position.Z + dir.Y); // vct2.Y is the vec3.Z
+
     if (!animHasFinished())
         return false;
+    if (!checkMove(dir))
+        newPosition = position;
 
     const vector3df initPosition(position.X, position.Y, position.Z);
     const vector3df destPosition(newPosition.X, newPosition.Y, newPosition.Z);

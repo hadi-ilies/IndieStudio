@@ -18,7 +18,7 @@ public:
     Character(Window *window, const std::string &fileName, World *world, const vector3du &pos);
     ~Character();
     bool animHasFinished() const;
-    //bool checkMove(const vector2di &dir); // TODO
+    bool checkMove(const vector2di &dir) const;
     bool move(const vector2di &dir);
 
 protected:
