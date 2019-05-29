@@ -27,7 +27,7 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
     for (uint i = 0; i < world.getSize().X; i++)
         for (uint j = 0; j < world.getSize().Y; j++)
             for (uint k = 0; k < world.getSize().Z; k++)
-                if (world.getBlock(vector3du(i, j, k)) && !world.getBlock(vector3du(i, j, k))->getDestructible() && rand() % 2)
+                if (world.getBlock(vector3du(i, j, k)) && world.getBlock(vector3du(i, j, k))->getDestructible() && rand() % 2)
                     powerUpList.push_back(unique_ptr<PowerUp>(new PowerUp(NULL, rand() %  2 ? "FireUp" : "BombUp", &world, vector3du(i, j, k)))); // tmp type
     TcpListener listener;
     std::vector<unique_ptr<FormattedSocket>> socketList;
