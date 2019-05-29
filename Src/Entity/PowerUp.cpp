@@ -15,3 +15,8 @@ PowerUp::PowerUp(Window *window, const std::string &_type, World *world, const v
 PowerUp::~PowerUp()
 {
 }
+
+const std::string &PowerUp::getType() const
+{
+    return type;
+}

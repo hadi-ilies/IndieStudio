@@ -79,7 +79,7 @@ ISceneNode *Window::addCube(const std::string &texture)
 
     if (!node)
         return NULL;
-    node->setMaterialTexture(0, driver->getTexture(texture.c_str()));
+    node->setMaterialTexture(0, driver->getTexture(texture.c_str())); // ? throw if getTexture failed
     node->setMaterialFlag(video::EMF_LIGHTING, false);
     return node;
 }

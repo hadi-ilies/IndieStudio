@@ -10,6 +10,7 @@
 #include "Window.hpp"
 #include "World.hpp"
 #include "Entity/Player.hpp"
+#include "Entity/PowerUp.hpp" // ?
 #include "Error.hpp"
 #include "FormattedSocket.hpp"
 
@@ -19,10 +20,15 @@ using namespace sf;
 
 void server(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer)
 {
-    //Window window("Bomberman", dimension2d<u32>(800, 600), false);
     World world(NULL, worldFileName);
     std::vector<unique_ptr<Player>> playerList;
+    std::vector<unique_ptr<PowerUp>> powerUpList;
 
+    for (uint i = 0; i < world.getSize().X; i++)
+        for (uint j = 0; j < world.getSize().Y; j++)
+            for (uint k = 0; k < world.getSize().Z; k++)
+                if (world.getBlock(vector3du(i, j, k)) && !world.getBlock(vector3du(i, j, k))->getOpaque() && rand() % 2)
+                    powerUpList.push_back(unique_ptr<PowerUp>(new PowerUp(NULL, rand() %  2 ? "FireUp" : "BombUp", &world, vector3du(i, j, k))));
     TcpListener listener;
     std::vector<unique_ptr<FormattedSocket>> socketList;
 
@@ -54,7 +60,7 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
             throw Error("bad type");
         name = socket->message;
         try {
-            vector3du position = vector3du(1, 1, 1);
+            vector3du position = vector3du(1, 1, 1); // TODO change pos
 
             if (playerList.size() == 1)
                 position = vector3du(1, 1, world.getSize().Z - 2);
@@ -62,7 +68,7 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
                 position = vector3du(world.getSize().X - 2, 1, 1);
             else if (playerList.size() == 3)
                 position = vector3du(world.getSize().X - 2, 1, world.getSize().Z - 2);
-            unique_ptr<Player> player = unique_ptr<Player>(new Player(NULL, fileName, name, &world, position)); // TODO change pos
+            unique_ptr<Player> player = unique_ptr<Player>(new Player(NULL, fileName, name, &world, position));
 
             player->changeTexture(texture);
             //throw Error("texture doesn't exist");
@@ -81,6 +87,11 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
     // init
     for (size_t i = 0; i < socketList.size(); i++) {
         socketList[i]->sendMessage(worldFileName);
+        socketList[i]->sendNumber(powerUpList.size());
+        for (unique_ptr<PowerUp> &powerUp : powerUpList) {
+            socketList[i]->sendMessage(powerUp->getType());
+            socketList[i]->sendPosition(powerUp->getPosition());
+        }
         socketList[i]->sendNumber(socketList.size());
         for (unique_ptr<Player> &player : playerList) {
             socketList[i]->sendMessage(player->getFileName());
@@ -99,6 +110,18 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
                 throw Error("send failed");
         cerr << "OK" << endl;
         cerr << "receive action : ";
+        /*
+          for (size_t i = 0; i < socketList.size(); i++) {
+          if (!socketList[i]->receive())
+          throw Error("receiver failed");
+          if (socketList[i]->type == PlayerMove)
+          playerList[i]->move(socketList[i]->direction);
+          else if (socketList[i]->type == PlayerPutBomb)
+          playerList[i]->putBomb();
+          else
+          throw Error("bad type");
+          }
+         */
         for (unique_ptr<FormattedSocket> &socket : socketList)
             if (!socket->receive())
                 throw Error("receiver failed");
