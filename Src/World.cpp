@@ -5,7 +5,7 @@
 ** World.cpp
 */
 
-//#include <fstream>
+#include <fstream>
 #include <vector>
 #include "World.hpp"
 #include "Error.hpp"
@@ -82,13 +82,28 @@ void World::explode(const vector3du &pos, const uint &power)
 
 bool World::load(const std::string &_fileName)
 {
-    //
+
     return true;
 }
 
 bool World::save(const std::string &_fileName)
 {
-    //
+    ofstream file(_fileName, std::ifstream::out | std::ifstream::trunc);
+
+    file.write((char *) &getSize(), sizeof(this->getSize()));
+
+    for (uint i = 0 ; i < size.X ; i++) {
+        for (uint j = 0 ; j < size.Y ; j++) {
+            for (uint k = 0 ; k < size.Z ; k++) {
+                if (!tab[i][j][k])
+                    file.write(nullptr, 0);
+                else {
+                    // can also work with data
+                    file.write(tab[i][j][k]->getType().c_str(), sizeof(char) * (tab[i][j][k]->getType().size()) + 1);
+                }
+            }
+        }
+    }
     return true;
 }
 
