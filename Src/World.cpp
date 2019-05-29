@@ -19,9 +19,9 @@ World::World(Window *_window, const std::string &_fileName)
     create(vector3du(21, 2, 21)); // tmp
     for (uint i = 0; i < size.X; i++) // tmp
         for (uint j = 0; j < size.Z; j++) {
-            addBlock(vector3du(i, 0, j), "Wall");
+            addBlock(vector3du(i, 0, j), "Ground");
             if (i == 0 || j == 0 || i == size.X - 1 || j == size.Z - 1)
-                addBlock(vector3du(i, 1, j), "Wall");
+                addBlock(vector3du(i, 1, j), "Ground");
             else if (((i + 1) * (j + 1)) % 2)
                 addBlock(vector3du(i, 1, j), "Wall");
             else if (!(i == 1 && j == 1 || i == 1 && j == size.Z - 2 || i == size.X - 2 && j == 1 || i == size.X - 2 && j == size.Z - 2))

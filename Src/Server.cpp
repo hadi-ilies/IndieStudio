@@ -79,11 +79,11 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
             socketList[id]->sendMessage(player->getTexture());
             socketList[id]->sendMessage(player->getName());
             if (id == 1)
-                socketList[id]->sendPosition(vector3du(1, 1, world.getSize().Y - 2));
+                socketList[id]->sendPosition(vector3du(1, 1, world.getSize().Z - 2));
             else if (id == 2)
                 socketList[id]->sendPosition(vector3du(world.getSize().X - 2, 1, 1));
             else if (id == 3)
-                socketList[id]->sendPosition(vector3du(world.getSize().X - 2, 1, world.getSize().Y - 2));
+                socketList[id]->sendPosition(vector3du(world.getSize().X - 2, 1, world.getSize().Z - 2));
             else
                 socketList[id]->sendPosition(vector3du(1, 1, 1)); // tmp get dynamic pos
         }
