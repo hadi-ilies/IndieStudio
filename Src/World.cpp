@@ -80,26 +80,29 @@ void World::explode(const vector3du &pos, const uint &power)
     }
 }
 
-bool load(const std::string &_fileName)
+bool World::load(const std::string &_fileName)
 {
     //
     return true;
 }
 
-bool save(const std::string &_fileName)
+bool World::save(const std::string &_fileName)
 {
     //
     return true;
 }
 
+#include <iostream> // tmp
 void World::update()
 {
     for (uint i = 0; i < size.X; i++)
         for (uint j = 0; j < size.Y; j++)
             for (uint k = 0; k < size.Z; k++)
                 if (tab[i][j][k]) {
-                    if (tab[i][j][k]->getType() == "Fire")
+                    if (tab[i][j][k]->getType() == "Fire") {
                         removeBlock(vector3du(i, j, k));
+                        cerr << "removeBlock : " << i << " " << j << " " << k << endl;
+                    }
                     else
                         tab[i][j][k]->setPosition(vector3du(i, j, k)); // ?
                 }
