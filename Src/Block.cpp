@@ -50,10 +50,13 @@ const uint &Block::getLifeTime() const
     return lifeTime;
 }
 
+#include <iostream> // tmp
 void Block::update()
 {
-    if (lifeTime && lifeTime != -1)
+    if (lifeTime && lifeTime != -1) {
         lifeTime--;
+        cerr << "addr : " << this << " | lifeTime : " << lifeTime << endl;
+    }
 }
 
 void Block::getProperty(const std::string &fileName)
