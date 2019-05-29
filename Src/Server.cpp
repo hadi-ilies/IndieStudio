@@ -54,6 +54,14 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
             throw Error("bad type");
         name = socket->message;
         try {
+            vector3du position = vector3du(1, 1, 1);
+
+            if (playerList.size() == 1)
+                position = vector3du(1, 1, world.getSize().Z - 2);
+            else if (playerList.size() == 2)
+                position = vector3du(world.getSize().X - 2, 1, 1);
+            else if (playerList.size() == 3)
+                position = vector3du(world.getSize().X - 2, 1, world.getSize().Z - 2);
             unique_ptr<Player> player = unique_ptr<Player>(new Player(NULL, fileName, name, &world, vector3du(1, 1, 1))); // TODO change pos
 
             player->changeTexture(texture);
@@ -71,23 +79,16 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
     cerr << "clients connected" << endl;
 
     // init
-    for (size_t id = 0; id < socketList.size(); id++) {
-        socketList[id]->sendMessage(worldFileName);
-        socketList[id]->sendNumber(socketList.size());
+    for (size_t i = 0; i < socketList.size(); i++) {
+        socketList[i]->sendMessage(worldFileName);
+        socketList[i]->sendNumber(socketList.size());
         for (unique_ptr<Player> &player : playerList) {
-            socketList[id]->sendMessage(player->getFileName());
-            socketList[id]->sendMessage(player->getTexture());
-            socketList[id]->sendMessage(player->getName());
-            if (id == 1)
-                socketList[id]->sendPosition(vector3du(1, 1, world.getSize().Z - 2));
-            else if (id == 2)
-                socketList[id]->sendPosition(vector3du(world.getSize().X - 2, 1, 1));
-            else if (id == 3)
-                socketList[id]->sendPosition(vector3du(world.getSize().X - 2, 1, world.getSize().Z - 2));
-            else
-                socketList[id]->sendPosition(vector3du(1, 1, 1)); // tmp get dynamic pos
+            socketList[i]->sendMessage(player->getFileName());
+            socketList[i]->sendMessage(player->getTexture());
+            socketList[i]->sendMessage(player->getName());
+            socketList[i]->sendPosition(player->getPosition());
         }
-        socketList[id]->sendNumber(id);
+        socketList[i]->sendNumber(i);
     }
 
     // loop
