@@ -74,6 +74,8 @@ void World::explode(const vector3du &pos, const uint &power)
                     removeBlock(newPos);
                 dirList[j] = vector3du(0, 0, 0);
             }
+            if (!tab[newPos.X][newPos.Y][newPos.Z])
+                addBlock(newPos, "Fire"); // ?
         }
     }
 }
