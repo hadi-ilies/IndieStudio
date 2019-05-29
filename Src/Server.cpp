@@ -71,15 +71,23 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
     cerr << "clients connected" << endl;
 
     // init
-    for (unique_ptr<FormattedSocket> &socket : socketList) {
-        socket->sendMessage(worldFileName);
-        socket->sendNumber(socketList.size());
+    for (size_t id = 0; id < socketList.size(); id++) {
+        socketList[id]->sendMessage(worldFileName);
+        socketList[id]->sendNumber(socketList.size());
         for (unique_ptr<Player> &player : playerList) {
-            socket->sendMessage(player->getFileName());
-            socket->sendMessage(player->getTexture());
-            socket->sendMessage(player->getName());
-            socket->sendPosition(vector3du(1, 1, 1)); /// tmp get dynamic pos
+            socketList[id]->sendMessage(player->getFileName());
+            socketList[id]->sendMessage(player->getTexture());
+            socketList[id]->sendMessage(player->getName());
+            if (id == 1)
+                socketList[id]->sendPosition(vector3du(1, 1, world.getSize().Y - 2));
+            else if (id == 2)
+                socketList[id]->sendPosition(vector3du(world.getSize().X - 2, 1, 1));
+            else if (id == 3)
+                socketList[id]->sendPosition(vector3du(world.getSize().X - 2, 1, world.getSize().Y - 2));
+            else
+                socketList[id]->sendPosition(vector3du(1, 1, 1)); // tmp get dynamic pos
         }
+        socketList[id]->sendNumber(id);
     }
 
     // loop
