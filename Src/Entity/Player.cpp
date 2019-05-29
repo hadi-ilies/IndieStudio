@@ -37,6 +37,17 @@ bool Player::putBomb()
     return true;
 }
 
+bool Player::takePowerUp(const PowerUp &powerUp)
+{
+    if (powerUp.getType() == "FireUp")
+        bombPower++;
+    else if (powerUp.getType() == "BombUp")
+        nbBomb++;
+    else
+        return false;
+    return true;
+}
+
 void Player::update()
 {
     Entity::update();

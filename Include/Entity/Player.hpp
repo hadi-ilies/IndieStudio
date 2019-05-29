@@ -11,6 +11,7 @@
 #include <list>
 #include "Entity/Character.hpp"
 #include "Entity/Bomb.hpp"
+#include "Entity/PowerUp.hpp"
 
 class Player : public Character
 {
@@ -19,6 +20,7 @@ public:
     ~Player();
     const std::string &getName() const;
     bool putBomb();
+    bool takePowerUp(const PowerUp &powerUp);
     void update();
 
 private:
