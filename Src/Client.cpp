@@ -97,11 +97,14 @@ static void execPlayerAction(PlayerAction &key, FormattedSocket &client, World &
         player->update();
     }
     world.update();
+    key = None;
     startTurn = false;
     endTurn = true;
 }
 
-static void game(Window &window, FormattedSocket &client, World &world, vector<unique_ptr<Player>> &playerList)
+//NOTE : playerId not used there but it will be usefull
+
+static void game(Window &window, FormattedSocket &client, World &world, vector<unique_ptr<Player>> &playerList, const size_t &playerId)
 {
     thread loop(serverLoop, &client);
     PlayerAction key = None;
@@ -117,7 +120,7 @@ static void game(Window &window, FormattedSocket &client, World &world, vector<u
                 if (!client.sendEndTurn())
                     throw Error("sendEndTurn failed");
                 endTurn = false;
-                key = None;
+                //key = None; control Corentin dont remove it
             }
         window.display(video::SColor(255, 113, 113, 233));
     }
@@ -187,5 +190,11 @@ void client(const IpAddress &ip, const ushort &port) //put player in param
         playerList.push_back(unique_ptr<Player>(new Player(&window, fileName, name, &world, position)));
         playerList.back()->changeTexture(texture);
     }
-    game(window, client, world, playerList);
+    if (!client.receive())
+        throw Error("receive error 7");
+    if (client.type != Number)
+        throw Error("uint 32 error id");
+    size_t playerId = client.number;
+
+    game(window, client, world, playerList, playerId);
 }
