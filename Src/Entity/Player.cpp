@@ -55,7 +55,7 @@ bool Player::takePowerUp(const PowerUp &powerUp)
 
 void Player::takeDamage()
 {
-    if (hp > 0)
+    if (hp)
         hp--;
 }
 
