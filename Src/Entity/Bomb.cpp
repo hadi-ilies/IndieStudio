@@ -31,6 +31,8 @@ const uint &Bomb::getPower() const
 void Bomb::update()
 {
     Entity::update();
+    if (world->getBlock(position) && world->getBlock(position)->getType() == "Fire")
+        tick = 0;
     if (tick == 0)
         detonate();
     else
