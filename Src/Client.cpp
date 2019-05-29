@@ -63,7 +63,7 @@ static bool getKey(const Window &window, PlayerAction &key)
     return true;
 }
 
-static void execPlayerAction(PlayerAction &key, FormattedSocket &client, World &world, vector<unique_ptr<Player>> &playerList)
+static void execPlayerAction(PlayerAction &key, FormattedSocket &client, World &world, vector<unique_ptr<PowerUp>> &powerUpList, vector<unique_ptr<Player>> &playerList)
 {
     if (key == PutBomb) {
         if (!client.sendPlayerPutBomb())
@@ -92,7 +92,16 @@ static void execPlayerAction(PlayerAction &key, FormattedSocket &client, World &
             throw Error("client Receiver");
         if (client.type == PlayerMove)
             player->move(client.direction);
-        else if (client.type == PlayerPutBomb)
+        //check colision power up
+        for (auto it = powerUpList.begin(); it != powerUpList.end();) {
+            if (player->getPosition() == (*it)->getPosition()) {
+                player->takePowerUp(**it);
+                it = powerUpList.erase(it);
+            }
+            else
+                it++;
+        }
+        if (client.type == PlayerPutBomb) //else if
             if (!player->putBomb())
                 player->move(vector2di(0, 0));
         player->update();
@@ -105,7 +114,7 @@ static void execPlayerAction(PlayerAction &key, FormattedSocket &client, World &
 
 //NOTE : playerId not used there but it will be usefull
 
-static void game(Window &window, FormattedSocket &client, World &world, vector<unique_ptr<Player>> &playerList, const size_t &playerId)
+static void game(Window &window, FormattedSocket &client, World &world, vector<unique_ptr<PowerUp>> &powerUpList, vector<unique_ptr<Player>> &playerList, const size_t &playerId)
 {
     thread loop(serverLoop, &client);
     PlayerAction key = None;
@@ -115,7 +124,7 @@ static void game(Window &window, FormattedSocket &client, World &world, vector<u
             window.close();
         getKey(window, key);
         if (startTurn)
-            execPlayerAction(key, client, world, playerList);
+            execPlayerAction(key, client, world, powerUpList, playerList);
         if (endTurn)
             if (turnHasFinished(playerList)) {
                 if (!client.sendEndTurn())
@@ -180,6 +189,7 @@ void client(const IpAddress &ip, const ushort &port) //put player in param
             throw Error("Position error");
         vector3du powerUpPosition = client.position;
         powerUpList.push_back(unique_ptr<PowerUp>(new PowerUp(&window, powerUpType, &world, powerUpPosition)));
+        powerUpList.back()->update();
     }
     if (!client.receive())
         throw Error("receive error 2");
@@ -222,5 +232,5 @@ void client(const IpAddress &ip, const ushort &port) //put player in param
     size_t playerId = client.number;
 
     cout << "ZIZI" << endl;
-    game(window, client, world, playerList, playerId);
+    game(window, client, world, powerUpList, playerList, playerId);
 }
