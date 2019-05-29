@@ -50,13 +50,10 @@ const uint &Block::getLifeTime() const
     return lifeTime;
 }
 
-#include <iostream> // tmp
 void Block::update()
 {
-    if (lifeTime && lifeTime != -1) {
+    if (lifeTime && lifeTime != -1)
         lifeTime--;
-        cerr << "addr : " << this << " | lifeTime : " << lifeTime << endl;
-    }
 }
 
 void Block::getProperty(const std::string &fileName)
@@ -73,7 +70,7 @@ void Block::getProperty(const std::string &fileName)
         else if (regex_search(line, match, regex(R"(^destructible *: *(false|true)$)")))
             destructible = match[1] == "true" ? true : false;
         else if (regex_search(line, match, regex(R"(^lifeTime *: *(\d+)$)")))
-            destructible = stoi(match[1]);
+            lifeTime = stoi(match[1]);
     }
 }
 
