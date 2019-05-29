@@ -26,7 +26,6 @@ const uint &Player::getHp() const
     return hp;
 }
 
-#include <iostream> // tmp
 bool Player::putBomb()
 {
     const vector3df floatPosition(position.X, position.Y, position.Z);
