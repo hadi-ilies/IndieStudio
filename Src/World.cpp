@@ -14,19 +14,19 @@
 World::World(Window *_window, const std::string &_fileName)
     : window(_window) // tmp
 {
-    /*if (!load(_fileName)) // TODO
-      throw Error("load faild");*/
-    create(vector3du(21, 2, 21)); // tmp
-    for (uint i = 0; i < size.X; i++) // tmp
-        for (uint j = 0; j < size.Z; j++) {
-            addBlock(vector3du(i, 0, j), "Ground");
-            if (i == 0 || j == 0 || i == size.X - 1 || j == size.Z - 1)
-                addBlock(vector3du(i, 1, j), "Ground");
-            else if (((i + 1) * (j + 1)) % 2)
-                addBlock(vector3du(i, 1, j), "Wall");
-            else if (!(i == 1 && j == 1 || i == 1 && j == size.Z - 2 || i == size.X - 2 && j == 1 || i == size.X - 2 && j == size.Z - 2))
-                addBlock(vector3du(i, 1, j), "Box");
-        }
+    if (!load(_fileName)) // TODO
+        throw Error("load faild");
+    /* create(vector3du(21, 2, 21)); // tmp
+     for (uint i = 0; i < size.X; i++) // tmp
+         for (uint j = 0; j < size.Z; j++) {
+             addBlock(vector3du(i, 0, j), "Ground");
+             if (i == 0 || j == 0 || i == size.X - 1 || j == size.Z - 1)
+                 addBlock(vector3du(i, 1, j), "Ground");
+             else if (((i + 1) * (j + 1)) % 2)
+                 addBlock(vector3du(i, 1, j), "Wall");
+             else if (!(i == 1 && j == 1 || i == 1 && j == size.Z - 2 || i == size.X - 2 && j == 1 || i == size.X - 2 && j == size.Z - 2))
+                 addBlock(vector3du(i, 1, j), "Box");
+         }*/
 }
 
 World::~World()
@@ -84,21 +84,44 @@ void World::explode(const vector3du &pos, const uint &power)
 
 bool World::load(const std::string &_fileName)
 {
+    ifstream file(_fileName, ifstream::binary);
+    std::string type;
 
+    if (!file.is_open())
+        return false;
+
+    file.read((char *) &size, sizeof(size));
+
+    create(getSize());
+    for (uint i = 0 ; i < size.X ; i++) {
+        for (uint j = 0 ; j < size.Y ; j++) {
+            for (uint k = 0 ; k < size.Z ; k++) {
+                type = "";
+                for (char c ; file.read(&c, sizeof(char)) && c ; type += c);
+                if (!type.empty())
+                    tab[i][j][k] = new Block(window, type);
+            }
+        }
+    }
+    for (uint i = 0 ; i < size.X ; i++)
+        for (uint j = 0 ; j < size.Y ; j++)
+            for (uint k = 0 ; k < size.Z ; k++)
+                if (tab[i][j][k])
+                    addBlock(vector3du(i, j, k), tab[i][j][k]->getType());
     return true;
 }
 
 bool World::save(const std::string &_fileName)
 {
-    ofstream file(_fileName, std::ifstream::out | std::ifstream::trunc);
+    ofstream file(_fileName, ifstream::binary | ifstream::trunc);
 
-    file.write((char *) &getSize(), sizeof(this->getSize()));
+    file.write((char *) &size, sizeof(size));
 
     for (uint i = 0 ; i < size.X ; i++) {
         for (uint j = 0 ; j < size.Y ; j++) {
             for (uint k = 0 ; k < size.Z ; k++) {
                 if (!tab[i][j][k])
-                    file.write(nullptr, 0);
+                    file.write("\0", 1);
                 else {
                     // can also work with data
                     file.write(tab[i][j][k]->getType().c_str(), sizeof(char) * (tab[i][j][k]->getType().size()) + 1);
