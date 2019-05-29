@@ -10,6 +10,7 @@
 #include "World.hpp"
 #include "Error.hpp"
 
+#include <iostream> // tmp
 World::World(Window *_window, const std::string &_fileName)
     : window(_window) // tmp
 {
@@ -22,6 +23,8 @@ World::World(Window *_window, const std::string &_fileName)
             if (i == 0 || j == 0 || i == size.X - 1 || j == size.Z - 1)
                 addBlock(vector3du(i, 1, j), "Wall");
             else if (((i + 1) * (j + 1)) % 2)
+                addBlock(vector3du(i, 1, j), "Wall");
+            else if (!(i == 1 && j == 1 || i == 1 && j == size.Z - 2 || i == size.X - 2 && j == 1 || i == size.X - 2 && j == size.Z - 2))
                 addBlock(vector3du(i, 1, j), "Box");
         }
 }
