@@ -171,13 +171,13 @@ void client(const IpAddress &ip, const ushort &port) //put player in param
         //type
         if (!client.receive())
             throw Error("message Error");
-        if (!client.type != Message)
+        if (client.type != Message)
             throw Error("type error");
         std::string powerUpType = client.message;
         //position
         if (!client.receive())
             throw Error("message Error");
-        if (!client.type != Position)
+        if (client.type != Position)
             throw Error("Position error");
         vector3du powerUpPosition = client.position;
         powerUpList.push_back(unique_ptr<PowerUp>(new PowerUp(&window, powerUpType, &world, powerUpPosition)));
