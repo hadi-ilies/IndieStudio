@@ -63,27 +63,31 @@ static bool getKey(const Window &window, PlayerAction &key)
     return true;
 }
 
-static void execPlayerAction(PlayerAction &key, FormattedSocket &client, World &world, vector<unique_ptr<PowerUp>> &powerUpList, vector<unique_ptr<Player>> &playerList)
+static void execPlayerAction(PlayerAction &key, FormattedSocket &client, World &world, vector<unique_ptr<PowerUp>> &powerUpList, vector<unique_ptr<Player>> &playerList, const size_t &playerId)
 {
-    if (key == PutBomb) {
-        if (!client.sendPlayerPutBomb())
-            throw Error("SendPlayerBomb");
-    }
-    else if (key == Left) {
-        if (!client.sendPlayerMove(vector2di(-1, 0)))
-            throw Error("SendPlayer(-1, 0)");
-    }
-    else if (key == Right) {
-        if (!client.sendPlayerMove(vector2di(1, 0)))
-            throw Error("SendPlayer(1, 0)");
-    }
-    else if (key == Up) {
-        if (!client.sendPlayerMove(vector2di(0, 1)))
-            throw Error("SendPlayer(0, 1)");
-    }
-    else if (key == Down) {
-        if (!client.sendPlayerMove(vector2di(0, -1)))
-            throw Error("SendPlayer(0, -1)");
+    if (playerList[playerId]->getHp()) {
+        if (key == PutBomb) {
+            if (!client.sendPlayerPutBomb())
+                throw Error("SendPlayerBomb");
+        }
+        else if (key == Left) {
+            if (!client.sendPlayerMove(vector2di(-1, 0)))
+                throw Error("SendPlayer(-1, 0)");
+        }
+        else if (key == Right) {
+            if (!client.sendPlayerMove(vector2di(1, 0)))
+                throw Error("SendPlayer(1, 0)");
+        }
+        else if (key == Up) {
+            if (!client.sendPlayerMove(vector2di(0, 1)))
+                throw Error("SendPlayer(0, 1)");
+        }
+        else if (key == Down) {
+            if (!client.sendPlayerMove(vector2di(0, -1)))
+                throw Error("SendPlayer(0, -1)");
+        }
+        else if (!client.sendPlayerMove(vector2di(0, 0)))
+            throw Error("sendPlayerMove(0, 0)");
     }
     else if (!client.sendPlayerMove(vector2di(0, 0)))
         throw Error("sendPlayerMove(0, 0)");
@@ -130,7 +134,7 @@ static void game(Window &window, FormattedSocket &client, World &world, vector<u
             window.close();
         getKey(window, key);
         if (startTurn)
-            execPlayerAction(key, client, world, powerUpList, playerList);
+            execPlayerAction(key, client, world, powerUpList, playerList, playerId);
         if (endTurn)
             if (turnHasFinished(playerList)) {
                 if (!client.sendEndTurn())
