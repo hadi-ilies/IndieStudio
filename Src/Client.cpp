@@ -157,8 +157,6 @@ void client(const IpAddress &ip, const ushort &port) //put player in param
     World world(&window, client.message);
     vector<unique_ptr<Player>> playerList;
 
-    if (!client.receive())
-        throw Error("receive error 2");
     //nb powerup
     if (!client.receive())
         throw Error("receive error bonus");
@@ -167,6 +165,7 @@ void client(const IpAddress &ip, const ushort &port) //put player in param
     size_t nbPowerUp = client.number;
     //loop type position
     vector<unique_ptr<PowerUp>> powerUpList;
+    cout << "nb power up : " << nbPowerUp << endl;
     for (size_t i = 0; i < nbPowerUp; i++) {
         //type
         if (!client.receive())
@@ -182,6 +181,8 @@ void client(const IpAddress &ip, const ushort &port) //put player in param
         vector3du powerUpPosition = client.position;
         powerUpList.push_back(unique_ptr<PowerUp>(new PowerUp(&window, powerUpType, &world, powerUpPosition)));
     }
+    if (!client.receive())
+        throw Error("receive error 2");
     if (client.type != Number)
         throw Error("uint 32 error");
     nbPlayer = client.number;
