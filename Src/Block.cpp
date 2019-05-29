@@ -73,7 +73,7 @@ void Block::getProperty(const std::string &fileName)
         else if (regex_search(line, match, regex(R"(^destructible *: *(false|true)$)")))
             destructible = match[1] == "true" ? true : false;
         else if (regex_search(line, match, regex(R"(^lifeTime *: *(\d+)$)")))
-            destructible = match[1] == stoi(match[1]);
+            destructible = stoi(match[1]);
     }
 }
 
