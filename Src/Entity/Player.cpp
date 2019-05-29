@@ -54,8 +54,11 @@ bool Player::takePowerUp(const PowerUp &powerUp)
 
 void Player::takeDamage()
 {
-    if (hp)
+    if (hp) {
         hp--;
+        if (!hp)
+            mesh->setVisible(false);
+    }
 }
 
 void Player::update()
