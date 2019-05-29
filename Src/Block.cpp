@@ -13,9 +13,9 @@
 #include "Error.hpp"
 
 Block::Block(Window *window, const std::string &_type)
-    : type(type), cube(window ? window->addCube("Resources/Block/" + fileName + "/Texture.png") : NULL)
+    : type(_type), cube(window ? window->addCube("Resources/Block/" + _type + "/Texture.png") : NULL)
 {
-    getProperty("Resources/Block/" + fileName + "/Property"); // TODO set in init
+    getProperty("Resources/Block/" + _type + "/Property"); // TODO set in init
     if (window) {
         if (!cube)
             throw Error("cube can't be create");
