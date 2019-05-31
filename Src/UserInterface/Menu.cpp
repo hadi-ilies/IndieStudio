@@ -25,7 +25,7 @@ void Menu::addButton()
 
 }
 
-void deleteButton(uint index)
+void Menu::deleteButton(uint index)
 {
-
+    buttonList.erase(buttonList.begin() + index);
 }
