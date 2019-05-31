@@ -16,9 +16,8 @@ class Menu {
 public:
 	Menu(Window *window, const uint &nbButton); //window in param
 	~Menu();
-    void addButton();
-    void deleteButton(uint index);
-
+    void addButton(Window *window, vector3du &position);
+    void deleteButton(const uint index);
 
 private:
     Window *window;

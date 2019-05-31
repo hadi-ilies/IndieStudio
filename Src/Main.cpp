@@ -72,7 +72,9 @@ int main(int argc, char **argv)
 {
     try {
         srand(time(NULL));
-        if (argc == 5 && strncmp(argv[1], "server", strlen(argv[1])) == 0)
+        if (argc == 2 && strncmp(argv[1], "menu", strlen(argv[1])))
+            std::cout << "User interface class"<< std::endl;
+        else if (argc == 5 && strncmp(argv[1], "server", strlen(argv[1])) == 0)
             server(std::atoi(argv[2]), argv[3], std::atoi(argv[4]));
         else if (argc == 4 && strncmp(argv[1], "client", strlen(argv[1])) == 0)
             client(IpAddress(argv[2]), std::atoi(argv[3]));

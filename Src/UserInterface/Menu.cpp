@@ -20,12 +20,12 @@ Menu::~Menu()
 {
 }
 
-void Menu::addButton()
+void Menu::addButton(Window *window, vector3du &position)
 {
-
+    buttonList.push_back(unique_ptr<Button>(new Button(window, position)));
 }
 
-void Menu::deleteButton(uint index)
+void Menu::deleteButton(const uint index)
 {
     buttonList.erase(buttonList.begin() + index);
 }
