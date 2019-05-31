@@ -35,6 +35,7 @@ set(SRC
   ${SRCDIR}${ENTITYDIR}Player.cpp
   ${SRCDIR}${UIDIR}Button.cpp
   ${SRCDIR}${UIDIR}Menu.cpp
+  ${SRCDIR}${UIDIR}UI.cpp
   )
 
 set(INCLUDE
@@ -51,6 +52,7 @@ set(INCLUDE
   ${INCDIR}${ENTITYDIR}Player.hpp
   ${INCDIR}${UIDIR}Button.hpp
   ${INCDIR}${UIDIR}Menu.hpp
+  ${INCDIR}${UIDIR}UI.hpp
   )
 
 #set(CMAKE_CXX_FLAGS "-W -Wall -Wextra")
