@@ -6,6 +6,7 @@ project(Bomberman)
 
 set(SRCDIR Src/)
 set(ENTITYDIR Entity/)
+set (UIDIR UserInterface/)
 set(INCDIR Include/)
 
 include_directories(Include)
@@ -32,6 +33,8 @@ set(SRC
   ${SRCDIR}${ENTITYDIR}PowerUp.cpp
   ${SRCDIR}${ENTITYDIR}Character.cpp
   ${SRCDIR}${ENTITYDIR}Player.cpp
+  ${SRCDIR}${UIDIR}Button.cpp
+  ${SRCDIR}${UIDIR}Menu.cpp
   )
 
 set(INCLUDE
@@ -46,6 +49,8 @@ set(INCLUDE
   ${INCDIR}${ENTITYDIR}PowerUp.hpp
   ${INCDIR}${ENTITYDIR}Character.hpp
   ${INCDIR}${ENTITYDIR}Player.hpp
+  ${INCDIR}${UIDIR}Button.hpp
+  ${INCDIR}${UIDIR}Menu.hpp
   )
 
 #set(CMAKE_CXX_FLAGS "-W -Wall -Wextra")
