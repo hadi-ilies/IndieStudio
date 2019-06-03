@@ -31,12 +31,14 @@ public:
     void close();
     bool isOpen();
     void display(const SColor &color);
+    ISceneNodeAnimator *createCircleAnimation(const vector3df &pos, const float &timeStamp);
     IAnimatedMesh *getModel(const std::string &fileName);
     IrrlichtDevice *getDevice() const;
     ITexture *getTexture(const std::string &fileName);
     ISceneNode *addCube(const std::string &texture); // ? ISceneNode or IMeshSceneNode
     IAnimatedMeshSceneNode *addAnimatedMesh(const std::string &model, const std::string &texture);
     ISceneNodeAnimator *createTranslation(const vector3df &initPos, const vector3df &destPos, const u32 &timestamp);
+    ICameraSceneNode *getCameraSceneNode(const vector3df &pointOfView, const vector3df &lookAt);
     bool isKeyPressed(const irr::EKEY_CODE &keyCode) const;
     void runDemo(); // tmp
     void debugMode(const bool &active);
@@ -44,7 +46,8 @@ public:
 private:
     void debugMode();
     void demoAnimation(core::array<core::vector3df> points, const core::vector3df& lookAt); // tmp
-
+public:
+    ICameraSceneNode *test;
 private:
     EventReceiver receiver;
     IrrlichtDevice *device;

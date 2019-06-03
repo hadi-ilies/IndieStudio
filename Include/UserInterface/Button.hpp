@@ -8,6 +8,7 @@
 #pragma once
 
 #include <irrlicht/irrlicht.h>
+#include "Entity.hpp"
 #include "Window.hpp"
 
 using namespace irr;
@@ -20,12 +21,13 @@ using namespace std;
 typedef vector3d<uint> vector3du; //tmp
 
 class Button {
-	public:
-		Button(Window *window, vector3du &position); //maybe add type of button
-		~Button();
+public:
+	Button(Window *window, vector3du &position); //maybe add type of button
+	~Button();
         ISceneNode *getButton() const;
         vector3du getPositon() const;
-	private:
+        scene::ISceneNodeAnimator *animation(Window *window, const vector3df &pos, const float &timeStamp);
+private:
         //const string type;
         vector3du position;
         ISceneNode *button;

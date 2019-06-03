@@ -7,12 +7,19 @@
 
 #include "UserInterface/Menu.hpp"
 
-Menu::Menu(Window *window, const uint &nbButton) // may have to add type that will change the repartion of buttons
+/**
+ * todo implement types menu
+ * types : Selector, Server, Client, Selector2,
+**/
+Menu::Menu(Window *window, const uint &nbButton, const std::string &type)
     : window(window)
 {
-    for (uint i = 0; i < nbButton; i++) {
-        vector3du pos(1, 1 ,1);
-        buttonList.push_back(unique_ptr<Button>(new Button(window, pos)));
+    if (type == "Selector") {
+        for (uint i = 0; i < nbButton; i++) {
+            //todo :why just one is displaying
+            vector3du pos(0, 0, i * 100); //tmp
+            buttonList.push_back(unique_ptr<Button>(new Button(window, pos)));
+        }
     }
 }
 
@@ -20,12 +27,9 @@ Menu::~Menu()
 {
 }
 
-void Menu::addButton(Window *window, vector3du &position)
+void Menu::turnButtons(const vector3df &pos, const float &timestamp)
 {
-    buttonList.push_back(unique_ptr<Button>(new Button(window, position)));
-}
-
-void Menu::deleteButton(const uint index)
-{
-    buttonList.erase(buttonList.begin() + index);
+    for(auto &button: buttonList) {
+        button->animation(window, pos, timestamp);
+    }
 }

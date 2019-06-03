@@ -22,11 +22,11 @@ class UI {
 public:
 	UI(Window *window, Menu *mainMenu);
 	~UI();
-	void linkMenu(Menu menu1, Menu menu2);
-	void loop(); //code into it
-        void addMenu();
-
+	void linkMenu();
+        void addMenu(uint index, Menu *menu);
+	std::vector<Menu *> getMenu(const uint &index) const;
+	std::vector<std::vector<Menu *>> getUiGraph() const;
 private:
         Window *window;
-        std::vector<std::list<std::unique_ptr<Menu>>> uiGraph; // i will need doubly linked list
+        std::vector<std::vector<Menu *>> uiGraph;
 };

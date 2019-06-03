@@ -14,9 +14,10 @@
 
 class Menu {
 public:
-	Menu(Window *window, const uint &nbButton); //window in param
+	Menu(Window *window, const uint &nbButton, const std::string &type); //window in param
 	~Menu();
     void addButton(Window *window, vector3du &position);
+    void turnButtons(const vector3df &pos, const float &timestamp);
     void deleteButton(const uint index);
 
 private:

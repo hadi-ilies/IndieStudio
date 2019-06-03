@@ -21,7 +21,7 @@ Window::Window(const std::string &windowName, dimension2d<u32> size, const bool 
     smgr = device->getSceneManager();
     guienv = device->getGUIEnvironment();
 
-    smgr->addCameraSceneNodeFPS(0, 100, 0.05); // tmp
+    test = smgr->addCameraSceneNodeFPS(0, 100, 0.05); // tmp
     device->getCursorControl()->setVisible(false); // tmp
 
     //device->getCursorControl()->setVisible(false); // tmp
@@ -61,6 +61,12 @@ void Window::display(const SColor &color)
     smgr->drawAll();
     guienv->drawAll();
     driver->endScene();
+}
+
+scene::ISceneNodeAnimator *Window::createCircleAnimation(const vector3df &pos, const float &timeStamp)
+{
+    //20.0f
+    return smgr->createFlyCircleAnimator(pos, timeStamp);
 }
 
 IAnimatedMesh *Window::getModel(const std::string &fileName)
@@ -105,6 +111,10 @@ ISceneNodeAnimator *Window::createTranslation(const vector3df &initPos, const ve
     return smgr->createFlyStraightAnimator(initPos, destPos, timestamp);
 }
 
+ICameraSceneNode *Window::getCameraSceneNode(const vector3df &pointOfView, const vector3df &lookAt)
+{
+    return smgr->addCameraSceneNode(0, pointOfView, lookAt);
+}
 
 bool Window::isKeyPressed(const irr::EKEY_CODE &keyCode) const
 {
@@ -195,7 +205,7 @@ void Window::demoAnimation(core::array<core::vector3df> points, const core::vect
     scene::ICameraSceneNode* camera = nullptr;
     scene::ISceneNodeAnimator* sa = nullptr;
 
-    camera = smgr->addCameraSceneNode(0, points[0], lookAt);
+    camera = getCameraSceneNode(points[0], lookAt);
     sa = smgr->createFollowSplineAnimator(this->getDevice()->getTimer()->getTime(), points, 4, 0.5, false);
     camera->addAnimator(sa);
     sa->drop();
