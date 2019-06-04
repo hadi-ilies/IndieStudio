@@ -32,8 +32,8 @@ public:
     const vector3du &getSize() const;
     const Block *getBlock(const vector3du &pos) const;
     void explode(const vector3du &pos, const uint &power); // ? explode 2D or 3D // TODO ?
-    bool load(const std::string &_fileName); // TODO
-    bool save(const std::string &_fileName = ""); // TODO
+    bool load(const std::string &_fileName);
+    bool save(const std::string &_fileName = "");
     void update();
 
 private:

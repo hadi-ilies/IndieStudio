@@ -32,7 +32,7 @@ bool tmp2()
 {
     Window window("Bomberman", dimension2d<u32>(1920 / 2, 1080 / 2), false);
     //Window window("Bomberman", dimension2d<u32>(1920, 1080), true);
-    World world(&window, "Resources/Map/MapTest2");
+    World world(&window, "Resources/Map/BombermanMap");
     Player player(&window, "Bomberman", "Bob", &world, vector3du(1, 1, 1));
     bool spacePress = false; // tmp
 

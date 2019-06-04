@@ -37,6 +37,7 @@ set(SRC
   ${SRCDIR}${UIDIR}Menu.cpp
   ${SRCDIR}${UIDIR}UI.cpp
   ${SRCDIR}${UIDIR}Render.cpp
+  ${SRCDIR}RandomMapGenerator.cpp
   )
 
 set(INCLUDE
@@ -54,6 +55,7 @@ set(INCLUDE
   ${INCDIR}${UIDIR}Button.hpp
   ${INCDIR}${UIDIR}Menu.hpp
   ${INCDIR}${UIDIR}UI.hpp
+  ${INCDIR}RandomMapGenerator.hpp
   )
 
 #set(CMAKE_CXX_FLAGS "-W -Wall -Wextra")
