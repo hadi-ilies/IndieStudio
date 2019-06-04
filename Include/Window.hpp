@@ -31,7 +31,7 @@ public:
     void close();
     bool isOpen();
     void display(const SColor &color);
-    ISceneNodeAnimator *createCircleAnimation(const vector3df &pos, const float &timeStamp);
+    ISceneNodeAnimator *createCircleAnimation(const vector3df &pos, const f32 &radius, const f32 &startPos);
     IAnimatedMesh *getModel(const std::string &fileName);
     IrrlichtDevice *getDevice() const;
     ITexture *getTexture(const std::string &fileName);
@@ -39,6 +39,7 @@ public:
     IAnimatedMeshSceneNode *addAnimatedMesh(const std::string &model, const std::string &texture);
     ISceneNodeAnimator *createTranslation(const vector3df &initPos, const vector3df &destPos, const u32 &timestamp);
     ICameraSceneNode *getCameraSceneNode(const vector3df &pointOfView, const vector3df &lookAt);
+    void createSkybox(const std::string &s);
     bool isKeyPressed(const irr::EKEY_CODE &keyCode) const;
     void runDemo(); // tmp
     void debugMode(const bool &active);
