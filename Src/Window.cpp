@@ -63,10 +63,10 @@ void Window::display(const SColor &color)
     driver->endScene();
 }
 
-scene::ISceneNodeAnimator *Window::createCircleAnimation(const vector3df &pos, const float &timeStamp)
+scene::ISceneNodeAnimator *Window::createCircleAnimation(const vector3df &pos, const f32 &radius, const f32 &startPos)
 {
     //20.0f
-    return smgr->createFlyCircleAnimator(pos, timeStamp);
+    return smgr->createFlyCircleAnimator(pos, radius, 0.001, vector3df(0, 1, 0), startPos);
 }
 
 IAnimatedMesh *Window::getModel(const std::string &fileName)
@@ -199,6 +199,11 @@ void Window::runDemo() {
     points.push_back(core::vector3df(11, 20, 11));*/
 
     this->demoAnimation(points, core::vector3df(10.5, 0.5, 10.5));
+}
+
+void Window::createSkybox(const std::string &s)
+{
+    smgr->addSkyDomeSceneNode(getTexture(s));
 }
 
 void Window::demoAnimation(core::array<core::vector3df> points, const core::vector3df& lookAt) {

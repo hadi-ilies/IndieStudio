@@ -29,16 +29,15 @@ vector3du Button::getPositon() const
     return position;
 }
 
-#include <iostream>
-scene::ISceneNodeAnimator *Button::animation(Window *window, const vector3df &pos, const float &timeStamp)
+#include <iostream> //tmp
+scene::ISceneNodeAnimator *Button::animation(Window *window, const vector3df &pos, const f32 &radius, const f32 &startPos)
 {
-    scene::ISceneNodeAnimator* anim = window->createCircleAnimation(pos, timeStamp);
-    vector3df cameraPos(5, 0, -15);
-    vector3df target(0, 0, 20);
-    scene::ICameraSceneNode* camera = window->getCameraSceneNode(cameraPos, target);
+    scene::ISceneNodeAnimator* anim = window->createCircleAnimation(pos, radius, startPos);
+    vector3df cameraPos(5, 0, -15); // todo put in func
+    vector3df target(0, 0, 20); //
+    //scene::ICameraSceneNode* camera = window->getCameraSceneNode(cameraPos, target); //
 
     if (anim) {
-        std::cout << "ZIZI" << std::endl;
 		button->addAnimator(anim);
 		anim->drop();
 	}

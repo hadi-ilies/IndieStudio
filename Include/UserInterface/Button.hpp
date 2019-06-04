@@ -26,7 +26,7 @@ public:
 	~Button();
         ISceneNode *getButton() const;
         vector3du getPositon() const;
-        scene::ISceneNodeAnimator *animation(Window *window, const vector3df &pos, const float &timeStamp);
+        scene::ISceneNodeAnimator *animation(Window *window, const vector3df &pos, const f32 &radius, const f32 &startPos);
 private:
         //const string type;
         vector3du position;

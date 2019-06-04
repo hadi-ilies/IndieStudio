@@ -17,11 +17,11 @@ public:
 	Menu(Window *window, const uint &nbButton, const std::string &type); //window in param
 	~Menu();
     void addButton(Window *window, vector3du &position);
-    void turnButtons(const vector3df &pos, const float &timestamp);
+    void turnButtons(const vector3df &pos, const f32 &radius);
+    Button *getButton(const uint &buttonIndex) const;
     void deleteButton(const uint index);
-
 private:
     Window *window;
-    std::vector<std::unique_ptr<Button>> buttonList;
+    std::vector<Button *> buttonList;
 };
 
