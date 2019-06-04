@@ -12,14 +12,14 @@
 #include <iostream> // tmp
 
 World::World(Window *_window, const vector3du &_size, const uint &seed)
-    : window(_window)
+        : window(_window), size(_size)
 {
     if (!generate(size, seed))
-        throw Error("generate faild");
+        throw Error("generation failed");
 }
 
 World::World(Window *_window, const std::string &_fileName)
-    : window(_window)
+        : window(_window)
 {
     if (!load(_fileName))
         throw Error("load failed");
@@ -51,12 +51,12 @@ const Block *World::getBlock(const vector3du &pos) const
 void World::explode(const vector3du &pos, const uint &power)
 {
     vector<vector3du> dirList = {
-        vector3du(-1, 0, 0),
-        vector3du(1, 0, 0),
-        vector3du(0, 0, -1),
-        vector3du(0, 0, 1),
-        vector3du(0, -1, 0), // ? 3D
-        vector3du(0, 1, 0), // ? 3D
+            vector3du(-1, 0, 0),
+            vector3du(1, 0, 0),
+            vector3du(0, 0, -1),
+            vector3du(0, 0, 1),
+            vector3du(0, -1, 0), // ? 3D
+            vector3du(0, 1, 0), // ? 3D
     };
 
     for (uint i = 1; i <= power; i++) {
@@ -80,10 +80,42 @@ void World::explode(const vector3du &pos, const uint &power)
 
 bool World::generate(const vector3du &_size, const uint &seed)
 {
-    size = _size;
+    float nbBox;
+    float maxBlock;
+    int nbCube = 0;
+    int randomPosX;
+    int randomPosY;
+    int randomPosZ;
+    float fillPercentage;
+    srand(seed);
+
+    if (size.X < 3 || size.Y < 2 || size.Z < 3)
+        return false;
+
+    fillPercentage = rand() % (80 - 40 + 1) + 40;
     create(size);
-    // TODO
-    return true;
+    for (uint i = 0 ; i < size.X ; i++) // tmp
+        for (uint j = 0 ; j < size.Z ; j++) {
+            addBlock(vector3du(i, 0, j), "Ground");
+            if (i == 0 || j == 0 || i == size.X - 1 || j == size.Z - 1)
+                addBlock(vector3du(i, 1, j), "Ground");
+            else if (((i + 1) * (j + 1)) % 2) {
+                addBlock(vector3du(i, 1, j), "Wall");
+                nbCube++;
+            }
+        }
+    maxBlock = ((size.X - 1) * (size.Y - 1) * (size.Z - 1)) - nbCube;
+    nbBox = maxBlock;
+
+    while (100 - ((nbBox / maxBlock) * 100) < fillPercentage) {
+        randomPosX = rand() % (size.X - 1) + 1;
+        randomPosY = rand() % (size.Y - 1) + 1;
+        randomPosZ = rand() % (size.Z - 1) + 1;
+        if (isValidPosition(randomPosX, randomPosZ))
+            if (addBlock(vector3du(randomPosX, randomPosY, randomPosZ), "Box"))
+                nbBox--;
+    }
+    return tab != nullptr;
 }
 
 bool World::load(const std::string &_fileName)
@@ -173,4 +205,46 @@ bool World::removeBlock(const vector3du &pos)
     delete tab[pos.X][pos.Y][pos.Z];
     tab[pos.X][pos.Y][pos.Z] = NULL;
     return true;
+}
+
+/*
+ * Check position of the block
+ */
+bool World::isValidPosition(int randomPosX, int randomPosZ) {
+
+    /*switch (this->nbPlayer) {
+        case 1:
+            return isValidOneP();
+        case 2:
+            return isValidOneP() && isValidTwoP();
+        case 3:
+            return isValidOneP() && isValidTwoP() && isValidThreeP();
+        case 4:
+            return isValidOneP() && isValidTwoP() && isValidThreeP() && isValidFourP();
+        default:
+            return true;
+    }*/
+    return isValidOneP(randomPosX, randomPosZ) && isValidTwoP(randomPosX, randomPosZ) && isValidThreeP(randomPosX, randomPosZ)
+           && isValidFourP(randomPosX, randomPosZ);
+}
+
+bool World::isValidOneP(int posX, int posZ) {
+    return !((posX == 1 && posZ == 1) || (posX == 2 && posZ == 1)
+             || (posX == 1 && posZ == 2));
+}
+
+bool World::isValidTwoP(int posX, int posZ) {
+    return !((posX == size.X - 2 && posZ == size.Z - 2)
+             || (posX == size.X - 2 && posZ == size.Z - 3)
+             || (posX == size.X - 3 && posZ == size.Z - 2));
+}
+
+bool World::isValidThreeP(int posX, int posZ) {
+    return !((posX == 1 && posZ == size.Z - 2) || (posX == 1 && posZ == size.Z - 3)
+             || (posX == 2 && posZ == size.Z - 2));
+}
+
+bool World::isValidFourP(int posX, int posZ) {
+    return !((posX == size.X - 2 && posZ == 1) || (posX == size.X - 3 && posZ == 1)
+             || (posX == size.X - 2 && posZ == 2));
 }
