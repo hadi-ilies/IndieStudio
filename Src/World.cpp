@@ -15,7 +15,7 @@ World::World(Window *_window, const std::string &_fileName)
     : window(_window) // tmp
 {
     if (!load(_fileName))
-        throw Error("load faild");
+        throw Error("load failed");
 }
 
 World::~World()

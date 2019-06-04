@@ -29,6 +29,7 @@ class Block
 {
 public:
     Block(Window *window, const std::string &_type, const vector3du &position);
+    Block(const std::string &_type);
     ~Block();
     const std::string &getType() const;
     const bool &getOpaque() const;
