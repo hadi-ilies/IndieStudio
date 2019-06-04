@@ -10,7 +10,7 @@
 #include "UserInterface/UI.hpp"
 
 /**
- * todo ask corentin unique ptr
+ * todo ask corentin unique ptr == move 
  * */
 
 UI::UI(Window *window, Menu *mainMenu)

@@ -31,7 +31,8 @@ public:
     void close();
     bool isOpen();
     void display(const SColor &color);
-    ISceneNodeAnimator *createCircleAnimation(const vector3df &pos, const f32 &radius, const f32 &startPos);
+    ISceneNodeAnimator *createDeletedAnimation(const uint &time);
+    ISceneNodeAnimator *createCircleAnimation(const vector3df &pos, const vector3df &direction, const f32 &radius, const f32 &startPos);
     IAnimatedMesh *getModel(const std::string &fileName);
     IrrlichtDevice *getDevice() const;
     ITexture *getTexture(const std::string &fileName);

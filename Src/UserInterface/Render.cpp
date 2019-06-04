@@ -25,13 +25,14 @@ void userInterface()
     Menu mainMenu(&window, 3, "Selector");
     UI ui(&window, &mainMenu);
     vector3df pos(0, 0, 0);
-    ui.getMenu(0).back()->turnButtons(pos, 10.0f);
-    window.createSkybox("Resources/Block/Fire/Texture.png");
+    window.createSkybox("Resources/Block/background/stary-sky.png");
     while (window.isOpen()) {
-        //std::cout << ui.getMenu(0).back()->getButton(1)->getPositon().X << "  " << ui.getMenu(0).back()->getButton(1)->getPositon().Y << "  " << ui.getMenu(0).back()->getButton(1)->getPositon().Z << std::endl;
-       // std::cout << window.test->getTarget().X << " " << window.test->getTarget().Y << " " << window.test->getTarget().Z << std::endl;
-        //test->getProjectionMatrix();
-
+        if (window.isKeyPressed(KEY_RIGHT)) {
+            ui.getMenu(0).back()->turnButtons(Menu::RIGHT, 1000);
+        }
+        else if (window.isKeyPressed(KEY_LEFT)) {
+            ui.getMenu(0).back()->turnButtons(Menu::LEFT, 1000);
+        }
         window.display(video::SColor(255, 113, 113, 233));
     }
 }

@@ -6,32 +6,41 @@
 */
 
 #include "UserInterface/Menu.hpp"
-
+#include <cmath>
 /**
  * todo implement types menu
  * types : Selector, Server, Client, Selector2,
 **/
 //Note : change nbButton by list of button
 Menu::Menu(Window *window, const uint &nbButton, const std::string &type)
-    : window(window)
+    : window(window), radius(20), currentButton(0)
 {
     if (type == "Selector") {
         for (uint i = 0; i < nbButton; i++) {
             //todo :why just one is displaying
-            vector3du pos(0, 0, i * 10); //tmp
+            vector3df pos = getPosButton(i);
             buttonList.push_back(new Button(window, pos));
         }
+        scene::ICameraSceneNode* camera = window->getCameraSceneNode(vector3df(radius + 10, 1, 0), vector3df(0, 0, 0));
     }
+}
+
+const vector3df Menu::getPosButton(const uint &buttonIndex)
+{
+    return vector3df(radius * cos(2 * buttonIndex * M_PI / buttonList.size()), 0, radius * sin(2 * buttonIndex * M_PI / buttonList.size()));
 }
 
 Menu::~Menu()
 {
 }
 
-void Menu::turnButtons(const vector3df &pos, const f32 &radius)
+void Menu::turnButtons(const Menu::Dir &direction, const f32 &timestamps)
 {
-    for(auto &button: buttonList) {
-        button->animation(window, pos, radius, 20.f);
+    if (buttonList[0]->animHasFinished()) {
+        for (uint i = 0; i < buttonList.size(); i++)
+            buttonList[i]->animation(window, getPosButton((i + currentButton + buttonList.size() + direction) % buttonList.size()), timestamps);
+        currentButton = (currentButton + buttonList.size() + direction) % buttonList.size();
+
     }
 }
 

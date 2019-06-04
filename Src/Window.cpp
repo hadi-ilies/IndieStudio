@@ -63,10 +63,15 @@ void Window::display(const SColor &color)
     driver->endScene();
 }
 
-scene::ISceneNodeAnimator *Window::createCircleAnimation(const vector3df &pos, const f32 &radius, const f32 &startPos)
+scene::ISceneNodeAnimator *Window::createDeletedAnimation(const uint &time)
+{
+    return smgr->createDeleteAnimator(time);
+}
+
+scene::ISceneNodeAnimator *Window::createCircleAnimation(const vector3df &pos, const vector3df &direction, const f32 &radius, const f32 &startPos)
 {
     //20.0f
-    return smgr->createFlyCircleAnimator(pos, radius, 0.001, vector3df(0, 1, 0), startPos);
+    return smgr->createFlyCircleAnimator(pos, radius, 0.001, direction, startPos);
 }
 
 IAnimatedMesh *Window::getModel(const std::string &fileName)
