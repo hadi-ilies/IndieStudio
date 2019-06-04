@@ -37,7 +37,6 @@ set(SRC
   ${SRCDIR}${UIDIR}Menu.cpp
   ${SRCDIR}${UIDIR}UI.cpp
   ${SRCDIR}${UIDIR}Render.cpp
-  ${SRCDIR}RandomMapGenerator.cpp
   )
 
 set(INCLUDE
@@ -55,7 +54,6 @@ set(INCLUDE
   ${INCDIR}${UIDIR}Button.hpp
   ${INCDIR}${UIDIR}Menu.hpp
   ${INCDIR}${UIDIR}UI.hpp
-  ${INCDIR}RandomMapGenerator.hpp
   )
 
 #set(CMAKE_CXX_FLAGS "-W -Wall -Wextra")
@@ -67,4 +65,3 @@ target_link_libraries(Bomberman Irrlicht)
 find_package(SFML 2.5 COMPONENTS system audio network REQUIRED)
 target_link_libraries(Bomberman sfml-system sfml-audio sfml-network)
 target_link_libraries(Bomberman -lpthread)
-

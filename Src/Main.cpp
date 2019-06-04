@@ -32,7 +32,7 @@ bool tmp2()
 {
     Window window("Bomberman", dimension2d<u32>(1920 / 2, 1080 / 2), false);
     //Window window("Bomberman", dimension2d<u32>(1920, 1080), true);
-    World world(&window, "Resources/Map/BombermanMap");
+    World world(&window, "Resources/Map/Default");
     Player player(&window, "Bomberman", "Bob", &world, vector3du(1, 1, 1));
     bool spacePress = false; // tmp
 
@@ -77,7 +77,8 @@ int main(int argc, char **argv)
         if (argc == 2 && strncmp(argv[1], "menu", strlen(argv[1])) == 0) {
             std::cout << "i have to call UI class\n"<< std::endl;
             userInterface();
-    }   else if (argc == 5 && strncmp(argv[1], "server", strlen(argv[1])) == 0)
+        }
+        else if (argc == 5 && strncmp(argv[1], "server", strlen(argv[1])) == 0)
             server(std::atoi(argv[2]), argv[3], std::atoi(argv[4]));
         else if (argc == 4 && strncmp(argv[1], "client", strlen(argv[1])) == 0)
             client(IpAddress(argv[2]), std::atoi(argv[3]));

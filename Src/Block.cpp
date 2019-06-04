@@ -25,12 +25,6 @@ Block::Block(Window *window, const std::string &_type, const vector3du &position
     }
 }
 
-Block::Block(const std::string &_type)
-        : type(_type)
-{
-    getProperty("Resources/Block/" + _type + "/Property");
-}
-
 Block::~Block()
 {
     cube->remove();
