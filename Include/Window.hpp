@@ -47,8 +47,7 @@ public:
 private:
     void debugMode();
     void demoAnimation(core::array<core::vector3df> points, const core::vector3df& lookAt); // tmp
-public:
-    ICameraSceneNode *test;
+
 private:
     EventReceiver receiver;
     IrrlichtDevice *device;

@@ -21,7 +21,7 @@ Window::Window(const std::string &windowName, dimension2d<u32> size, const bool 
     smgr = device->getSceneManager();
     guienv = device->getGUIEnvironment();
 
-    test = smgr->addCameraSceneNodeFPS(0, 100, 0.05); // tmp
+    smgr->addCameraSceneNodeFPS(0, 100, 0.05); // tmp
     device->getCursorControl()->setVisible(false); // tmp
 
     //device->getCursorControl()->setVisible(false); // tmp

@@ -11,8 +11,15 @@
 #include "Error.hpp"
 #include <iostream> // tmp
 
+World::World(Window *_window, const vector3du &_size, const uint &seed)
+    : window(_window)
+{
+    if (!generate(size, seed))
+        throw Error("generate faild");
+}
+
 World::World(Window *_window, const std::string &_fileName)
-    : window(_window) // tmp
+    : window(_window)
 {
     if (!load(_fileName))
         throw Error("load failed");
@@ -69,6 +76,14 @@ void World::explode(const vector3du &pos, const uint &power)
                 addBlock(newPos, "Fire"); // ?
         }
     }
+}
+
+bool World::generate(const vector3du &_size, const uint &seed)
+{
+    size = _size;
+    create(size);
+    // TODO
+    return true;
 }
 
 bool World::load(const std::string &_fileName)
