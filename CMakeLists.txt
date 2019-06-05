@@ -6,7 +6,7 @@ project(Bomberman)
 
 set(SRCDIR Src/)
 set(ENTITYDIR Entity/)
-set (UIDIR UserInterface/)
+set(UIDIR UserInterface/)
 set(INCDIR Include/)
 
 include_directories(Include)
