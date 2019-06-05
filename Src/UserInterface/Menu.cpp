@@ -15,17 +15,26 @@ Menu::Menu(Window *window, const vector3df &cameraPos, const vector3df &targetPo
     scene::ICameraSceneNode* camera = window->getCameraSceneNode(cameraPos, targetPos);//vector3df(radius + 10, 1, 0), vector3df(0, 0, 0));
 }
 
-void Menu::getKey()
+//remove back, instead, put an index
+#include <iostream>
+Menu *Menu::getMenu()
 {
-    //if (window->isKeyPressed(KEY_SPACE) || window->isKeyPressed(KEY_RETURN)) {
-    //    this = linkMap[static_cast<Wheel *>(MenuElements.back())->getCurrentButton()->getName()];
-    //}
+    std::cout << static_cast<Wheel *>(MenuElements.back())->getCurrentButton()->getName() << std::endl;
+    return linkMap[static_cast<Wheel *>(MenuElements.back())->getCurrentButton()->getName()];
+}
+
+bool Menu::getKey()
+{
+    if (window->isKeyPressed(KEY_SPACE) || window->isKeyPressed(KEY_RETURN)) {
+        return true;
+    }
     if (window->isKeyPressed(KEY_RIGHT)) {
         static_cast<Wheel *>(MenuElements.back())->turnButtons(Wheel::RIGHT, 1000);
     }
     else if (window->isKeyPressed(KEY_LEFT)) {
        static_cast<Wheel *>(MenuElements.back())->turnButtons(Wheel::LEFT, 1000);
     }
+    return false;
 }
 
 bool Menu::linkMenu(const std::string &name, Menu *menu)

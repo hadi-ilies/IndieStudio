@@ -19,12 +19,21 @@ using namespace irr;
 using namespace sf;
 
 #include <iostream>
-//create menuBomberman that link button to menu by button name
+
+void linkButtonToMenu(Window *window, Menu *menu)
+{
+    Menu *soloMenu = new Menu(window, vector3df(30 + 10, 1, 0), vector3df(0, 0, 0));
+    soloMenu->addWheel(vector3df(10, 0, 0), 30, {"Stage", "Play", "Back"}); //tmp
+    menu->linkMenu("Solo", soloMenu);
+
+}
+
 Menu *createMenuBomberman(Window *window)
 {
     float radius = 20;
     Menu *menu = new Menu(window, vector3df(radius + 10, 1, 0), vector3df(0, 0, 0));
-    menu->addWheel(vector3df(10, 0, 0), radius, {"Solo", "Multiplayer", "Settigs", "Player", "Exit"});
+    menu->addWheel(vector3df(10, 0, 0), radius, {"Solo", "Multiplayer", "Settings", "Player", "Exit"});
+    linkButtonToMenu(window, menu);
     return menu;
 }
 
@@ -35,7 +44,10 @@ void userInterface()
     window.changeSkybox("Resources/Texture/background.png");
 
     while (window.isOpen()) {
-        menu->getKey();
+        if (menu->getKey()) {
+             std::cout << "ZIZI" << std::endl;
+            menu = menu->getMenu();
+        }
         window.display();
     }
 }

@@ -19,8 +19,9 @@ public:
 	Menu(Window *window, const vector3df &cameraPos, const vector3df &targetPos);
 	~Menu();
     bool linkMenu(const std::string &name, Menu *menu);
+    Menu *getMenu();
     bool addWheel(const vector3df &position, const float &radius, const std::vector<std::string> &buttons);
-    void getKey();
+    bool getKey();
 private:
     Window *window;
     std::vector<MenuElement *> MenuElements;
