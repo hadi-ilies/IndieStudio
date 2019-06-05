@@ -17,10 +17,9 @@ Menu::Menu(Window *window, const vector3df &cameraPos, const vector3df &targetPo
 
 void Menu::getKey()
 {
-    if (window->isKeyPressed(KEY_SPACE) || window->isKeyPressed(KEY_RETURN)) {
-        //   if (menu->select()->type == "menu")
-        //       menu = menu->select()->menu;
-    }
+    //if (window->isKeyPressed(KEY_SPACE) || window->isKeyPressed(KEY_RETURN)) {
+    //    this = linkMap[static_cast<Wheel *>(MenuElements.back())->getCurrentButton()->getName()];
+    //}
     if (window->isKeyPressed(KEY_RIGHT)) {
         static_cast<Wheel *>(MenuElements.back())->turnButtons(Wheel::RIGHT, 1000);
     }

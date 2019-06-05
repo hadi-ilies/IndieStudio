@@ -40,3 +40,8 @@ Button *Wheel::getButton(const uint &buttonIndex) const
 {
     return buttonList[buttonIndex];
 }
+
+Button *Wheel::getCurrentButton() const
+{
+    return buttonList[currentButton];
+}

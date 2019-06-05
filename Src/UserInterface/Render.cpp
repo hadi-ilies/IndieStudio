@@ -32,10 +32,10 @@ void userInterface()
 {
     Window window("Bomberman", dimension2d<u32>(1920 / 2, 1080 / 2), false);
     Menu *menu = createMenuBomberman(&window);
-    window.createSkybox("Resources/Block/background/stary-sky.png");
+    window.changeSkybox("Resources/Texture/background.png");
 
     while (window.isOpen()) {
         menu->getKey();
-        window.display(video::SColor(255, 113, 113, 233));
+        window.display();
     }
 }
