@@ -141,7 +141,7 @@ static void game(Window &window, FormattedSocket &client, World &world, vector<u
                 endTurn = false;
                 //key = None; control Corentin dont remove it
             }
-        window.display(video::SColor(255, 113, 113, 233));
+        window.display();
     }
     client.disconnect();
     startTurn = true; // for exit thread

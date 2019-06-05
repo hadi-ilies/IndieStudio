@@ -53,25 +53,14 @@ bool Window::isOpen()
     return device->run();
 }
 
-void Window::display(const SColor &color)
+void Window::display()
 {
     if (debug)
         debugMode();
-    driver->beginScene(true, true, color);
+    driver->beginScene();
     smgr->drawAll();
     guienv->drawAll();
     driver->endScene();
-}
-
-scene::ISceneNodeAnimator *Window::createDeletedAnimation(const uint &time)
-{
-    return smgr->createDeleteAnimator(time);
-}
-
-scene::ISceneNodeAnimator *Window::createCircleAnimation(const vector3df &pos, const vector3df &direction, const f32 &radius, const f32 &startPos)
-{
-    //20.0f
-    return smgr->createFlyCircleAnimator(pos, radius, 0.001, direction, startPos);
 }
 
 IAnimatedMesh *Window::getModel(const std::string &fileName)
@@ -126,6 +115,22 @@ bool Window::isKeyPressed(const irr::EKEY_CODE &keyCode) const
     return receiver.IsKeyDown(keyCode);
 }
 
+void Window::changeSkybox(const std::string &fileName)
+{
+    smgr->addSkyDomeSceneNode(getTexture(fileName));
+}
+
+void Window::runDemo(const Demo &demo)
+{
+    scene::ICameraSceneNode *camera = nullptr;
+    scene::ISceneNodeAnimator *sa = nullptr;
+
+    camera = getCameraSceneNode(demo.getPoints()[0], demo.getLookAt());
+    sa = smgr->createFollowSplineAnimator(device->getTimer()->getTime(), demo.getPoints(), demo.getSpeed(), demo.getTightness(), demo.isLoop());
+    camera->addAnimator(sa);
+    sa->drop();
+}
+
 void Window::debugMode()
 {
     wchar_t text[255];
@@ -138,27 +143,8 @@ void Window::debugMode()
     guienv->addStaticText(text, rect<s32>(10, 10, 55, 22), true);
 }
 
-IrrlichtDevice *Window::getDevice() const {
-    return device;
-}
-
-void Window::runDemo(Demo &demo) {
-    scene::ICameraSceneNode* camera = nullptr;
-    scene::ISceneNodeAnimator *sa = nullptr;
-
-    camera = getCameraSceneNode(demo.getPoints()[0], demo.getLookAt());
-    sa = smgr->createFollowSplineAnimator(this->getDevice()->getTimer()->getTime(), demo.getPoints(), demo.getSpeed(), demo.getTightness(),
-                                          demo.isLoop());
-    camera->addAnimator(sa);
-    sa->drop();
-}
-
-void Window::createSkybox(const std::string &s)
-{
-    smgr->addSkyDomeSceneNode(getTexture(s));
-}
-
-void Window::demoAnimation(core::array<core::vector3df> points, const core::vector3df& lookAt) {
+// TODO supr func
+/*void Window::demoAnimation(core::array<core::vector3df> points, const core::vector3df& lookAt) {
     scene::ICameraSceneNode* camera = nullptr;
     scene::ISceneNodeAnimator* sa = nullptr;
 
@@ -167,3 +153,4 @@ void Window::demoAnimation(core::array<core::vector3df> points, const core::vect
     camera->addAnimator(sa);
     sa->drop();
 }
+*/

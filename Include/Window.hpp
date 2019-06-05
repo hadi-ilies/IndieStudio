@@ -31,24 +31,20 @@ public:
     void setDebugMode(const bool &active);
     void close();
     bool isOpen();
-    void display(const SColor &color);
-    ISceneNodeAnimator *createDeletedAnimation(const uint &time);
-    ISceneNodeAnimator *createCircleAnimation(const vector3df &pos, const vector3df &direction, const f32 &radius, const f32 &startPos);
+    void display();
     IAnimatedMesh *getModel(const std::string &fileName);
-    IrrlichtDevice *getDevice() const;
     ITexture *getTexture(const std::string &fileName);
     ISceneNode *addCube(const std::string &texture); // ? ISceneNode or IMeshSceneNode
     IAnimatedMeshSceneNode *addAnimatedMesh(const std::string &model, const std::string &texture);
     ISceneNodeAnimator *createTranslation(const vector3df &initPos, const vector3df &destPos, const u32 &timestamp);
-    ICameraSceneNode *getCameraSceneNode(const vector3df &pointOfView, const vector3df &lookAt);
-    void createSkybox(const std::string &s);
+    ICameraSceneNode *getCameraSceneNode(const vector3df &pointOfView, const vector3df &lookAt); // ?
     bool isKeyPressed(const irr::EKEY_CODE &keyCode) const;
-    void runDemo(Demo &demo); // tmp
+    void changeSkybox(const std::string &fileName);
+    void runDemo(const Demo &demo); // tmp
     void debugMode(const bool &active);
 
 private:
     void debugMode();
-    void demoAnimation(core::array<core::vector3df> points, const core::vector3df& lookAt); // tmp
 
 private:
     EventReceiver receiver;

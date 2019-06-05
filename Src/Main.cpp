@@ -63,7 +63,7 @@ bool tmp2()
         }
         world.update();
         player.update();
-        window.display(video::SColor(255, 113, 113, 233));
+        window.display();
     }
     return true;
 }
