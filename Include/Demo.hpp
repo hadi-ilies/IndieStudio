@@ -13,7 +13,8 @@
 using namespace irr;
 using namespace core;
 
-class Demo {
+class Demo
+{
 public:
     Demo();
     ~Demo();
@@ -24,7 +25,7 @@ public:
     bool isLoop() const;
 
 private:
-    void generatePoints();
+    void generatePoints(); // TODO load from file
 
 private:
     core::array<core::vector3df> points;
@@ -34,5 +35,4 @@ private:
     bool loop;
 };
 
-
-#endif /* !BOMBERMAN_DEMO_HPP */
+#endif
