@@ -172,7 +172,7 @@ void client(const IpAddress &ip, const ushort &port) //put player in param
     if (client.type != Message)
         throw Error("message error");
     cout << client.message << endl;
-    World world(&window, client.message);
+    World world(&window, "Resources/Map/" + client.message);
     vector<unique_ptr<Player>> playerList;
 
     //nb powerup
