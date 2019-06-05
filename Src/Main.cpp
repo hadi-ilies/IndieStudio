@@ -28,14 +28,15 @@ void client(const IpAddress &ip, const ushort &port);
 
 bool tmp2()
 {
-    Window window("Bomberman", dimension2d<u32>(1920 / 2, 1080 / 2), false);
+    Window window("Bomberman", dimension2d<u32>(1920, 1080), false);
+    Demo demo;
     //Window window("Bomberman", dimension2d<u32>(1920, 1080), true);
-    //World world(&window, "Resources/Map/Default");
-    World world(&window, vector3du(21,2,21));
+    World world(&window, "Resources/Map/Demo");
+    //World world(&window, vector3du(21,2,21));
     Player player(&window, "Bomberman", "Bob", &world, vector3du(1, 1, 1));
     bool spacePress = false; // tmp
 
-    window.runDemo(); // tmp
+    window.runDemo(demo); // tmp
 
     //world.debugAff();
     window.setDebugMode(true); // tmp

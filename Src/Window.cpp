@@ -142,68 +142,15 @@ IrrlichtDevice *Window::getDevice() const {
     return device;
 }
 
-void Window::runDemo() {
-    core::array<core::vector3df> points;
+void Window::runDemo(Demo &demo) {
+    scene::ICameraSceneNode* camera = nullptr;
+    scene::ISceneNodeAnimator *sa = nullptr;
 
-    // Down to up
-    //for (int n = -5; n <= 20; n += 5)
-    //points.push_back(core::vector3df(11, n, -15));
-
-    for (int n = 0; n < 64 * 2; n += 4) // tmp test
-        points.push_back(core::vector3df(cos(n * M_PI / 64) * 20 + 10.5, -5 + n / 4, sin(n * M_PI / 64) * 20 + 10.5));
-
-    // Rotate to corner left
-    /*points.push_back(core::vector3df(5, 20, -15));
-    points.push_back(core::vector3df(0, 20, -15));
-    points.push_back(core::vector3df(-5, 20, -15));
-    points.push_back(core::vector3df(-10, 20, -15));
-    points.push_back(core::vector3df(-15, 20, -15));
-
-    // Left side
-    points.push_back(core::vector3df(-15, 20, -10));
-    points.push_back(core::vector3df(-15, 20, -5));
-    points.push_back(core::vector3df(-15, 20, 0));
-    points.push_back(core::vector3df(-15, 20, 5));
-    points.push_back(core::vector3df(-15, 20, 10));
-    points.push_back(core::vector3df(-15, 20, 15));
-    points.push_back(core::vector3df(-15, 20, 20));
-    points.push_back(core::vector3df(-15, 20, 25));
-    points.push_back(core::vector3df(-15, 20, 30));
-    points.push_back(core::vector3df(-15, 20, 35));
-
-    // Front Side
-    points.push_back(core::vector3df(-5, 20, 35));
-    points.push_back(core::vector3df(0, 20, 35));
-    points.push_back(core::vector3df(5, 20, 35));
-    points.push_back(core::vector3df(10, 20, 35));
-    points.push_back(core::vector3df(15, 20, 35));
-    points.push_back(core::vector3df(20, 20, 35));
-    points.push_back(core::vector3df(25, 20, 35));
-    points.push_back(core::vector3df(30, 20, 35));
-    points.push_back(core::vector3df(35, 20, 30));
-
-    // Right side
-    points.push_back(core::vector3df(35, 20, 25));
-    points.push_back(core::vector3df(35, 20, 20));
-    points.push_back(core::vector3df(35, 20, 15));
-    points.push_back(core::vector3df(35, 20, 10));
-    points.push_back(core::vector3df(35, 20, 5));
-    points.push_back(core::vector3df(35, 20, 0));
-    points.push_back(core::vector3df(35, 20, -5));
-    points.push_back(core::vector3df(35, 20, -10));
-    points.push_back(core::vector3df(35, 20, -15));
-
-    // Return to origin point
-    points.push_back(core::vector3df(30, 20, -15));
-    points.push_back(core::vector3df(25, 20, -15));
-    points.push_back(core::vector3df(20, 20, -15));
-    points.push_back(core::vector3df(15, 20, -15));
-    points.push_back(core::vector3df(11, 20, -15));
-
-    // Go to the top
-    points.push_back(core::vector3df(11, 20, 11));*/
-
-    this->demoAnimation(points, core::vector3df(10.5, 0.5, 10.5));
+    camera = getCameraSceneNode(demo.getPoints()[0], demo.getLookAt());
+    sa = smgr->createFollowSplineAnimator(this->getDevice()->getTimer()->getTime(), demo.getPoints(), demo.getSpeed(), demo.getTightness(),
+                                          demo.isLoop());
+    camera->addAnimator(sa);
+    sa->drop();
 }
 
 void Window::createSkybox(const std::string &s)

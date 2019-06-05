@@ -16,3 +16,5 @@ Bomberman
 cmake-build-debug/Bomberman\.cbp
 
 Bomberman\.cbp
+
+Src/saveDemo

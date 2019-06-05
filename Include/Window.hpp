@@ -11,6 +11,7 @@
 #include <string>
 #include <irrlicht/irrlicht.h>
 #include "EventReceiver.hpp"
+#include "Demo.hpp"
 
 using namespace std;
 using namespace irr;
@@ -42,7 +43,7 @@ public:
     ICameraSceneNode *getCameraSceneNode(const vector3df &pointOfView, const vector3df &lookAt);
     void createSkybox(const std::string &s);
     bool isKeyPressed(const irr::EKEY_CODE &keyCode) const;
-    void runDemo(); // tmp
+    void runDemo(Demo &demo); // tmp
     void debugMode(const bool &active);
 
 private:
