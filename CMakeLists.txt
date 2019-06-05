@@ -35,7 +35,8 @@ set(SRC
   ${SRCDIR}${ENTITYDIR}Player.cpp
   ${SRCDIR}${UIDIR}Button.cpp
   ${SRCDIR}${UIDIR}Menu.cpp
-  ${SRCDIR}${UIDIR}UI.cpp
+  ${SRCDIR}${UIDIR}MenuElement.cpp
+  ${SRCDIR}${UIDIR}Wheel.cpp
   ${SRCDIR}${UIDIR}Render.cpp
   )
 
@@ -53,7 +54,8 @@ set(INCLUDE
   ${INCDIR}${ENTITYDIR}Player.hpp
   ${INCDIR}${UIDIR}Button.hpp
   ${INCDIR}${UIDIR}Menu.hpp
-  ${INCDIR}${UIDIR}UI.hpp
+  ${INCDIR}${UIDIR}MenuElement.hpp
+  ${INCDIR}${UIDIR}Wheel.hpp
   )
 
 #set(CMAKE_CXX_FLAGS "-W -Wall -Wextra")

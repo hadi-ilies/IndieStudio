@@ -9,25 +9,21 @@
 
 #include <memory>
 #include <vector>
+#include <map>
 #include "UserInterface/Button.hpp"
+#include "UserInterface/MenuElement.hpp"
 #include "Window.hpp"
 
 class Menu {
-public :
-    enum Dir {RIGHT = 1, LEFT = -1};
 public:
-	Menu(Window *window, const uint &nbButton, const std::string &type); //window in param
+	Menu(Window *window, const vector3df &cameraPos, const vector3df &targetPos);
 	~Menu();
-    void addButton(Window *window, vector3du &position);
-    void turnButtons(const Dir &direction, const f32 &timestamps);
-    Button *getButton(const uint &buttonIndex) const;
-    const vector3df getPosButton(const uint &buttonIndex);
-    Button *getCurrentButton() const;
-    void deleteButton(const uint index);
+    bool linkMenu(const std::string &name, Menu *menu);
+    bool addWheel(const vector3df &position, const float &radius, const std::vector<std::string> &buttons);
+    void getKey();
 private:
     Window *window;
-    const float radius;
-    uint currentButton;
-    std::vector<Button *> buttonList;
+    std::vector<MenuElement *> MenuElements;
+    std::map<std::string, Menu *> linkMap;
 };
 

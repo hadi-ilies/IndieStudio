@@ -22,14 +22,15 @@ typedef vector3d<uint> vector3du; //tmp
 
 class Button {
 public:
-	Button(Window *window, vector3df &position); //maybe add type of button
+	Button(Window *window, vector3df &position, const std::string &name);
 	~Button();
-        ISceneNode *getButton() const;
+        ISceneNode *getButton() const; //
+        const std::string getName() const;
         vector3df getPosition() const;
         bool animHasFinished() const;
         bool animation(Window *window, const vector3df &destPos, const f32 &timestamps);
 private:
-        //const string type;
+        const std::string name;
         ISceneNodeAnimator *anim;
         vector3df position;
         ISceneNode *button;

@@ -12,27 +12,30 @@
 #include "Entity/Player.hpp"
 #include "Entity/PowerUp.hpp" //?
 #include "FormattedSocket.hpp"
-#include "UserInterface/UI.hpp"
+#include "UserInterface/Menu.hpp"
 
 using namespace std;
 using namespace irr;
 using namespace sf;
 
 #include <iostream>
+//create menuBomberman that link button to menu by button name
+Menu *createMenuBomberman(Window *window)
+{
+    float radius = 20;
+    Menu *menu = new Menu(window, vector3df(radius + 10, 1, 0), vector3df(0, 0, 0));
+    menu->addWheel(vector3df(10, 0, 0), radius, {"Solo", "Multiplayer", "Settigs", "Player", "Exit"});
+    return menu;
+}
+
 void userInterface()
 {
     Window window("Bomberman", dimension2d<u32>(1920 / 2, 1080 / 2), false);
-    Menu mainMenu(&window, 3, "Selector");
-    UI ui(&window, &mainMenu);
-    vector3df pos(0, 0, 0);
+    Menu *menu = createMenuBomberman(&window);
     window.createSkybox("Resources/Block/background/stary-sky.png");
+
     while (window.isOpen()) {
-        if (window.isKeyPressed(KEY_RIGHT)) {
-            ui.getMenu(0).back()->turnButtons(Menu::RIGHT, 1000);
-        }
-        else if (window.isKeyPressed(KEY_LEFT)) {
-            ui.getMenu(0).back()->turnButtons(Menu::LEFT, 1000);
-        }
+        menu->getKey();
         window.display(video::SColor(255, 113, 113, 233));
     }
 }

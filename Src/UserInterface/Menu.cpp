@@ -6,50 +6,35 @@
 */
 
 #include "UserInterface/Menu.hpp"
-#include <cmath>
-/**
- * todo implement types menu
- * types : Selector, Server, Client, Selector2,
-**/
-//Note : change nbButton by list of button
-Menu::Menu(Window *window, const uint &nbButton, const std::string &type)
-    : window(window), radius(20), currentButton(0)
+#include "UserInterface/MenuElement.hpp"
+#include "UserInterface/Wheel.hpp"
+
+Menu::Menu(Window *window, const vector3df &cameraPos, const vector3df &targetPos)
+    :window(window)
 {
-    if (type == "Selector") {
-        for (uint i = 0; i < nbButton; i++) {
-            //todo :why just one is displaying
-            vector3df pos = getPosButton(i);
-            buttonList.push_back(new Button(window, pos));
-        }
-        scene::ICameraSceneNode* camera = window->getCameraSceneNode(vector3df(radius + 10, 1, 0), vector3df(0, 0, 0));
+    scene::ICameraSceneNode* camera = window->getCameraSceneNode(cameraPos, targetPos);//vector3df(radius + 10, 1, 0), vector3df(0, 0, 0));
+}
+
+void Menu::getKey()
+{
+    if (window->isKeyPressed(KEY_SPACE) || window->isKeyPressed(KEY_RETURN)) {
+        //   if (menu->select()->type == "menu")
+        //       menu = menu->select()->menu;
+    }
+    if (window->isKeyPressed(KEY_RIGHT)) {
+        static_cast<Wheel *>(MenuElements.back())->turnButtons(Wheel::RIGHT, 1000);
+    }
+    else if (window->isKeyPressed(KEY_LEFT)) {
+       static_cast<Wheel *>(MenuElements.back())->turnButtons(Wheel::LEFT, 1000);
     }
 }
 
-const vector3df Menu::getPosButton(const uint &buttonIndex)
+bool Menu::linkMenu(const std::string &name, Menu *menu)
 {
-    return vector3df(radius * cos(2 * buttonIndex * M_PI / buttonList.size()), 0, radius * sin(2 * buttonIndex * M_PI / buttonList.size()));
+    linkMap[name] = menu;
 }
 
-Menu::~Menu()
+bool Menu::addWheel(const vector3df &position, const float &radius, const std::vector<std::string> &buttons)
 {
-}
-
-void Menu::turnButtons(const Menu::Dir &direction, const f32 &timestamps)
-{
-    if (buttonList[0]->animHasFinished()) {
-        for (uint i = 0; i < buttonList.size(); i++)
-            buttonList[i]->animation(window, getPosButton((i + currentButton + buttonList.size() + direction) % buttonList.size()), timestamps);
-        currentButton = (currentButton + buttonList.size() + direction) % buttonList.size();
-
-    }
-}
-
-Button *Menu::getButton(const uint &buttonIndex) const
-{
-    return buttonList[buttonIndex];
-}
-
-void Menu::deleteButton(const uint index)
-{
-    ;
+    MenuElements.push_back(new Wheel(window, position, radius, buttons));
 }

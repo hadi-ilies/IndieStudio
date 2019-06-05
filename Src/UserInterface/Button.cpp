@@ -8,8 +8,8 @@
 #include "Error.hpp"
 #include "UserInterface/Button.hpp"
 
-Button::Button(Window *window, vector3df &position)
-    : position (position), button(window ? window->addCube((std::string) "Resources/Block/" + (rand() % 2 == 0 ? "Fire" : "Wall") + "/Texture.png") : NULL), anim(NULL) //may i have to add types
+Button::Button(Window *window, vector3df &position, const std::string &name)
+    : position (position), button(window ? window->addCube((std::string) "Resources/Block/" + (rand() % 2 == 0 ? "Fire" : "Wall") + "/Texture.png") : NULL), anim(NULL), name(name)
 {
     if (window) {
         if (!button)
@@ -20,6 +20,11 @@ Button::Button(Window *window, vector3df &position)
 
 Button::~Button()
 {
+}
+
+const std::string Button::getName() const
+{
+    return name;
 }
 
 vector3df Button::getPosition() const
