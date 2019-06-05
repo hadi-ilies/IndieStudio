@@ -20,7 +20,7 @@ using namespace sf;
 
 void server(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer)
 {
-    World world(NULL, worldFileName);
+    World world(NULL, "Resources/Map/" + worldFileName);
     std::vector<unique_ptr<Player>> playerList;
     std::vector<unique_ptr<PowerUp>> powerUpList;
 

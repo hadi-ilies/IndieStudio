@@ -141,7 +141,7 @@ static void game(Window &window, FormattedSocket &client, World &world, vector<u
                 endTurn = false;
                 //key = None; control Corentin dont remove it
             }
-        window.display(video::SColor(255, 113, 113, 233));
+        window.display();
     }
     client.disconnect();
     startTurn = true; // for exit thread
@@ -172,7 +172,7 @@ void client(const IpAddress &ip, const ushort &port) //put player in param
     if (client.type != Message)
         throw Error("message error");
     cout << client.message << endl;
-    World world(&window, client.message);
+    World world(&window, "Resources/Map/" + client.message);
     vector<unique_ptr<Player>> playerList;
 
     //nb powerup
