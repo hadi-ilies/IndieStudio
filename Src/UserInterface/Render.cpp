@@ -22,18 +22,18 @@ using namespace sf;
 
 void linkButtonToMenu(Window *window, Menu *menu)
 {
-    Menu *soloMenu = new Menu(window, vector3df(0, 200, 0), vector3df(30, 0, 0));
+    Menu *soloMenu = new Menu(window, vector3df(0, 0, 0), vector3df(0, 0, 0));
    //Menu *multiPlayerMenu = new Menu(window, vector3df(0, 300, 0), vector3df(40, 0, 0));
     //Menu *settingsMenu = new Menu(window, vector3df(0, 400, 0), vector3df(60, 0, 0));
     //Menu *playerMenu = new Menu(window, vector3df(0, 500, 0), vector3df(80, 0, 0));
-    Menu *StageMenu = new Menu(window, vector3df(0, 400, 0), vector3df(30, 0, 0));
+    Menu *StageMenu = new Menu(window, vector3df(0, 0, 0), vector3df(0, 0, 0));
 
-    soloMenu->addWheel(vector3df(20, 0, 0), 10, {"Stage", "Play", "Back"}); //tmp
+    soloMenu->addWheel(vector3df(0, 100, 0), 10, {"Stage", "Play", "Back"}); //tmp
 //    multiPlayerMenu->addWheel(vector3df(40, 0, 0), 10, {"Server", "Client", "Back"}); //tmp
  //   settingsMenu->addWheel(vector3df(60, 0, 0), 10, {"Sound", "Resolutuion", "Back"}); //tmp
  //   playerMenu->addWheel(vector3df(80, 0, 0), 10, {"Model1", "Model2", "Model3"}); //tmp
-    StageMenu->addWheel(vector3df(20, 0, 0), 10, {"Model1", "Model2", "Model3"}); //tmp
-
+    StageMenu->addWheel(vector3df(0, 200, 0), 10, {"Model1", "Model2", "Model3"}); //tmp
+    soloMenu->linkMenu("Solo", StageMenu);
     menu->linkMenu("Solo", soloMenu);
     //menu->linkMenu("Multiplayer", multiPlayerMenu);
     //menu->linkMenu("Settings", settingsMenu);
@@ -43,8 +43,8 @@ void linkButtonToMenu(Window *window, Menu *menu)
 Menu *createMenuBomberman(Window *window)
 {
     float radius = 10;
-    Menu *menu = new Menu(window, vector3df(0, 0, 0), vector3df(10, 0, 0));
-    menu->addWheel(vector3df(10, 0, 0), radius, {"Solo", "Multiplayer", "Settings", "Player", "Exit"});
+    Menu *menu = new Menu(window, vector3df(0, 0, 0), vector3df(0, 0, 0));
+    menu->addWheel(vector3df(0, 0, 0), radius, {"Solo", "Multiplayer", "Settings", "Player", "Exit"});
     linkButtonToMenu(window, menu);
     return menu;
 }
@@ -54,7 +54,7 @@ void userInterface()
     Window window("Bomberman", dimension2d<u32>(1920 / 2, 1080 / 2), false);
     Menu *menu = createMenuBomberman(&window);
     window.changeSkybox("Resources/Texture/background.png");
-    scene::ICameraSceneNode* camera = window.getCameraSceneNode(vector3df(0, 0, 0), vector3df(10, 0, 0));
+    //scene::ICameraSceneNode* camera = window.getCameraSceneNode(vector3df(20, 0, 0), vector3df(10, 0, 0));
 
     while (window.isOpen()) {
         if (menu->getKey()) {
@@ -69,10 +69,10 @@ void userInterface()
                 //client(IpAddress("127.0.0.1"), port);
             }
             if (menu->getMenu()) {
-                CameraMove cameraAnim(menu->getPosition(), menu->getMenu()->getPosition());
-                window.applyCameraMove(cameraAnim);
+                //CameraMove cameraAnim(menu->getPosition(), menu->getMenu()->getPosition());
+                //window.applyCameraMove(cameraAnim);
                 menu->setPrevMenu(menu);
-                std::cout << menu << "  " << menu->getMenu() << std::endl;
+                //std::cout << menu << "  " << menu->getMenu() << std::endl;
                 menu = menu->getMenu();
             }
         }

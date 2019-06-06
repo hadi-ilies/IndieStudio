@@ -20,7 +20,7 @@ public:
 	std::string getType() const;
 protected:
         Window *window;
-	const vector3df &position;
+	const vector3df position;
 private:
 	std::string type;
 };
