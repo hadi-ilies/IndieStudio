@@ -42,11 +42,11 @@ private:
     void create(const vector3du &_size);
     bool addBlock(const vector3du &pos, const std::string &type);
     bool removeBlock(const vector3du &pos);
-    bool isValidPosition(int randomPosX, int randomPosZ);
-    bool isValidOneP(int posX, int posZ);
-    bool isValidTwoP(int posX, int posZ);
-    bool isValidThreeP(int posX, int posZ);
-    bool isValidFourP(int posX, int posZ);
+    bool isValidPosition(int randomPosX, int randomPosZ); // ??
+    bool isValidOneP(int posX, int posZ); // ??
+    bool isValidTwoP(int posX, int posZ); // ??
+    bool isValidThreeP(int posX, int posZ); // ??
+    bool isValidFourP(int posX, int posZ); // ??
 
 private:
     std::string fileName;

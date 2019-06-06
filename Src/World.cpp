@@ -111,11 +111,11 @@ bool World::generate(const vector3du &_size, const uint &seed)
         randomPosX = rand() % (size.X - 1) + 1;
         randomPosY = rand() % (size.Y - 1) + 1;
         randomPosZ = rand() % (size.Z - 1) + 1;
-        if (isValidPosition(randomPosX, randomPosZ))
+        if (isValidPosition(randomPosX, randomPosZ)) // TODO supr
             if (addBlock(vector3du(randomPosX, randomPosY, randomPosZ), "Box"))
                 nbBox--;
     }
-    return tab != nullptr;
+    return true;
 }
 
 bool World::load(const std::string &_fileName)
