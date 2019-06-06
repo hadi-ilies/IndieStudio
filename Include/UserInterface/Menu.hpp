@@ -25,10 +25,12 @@ public:
     void setPrevMenu(Menu *menu);
     Menu *getPrevMenu() const;
     const vector3df &getPosition() const;
+    const vector3df &getTargetPosition() const;
     bool getKey();
     std::string getCurrentButtonName() const;
 private:
     const vector3df position;
+    const vector3df targetPosition;
     Window *window;
     Menu *prevMenu;
     std::vector<MenuElement *> MenuElements;

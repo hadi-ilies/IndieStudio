@@ -12,7 +12,7 @@
 #include "CameraMove.hpp"
 
 Menu::Menu(Window *window, const vector3df &cameraPos, const vector3df &targetPos)
-    : window(window), prevMenu(NULL), position(cameraPos)
+    : window(window), prevMenu(NULL), position(cameraPos), targetPosition(targetPos)
 {
 }
 
@@ -21,6 +21,10 @@ const vector3df &Menu::getPosition() const
     return position;
 }
 
+const vector3df &Menu::getTargetPosition() const
+{
+    return targetPosition;
+}
 
 //remove back, instead, put an index
 #include <iostream>
@@ -39,6 +43,10 @@ std::string Menu::getCurrentButtonName() const
 
 void Menu::setPrevMenu(Menu *menu)
 {
+    /*prevMenu = new Menu(menu->window, menu->position, menu->targetPosition);
+    prevMenu->prevMenu = menu->prevMenu;
+    prevMenu->MenuElements = menu->MenuElements;
+    prevMenu->linkMap = menu->linkMap;*/
     prevMenu = menu;
 }
 

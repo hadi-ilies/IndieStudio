@@ -15,7 +15,7 @@ Wheel::Wheel(Window *window, const vector3df &position, const float &radius, con
         std::cout << "Position :" << position.X << "  " << position.Y << "  " << position.Z << std::endl;
     for (uint i = 0; i < buttons.size(); i++) {
         vector3df pos = getPosButton(i);
-        pos.X += position.X; pos.Y += position.Y; pos.Z += position.Z;
+        //pos.X += position.X; pos.Y += position.Y; pos.Z += position.Z;
         buttonList.push_back(new Button(window, pos, buttons[i]));
     }
 }
@@ -27,7 +27,7 @@ Wheel::~Wheel()
 const vector3df Wheel::getPosButton(const uint &buttonIndex)
 {
     std::cout << "Position :" << position.Y << std::endl;
-    return vector3df(radius * cos(2 * buttonIndex * M_PI / buttonList.size()), position.Y, radius * sin(2 * buttonIndex * M_PI / buttonList.size()));
+    return vector3df(radius * cos(2 * buttonIndex * M_PI / buttonList.size()) + position.X, position.Y, radius * sin(2 * buttonIndex * M_PI / buttonList.size() + position.Z));
 }
 
 void Wheel::turnButtons(const Wheel::Dir &direction, const f32 &timestamps)

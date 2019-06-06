@@ -21,6 +21,7 @@ public:
     ~CameraMove();
     const core::array<vector3df> &getPoints() const;
     const vector3df &getTargetPos() const;
+    void setTarget(const vector3df &pos);
     void addPoint(const vector3df &menu);
     float getSpeed() const;
     float getTightness() const;

@@ -24,7 +24,7 @@ World::World(Window *_window, const std::string &_fileName)
     if (!load(_fileName))
         throw Error("load failed");
 }
-//todo issue 
+//todo issue
 World::~World()
 {
     for (uint i = 0; i < size.X; i++) {

@@ -47,6 +47,11 @@ void CameraMove::generatePointsDemo() {
     points.push_back(core::vector3df(25, 40, 25));
 }
 
+void CameraMove::setTarget(const vector3df &pos)
+{
+    targetPos = pos;
+}
+
 void CameraMove::addPoint(const vector3df &menu)
 {
     //if (points.size() > 0) {

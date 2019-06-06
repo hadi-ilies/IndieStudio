@@ -22,28 +22,31 @@ using namespace sf;
 
 void linkButtonToMenu(Window *window, Menu *menu)
 {
-    Menu *soloMenu = new Menu(window, vector3df(0, 0, 0), vector3df(0, 0, 0));
-   //Menu *multiPlayerMenu = new Menu(window, vector3df(0, 300, 0), vector3df(40, 0, 0));
-    //Menu *settingsMenu = new Menu(window, vector3df(0, 400, 0), vector3df(60, 0, 0));
-    //Menu *playerMenu = new Menu(window, vector3df(0, 500, 0), vector3df(80, 0, 0));
-    Menu *StageMenu = new Menu(window, vector3df(0, 0, 0), vector3df(0, 0, 0));
+    //todo remove magic numbers
+    Menu *soloMenu = new Menu(window, vector3df(20, 50, 0), vector3df(10, 50, 0));
+    Menu *StageMenu = new Menu(window, vector3df(20, 100, 0), vector3df(10, 100, 0));
+    Menu *multiPlayerMenu = new Menu(window, vector3df(70, 50, 0), vector3df(60, 50, 0));
+    Menu *settingsMenu = new Menu(window, vector3df(20, -100, 0), vector3df(10, -100, 0));
+    Menu *playerMenu = new Menu(window, vector3df(20, 500, 0), vector3df(10, 500, 0));
 
-    soloMenu->addWheel(vector3df(0, 100, 0), 10, {"Stage", "Play", "Back"}); //tmp
-//    multiPlayerMenu->addWheel(vector3df(40, 0, 0), 10, {"Server", "Client", "Back"}); //tmp
- //   settingsMenu->addWheel(vector3df(60, 0, 0), 10, {"Sound", "Resolutuion", "Back"}); //tmp
- //   playerMenu->addWheel(vector3df(80, 0, 0), 10, {"Model1", "Model2", "Model3"}); //tmp
-    StageMenu->addWheel(vector3df(0, 200, 0), 10, {"Model1", "Model2", "Model3"}); //tmp
-    soloMenu->linkMenu("Solo", StageMenu);
+    soloMenu->addWheel(vector3df(0, 50, 0), 10, {"Stage", "Play", "Back"}); //tmp
+    StageMenu->addWheel(vector3df(0, 100, 0), 10, {"Model1", "Model2", "Model3"}); //tmp
+    multiPlayerMenu->addWheel(vector3df(50, 50, 0), 10, {"Server", "Client", "Back"}); //tmp
+    settingsMenu->addWheel(vector3df(0, -100, 0), 10, {"Sound", "Resolution", "Back"}); //tmp
+    playerMenu->addWheel(vector3df(0, 500, 0), 10, {"Texture1", "Texture2", "Texture3"}); //tmp
+    soloMenu->linkMenu("Stage", StageMenu);
     menu->linkMenu("Solo", soloMenu);
-    //menu->linkMenu("Multiplayer", multiPlayerMenu);
-    //menu->linkMenu("Settings", settingsMenu);
-    //menu->linkMenu("Player", playerMenu);
+    menu->linkMenu("Multiplayer", multiPlayerMenu);
+    menu->linkMenu("Settings", settingsMenu);
+    menu->linkMenu("Player", playerMenu);
+    multiPlayerMenu->linkMenu("Back", menu);
+    settingsMenu->linkMenu("Back", menu);
 }
 
 Menu *createMenuBomberman(Window *window)
 {
     float radius = 10;
-    Menu *menu = new Menu(window, vector3df(0, 0, 0), vector3df(0, 0, 0));
+    Menu *menu = new Menu(window, vector3df(20, 0, 0), vector3df(10, 0, 0));
     menu->addWheel(vector3df(0, 0, 0), radius, {"Solo", "Multiplayer", "Settings", "Player", "Exit"});
     linkButtonToMenu(window, menu);
     return menu;
@@ -54,13 +57,10 @@ void userInterface()
     Window window("Bomberman", dimension2d<u32>(1920 / 2, 1080 / 2), false);
     Menu *menu = createMenuBomberman(&window);
     window.changeSkybox("Resources/Texture/background.png");
-    //scene::ICameraSceneNode* camera = window.getCameraSceneNode(vector3df(20, 0, 0), vector3df(10, 0, 0));
+    scene::ICameraSceneNode* camera = window.getCameraSceneNode(vector3df(20, 0, 0), vector3df(10, 0, 0));
 
     while (window.isOpen()) {
         if (menu->getKey()) {
-            //std::cout << "ZIZI" << std::endl;
-            if (menu->getCurrentButtonName() == "Back")
-                    menu->linkMenu("Back", menu->getPrevMenu()); // link during the creation
             if (!menu->getMenu() && menu->getCurrentButtonName() == "Exit")
                 window.close();
             if (!menu->getMenu() && menu->getCurrentButtonName() == "Play") {
@@ -69,10 +69,11 @@ void userInterface()
                 //client(IpAddress("127.0.0.1"), port);
             }
             if (menu->getMenu()) {
-                //CameraMove cameraAnim(menu->getPosition(), menu->getMenu()->getPosition());
-                //window.applyCameraMove(cameraAnim);
+                std::cout << menu->getMenu()->getPosition().Y << std::endl;
+                CameraMove cameraAnim(menu->getPosition(), menu->getMenu()->getTargetPosition());
+                cameraAnim.addPoint(menu->getMenu()->getPosition());
+                window.applyCameraMove(cameraAnim);
                 menu->setPrevMenu(menu);
-                //std::cout << menu << "  " << menu->getMenu() << std::endl;
                 menu = menu->getMenu();
             }
         }
