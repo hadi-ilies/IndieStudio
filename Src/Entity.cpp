@@ -84,9 +84,9 @@ void Entity::update()
     mesh->setPosition(vector3df(position.X, position.Y, position.Z));
 }
 
-void Entity::getModel(const std::string &fileName)
+void Entity::getModel(const std::string &_fileName)
 {
-    const vector<std::string> modelStrList = globpp(fileName + "/*");
+    const vector<std::string> modelStrList = globpp(_fileName);
     smatch match;
 
     for (const std::string &modelStr : modelStrList)
@@ -95,9 +95,9 @@ void Entity::getModel(const std::string &fileName)
                 modelMap[match[1]] = model;
 }
 
-void Entity::getTexture(const std::string &fileName)
+void Entity::getTexture(const std::string &_fileName)
 {
-    const vector<std::string> textureStrList = globpp(fileName + "/*");
+    const vector<std::string> textureStrList = globpp(_fileName);
     smatch match;
 
     for (const std::string &textureStr : textureStrList)

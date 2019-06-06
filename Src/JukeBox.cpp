@@ -11,7 +11,7 @@
  *   Constructors // Destructors
  */
 JukeBox::JukeBox(const std::string &_folder) : folder(_folder) {
-
+    
 }
 
 JukeBox::~JukeBox() = default;

@@ -7,15 +7,17 @@
 
 #include "Utility.hpp"
 
-vector<std::string> globpp(const std::string &pattern)
+vector<string> globpp(const std::string &pathFolder)
 {
-    vector<std::string> pathList;
-    glob_t pglob;
+    boost::filesystem::path p (pathFolder);
+    boost::filesystem::directory_iterator end_itr;
+    vector<string> filesList;
 
-    if (glob(pattern.c_str(), GLOB_MARK, NULL, &pglob))
-        throw Error("glob error");
-    for (size_t i = 0; i < pglob.gl_pathc; i++)
-        pathList.emplace_back(pglob.gl_pathv[i]);
-    globfree(&pglob);
-    return pathList;
+    for (boost::filesystem::directory_iterator itr(p); itr != end_itr; ++itr)
+    {
+        if (is_regular_file(itr->path())) {
+            filesList.push_back(itr->path().string());
+        }
+    }
+    return filesList;
 }

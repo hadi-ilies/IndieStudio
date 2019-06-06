@@ -11,6 +11,9 @@
 #include <SFML/Audio.hpp>
 #include <iostream>
 #include <utility>
+#include <boost/filesystem.hpp>
+
+using namespace boost::filesystem;
 
 class JukeBox {
 public:
