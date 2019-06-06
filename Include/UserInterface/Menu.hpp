@@ -21,9 +21,13 @@ public:
     bool linkMenu(const std::string &name, Menu *menu);
     Menu *getMenu();
     bool addWheel(const vector3df &position, const float &radius, const std::vector<std::string> &buttons);
+    void setPrevMenu(Menu *menu);
+    Menu *getPrevMenu() const;
     bool getKey();
+    std::string getCurrentButtonName() const;
 private:
     Window *window;
+    Menu *prevMenu;
     std::vector<MenuElement *> MenuElements;
     std::map<std::string, Menu *> linkMap;
 };

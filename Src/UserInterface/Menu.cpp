@@ -10,7 +10,7 @@
 #include "UserInterface/Wheel.hpp"
 
 Menu::Menu(Window *window, const vector3df &cameraPos, const vector3df &targetPos)
-    :window(window)
+    :window(window), prevMenu(NULL)
 {
     scene::ICameraSceneNode* camera = window->getCameraSceneNode(cameraPos, targetPos);//vector3df(radius + 10, 1, 0), vector3df(0, 0, 0));
 }
@@ -19,8 +19,23 @@ Menu::Menu(Window *window, const vector3df &cameraPos, const vector3df &targetPo
 #include <iostream>
 Menu *Menu::getMenu()
 {
-    std::cout << static_cast<Wheel *>(MenuElements.back())->getCurrentButton()->getName() << std::endl;
-    return linkMap[static_cast<Wheel *>(MenuElements.back())->getCurrentButton()->getName()];
+    std::cout << getCurrentButtonName() << std::endl;
+    return linkMap[getCurrentButtonName()];
+}
+
+std::string Menu::getCurrentButtonName() const
+{
+    return static_cast<Wheel *>(MenuElements.back())->getCurrentButton()->getName();
+}
+
+void Menu::setPrevMenu(Menu *menu)
+{
+    prevMenu = menu;
+}
+
+Menu *Menu::getPrevMenu() const
+{
+    return prevMenu;
 }
 
 bool Menu::getKey()

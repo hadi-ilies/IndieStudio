@@ -20,8 +20,6 @@ Wheel::~Wheel()
 {
 }
 
-
-
 const vector3df Wheel::getPosButton(const uint &buttonIndex)
 {
     return vector3df(radius * cos(2 * buttonIndex * M_PI / buttonList.size()), 0, radius * sin(2 * buttonIndex * M_PI / buttonList.size()));
