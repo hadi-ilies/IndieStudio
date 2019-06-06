@@ -6,6 +6,7 @@
 */
 
 #include "Utility.hpp"
+#include "Error.hpp"
 
 vector<string> globpp(const std::string &pathFolder)
 {

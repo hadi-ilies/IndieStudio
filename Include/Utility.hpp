@@ -11,8 +11,6 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <glob.h>
-#include "Error.hpp"
 #include <boost/filesystem.hpp>
 
 using namespace std;
