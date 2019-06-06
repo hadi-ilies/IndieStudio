@@ -34,7 +34,7 @@ bool tmp2()
     //Window window("Bomberman", dimension2d<u32>(1920, 1080), true);
     World world(&window, "Resources/Map/Demo");
     //World world(&window, vector3du(21,2,21));
-    JukeBox jukeBox("Resources/Sounds");
+    JukeBox jukeBox;
     Player player(&window, "Bomberman", "Bob", &world, vector3du(1, 1, 1));
     bool spacePress = false; // tmp
 
@@ -42,6 +42,8 @@ bool tmp2()
 
     //world.debugAff();
     window.setDebugMode(true); // tmp
+    jukeBox.addMusic("test", "Resources/Sounds/Menu.ogg");
+    jukeBox.playMusic("test");
     while (window.isOpen()) {
         // TODO
         if (window.isKeyPressed(KEY_ESCAPE))
