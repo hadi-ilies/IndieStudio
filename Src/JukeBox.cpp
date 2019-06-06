@@ -1,15 +1,20 @@
 /*
 ** EPITECH PROJECT, 2019
-** $NAME_OF_THE_PROJECT
+** OOP_indie_studio_2018
 ** File description:
-** Sound.hpp
+** JukeBox.hpp
 */
 
-#include "Sound.hpp"
+#include "JukeBox.hpp"
 
 /*
  *   Constructors // Destructors
  */
+JukeBox::JukeBox(const std::string &_folder) : folder(_folder) {
+
+}
+
+JukeBox::~JukeBox() = default;
 
 /*
  *   Getters // Setters
@@ -17,4 +22,6 @@
 
 /*
  *   Methods
- */ 
+ */
+
+

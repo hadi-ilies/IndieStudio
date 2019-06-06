@@ -1,25 +1,27 @@
 /*
 ** EPITECH PROJECT, 2019
-** $FOLDER
+** OOP_indie_studio_2018
 ** File description:
-** Sound.hpp
+** JukeBox.hpp
 */
 
-#ifndef BOMBERMAN_SOUND_HPP
-#define BOMBERMAN_SOUND_HPP
+#ifndef BOMBERMAN_JUKEBOX_HPP
+#define BOMBERMAN_JUKEBOX_HPP
 
-#include <SFML/Audio/SoundBuffer.hpp>
+#include <SFML/Audio.hpp>
+#include <iostream>
+#include <utility>
 
-using namespace sf;
-
-class Sound {
+class JukeBox {
 public:
-    
+    JukeBox(const std::string &_folder);
+    ~JukeBox();
 public:
 
-protected:
-    SoundBuffer buffer;
+private:
+    std::string folder;
+    std::vector<sf::Music> musicBox;
 };
 
 
-#endif /* !BOMBERMAN_SOUND_HPP */
+#endif /* !BOMBERMAN_JUKEBOX_HPP */
