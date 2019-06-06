@@ -40,6 +40,7 @@ public:
     ICameraSceneNode *getCameraSceneNode(const vector3df &pointOfView, const vector3df &lookAt); // ?
     bool isKeyPressed(const irr::EKEY_CODE &keyCode) const;
     void changeSkybox(const std::string &fileName);
+    scene::ISceneNodeAnimator *createFollowSplineAnimator(const s32 &startTime, const core::array< core::vector3df > &point, const f32 &speed, const f32 &tightness, bool isLoop)
     void runDemo(const Demo &demo); // tmp
     void debugMode(const bool &active);
 

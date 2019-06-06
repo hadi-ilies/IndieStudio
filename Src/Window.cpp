@@ -120,13 +120,18 @@ void Window::changeSkybox(const std::string &fileName)
     smgr->addSkyDomeSceneNode(getTexture(fileName));
 }
 
+scene::ISceneNodeAnimator *Window::createFollowSplineAnimator(const s32 &startTime, const core::array< core::vector3df > &point, const f32 &speed, const f32 &tightness, bool isLoop)
+{
+    return smgr->createFollowSplineAnimator(startTime, point, speed, tightness, isLoop);
+}
+
 void Window::runDemo(const Demo &demo)
 {
     scene::ICameraSceneNode *camera = nullptr;
     scene::ISceneNodeAnimator *sa = nullptr;
 
     camera = getCameraSceneNode(demo.getPoints()[0], demo.getLookAt());
-    sa = smgr->createFollowSplineAnimator(device->getTimer()->getTime(), demo.getPoints(), demo.getSpeed(), demo.getTightness(), demo.isLoop());
+    sa = createFollowSplineAnimator(device->getTimer()->getTime(), demo.getPoints(), demo.getSpeed(), demo.getTightness(), demo.isLoop());
     camera->addAnimator(sa);
     sa->drop();
 }

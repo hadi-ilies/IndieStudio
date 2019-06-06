@@ -13,6 +13,11 @@ Menu::Menu(Window *window, const vector3df &cameraPos, const vector3df &targetPo
     :window(window), prevMenu(NULL)
 {
     scene::ICameraSceneNode* camera = window->getCameraSceneNode(cameraPos, targetPos);//vector3df(radius + 10, 1, 0), vector3df(0, 0, 0));
+    scene::ISceneNodeAnimator *sa = nullptr;
+
+    sa = createFollowSplineAnimator(, , 4, 0.5,false);
+    camera->addAnimator(sa);
+    sa->drop();
 }
 
 //remove back, instead, put an index

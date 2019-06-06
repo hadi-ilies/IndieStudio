@@ -22,16 +22,16 @@ using namespace sf;
 
 void linkButtonToMenu(Window *window, Menu *menu)
 {
-    Menu *soloMenu = new Menu(window, vector3df(30 + 10, 1, 0), vector3df(0, 0, 0));
-    Menu *multiPlayerMenu = new Menu(window, vector3df(30 + 10, 1, 0), vector3df(0, 0, 0));
-    Menu *settingsMenu = new Menu(window, vector3df(30 + 10, 1, 0), vector3df(0, 0, 0));
-    Menu *playerMenu = new Menu(window, vector3df(30 + 10, 1, 0), vector3df(0, 0, 0));
+    Menu *soloMenu = new Menu(window, vector3df(0, 20, 0), vector3df(20, 0, 0));
+    Menu *multiPlayerMenu = new Menu(window, vector3df(0, 40, 0), vector3df(40, 0, 0));
+    Menu *settingsMenu = new Menu(window, vector3df(0, 60, 0), vector3df(60, 0, 0));
+    Menu *playerMenu = new Menu(window, vector3df(0, 80, 0), vector3df(80, 0, 0));
 
 
-    soloMenu->addWheel(vector3df(10, 0, 0), 30, {"Stage", "Play", "Back"}); //tmp
-    multiPlayerMenu->addWheel(vector3df(10, 0, 0), 30, {"Server", "Client", "Back"}); //tmp
-    settingsMenu->addWheel(vector3df(10, 0, 0), 30, {"Sound", "Resolutuion", "Back"}); //tmp
-    playerMenu->addWheel(vector3df(10, 0, 0), 30, {"Model1", "Model2", "Model3"}); //tmp
+    soloMenu->addWheel(vector3df(20, 0, 0), 10, {"Stage", "Play", "Back"}); //tmp
+    multiPlayerMenu->addWheel(vector3df(40, 0, 0), 10, {"Server", "Client", "Back"}); //tmp
+    settingsMenu->addWheel(vector3df(60, 0, 0), 10, {"Sound", "Resolutuion", "Back"}); //tmp
+    playerMenu->addWheel(vector3df(80, 0, 0), 10, {"Model1", "Model2", "Model3"}); //tmp
     menu->linkMenu("Solo", soloMenu);
     menu->linkMenu("Multiplayer", multiPlayerMenu);
     menu->linkMenu("Settings", settingsMenu);
@@ -40,8 +40,8 @@ void linkButtonToMenu(Window *window, Menu *menu)
 
 Menu *createMenuBomberman(Window *window)
 {
-    float radius = 20;
-    Menu *menu = new Menu(window, vector3df(radius + 10, 1, 0), vector3df(0, 0, 0));
+    float radius = 10;
+    Menu *menu = new Menu(window, vector3df(0, 0, 0), vector3df(10, 0, 0));
     menu->addWheel(vector3df(10, 0, 0), radius, {"Solo", "Multiplayer", "Settings", "Player", "Exit"});
     linkButtonToMenu(window, menu);
     return menu;
@@ -55,7 +55,7 @@ void userInterface()
 
     while (window.isOpen()) {
         if (menu->getKey()) {
-             std::cout << "ZIZI" << std::endl;
+            //std::cout << "ZIZI" << std::endl;
             if (menu->getCurrentButtonName() == "Back")
                     menu->linkMenu("Back", menu->getPrevMenu());
             if (!menu->getMenu() && menu->getCurrentButtonName() == "Exit")
