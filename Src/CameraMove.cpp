@@ -13,9 +13,10 @@ CameraMove::CameraMove()
     generatePointsDemo();
 }
 
-CameraMove::CameraMove(const core::vector3df& _cameraPos, const core::vector3df& _targetPos) : targetPos(_targetPos), speed(4), tightness(0.5), loop(false) {
-    points[0] = _cameraPos;
-    targetPos = _targetPos;
+CameraMove::CameraMove(const core::vector3df& _cameraPos, const core::vector3df& _targetPos)
+    : targetPos(_targetPos), speed(4), tightness(0.5), loop(false)
+{
+    points.push_back(_cameraPos);
 }
 
 CameraMove::~CameraMove() = default;
@@ -46,6 +47,10 @@ void CameraMove::generatePointsDemo() {
     points.push_back(core::vector3df(25, 40, 25));
 }
 
-void CameraMove::generatePointsMenu() {
-
+void CameraMove::addPoint(const vector3df &menu)
+{
+    //if (points.size() > 0) {
+    //    for (int n = points.back())
+   // }
+    points.push_back(menu);
 }

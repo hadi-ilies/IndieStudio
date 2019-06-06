@@ -24,9 +24,11 @@ public:
     bool addButton(const vector3df &position, const std::string &name);
     void setPrevMenu(Menu *menu);
     Menu *getPrevMenu() const;
+    const vector3df &getPosition() const;
     bool getKey();
     std::string getCurrentButtonName() const;
 private:
+    const vector3df position;
     Window *window;
     Menu *prevMenu;
     std::vector<MenuElement *> MenuElements;

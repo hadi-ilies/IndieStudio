@@ -21,13 +21,13 @@ public:
     ~CameraMove();
     const core::array<vector3df> &getPoints() const;
     const vector3df &getTargetPos() const;
+    void addPoint(const vector3df &menu);
     float getSpeed() const;
     float getTightness() const;
     bool isLoop() const;
 
 private:
     void generatePointsDemo();
-    void generatePointsMenu();
 
 private:
     core::array<core::vector3df> points;

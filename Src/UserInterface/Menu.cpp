@@ -9,24 +9,27 @@
 #include "UserInterface/MenuElement.hpp"
 #include "UserInterface/Wheel.hpp"
 #include "UserInterface/ButtonElement.hpp"
+#include "CameraMove.hpp"
 
 Menu::Menu(Window *window, const vector3df &cameraPos, const vector3df &targetPos)
-    :window(window), prevMenu(NULL)
+    : window(window), prevMenu(NULL), position(cameraPos)
 {
-    //scene::ICameraSceneNode* camera = window->getCameraSceneNode(cameraPos, targetPos);//vector3df(radius + 10, 1, 0), vector3df(0, 0, 0));
-    //scene::ISceneNodeAnimator *sa = nullptr;
-
-    //sa = createFollowSplineAnimator(, , 4, 0.5,false);
-   // camera->addAnimator(sa);
-   // sa->drop();
 }
+
+const vector3df &Menu::getPosition() const
+{
+    return position;
+}
+
 
 //remove back, instead, put an index
 #include <iostream>
 Menu *Menu::getMenu()
 {
-    std::cout << getCurrentButtonName() << std::endl;
-    return linkMap[getCurrentButtonName()];
+    if (linkMap.find(getCurrentButtonName()) != linkMap.end())
+        return linkMap[getCurrentButtonName()];
+    std::cout << "TEST " << getCurrentButtonName() << std::endl;
+    return NULL;
 }
 
 std::string Menu::getCurrentButtonName() const
@@ -46,6 +49,7 @@ Menu *Menu::getPrevMenu() const
 
 bool Menu::getKey()
 {
+    std::cout << getCurrentButtonName() << std::endl;
     if (window->isKeyPressed(KEY_SPACE) || window->isKeyPressed(KEY_RETURN)) {
         return true;
     }
