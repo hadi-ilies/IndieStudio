@@ -9,6 +9,7 @@
 #include <cstring> // ?
 #include <irrlicht/irrlicht.h>
 #include <SFML/Network.hpp> // ?
+#include <JukeBox.hpp>
 #include "Window.hpp"
 #include "World.hpp"
 #include "Entity/Player.hpp"
@@ -33,6 +34,7 @@ bool tmp2()
     //Window window("Bomberman", dimension2d<u32>(1920, 1080), true);
     World world(&window, "Resources/Map/Demo");
     //World world(&window, vector3du(21,2,21));
+    JukeBox jukeBox("Resources/Sounds");
     Player player(&window, "Bomberman", "Bob", &world, vector3du(1, 1, 1));
     bool spacePress = false; // tmp
 

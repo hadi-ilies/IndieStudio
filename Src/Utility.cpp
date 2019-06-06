@@ -6,16 +6,16 @@
 */
 
 #include "Utility.hpp"
+#include "Error.hpp"
 
-vector<std::string> globpp(const std::string &pattern)
+vector<std::string> globpp(const std::string &pathFolder)
 {
-    vector<std::string> pathList;
-    glob_t pglob;
+    boost::filesystem::path p(pathFolder);
+    boost::filesystem::directory_iterator end_itr;
+    vector<std::string> filesList;
 
-    if (glob(pattern.c_str(), GLOB_MARK, NULL, &pglob))
-        throw Error("glob error");
-    for (size_t i = 0; i < pglob.gl_pathc; i++)
-        pathList.emplace_back(pglob.gl_pathv[i]);
-    globfree(&pglob);
-    return pathList;
+    for (boost::filesystem::directory_iterator it(p); it != end_itr; it++)
+        if (is_regular_file(it->path()))
+            filesList.push_back(it->path().string());
+    return filesList;
 }

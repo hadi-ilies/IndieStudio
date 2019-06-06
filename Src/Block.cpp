@@ -58,7 +58,7 @@ void Block::update()
 
 void Block::getProperty(const std::string &fileName)
 {
-    ifstream file(fileName);
+    std::ifstream file(fileName);
     std::string line;
     smatch match;
 
@@ -66,9 +66,9 @@ void Block::getProperty(const std::string &fileName)
         throw Error("\"" + fileName + "\" cant be open");
     while (getline(file, line)) {
         if (regex_search(line, match, regex(R"(^opaque *: *(false|true)$)")))
-            opaque = match[1] == "true" ? true : false;
+            opaque = match[1] == "true";
         else if (regex_search(line, match, regex(R"(^destructible *: *(false|true)$)")))
-            destructible = match[1] == "true" ? true : false;
+            destructible = match[1] == "true";
         else if (regex_search(line, match, regex(R"(^lifeTime *: *(\d+)$)")))
             lifeTime = stoi(match[1]);
     }
