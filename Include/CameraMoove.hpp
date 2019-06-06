@@ -13,24 +13,23 @@
 using namespace irr;
 using namespace core;
 
-class Animation
+class CameraMoove
 {
 public:
-    Animation(core::vector3df cameraPos, core::vector3df targetPos);
-    ~Animation();
+    CameraMoove();
+    CameraMoove(const core::vector3df& cameraPos, const core::vector3df& targetPos);
+    ~CameraMoove();
     const core::array<vector3df> &getPoints() const;
     const vector3df &getTargetPos() const;
     float getSpeed() const;
     float getTightness() const;
     bool isLoop() const;
-    scene::ICameraSceneNode *getCamera() const;
 
 private:
     void generatePointsDemo();
     void generatePointsMenu();
 
 private:
-    scene::ICameraSceneNode *camera;
     core::array<core::vector3df> points;
     core::vector3df targetPos;
     float speed;
