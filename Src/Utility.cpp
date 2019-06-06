@@ -8,17 +8,14 @@
 #include "Utility.hpp"
 #include "Error.hpp"
 
-vector<string> globpp(const std::string &pathFolder)
+vector<std::string> globpp(const std::string &pathFolder)
 {
-    boost::filesystem::path p (pathFolder);
+    boost::filesystem::path p(pathFolder);
     boost::filesystem::directory_iterator end_itr;
-    vector<string> filesList;
+    vector<std::string> filesList;
 
-    for (boost::filesystem::directory_iterator itr(p); itr != end_itr; ++itr)
-    {
-        if (is_regular_file(itr->path())) {
-            filesList.push_back(itr->path().string());
-        }
-    }
+    for (boost::filesystem::directory_iterator it(p); it != end_itr; it++)
+        if (is_regular_file(it->path()))
+            filesList.push_back(it->path().string());
     return filesList;
 }

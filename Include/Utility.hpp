@@ -8,7 +8,6 @@
 #ifndef GLOBPP_HPP
 #define GLOBPP_HPP
 
-#include <iostream>
 #include <vector>
 #include <string>
 #include <boost/filesystem.hpp>
