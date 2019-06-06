@@ -29,7 +29,7 @@ set(SRC
   ${SRCDIR}Block.cpp
   ${SRCDIR}World.cpp
   ${SRCDIR}Entity.cpp
-  ${SRCDIR}CameraMoove.cpp
+  ${SRCDIR}CameraMove.cpp
   ${SRCDIR}JukeBox.cpp
   ${SRCDIR}${ENTITYDIR}Bomb.cpp
   ${SRCDIR}${ENTITYDIR}PowerUp.cpp
@@ -51,7 +51,7 @@ set(INCLUDE
   ${INCDIR}Block.hpp
   ${INCDIR}World.hpp
   ${INCDIR}Entity.hpp
-  ${INCDIR}CameraMoove.hpp
+  ${INCDIR}CameraMove.hpp
   ${INCDIR}JukeBox.hpp
   ${INCDIR}${ENTITYDIR}Bomb.hpp
   ${INCDIR}${ENTITYDIR}PowerUp.hpp
