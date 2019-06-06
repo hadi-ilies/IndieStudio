@@ -15,7 +15,7 @@ Menu::Menu(Window *window, const vector3df &cameraPos, const vector3df &targetPo
     scene::ICameraSceneNode* camera = window->getCameraSceneNode(cameraPos, targetPos);//vector3df(radius + 10, 1, 0), vector3df(0, 0, 0));
     scene::ISceneNodeAnimator *sa = nullptr;
 
-    sa = createFollowSplineAnimator(, , 4, 0.5,false);
+    //sa = createFollowSplineAnimator(, , 4, 0.5,false);
     camera->addAnimator(sa);
     sa->drop();
 }

@@ -6,7 +6,6 @@
 */
 
 #include "Window.hpp"
-#include "Error.hpp"
 
 Window::Window(const std::string &windowName, dimension2d<u32> size, const bool &fullscreen)
     : debug(false)
@@ -120,13 +119,13 @@ void Window::changeSkybox(const std::string &fileName)
     smgr->addSkyDomeSceneNode(getTexture(fileName));
 }
 
-void Window::runDemo(const Demo &demo)
+void Window::applyCameraMoove(const CameraMoove &cameraMoove)
 {
     scene::ICameraSceneNode *camera = nullptr;
     scene::ISceneNodeAnimator *sa = nullptr;
 
-    camera = getCameraSceneNode(demo.getPoints()[0], demo.getLookAt());
-    sa = smgr->createFollowSplineAnimator(device->getTimer()->getTime(), demo.getPoints(), demo.getSpeed(), demo.getTightness(), demo.isLoop());
+    camera = getCameraSceneNode(cameraMoove.getPoints()[0], cameraMoove.getTargetPos());
+    sa = smgr->createFollowSplineAnimator(device->getTimer()->getTime(), cameraMoove.getPoints(), cameraMoove.getSpeed(), cameraMoove.getTightness(), cameraMoove.isLoop());
     camera->addAnimator(sa);
     sa->drop();
 }
