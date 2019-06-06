@@ -22,7 +22,7 @@ typedef vector3d<uint> vector3du; //tmp
 
 class Button {
 public:
-	Button(Window *window, vector3df &position, const std::string &name);
+	Button(Window *window, const vector3df &position, const std::string &name);
 	~Button();
         ISceneNode *getButton() const; //
         const std::string getName() const;

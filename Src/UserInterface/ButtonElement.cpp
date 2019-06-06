@@ -5,7 +5,8 @@
 ** ButtonElement
 */
 
-#include "ButtonElement.hpp"
+#include "UserInterface/ButtonElement.hpp"
+#include "UserInterface/Button.hpp"
 
 ButtonElement::ButtonElement(Window *window, const vector3df &position, const std::string &name)
  : MenuElement(window, position, "Button"), button(new Button(window, position, name))
@@ -13,3 +14,8 @@ ButtonElement::ButtonElement(Window *window, const vector3df &position, const st
 }
 
 ButtonElement::~ButtonElement() = default;
+
+Button *ButtonElement::getButton() const
+{
+    return button;
+}

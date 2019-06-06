@@ -38,6 +38,7 @@ set(SRC
   ${SRCDIR}${UIDIR}Button.cpp
   ${SRCDIR}${UIDIR}Menu.cpp
   ${SRCDIR}${UIDIR}MenuElement.cpp
+  ${SRCDIR}${UIDIR}ButtonElement.cpp
   ${SRCDIR}${UIDIR}Wheel.cpp
   ${SRCDIR}${UIDIR}Render.cpp
   )
@@ -59,6 +60,7 @@ set(INCLUDE
   ${INCDIR}${UIDIR}Button.hpp
   ${INCDIR}${UIDIR}Menu.hpp
   ${INCDIR}${UIDIR}MenuElement.hpp
+  ${INCDIR}${UIDIR}ButtonElement.hpp
   ${INCDIR}${UIDIR}Wheel.hpp
   )
 

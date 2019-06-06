@@ -8,16 +8,17 @@
 #include "UserInterface/Menu.hpp"
 #include "UserInterface/MenuElement.hpp"
 #include "UserInterface/Wheel.hpp"
+#include "UserInterface/ButtonElement.hpp"
 
 Menu::Menu(Window *window, const vector3df &cameraPos, const vector3df &targetPos)
     :window(window), prevMenu(NULL)
 {
-    scene::ICameraSceneNode* camera = window->getCameraSceneNode(cameraPos, targetPos);//vector3df(radius + 10, 1, 0), vector3df(0, 0, 0));
-    scene::ISceneNodeAnimator *sa = nullptr;
+    //scene::ICameraSceneNode* camera = window->getCameraSceneNode(cameraPos, targetPos);//vector3df(radius + 10, 1, 0), vector3df(0, 0, 0));
+    //scene::ISceneNodeAnimator *sa = nullptr;
 
     //sa = createFollowSplineAnimator(, , 4, 0.5,false);
-    camera->addAnimator(sa);
-    sa->drop();
+   // camera->addAnimator(sa);
+   // sa->drop();
 }
 
 //remove back, instead, put an index
@@ -30,7 +31,7 @@ Menu *Menu::getMenu()
 
 std::string Menu::getCurrentButtonName() const
 {
-    return static_cast<Wheel *>(MenuElements.back())->getCurrentButton()->getName();
+    return static_cast<Wheel *>(MenuElements.back())->getCurrentButton()->getName(); //tmp
 }
 
 void Menu::setPrevMenu(Menu *menu)
@@ -65,4 +66,9 @@ bool Menu::linkMenu(const std::string &name, Menu *menu)
 bool Menu::addWheel(const vector3df &position, const float &radius, const std::vector<std::string> &buttons)
 {
     MenuElements.push_back(new Wheel(window, position, radius, buttons));
+}
+
+bool Menu::addButton(const vector3df &position, const std::string &name)
+{
+    MenuElements.push_back(new ButtonElement(window, position, name));
 }

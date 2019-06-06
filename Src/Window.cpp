@@ -119,7 +119,7 @@ void Window::changeSkybox(const std::string &fileName)
     smgr->addSkyDomeSceneNode(getTexture(fileName));
 }
 
-void Window::applyCameraMoove(const CameraMoove &cameraMoove)
+void Window::applyCameraMove(const CameraMoove &cameraMoove)
 {
     scene::ICameraSceneNode *camera = nullptr;
     scene::ISceneNodeAnimator *sa = nullptr;
