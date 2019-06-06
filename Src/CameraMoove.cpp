@@ -13,7 +13,7 @@ CameraMoove::CameraMoove()
     generatePointsDemo();
 }
 
-CameraMoove::CameraMoove(core::vector3df _cameraPos, core::vector3df _targetPos) : targetPos(_targetPos), speed(4), tightness(0.5), loop(false) {
+CameraMoove::CameraMoove(const core::vector3df& _cameraPos, const core::vector3df& _targetPos) : targetPos(_targetPos), speed(4), tightness(0.5), loop(false) {
     points[0] = _cameraPos;
 }
 

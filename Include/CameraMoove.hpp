@@ -17,7 +17,7 @@ class CameraMoove
 {
 public:
     CameraMoove();
-    CameraMoove(core::vector3df cameraPos, core::vector3df targetPos);
+    CameraMoove(const core::vector3df& cameraPos, const core::vector3df& targetPos);
     ~CameraMoove();
     const core::array<vector3df> &getPoints() const;
     const vector3df &getTargetPos() const;
