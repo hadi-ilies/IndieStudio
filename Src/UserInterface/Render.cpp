@@ -23,9 +23,19 @@ using namespace sf;
 void linkButtonToMenu(Window *window, Menu *menu)
 {
     Menu *soloMenu = new Menu(window, vector3df(30 + 10, 1, 0), vector3df(0, 0, 0));
-    soloMenu->addWheel(vector3df(10, 0, 0), 30, {"Stage", "Play", "Back"}); //tmp
-    menu->linkMenu("Solo", soloMenu);
+    Menu *multiPlayerMenu = new Menu(window, vector3df(30 + 10, 1, 0), vector3df(0, 0, 0));
+    Menu *settingsMenu = new Menu(window, vector3df(30 + 10, 1, 0), vector3df(0, 0, 0));
+    Menu *playerMenu = new Menu(window, vector3df(30 + 10, 1, 0), vector3df(0, 0, 0));
 
+
+    soloMenu->addWheel(vector3df(10, 0, 0), 30, {"Stage", "Play", "Back"}); //tmp
+    multiPlayerMenu->addWheel(vector3df(10, 0, 0), 30, {"Server", "Client", "Back"}); //tmp
+    settingsMenu->addWheel(vector3df(10, 0, 0), 30, {"Sound", "Resolutuion", "Back"}); //tmp
+    playerMenu->addWheel(vector3df(10, 0, 0), 30, {"Model1", "Model2", "Model3"}); //tmp
+    menu->linkMenu("Solo", soloMenu);
+    menu->linkMenu("Multiplayer", multiPlayerMenu);
+    menu->linkMenu("Settings", settingsMenu);
+    menu->linkMenu("Player", playerMenu);
 }
 
 Menu *createMenuBomberman(Window *window)
@@ -46,6 +56,16 @@ void userInterface()
     while (window.isOpen()) {
         if (menu->getKey()) {
              std::cout << "ZIZI" << std::endl;
+            if (menu->getCurrentButtonName() == "Back")
+                    menu->linkMenu("Back", menu->getPrevMenu());
+            if (!menu->getMenu() && menu->getCurrentButtonName() == "Exit")
+                window.close();
+            if (!menu->getMenu() && menu->getCurrentButtonName() == "Play") {
+                uint port = 8080;
+                //server(port, "Resources/Map/Default", 1); have to write in a thread
+                //client(IpAddress("127.0.0.1"), port);
+            }
+            menu->setPrevMenu(menu);
             menu = menu->getMenu();
         }
         window.display();
