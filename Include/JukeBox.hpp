@@ -8,13 +8,17 @@
 #ifndef BOMBERMAN_SOUND_HPP
 #define BOMBERMAN_SOUND_HPP
 
+#include <SFML/Audio/SoundBuffer.hpp>
+
+using namespace sf;
+
 class Sound {
 public:
-
+    
 public:
 
 protected:
-
+    SoundBuffer buffer;
 };
 
 

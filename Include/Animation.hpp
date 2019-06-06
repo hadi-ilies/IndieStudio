@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2019
 ** OOP_indie_studio_2018
 ** File description:
-** Demo.hpp
+** Animation.hpp
 */
 
 #ifndef BOMBERMAN_DEMO_HPP
@@ -13,23 +13,26 @@
 using namespace irr;
 using namespace core;
 
-class Demo
+class Animation
 {
 public:
-    Demo();
-    ~Demo();
+    Animation(core::vector3df cameraPos, core::vector3df targetPos);
+    ~Animation();
     const core::array<vector3df> &getPoints() const;
-    const vector3df &getLookAt() const;
+    const vector3df &getTargetPos() const;
     float getSpeed() const;
     float getTightness() const;
     bool isLoop() const;
+    scene::ICameraSceneNode *getCamera() const;
 
 private:
-    void generatePoints(); // TODO load from file
+    void generatePointsDemo();
+    void generatePointsMenu();
 
 private:
+    scene::ICameraSceneNode *camera;
     core::array<core::vector3df> points;
-    core::vector3df lookAt;
+    core::vector3df targetPos;
     float speed;
     float tightness;
     bool loop;
