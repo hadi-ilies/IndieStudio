@@ -13,9 +13,7 @@ Demo::Demo()
     generatePoints();
 }
 
-Demo::~Demo()
-{
-}
+Demo::~Demo() = default;
 
 const array<vector3df> &Demo::getPoints() const
 {

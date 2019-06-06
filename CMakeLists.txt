@@ -25,7 +25,7 @@ set(SRC
   ${SRCDIR}Client.cpp
   ${SRCDIR}Window.cpp
   ${SRCDIR}Error.cpp
-  ${SRCDIR}Globpp.cpp # TODO or (Utility.cpp and rename Globpp.hpp in Utility.hpp)
+  ${SRCDIR}Utility.cpp
   ${SRCDIR}Block.cpp
   ${SRCDIR}World.cpp
   ${SRCDIR}Entity.cpp
@@ -45,7 +45,7 @@ set(INCLUDE
   ${INCDIR}FormattedSocket.hpp
   ${INCDIR}Window.hpp
   ${INCDIR}Error.hpp
-  ${INCDIR}Globpp.hpp
+  ${INCDIR}Utility.hpp
   ${INCDIR}Block.hpp
   ${INCDIR}World.hpp
   ${INCDIR}Entity.hpp

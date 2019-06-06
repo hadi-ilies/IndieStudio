@@ -9,7 +9,7 @@
 #include <fstream> // ?
 #include <regex>
 #include "Block.hpp"
-#include "Globpp.hpp"
+#include "Utility.hpp"
 #include "Error.hpp"
 
 Block::Block(Window *window, const std::string &_type, const vector3du &position)

@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2019
 ** Bomberman
 ** File description:
-** Globpp.hpp
+** Utility.hpp
 */
 
 #ifndef GLOBPP_HPP

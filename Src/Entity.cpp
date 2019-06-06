@@ -7,7 +7,7 @@
 
 #include <regex>
 #include "Entity.hpp"
-#include "Globpp.hpp"
+#include "Utility.hpp"
 
 #include <iostream> // tmp
 Entity::Entity(Window *_window, const std::string &_fileName, World *_world, const vector3du &_position)
