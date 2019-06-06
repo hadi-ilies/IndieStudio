@@ -12,18 +12,29 @@
 #include <iostream>
 #include <utility>
 #include <boost/filesystem.hpp>
+#include <SFML/Audio.hpp>
+#include <map>
 
 using namespace boost::filesystem;
 
 class JukeBox {
 public:
-    JukeBox(const std::string &_folder);
+    JukeBox();
     ~JukeBox();
+    const sf::Music &getCurrentMusic() const;
+    const sf::Sound &getCurrentSound() const;
+
 public:
+    void addMusic(const std::string &_name, const std::string &_path);
+    void addSound(const std::string &_name, const std::string &_path);
+    void playMusic(const std::string &_name);
+    void playSound(const std::string &_name);
 
 private:
-    std::string folder;
-    std::vector<sf::Music> musicBox;
+    sf::Music currentMusic;
+    sf::Sound currentSound;
+    std::map<std::string, std::string> musicMap;
+    std::map<std::string, std::string> soundMap;
 };
 
 
