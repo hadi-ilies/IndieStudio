@@ -95,6 +95,16 @@ IAnimatedMeshSceneNode *Window::addAnimatedMesh(const std::string &model, const 
         node->setMaterialFlag(EMF_LIGHTING, false);
         node->setMD2Animation(scene::EMAT_STAND);
         node->setMaterialTexture(0, driver->getTexture(texture.c_str()));
+
+        const core::aabbox3d<f32> boundingBox = node->getTransformedBoundingBox();
+        const vector3df size = boundingBox.getExtent();
+        float scale = 1 / size.X;
+
+        if (1 / size.Y < scale)
+            scale = 1 / size.Y;
+        if (1 / size.Z < scale)
+            scale = 1 / size.Z;
+        node->setScale(vector3df(scale, scale, scale));
     }
     return node;
 }

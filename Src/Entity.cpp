@@ -18,16 +18,7 @@ Entity::Entity(Window *_window, const std::string &_fileName, World *_world, con
         getTexture("Resources/Entity/" + fileName + "/Texture"); // TODO set in init
         if (!mesh)
             throw Error("mesh can't be create");
-        const core::aabbox3d<f32> boundingBox = mesh->getTransformedBoundingBox();
-        const vector3df size = boundingBox.getExtent();
-        float scale = 1 / size.X;
-
         mesh->setAnimationSpeed(350); // ?
-        if (1 / size.Y < scale)
-            scale = 1 / size.Y;
-        if (1 / size.Z < scale)
-            scale = 1 / size.Z;
-        mesh->setScale(vector3df(scale, scale, scale));
     }
 }
 
