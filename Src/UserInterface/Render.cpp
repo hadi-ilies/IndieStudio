@@ -65,7 +65,6 @@ Menu *createMenuBomberman(Window *window)
 }
 
 /**todo
- * handle model and texture, chosen
  * handle server and client mode
  * link the demo with the UI
  * add songs, texture

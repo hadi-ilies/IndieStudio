@@ -16,7 +16,6 @@
 
 using namespace std;
 using namespace irr;
-using namespace sf;
 
 using namespace core; // tmp
 using namespace scene;
@@ -25,11 +24,12 @@ using namespace io;
 using namespace gui;
 
 void server(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer);
-void client(const IpAddress &ip, const ushort &port);
+void client(const sf::IpAddress &ip, const ushort &port);
 
 bool tmp2()
 {
     Window window("Bomberman", dimension2d<u32>(1920, 1080), false);
+    window.changeSkybox("Resources/Texture/demo.jpg");
     CameraMove cameraMoove;
     //Window window("Bomberman", dimension2d<u32>(1920, 1080), true);
     World world(&window, "Resources/Map/Demo");
@@ -45,29 +45,9 @@ bool tmp2()
     jukeBox.addSound("test", "Resources/Sounds/Menu.ogg");
     jukeBox.playSound("test");
     while (window.isOpen()) {
-        // TODO
-        if (window.isKeyPressed(KEY_ESCAPE))
-            window.close();
-        else if (window.isKeyPressed(KEY_KEY_Q) || window.isKeyPressed(KEY_KEY_A))
-            player.move(vector2di(-1, 0));
-        else if (window.isKeyPressed(KEY_KEY_D))
-            player.move(vector2di(1, 0));
-        else if (window.isKeyPressed(KEY_KEY_Z) || window.isKeyPressed(KEY_KEY_W))
-            player.move(vector2di(0, 1));
-        else if (window.isKeyPressed(KEY_KEY_S))
-            player.move(vector2di(0, -1));
-        else if (window.isKeyPressed(KEY_SPACE)) {
-            if (!spacePress)
-                player.putBomb();
-            spacePress = true;
-        }
-        else {
-            player.move(vector2di(0, 0));
-            spacePress = false;
-        }
         world.update();
         player.update();
-        window.display();
+        window.display(); //move player
     }
     return true;
 }
@@ -85,7 +65,7 @@ int main(int argc, char **argv)
         else if (argc == 5 && strncmp(argv[1], "server", strlen(argv[1])) == 0)
             server(std::atoi(argv[2]), argv[3], std::atoi(argv[4]));
         else if (argc == 4 && strncmp(argv[1], "client", strlen(argv[1])) == 0)
-            client(IpAddress(argv[2]), std::atoi(argv[3]));
+            client(sf::IpAddress(argv[2]), std::atoi(argv[3]));
         else {
             cerr << "USE : " << argv[0] << " [server]" << endl;
             tmp2(); // tmp
