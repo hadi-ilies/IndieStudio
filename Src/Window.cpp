@@ -125,7 +125,7 @@ void Window::applyCameraMove(const CameraMove &cameraMoove)
     scene::ISceneNodeAnimator *sa = nullptr;
 
     camera = getCameraSceneNode(cameraMoove.getPoints()[0], cameraMoove.getTargetPos());
-    sa = smgr->createFollowSplineAnimator(device->getTimer()->getTime(), cameraMoove.getPoints(), cameraMoove.getSpeed(), cameraMoove.getTightness(), cameraMoove.isLoop());
+    sa = smgr->createFollowSplineAnimator(device->getTimer()->getTime(), cameraMoove.getPoints(), cameraMoove.getSpeed(), cameraMoove.getTightness(), cameraMoove.getLoop());
     camera->addAnimator(sa);
     sa->drop();
 }
