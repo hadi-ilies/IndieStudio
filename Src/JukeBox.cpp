@@ -29,9 +29,8 @@ bool JukeBox::addMusic(const std::string &_name, const std::string &_path) {
 bool JukeBox::addSound(const std::string &_name, const std::string &_path) {
     sf::SoundBuffer buffer;
 
-    if (!buffer.loadFromFile(_path))
+    if (!bufferMap[_name].loadFromFile(_path))
         return false;
-    soundMap[_name].setBuffer(buffer);
 }
 
 void JukeBox::playMusic(const std::string &_name) {
@@ -39,7 +38,18 @@ void JukeBox::playMusic(const std::string &_name) {
 }
 
 void JukeBox::playSound(const std::string &_name) {
-    soundMap[_name].play();
+    sf::Sound sound;
+
+    sound.setBuffer(bufferMap[_name]);
+    soundList.push_back(sound);
+    soundList.back().play();
+    deleteEndedFile();
 }
 
+void JukeBox::deleteEndedFile() {
+    soundList.remove_if(isStopped);
+}
 
+bool JukeBox::isStopped(const sf::Sound &sound) {
+    return sound.getStatus() == sf::SoundSource::Stopped;
+}

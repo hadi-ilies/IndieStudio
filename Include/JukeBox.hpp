@@ -29,8 +29,13 @@ public:
     void playSound(const std::string &_name);
 
 private:
+    void deleteEndedFile();
+    static bool isStopped(const sf::Sound &sound);
+
+private:
+    std::list<sf::Sound> soundList;
     std::map<std::string, sf::Music> musicMap;
-    std::map<std::string, sf::Sound> soundMap;
+    std::map<std::string, sf::SoundBuffer> bufferMap;
 };
 
 

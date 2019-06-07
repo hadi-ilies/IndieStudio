@@ -42,8 +42,8 @@ bool tmp2()
 
     //world.debugAff();
     window.setDebugMode(true); // tmp
-    jukeBox.addMusic("test", "Resources/Sounds/Menu.ogg");
-    jukeBox.playMusic("test");
+    jukeBox.addSound("test", "Resources/Sounds/Menu.ogg");
+    jukeBox.playSound("test");
     while (window.isOpen()) {
         // TODO
         if (window.isKeyPressed(KEY_ESCAPE))
