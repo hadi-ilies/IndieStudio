@@ -8,28 +8,28 @@
 #include "JukeBox.hpp"
 #include "Error.hpp"
 
-bool JukeBox::addMusic(const std::string &_name, const std::string &_path)
+bool JukeBox::addMusic(const std::string &name, const std::string &fileName)
 {
-    return musicMap[_name].openFromFile(_path);
+    return musicMap[name].openFromFile(fileName);
 }
 
-bool JukeBox::addSound(const std::string &_name, const std::string &_path)
+bool JukeBox::addSound(const std::string &name, const std::string &fileName)
 {
     sf::SoundBuffer buffer;
 
-    return bufferMap[_name].loadFromFile(_path);
+    return bufferMap[name].loadFromFile(fileName);
 }
 
-void JukeBox::playMusic(const std::string &_name)
+void JukeBox::playMusic(const std::string &name)
 {
-    musicMap[_name].play();
+    musicMap[name].play();
 }
 
-void JukeBox::playSound(const std::string &_name)
+void JukeBox::playSound(const std::string &name)
 {
     sf::Sound sound;
 
-    sound.setBuffer(bufferMap[_name]);
+    sound.setBuffer(bufferMap[name]);
     sound.play();
     soundList.push_back(sound);
     deleteEndedFile();

@@ -18,10 +18,10 @@ using namespace boost::filesystem;
 class JukeBox
 {
 public:
-    bool addMusic(const std::string &_name, const std::string &_path);
-    bool addSound(const std::string &_name, const std::string &_path);
-    void playMusic(const std::string &_name);
-    void playSound(const std::string &_name);
+    bool addMusic(const std::string &name, const std::string &fileName);
+    bool addSound(const std::string &name, const std::string &fileName);
+    void playMusic(const std::string &name);
+    void playSound(const std::string &name);
 
 private:
     void deleteEndedFile();
