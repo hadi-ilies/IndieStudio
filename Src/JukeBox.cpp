@@ -5,51 +5,37 @@
 ** JukeBox.hpp
 */
 
-#include <Error.hpp>
 #include "JukeBox.hpp"
+#include "Error.hpp"
 
-/*
- *   Constructors // Destructors
- */
-JukeBox::JukeBox() = default;
-
-JukeBox::~JukeBox() = default;
-
-/*
- *   Getters // Setters
- */
-
-/*
- *   Methods
- */
-bool JukeBox::addMusic(const std::string &_name, const std::string &_path) {
+bool JukeBox::addMusic(const std::string &_name, const std::string &_path)
+{
     return musicMap[_name].openFromFile(_path);
 }
 
-bool JukeBox::addSound(const std::string &_name, const std::string &_path) {
+bool JukeBox::addSound(const std::string &_name, const std::string &_path)
+{
     sf::SoundBuffer buffer;
 
-    if (!bufferMap[_name].loadFromFile(_path))
-        return false;
+    return bufferMap[_name].loadFromFile(_path);
 }
 
-void JukeBox::playMusic(const std::string &_name) {
+void JukeBox::playMusic(const std::string &_name)
+{
     musicMap[_name].play();
 }
 
-void JukeBox::playSound(const std::string &_name) {
+void JukeBox::playSound(const std::string &_name)
+{
     sf::Sound sound;
 
     sound.setBuffer(bufferMap[_name]);
+    sound.play();
     soundList.push_back(sound);
-    soundList.back().play();
     deleteEndedFile();
 }
 
-void JukeBox::deleteEndedFile() {
-    soundList.remove_if(isStopped);
-}
-
-bool JukeBox::isStopped(const sf::Sound &sound) {
-    return sound.getStatus() == sf::SoundSource::Stopped;
+void JukeBox::deleteEndedFile()
+{
+    soundList.remove_if([](const sf::Sound &sound){return sound.getStatus() == sf::SoundSource::Stopped;});
 }
