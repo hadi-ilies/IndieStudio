@@ -39,4 +39,5 @@ private:
         vector3df position;
         //ISceneNode *button;
         IAnimatedMeshSceneNode *button;
+        //wordSceneNote remove model and texture
 };

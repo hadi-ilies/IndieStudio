@@ -50,6 +50,7 @@ bool Button::animHasFinished() const
     return !anim || anim->hasFinished();
 }
 
+//anim in loop for text in WordSceneNode
 bool Button::animation(Window *window, const vector3df &destPos, const f32 &timestamps)
 {
     if (!animHasFinished())

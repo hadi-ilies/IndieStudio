@@ -65,23 +65,40 @@ Menu *createMenuBomberman(Window *window)
 }
 
 /**todo
+ * add corentin font : Note : WordSceneNote = window.addText("Solo")
  * handle server and client mode
  * link the demo with the UI
  * add songs, texture
 **/
-
-void userInterface()
+bool demo(Window *window)
 {
-    Window window("Bomberman", dimension2d<u32>(1920 / 2, 1080 / 2), false);
-    Menu *menu = createMenuBomberman(&window);
-    window.changeSkybox("Resources/Texture/background.png");
-    scene::ICameraSceneNode* camera = window.getCameraSceneNode(vector3df(20, 0, 0), vector3df(10, 0, 0));
+    window->changeSkybox("Resources/Texture/demo.jpg");
+    CameraMove cameraMoove;
+    World world(window, "Resources/Map/DemoWithoutEdge");
+    Player player(window, "Bomberman", "Bob", &world, vector3du(1, 1, 1));
+    bool spacePress = false; // tmp
+    window->applyCameraMove(cameraMoove); // tmp
+
+    window->setDebugMode(true); // tmp
+    while (window->isOpen()) {
+        if (window->isKeyPressed(KEY_KEY_P))
+            return true;
+        world.update();
+        player.update();
+        window->display(); //move player
+    }
+}
+void userInterface(Window *window)
+{
+    //Window window("Bomberman", dimension2d<u32>(1920 / 2, 1080 / 2), false);
+    Menu *menu = createMenuBomberman(window);
+    window->changeSkybox("Resources/Texture/background.png");
+    scene::ICameraSceneNode* camera = window->getCameraSceneNode(vector3df(20, 0, 0), vector3df(10, 0, 0));
     bool lock = false;
 
-    Player player(Window *window, const std::string &fileName, const std::string &_name, World *world, const vector3du &pos);
     Player *myPlayer = new Player(NULL, "Bomberman", "Bob", NULL, vector3du(0, 0 ,0));
 
-    while (window.isOpen()) {
+    while (window->isOpen()) {
         if (menu->getKey() && menu->getName() == "Player")
             myPlayer = new Player(NULL, menu->getCurrentButtonModel(), "BOB", NULL, vector3du(1, 1 ,1));
         else if (menu->getKey() && menu->getName() == "Texture")
@@ -89,7 +106,7 @@ void userInterface()
         if (menu->getKey()) {
             if (!lock) {
                 if (!menu->getMenu() && menu->getCurrentButtonName() == "Exit")
-                    window.close();
+                    window->close();
                 if (!menu->getMenu() && menu->getCurrentButtonName() == "Play") {
                     uint port = 8080;
                     //server(port, "Resources/Map/Default", 1); have to write in a thread
@@ -99,7 +116,7 @@ void userInterface()
                     std::cout << "LOOOOOOOOOOOOOOOOOOOOOL" <<menu->getMenu()->getPosition().Y << std::endl;
                     CameraMove cameraAnim(menu->getPosition(), menu->getMenu()->getTargetPosition(), 1);
                     cameraAnim.addPoint(menu->getMenu()->getPosition());
-                    window.applyCameraMove(cameraAnim);
+                    window->applyCameraMove(cameraAnim);
                     menu->setPrevMenu(menu);
                     menu = menu->getMenu();
                 }
@@ -108,6 +125,6 @@ void userInterface()
         }
         else
             lock = false;
-        window.display();
+        window->display();
     }
 }
