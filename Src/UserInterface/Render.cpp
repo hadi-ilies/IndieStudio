@@ -52,6 +52,13 @@ Menu *createMenuBomberman(Window *window)
     return menu;
 }
 
+/**todo
+ * handle model and texture, chosen
+ * handle server and client mode
+ * link the demo with the UI
+ * add songs, texture
+**/
+
 void userInterface()
 {
     Window window("Bomberman", dimension2d<u32>(1920 / 2, 1080 / 2), false);

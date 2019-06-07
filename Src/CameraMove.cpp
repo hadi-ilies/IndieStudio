@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2019
 ** OOP_indie_studio_2018
 ** File description:
-** Animation.hpp
+** CameraMove.hpp
 */
 
 #include "CameraMove.hpp"
@@ -13,38 +13,39 @@ CameraMove::CameraMove()
     generatePointsDemo();
 }
 
-CameraMove::CameraMove(const core::vector3df& _cameraPos, const core::vector3df& _targetPos)
-    : targetPos(_targetPos), speed(4), tightness(0.5), loop(false)
+CameraMove::CameraMove(const core::vector3df &_cameraPos, const core::vector3df &_targetPos, const float &_speed)
+    : targetPos(_targetPos), speed(_speed), tightness(0.5), loop(false)
 {
     points.push_back(_cameraPos);
 }
 
-CameraMove::~CameraMove() = default;
+CameraMove::~CameraMove()
+{
+}
 
-const array<vector3df> &CameraMove::getPoints() const {
+const array<vector3df> &CameraMove::getPoints() const
+{
     return points;
 }
 
-const vector3df &CameraMove::getTargetPos() const {
+const vector3df &CameraMove::getTargetPos() const
+{
     return targetPos;
 }
 
-float CameraMove::getSpeed() const {
+const float &CameraMove::getSpeed() const
+{
     return speed;
 }
 
-float CameraMove::getTightness() const {
+const float &CameraMove::getTightness() const
+{
     return tightness;
 }
 
-bool CameraMove::isLoop() const {
+const bool &CameraMove::getLoop() const
+{
     return loop;
-}
-
-void CameraMove::generatePointsDemo() {
-    for (int n = 0 ; n < 64 * 2 ; n += 4) // tmp test
-        points.push_back(core::vector3df(cos(n * M_PI / 64) * 20 + 30.5, -5 + n / 4, sin(n * M_PI / 64) * 20 + 30.5));
-    points.push_back(core::vector3df(25, 40, 25));
 }
 
 void CameraMove::setTarget(const vector3df &pos)
@@ -52,10 +53,19 @@ void CameraMove::setTarget(const vector3df &pos)
     targetPos = pos;
 }
 
+void CameraMove::setSpeed(const float &_speed)
+{
+    speed = _speed;
+}
+
 void CameraMove::addPoint(const vector3df &menu)
 {
-    //if (points.size() > 0) {
-    //    for (int n = points.back())
-   // }
     points.push_back(menu);
+}
+
+void CameraMove::generatePointsDemo()
+{
+    for (int n = 0 ; n < 64 * 2 ; n += 4) // tmp test
+        points.push_back(core::vector3df(cos(n * M_PI / 64) * 20 + 30.5, -5 + n / 4, sin(n * M_PI / 64) * 20 + 30.5));
+    points.push_back(core::vector3df(25, 40, 25));
 }
