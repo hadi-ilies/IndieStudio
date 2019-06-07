@@ -8,8 +8,8 @@
 #include "UserInterface/ButtonElement.hpp"
 #include "UserInterface/Button.hpp"
 
-ButtonElement::ButtonElement(Window *window, const vector3df &position, const std::string &name)
- : MenuElement(window, position, "Button"), button(new Button(window, position, name))
+ButtonElement::ButtonElement(Window *window, const vector3df &position, const std::string &name, IAnimatedMeshSceneNode *mesh)
+ : MenuElement(window, position, "Button"), button(new Button(window, position, name, mesh))
 {
 }
 

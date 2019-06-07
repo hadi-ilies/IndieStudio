@@ -8,15 +8,17 @@
 #include "UserInterface/Wheel.hpp"
 
 #include <iostream>
+//vector struct
 
-Wheel::Wheel(Window *window, const vector3df &position, const float &radius, const std::vector<std::string> &buttons)
+Wheel::Wheel(Window *window, const vector3df &position, const float &radius, const std::vector<Wheel::ParamButton> &buttons)
     : MenuElement(window, position, "Wheel"), radius(radius), currentButton(0)
 {
-        std::cout << "Position :" << position.X << "  " << position.Y << "  " << position.Z << std::endl;
+    std::cout << "Position :" << position.X << "  " << position.Y << "  " << position.Z << std::endl;
     for (uint i = 0; i < buttons.size(); i++) {
         vector3df pos = getPosButton(i);
-        //pos.X += position.X; pos.Y += position.Y; pos.Z += position.Z;
-        buttonList.push_back(new Button(window, pos, buttons[i]));
+        std::cout << "WIWI" << std::endl;
+        buttonList.push_back(new Button(window, pos, buttons[i].name, window->addAnimatedMesh(buttons[i].model, buttons[i].texture)));
+
     }
 }
 
@@ -26,7 +28,6 @@ Wheel::~Wheel()
 
 const vector3df Wheel::getPosButton(const uint &buttonIndex)
 {
-    std::cout << "Position :" << position.Y << std::endl;
     return vector3df(radius * cos(2 * buttonIndex * M_PI / buttonList.size()) + position.X, position.Y, radius * sin(2 * buttonIndex * M_PI / buttonList.size() + position.Z));
 }
 

@@ -29,16 +29,17 @@ void linkButtonToMenu(Window *window, Menu *menu)
     Menu *settingsMenu = new Menu(window, vector3df(20, -100, 0), vector3df(10, -100, 0));
     Menu *playerMenu = new Menu(window, vector3df(20, 500, 0), vector3df(10, 500, 0));
 
-    soloMenu->addWheel(vector3df(0, 50, 0), 10, {"Stage", "Play", "Back"}); //tmp
-    StageMenu->addWheel(vector3df(0, 100, 0), 10, {"Model1", "Model2", "Model3"}); //tmp
-    multiPlayerMenu->addWheel(vector3df(50, 50, 0), 10, {"Server", "Client", "Back"}); //tmp
-    settingsMenu->addWheel(vector3df(0, -100, 0), 10, {"Sound", "Resolution", "Back"}); //tmp
-    playerMenu->addWheel(vector3df(0, 500, 0), 10, {"Texture1", "Texture2", "Texture3"}); //tmp
+    soloMenu->addWheel(vector3df(0, 50, 0), 10, {{"Stage", "Resources/Entity/Bomberman/Model/Idle.md2", "Resources/Entity/Bomberman/Texture/Default.png"}, {"Play", "Resources/Entity/Bomberman/Model/Idle.md2", "Resources/Entity/Bomberman/Texture/Dark.png"}, {"Back", "Resources/Entity/Bomberman/Model/Idle.md2", "Resources/Entity/Bomberman/Texture/Dark.png"}}); //tmp
+    StageMenu->addWheel(vector3df(0, 100, 0), 10, {{"Model1", "Resources/Entity/Bomberman/Model/Idle.md2", "Resources/Entity/Bomberman/Texture/Dark.png"}, {"Model2", "Resources/Entity/Bomberman/Model/Idle.md2", "Resources/Entity/Bomberman/Texture/Dark.png"}, {"Model3", "Resources/Entity/Bomberman/Model/Idle.md2", "Resources/Entity/Bomberman/Texture/Dark.png"}}); //tmp
+    multiPlayerMenu->addWheel(vector3df(50, 50, 0), 10, {{"Server", "Resources/Entity/Bomberman/Model/Idle.md2", "Resources/Entity/Bomberman/Texture/Default.png"}, {"Client", "Resources/Entity/Bomberman/Model/Idle.md2", "Resources/Entity/Bomberman/Texture/Default.png"}, {"Back", "Resources/Entity/Bomberman/Model/Idle.md2", "Resources/Entity/Bomberman/Texture/Default.png"}}); //tmp
+    settingsMenu->addWheel(vector3df(0, -100, 0), 10, {{"Sound", "Resources/Entity/Bomberman/Model/Idle.md2", "Resources/Entity/Bomberman/Texture/Default.png"}, {"Resolution", "Resources/Entity/Bomberman/Model/Idle.md2", "Resources/Entity/Bomberman/Texture/Dark.png"}, {"Back", "Resources/Entity/Bomberman/Model/Idle.md2", "Resources/Entity/Bomberman/Texture/Dark.png"}}); //tmp
+    playerMenu->addWheel(vector3df(0, 500, 0), 10, {{"Texture1", "Resources/Entity/Bomberman/Model/Idle.md2", "Resources/Entity/Bomberman/Texture/Dark.png"}, {"Texture2", "Resources/Entity/Bomberman/Model/Idle.md2", "Resources/Entity/Bomberman/Texture/Dark.png"}, {"Texture3", "Resources/Entity/Bomberman/Model/Idle.md2", "Texture"}}); //tmp
     soloMenu->linkMenu("Stage", StageMenu);
     menu->linkMenu("Solo", soloMenu);
     menu->linkMenu("Multiplayer", multiPlayerMenu);
     menu->linkMenu("Settings", settingsMenu);
     menu->linkMenu("Player", playerMenu);
+    soloMenu->linkMenu("Back", menu);
     multiPlayerMenu->linkMenu("Back", menu);
     settingsMenu->linkMenu("Back", menu);
 }
@@ -47,7 +48,10 @@ Menu *createMenuBomberman(Window *window)
 {
     float radius = 10;
     Menu *menu = new Menu(window, vector3df(20, 0, 0), vector3df(10, 0, 0));
-    menu->addWheel(vector3df(0, 0, 0), radius, {"Solo", "Multiplayer", "Settings", "Player", "Exit"});
+        std::cout << "LOL1" << std::endl;
+    menu->addWheel(vector3df(0, 0, 0), radius, {{"Solo", "Resources/Entity/Bomberman/Model/Idle.md2", "Resources/Entity/Bomberman/Texture/Dark.png"}, {"Multiplayer", "Resources/Entity/Bomberman/Model/Idle.md2", "Resources/Entity/Bomberman/Texture/Dark.png"}, {"Settings", "Resources/Entity/Bomberman/Model/Idle.md2", "Resources/Entity/Bomberman/Texture/Dark.png"}, {"Player", "Resources/Entity/Bomberman/Model/Idle.md2", "Resources/Entity/Bomberman/Texture/Dark.png"}, {"Exit", "Resources/Entity/Bomberman/Model/Idle.md2", "Resources/Entity/Bomberman/Texture/Dark.png"}});
+        std::cout << "LOL2" << std::endl;
+
     linkButtonToMenu(window, menu);
     return menu;
 }
@@ -65,25 +69,31 @@ void userInterface()
     Menu *menu = createMenuBomberman(&window);
     window.changeSkybox("Resources/Texture/background.png");
     scene::ICameraSceneNode* camera = window.getCameraSceneNode(vector3df(20, 0, 0), vector3df(10, 0, 0));
+    bool lock = false;
 
     while (window.isOpen()) {
         if (menu->getKey()) {
-            if (!menu->getMenu() && menu->getCurrentButtonName() == "Exit")
-                window.close();
-            if (!menu->getMenu() && menu->getCurrentButtonName() == "Play") {
-                uint port = 8080;
-                //server(port, "Resources/Map/Default", 1); have to write in a thread
-                //client(IpAddress("127.0.0.1"), port);
-            }
-            if (menu->getMenu()) {
-                std::cout << menu->getMenu()->getPosition().Y << std::endl;
-                CameraMove cameraAnim(menu->getPosition(), menu->getMenu()->getTargetPosition());
-                cameraAnim.addPoint(menu->getMenu()->getPosition());
-                window.applyCameraMove(cameraAnim);
-                menu->setPrevMenu(menu);
-                menu = menu->getMenu();
+            if (!lock) {
+                if (!menu->getMenu() && menu->getCurrentButtonName() == "Exit")
+                    window.close();
+                if (!menu->getMenu() && menu->getCurrentButtonName() == "Play") {
+                    uint port = 8080;
+                    //server(port, "Resources/Map/Default", 1); have to write in a thread
+                    //client(IpAddress("127.0.0.1"), port);
+                }
+                if (menu->getMenu()) {
+                    std::cout << menu->getMenu()->getPosition().Y << std::endl;
+                    CameraMove cameraAnim(menu->getPosition(), menu->getMenu()->getTargetPosition(), 1);
+                    cameraAnim.addPoint(menu->getMenu()->getPosition());
+                    window.applyCameraMove(cameraAnim);
+                    menu->setPrevMenu(menu);
+                    menu = menu->getMenu();
+                }
+                lock = true;
             }
         }
+        else
+            lock = false;
         window.display();
     }
 }

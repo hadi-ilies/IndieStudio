@@ -11,6 +11,7 @@
 #include <vector>
 #include <map>
 #include "UserInterface/Button.hpp"
+#include "UserInterface/Wheel.hpp"
 #include "UserInterface/MenuElement.hpp"
 #include "Window.hpp"
 
@@ -20,8 +21,8 @@ public:
 	~Menu();
     bool linkMenu(const std::string &name, Menu *menu);
     Menu *getMenu();
-    bool addWheel(const vector3df &position, const float &radius, const std::vector<std::string> &buttons);
-    bool addButton(const vector3df &position, const std::string &name);
+    bool addWheel(const vector3df &position, const float &radius, const std::vector<Wheel::ParamButton> &buttons);
+    bool addButton(const vector3df &position, const std::string &name, IAnimatedMeshSceneNode *mesh);
     void setPrevMenu(Menu *menu);
     Menu *getPrevMenu() const;
     const vector3df &getPosition() const;

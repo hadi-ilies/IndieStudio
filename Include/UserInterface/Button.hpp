@@ -22,9 +22,9 @@ typedef vector3d<uint> vector3du; //tmp
 
 class Button {
 public:
-	Button(Window *window, const vector3df &position, const std::string &name);
+	Button(Window *window, const vector3df &position, const std::string &name, IAnimatedMeshSceneNode *mesh);
+        //Button(Window *window, const vector3df &position, const std::string &name, IAnimatedMesh *button);
 	~Button();
-        ISceneNode *getButton() const; //
         const std::string getName() const;
         vector3df getPosition() const;
         bool animHasFinished() const;
@@ -33,5 +33,6 @@ private:
         const std::string name;
         ISceneNodeAnimator *anim;
         vector3df position;
-        ISceneNode *button;
+        //ISceneNode *button;
+        IAnimatedMeshSceneNode *button;
 };

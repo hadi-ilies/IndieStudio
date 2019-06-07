@@ -8,8 +8,8 @@
 #include "Error.hpp"
 #include "UserInterface/Button.hpp"
 
-Button::Button(Window *window, const vector3df &position, const std::string &name)
-    : position (position), button(window ? window->addCube((std::string) "Resources/Block/" + (rand() % 2 == 0 ? "Fire" : "Wall") + "/Texture.png") : NULL), anim(NULL), name(name)
+Button::Button(Window *window, const vector3df &position, const std::string &name, IAnimatedMeshSceneNode *mesh)
+    : position (position), button(mesh), anim(NULL), name(name)
 {
     if (window) {
         if (!button)

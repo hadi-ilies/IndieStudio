@@ -15,7 +15,13 @@
 
 class Wheel : public MenuElement {
 public:
-	Wheel(Window *window, const vector3df &position, const float &radius, const std::vector<std::string> &buttons);
+    struct ParamButton {
+        std::string name;
+        std::string model;
+        std::string texture;
+    };
+public:
+	Wheel(Window *window, const vector3df &position, const float &radius, const std::vector<Wheel::ParamButton> &buttons);
 	~Wheel();
 public :
     enum Dir {RIGHT = 1, LEFT = -1};

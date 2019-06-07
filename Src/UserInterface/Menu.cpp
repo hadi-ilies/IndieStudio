@@ -75,12 +75,13 @@ bool Menu::linkMenu(const std::string &name, Menu *menu)
     linkMap[name] = menu;
 }
 
-bool Menu::addWheel(const vector3df &position, const float &radius, const std::vector<std::string> &buttons)
+bool Menu::addWheel(const vector3df &position, const float &radius, const std::vector<Wheel::ParamButton> &buttons)
 {
+    std:cout << "ZIZI" << std::endl;
     MenuElements.push_back(new Wheel(window, position, radius, buttons));
 }
 
-bool Menu::addButton(const vector3df &position, const std::string &name)
+bool Menu::addButton(const vector3df &position, const std::string &name, IAnimatedMeshSceneNode *mesh)
 {
-    MenuElements.push_back(new ButtonElement(window, position, name));
+    MenuElements.push_back(new ButtonElement(window, position, name, mesh));
 }
