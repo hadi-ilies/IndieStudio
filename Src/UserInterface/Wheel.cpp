@@ -17,8 +17,7 @@ Wheel::Wheel(Window *window, const vector3df &position, const float &radius, con
     for (uint i = 0; i < buttons.size(); i++) {
         vector3df pos = getPosButton(i);
         std::cout << "WIWI" << std::endl;
-        buttonList.push_back(new Button(window, pos, buttons[i].name, window->addAnimatedMesh(buttons[i].model, buttons[i].texture)));
-
+        buttonList.push_back(new Button(window, pos, buttons[i].name, buttons[i].model, buttons[i].texture));
     }
 }
 

@@ -19,7 +19,7 @@ public:
 	vector3df getPosition() const;
 	std::string getType() const;
 protected:
-        Window *window;
+    Window *window;
 	const vector3df position;
 private:
 	std::string type;

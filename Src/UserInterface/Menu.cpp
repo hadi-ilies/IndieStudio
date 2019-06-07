@@ -11,10 +11,16 @@
 #include "UserInterface/ButtonElement.hpp"
 #include "CameraMove.hpp"
 
-Menu::Menu(Window *window, const vector3df &cameraPos, const vector3df &targetPos)
-    : window(window), prevMenu(NULL), position(cameraPos), targetPosition(targetPos)
+Menu::Menu(Window *window, const std::string name, const vector3df &cameraPos, const vector3df &targetPos)
+    : window(window), name(name), prevMenu(NULL), position(cameraPos), targetPosition(targetPos)
 {
 }
+
+const std::string Menu::getName() const
+{
+    return name;
+}
+
 
 const vector3df &Menu::getPosition() const
 {
@@ -39,6 +45,16 @@ Menu *Menu::getMenu()
 std::string Menu::getCurrentButtonName() const
 {
     return static_cast<Wheel *>(MenuElements.back())->getCurrentButton()->getName(); //tmp
+}
+
+std::string Menu::getCurrentButtonTexture() const
+{
+    return static_cast<Wheel *>(MenuElements.back())->getCurrentButton()->getTexture(); //tmp
+}
+
+std::string Menu::getCurrentButtonModel() const
+{
+    return static_cast<Wheel *>(MenuElements.back())->getCurrentButton()->getModel(); //tmp
 }
 
 void Menu::setPrevMenu(Menu *menu)
@@ -81,7 +97,7 @@ bool Menu::addWheel(const vector3df &position, const float &radius, const std::v
     MenuElements.push_back(new Wheel(window, position, radius, buttons));
 }
 
-bool Menu::addButton(const vector3df &position, const std::string &name, IAnimatedMeshSceneNode *mesh)
+bool Menu::addButton(const vector3df &position, const std::string &name, const std::string &model, const std::string &texture)
 {
-    MenuElements.push_back(new ButtonElement(window, position, name, mesh));
+    MenuElements.push_back(new ButtonElement(window, position, name, model, texture));
 }

@@ -12,7 +12,7 @@
 
 class ButtonElement : public MenuElement {
 	public:
-		ButtonElement(Window *window, const vector3df &position, const std::string &name, IAnimatedMeshSceneNode *mesh);
+		ButtonElement(Window *window, const vector3df &position, const std::string &name, const std::string &model, const std::string &texture);
 	    ~ButtonElement();
         Button *getButton() const;
 	private:
