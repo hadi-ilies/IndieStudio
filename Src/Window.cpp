@@ -8,9 +8,10 @@
 #include "Window.hpp"
 
 Window::Window(const std::string &windowName, dimension2d<u32> size, const bool &fullscreen)
-    : debug(false)
+    : irrFontBuffer("Resources/Font/Prototype.ttf", "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), debug(false)
 {
     const wstring title(windowName.begin(), windowName.end());
+
 
     device = createDevice(video::EDT_OPENGL, size, 16, fullscreen, false, false, &receiver);
     if (!device)
@@ -107,6 +108,11 @@ IAnimatedMeshSceneNode *Window::addAnimatedMesh(const std::string &model, const 
         node->setScale(vector3df(scale, scale, scale));
     }
     return node;
+}
+
+WordSceneNode Window::addWord(const std::string &str)
+{
+    return WordSceneNode(smgr, str, irrFontBuffer);
 }
 
 ISceneNodeAnimator *Window::createTranslation(const vector3df &initPos, const vector3df &destPos, const u32 &timestamp)

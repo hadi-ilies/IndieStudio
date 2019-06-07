@@ -7,6 +7,7 @@ project(Bomberman)
 set(SRCDIR Src/)
 set(ENTITYDIR Entity/)
 set(UIDIR UserInterface/)
+set(TXTDIR Text3d/)
 set(INCDIR Include/)
 
 include_directories(Include)
@@ -41,6 +42,10 @@ set(SRC
   ${SRCDIR}${UIDIR}ButtonElement.cpp
   ${SRCDIR}${UIDIR}Wheel.cpp
   ${SRCDIR}${UIDIR}Render.cpp
+  ${SRCDIR}${TXTDIR}IrrFont.cpp
+  ${SRCDIR}${TXTDIR}IrrFontBuffer.cpp
+  ${SRCDIR}${TXTDIR}CharacterSceneNode.cpp
+  ${SRCDIR}${TXTDIR}WordSceneNode.cpp
   )
 
 set(INCLUDE
@@ -62,6 +67,10 @@ set(INCLUDE
   ${INCDIR}${UIDIR}MenuElement.hpp
   ${INCDIR}${UIDIR}ButtonElement.hpp
   ${INCDIR}${UIDIR}Wheel.hpp
+  ${INCDIR}${TXTDIR}IrrFont.hpp
+  ${INCDIR}${TXTDIR}IrrFontBuffer.hpp
+  ${INCDIR}${TXTDIR}CharacterSceneNode.hpp
+  ${INCDIR}${TXTDIR}WordSceneNode.hpp
   )
 
 #set(CMAKE_CXX_FLAGS "-W -Wall -Wextra")
@@ -70,7 +79,7 @@ set(CMAKE_CXX_FLAGS "-pedantic -g")
 # On indique que l'on veut un exécutable "bomberman" compilé à partir des fichiers décrits par les variables SRC et INCLUDE
 add_executable(Bomberman ${SRC} ${INCLUDE})
 target_link_libraries(Bomberman Irrlicht)
-find_package(SFML 2.5 COMPONENTS system audio network REQUIRED)
-target_link_libraries(Bomberman sfml-system sfml-audio sfml-network)
+find_package(SFML 2.5 COMPONENTS system graphics audio network REQUIRED)
+target_link_libraries(Bomberman sfml-system sfml-graphics sfml-audio sfml-network)
 target_link_libraries(Bomberman -lpthread)
 target_link_libraries(Bomberman -lboost_system -lboost_filesystem)

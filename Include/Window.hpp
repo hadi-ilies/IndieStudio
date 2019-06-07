@@ -12,6 +12,7 @@
 #include <irrlicht/irrlicht.h>
 #include "EventReceiver.hpp"
 #include "CameraMove.hpp"
+#include "Text3d/WordSceneNode.hpp"
 #include "Error.hpp"
 
 using namespace std;
@@ -37,6 +38,7 @@ public:
     ITexture *getTexture(const std::string &fileName);
     ISceneNode *addCube(const std::string &texture); // ? ISceneNode or IMeshSceneNode
     IAnimatedMeshSceneNode *addAnimatedMesh(const std::string &model, const std::string &texture);
+    WordSceneNode addWord(const std::string &str);
     ISceneNodeAnimator *createTranslation(const vector3df &initPos, const vector3df &destPos, const u32 &timestamp);
     ICameraSceneNode *getCameraSceneNode(const vector3df &pointOfView, const vector3df &lookAt); // ?
     bool isKeyPressed(const irr::EKEY_CODE &keyCode) const;
@@ -48,6 +50,7 @@ private:
     void debugMode();
 
 private:
+    IrrFontBuffer irrFontBuffer;
     EventReceiver receiver;
     IrrlichtDevice *device;
     IVideoDriver *driver;

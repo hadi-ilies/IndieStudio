@@ -21,7 +21,7 @@ ushort FormattedSocket::getLocalPort() const
     return socket.getLocalPort();
 }
 
-IpAddress FormattedSocket::getRemoteAddress() const
+sf::IpAddress FormattedSocket::getRemoteAddress() const
 {
     return socket.getRemoteAddress();
 }
@@ -31,15 +31,15 @@ ushort FormattedSocket::getRemotePort() const
     return socket.getRemotePort();
 }
 
-bool FormattedSocket::connect(const IpAddress &remoteAddress, const ushort &remotePort, const Time &timeout)
+bool FormattedSocket::connect(const sf::IpAddress &remoteAddress, const ushort &remotePort, const sf::Time &timeout)
 {
-    connected = socket.connect(remoteAddress, remotePort, timeout) == Socket::Done;
+    connected = socket.connect(remoteAddress, remotePort, timeout) == sf::Socket::Done;
     return connected;
 }
 
-bool FormattedSocket::accept(TcpListener &listener)
+bool FormattedSocket::accept(sf::TcpListener &listener)
 {
-    connected = listener.accept(socket) == Socket::Done;
+    connected = listener.accept(socket) == sf::Socket::Done;
     return connected;
 }
 
@@ -56,7 +56,7 @@ bool FormattedSocket::isConnected() const
 
 bool FormattedSocket::sendStartTurn()
 {
-    Packet packet;
+    sf::Packet packet;
 
     packet << StartTurn;
     return sendPacket(packet);
@@ -64,7 +64,7 @@ bool FormattedSocket::sendStartTurn()
 
 bool FormattedSocket::sendEndTurn()
 {
-    Packet packet;
+    sf::Packet packet;
 
     packet << EndTurn;
     return sendPacket(packet);
@@ -72,16 +72,16 @@ bool FormattedSocket::sendEndTurn()
 
 bool FormattedSocket::sendMessage(const std::string &msg)
 {
-    Packet packet;
+    sf::Packet packet;
 
     packet << Message;
     packet << msg;
     return sendPacket(packet);
 }
 
-bool FormattedSocket::sendNumber(const Uint32 &num)
+bool FormattedSocket::sendNumber(const sf::Uint32 &num)
 {
-    Packet packet;
+    sf::Packet packet;
 
     packet << Number;
     packet << num;
@@ -90,7 +90,7 @@ bool FormattedSocket::sendNumber(const Uint32 &num)
 
 bool FormattedSocket::sendPosition(const vector3du &pos)
 {
-    Packet packet;
+    sf::Packet packet;
 
     packet << Position;
     packet << pos.X;
@@ -101,7 +101,7 @@ bool FormattedSocket::sendPosition(const vector3du &pos)
 
 bool FormattedSocket::sendPlayerMove(const vector2di &dir)
 {
-    Packet packet;
+    sf::Packet packet;
 
     packet << PlayerMove;
     packet << dir.X;
@@ -111,7 +111,7 @@ bool FormattedSocket::sendPlayerMove(const vector2di &dir)
 
 bool FormattedSocket::sendPlayerPutBomb()
 {
-    Packet packet;
+    sf::Packet packet;
 
     packet << PlayerPutBomb;
     return sendPacket(packet);
@@ -119,7 +119,7 @@ bool FormattedSocket::sendPlayerPutBomb()
 
 bool FormattedSocket::receive()
 {
-    Packet packet;
+    sf::Packet packet;
 
     if (!receivePacket(packet))
         return false;
@@ -157,27 +157,27 @@ bool FormattedSocket::receive()
     return true;
 }
 
-bool FormattedSocket::sendPacket(Packet &packet)
+bool FormattedSocket::sendPacket(sf::Packet &packet)
 {
-    const Socket::Status status = socket.send(packet);
+    const sf::Socket::Status status = socket.send(packet);
 
-    if (status == Socket::Disconnected)
+    if (status == sf::Socket::Disconnected)
         connected = false;
-    return status == Socket::Done;
+    return status == sf::Socket::Done;
 }
 
-bool FormattedSocket::receivePacket(Packet &packet)
+bool FormattedSocket::receivePacket(sf::Packet &packet)
 {
-    const Socket::Status status = socket.receive(packet);
+    const sf::Socket::Status status = socket.receive(packet);
 
-    if (status == Socket::Disconnected)
+    if (status == sf::Socket::Disconnected)
         connected = false;
-    return status == Socket::Done;
+    return status == sf::Socket::Done;
 }
 
-Packet &operator>>(Packet &packet, DataType &dataType)
+sf::Packet &operator>>(sf::Packet &packet, DataType &dataType)
 {
-    Uint32 tmp;
+    sf::Uint32 tmp;
 
     packet >> tmp;
     dataType = (DataType)tmp;

@@ -13,7 +13,6 @@
 #include "Entity/Player.hpp" // ?
 
 using namespace std;
-using namespace sf;
 
 enum DataType
 {
@@ -32,16 +31,16 @@ public:
     FormattedSocket();
     ~FormattedSocket();
     ushort getLocalPort() const;
-    IpAddress getRemoteAddress() const;
+    sf::IpAddress getRemoteAddress() const;
     ushort getRemotePort() const;
-    bool connect(const IpAddress &remoteAddress, const ushort &remotePort, const Time &timeout = Time::Zero);
-    bool accept(TcpListener &listener); // connect for server
+    bool connect(const sf::IpAddress &remoteAddress, const ushort &remotePort, const sf::Time &timeout = sf::Time::Zero);
+    bool accept(sf::TcpListener &listener); // connect for server
     void disconnect();
     bool isConnected() const;
     bool sendStartTurn();
     bool sendEndTurn();
     bool sendMessage(const std::string &msg);
-    bool sendNumber(const Uint32 &num);
+    bool sendNumber(const sf::Uint32 &num);
     bool sendPosition(const vector3du &pos);
     bool sendPlayerMove(const vector2di &dir);
     bool sendPlayerPutBomb();
@@ -50,22 +49,22 @@ public:
     bool receive();
 
 private:
-    bool sendPacket(Packet &packet);
-    bool receivePacket(Packet &packet);
+    bool sendPacket(sf::Packet &packet);
+    bool receivePacket(sf::Packet &packet);
 
 public:
     DataType type;
     // union // ???
     std::string message;
-    Uint32 number;
+    sf::Uint32 number;
     vector3du position;
     vector2di direction; // TODO supr and send pos player
 
 private:
     bool connected; // TODO set to false if Status == Socket::Disconnected or Socket::Error
-    TcpSocket socket;
+    sf::TcpSocket socket;
 };
 
-Packet &operator>>(Packet &packet, DataType &dataType);
+sf::Packet &operator>>(sf::Packet &packet, DataType &dataType);
 
 #endif

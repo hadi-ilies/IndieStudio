@@ -17,7 +17,6 @@
 
 using namespace std;
 using namespace irr;
-using namespace sf;
 
 bool startTurn = false; // tmp no global
 bool endTurn = false; // tmp no global
@@ -148,7 +147,7 @@ static void game(Window &window, FormattedSocket &client, World &world, vector<u
     loop.join();
 }
 
-void client(const IpAddress &ip, const ushort &port) //put player in param
+void client(const sf::IpAddress &ip, const ushort &port) //put player in param
 {
     FormattedSocket client;
     Window window("Bomberman", dimension2d<u32>(1920 / 2, 1080 / 2), false);

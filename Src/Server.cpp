@@ -16,7 +16,6 @@
 
 using namespace std;
 using namespace irr;
-using namespace sf;
 
 void server(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer)
 {
@@ -29,11 +28,11 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
             for (uint k = 0; k < world.getSize().Z; k++)
                 if (world.getBlock(vector3du(i, j, k)) && world.getBlock(vector3du(i, j, k))->getDestructible() && rand() % 2)
                     powerUpList.push_back(unique_ptr<PowerUp>(new PowerUp(NULL, rand() %  2 ? "FireUp" : "BombUp", &world, vector3du(i, j, k)))); // tmp type
-    TcpListener listener;
+    sf::TcpListener listener;
     std::vector<unique_ptr<FormattedSocket>> socketList;
 
     cerr << "start server" << endl;
-    if (listener.listen(port) != Socket::Done)
+    if (listener.listen(port) != sf::Socket::Done)
         throw Error("listen failed");
     while (playerList.size() < nbPlayer) {
         unique_ptr<FormattedSocket> socket = unique_ptr<FormattedSocket>(new FormattedSocket);
