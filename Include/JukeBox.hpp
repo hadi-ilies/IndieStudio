@@ -32,5 +32,25 @@ private:
     std::map<std::string, sf::SoundBuffer> bufferMap;
 };
 
+/*class JukeBox // TODO
+{
+public:
+    static JukeBox &getInstance();
+    bool addMusic(const std::string &name, const std::string &fileName);
+    bool addSound(const std::string &name, const std::string &fileName);
+    void playMusic(const std::string &name);
+    void playSound(const std::string &name);
+
+private:
+    JukeBox();
+    ~JukeBox();
+    void deleteEndedFile();
+
+private:
+    static JukeBox instance;
+    std::list<sf::Sound> soundList;
+    std::map<std::string, sf::Music> musicMap;
+    std::map<std::string, sf::SoundBuffer> bufferMap;
+    };*/
 
 #endif
