@@ -30,7 +30,7 @@ void CharacterSceneNode::OnRegisterSceneNode()
 
 void CharacterSceneNode::render()
 {
-    u16 indices[vertexList.size()];
+    u16 indices[vertexList.size()]; // tmp use indiceList of ...
     video::IVideoDriver *driver = SceneManager->getVideoDriver();
 
     for (uint i = 0; i < vertexList.size(); i++)

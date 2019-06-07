@@ -12,7 +12,6 @@ Window::Window(const std::string &windowName, dimension2d<u32> size, const bool 
 {
     const wstring title(windowName.begin(), windowName.end());
 
-
     device = createDevice(video::EDT_OPENGL, size, 16, fullscreen, false, false, &receiver);
     if (!device)
         throw Error("device cant bo create");
@@ -110,7 +109,7 @@ IAnimatedMeshSceneNode *Window::addAnimatedMesh(const std::string &model, const 
     return node;
 }
 
-WordSceneNode Window::addWord(const std::string &str)
+WordSceneNode Window::addText(const std::string &str)
 {
     return WordSceneNode(smgr, str, irrFontBuffer);
 }

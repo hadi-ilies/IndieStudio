@@ -44,7 +44,7 @@ IrrFont::IrrFont(const sf::Font &font, const char &_c)
             else if (j == image.getSize().y - 1 || image.getPixel(i, j + 1).a < 100)
                 bord = true;
             if (bord)
-                pointList.push_back(core::vector3df(i, image.getSize().y - j, 0)); // TODO - size / 2
+                pointList.push_back(core::vector3df(i / (size / 2.0), (image.getSize().y - j) / (size / 2.0), 0 / (size / 2.0))); // TODO - size / 2
         }
     for (size_t i = 0; i < pointList.size(); i++)
         indiceList.push_back(i);

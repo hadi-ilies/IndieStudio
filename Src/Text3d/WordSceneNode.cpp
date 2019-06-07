@@ -21,6 +21,6 @@ void WordSceneNode::setPosition(const core::vector3df &position)
 
     for (auto &character : characterList) {
         character->setPosition(pos);
-        pos.X += character->getAdvance();
+        pos.X += character->getAdvance() / 50.0; // TODO replace /50.0 with ...
     }
 }
