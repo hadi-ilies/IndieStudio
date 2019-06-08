@@ -9,7 +9,7 @@
 #include "UserInterface/Button.hpp"
 
 Button::Button(Window *window, const vector3df &position, const std::string &name, const std::string &model, const std::string &texture)
-    : position (position), model(model), texture(texture), anim(NULL), name(name)
+    : AButton(window, position, name, "Model"), model(model), texture(texture)
 {
     if (window) {
         button = window->addAnimatedMesh((std::string) "Resources/Entity/" + model + "/Model/Idle.md2", (std::string) "Resources/Entity/" + model + "/Texture/" + texture + ".png");
@@ -23,11 +23,6 @@ Button::~Button()
 {
 }
 
-const std::string Button::getName() const
-{
-    return name;
-}
-
 const std::string Button::getTexture() const
 {
     return texture;
@@ -38,18 +33,7 @@ const std::string Button::getModel() const
     return model;
 }
 
-
-vector3df Button::getPosition() const
-{
-    return position;
-}
-
 #include <iostream> //tmp
-bool Button::animHasFinished() const
-{
-    return !anim || anim->hasFinished();
-}
-
 //anim in loop for text in WordSceneNode
 bool Button::animation(Window *window, const vector3df &destPos, const f32 &timestamps)
 {

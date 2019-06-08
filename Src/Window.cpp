@@ -109,9 +109,9 @@ IAnimatedMeshSceneNode *Window::addAnimatedMesh(const std::string &model, const 
     return node;
 }
 
-WordSceneNode Window::addText(const std::string &str)
+WordSceneNode *Window::addText(const std::string &str)
 {
-    return WordSceneNode(smgr, str, irrFontBuffer);
+    return new WordSceneNode(smgr, str, irrFontBuffer);
 }
 
 ISceneNodeAnimator *Window::createTranslation(const vector3df &initPos, const vector3df &destPos, const u32 &timestamp)

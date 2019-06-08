@@ -32,37 +32,31 @@ const vector3df &Menu::getTargetPosition() const
     return targetPosition;
 }
 
-//remove back, instead, put an index
 #include <iostream>
 Menu *Menu::getMenu()
 {
     if (linkMap.find(getCurrentButtonName()) != linkMap.end())
         return linkMap[getCurrentButtonName()];
-    std::cout << "TEST " << getCurrentButtonName() << std::endl;
     return NULL;
 }
 
 std::string Menu::getCurrentButtonName() const
 {
-    return static_cast<Wheel *>(MenuElements.back())->getCurrentButton()->getName(); //tmp
+    return static_cast<Wheel *>(MenuElements.back())->getCurrentButton()->getName();
 }
 
 std::string Menu::getCurrentButtonTexture() const
 {
-    return static_cast<Wheel *>(MenuElements.back())->getCurrentButton()->getTexture(); //tmp
+    return static_cast<Button *> (static_cast<Wheel *>(MenuElements.back())->getCurrentButton())->getTexture();
 }
 
 std::string Menu::getCurrentButtonModel() const
 {
-    return static_cast<Wheel *>(MenuElements.back())->getCurrentButton()->getModel(); //tmp
+    return static_cast<Button *> (static_cast<Wheel *>(MenuElements.back())->getCurrentButton())->getModel();
 }
 
 void Menu::setPrevMenu(Menu *menu)
 {
-    /*prevMenu = new Menu(menu->window, menu->position, menu->targetPosition);
-    prevMenu->prevMenu = menu->prevMenu;
-    prevMenu->MenuElements = menu->MenuElements;
-    prevMenu->linkMap = menu->linkMap;*/
     prevMenu = menu;
 }
 
@@ -91,9 +85,13 @@ bool Menu::linkMenu(const std::string &name, Menu *menu)
     linkMap[name] = menu;
 }
 
+bool Menu::addWheel(const vector3df &position, const float &radius, const std::vector<std::string> &buttonsNames)
+{
+    MenuElements.push_back(new Wheel(window, position, radius, buttonsNames));
+}
+
 bool Menu::addWheel(const vector3df &position, const float &radius, const std::vector<Wheel::ParamButton> &buttons)
 {
-    std:cout << "ZIZI" << std::endl;
     MenuElements.push_back(new Wheel(window, position, radius, buttons));
 }
 

@@ -24,6 +24,7 @@ public:
     std::string getCurrentButtonModel() const;
     bool linkMenu(const std::string &name, Menu *menu);
     Menu *getMenu();
+    bool addWheel(const vector3df &position, const float &radius, const std::vector<std::string> &buttonsNames);
     bool addWheel(const vector3df &position, const float &radius, const std::vector<Wheel::ParamButton> &buttons);
     bool addButton(const vector3df &position, const std::string &name, const std::string &model, const std::string &texture);
     void setPrevMenu(Menu *menu);

@@ -16,7 +16,7 @@ class WordSceneNode
 public:
     WordSceneNode(scene::ISceneManager *smgr, const std::string &_str, IrrFontBuffer &irrFontBuffer);
     void setPosition(const core::vector3df &position);
-
+    std::vector<CharacterSceneNode*> getCharacterList() const;
 private:
     const std::string str;
     std::vector<CharacterSceneNode*> characterList; // TODO use unique_ptr

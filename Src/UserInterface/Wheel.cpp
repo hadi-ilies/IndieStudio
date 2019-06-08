@@ -6,17 +6,28 @@
 */
 
 #include "UserInterface/Wheel.hpp"
+#include "UserInterface/FontButton.hpp"
+#include "UserInterface/Button.hpp"
 
 #include <iostream>
 //vector struct
 
+Wheel::Wheel(Window *window, const vector3df &position, const float &radius, const std::vector<std::string> &buttonsNames)
+    : MenuElement(window, position, "Wheel"), radius(radius), currentButton(0)
+{
+    for (uint i = 0; i < buttonsNames.size(); i++) {
+        vector3df pos = getPosButton(i);
+        buttonList.push_back(new FontButton(window, pos, buttonsNames[i]));
+    }
+}
+
 Wheel::Wheel(Window *window, const vector3df &position, const float &radius, const std::vector<Wheel::ParamButton> &buttons)
     : MenuElement(window, position, "Wheel"), radius(radius), currentButton(0)
 {
-    std::cout << "Position :" << position.X << "  " << position.Y << "  " << position.Z << std::endl;
+    //std::cout << "Position :" << position.X << "  " << position.Y << "  " << position.Z << std::endl;
     for (uint i = 0; i < buttons.size(); i++) {
         vector3df pos = getPosButton(i);
-        std::cout << "WIWI" << std::endl;
+      //  std::cout << "WIWI" << std::endl;
         buttonList.push_back(new Button(window, pos, buttons[i].name, buttons[i].model, buttons[i].texture));
     }
 }
@@ -39,12 +50,12 @@ void Wheel::turnButtons(const Wheel::Dir &direction, const f32 &timestamps)
     }
 }
 
-Button *Wheel::getButton(const uint &buttonIndex) const
+AButton *Wheel::getButton(const uint &buttonIndex) const
 {
     return buttonList[buttonIndex];
 }
 
-Button *Wheel::getCurrentButton() const
+AButton *Wheel::getCurrentButton() const
 {
     return buttonList[currentButton];
 }

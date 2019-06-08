@@ -9,7 +9,7 @@
 
 #include <memory>
 #include <vector>
-#include "UserInterface/Button.hpp"
+#include "UserInterface/AButton.hpp"
 #include "UserInterface/MenuElement.hpp"
 #include "Window.hpp"
 
@@ -21,17 +21,18 @@ public:
         std::string texture;
     };
 public:
+    Wheel(Window *window, const vector3df &position, const float &radius, const std::vector<std::string> &buttonsNames);
 	Wheel(Window *window, const vector3df &position, const float &radius, const std::vector<Wheel::ParamButton> &buttons);
 	~Wheel();
 public :
     enum Dir {RIGHT = 1, LEFT = -1};
 public:
     void turnButtons(const Dir &direction, const f32 &timestamps);
-    Button *getButton(const uint &buttonIndex) const;
+    AButton *getButton(const uint &buttonIndex) const;
     const vector3df getPosButton(const uint &buttonIndex);
-    Button *getCurrentButton() const;
+    AButton *getCurrentButton() const;
 private:
     const float radius;
     uint currentButton;
-    std::vector<Button *> buttonList;
+    std::vector<AButton *> buttonList;
 };

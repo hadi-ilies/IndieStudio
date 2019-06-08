@@ -38,7 +38,7 @@ public:
     ITexture *getTexture(const std::string &fileName);
     ISceneNode *addCube(const std::string &texture); // ? ISceneNode or IMeshSceneNode
     IAnimatedMeshSceneNode *addAnimatedMesh(const std::string &model, const std::string &texture);
-    WordSceneNode addText(const std::string &str);
+    WordSceneNode *addText(const std::string &str);
     ISceneNodeAnimator *createTranslation(const vector3df &initPos, const vector3df &destPos, const u32 &timestamp);
     ICameraSceneNode *getCameraSceneNode(const vector3df &pointOfView, const vector3df &lookAt); // ?
     bool isKeyPressed(const irr::EKEY_CODE &keyCode) const;

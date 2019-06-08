@@ -58,7 +58,7 @@ Menu *UserInterface::createMenuBomberman(Window *window)
     float radius = 10;
     Menu *menu = new Menu(window, "Main", vector3df(20, 0, 0), vector3df(10, 0, 0));
 
-    menu->addWheel(vector3df(0, 0, 0), radius, {{"Solo", "Bomberman", "Dark"}, {"Multiplayer", "Bomberman", "Dark"}, {"Settings", "Bomberman", "Dark"}, {"Player", "Bomberman", "Dark"}, {"Exit", "Bomberman", "Dark"}});
+    menu->addWheel(vector3df(0, 0, 0), radius, {"Solo", "Multi", "Settings", "Player", "Exit"});
     linkButtonToMenu(window, menu);
     return menu;
 }

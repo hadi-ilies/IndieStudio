@@ -40,6 +40,8 @@ set(SRC
   ${SRCDIR}${UIDIR}Menu.cpp
   ${SRCDIR}${UIDIR}MenuElement.cpp
   ${SRCDIR}${UIDIR}ButtonElement.cpp
+  ${SRCDIR}${UIDIR}AButton.cpp
+  ${SRCDIR}${UIDIR}FontButton.cpp
   ${SRCDIR}${UIDIR}Wheel.cpp
   ${SRCDIR}${UIDIR}UserInterface.cpp
   ${SRCDIR}${TXTDIR}IrrFont.cpp
@@ -67,6 +69,8 @@ set(INCLUDE
   ${INCDIR}${UIDIR}MenuElement.hpp
   ${INCDIR}${UIDIR}ButtonElement.hpp
   ${INCDIR}${UIDIR}Wheel.hpp
+  ${INCDIR}${UIDIR}AButton.hpp
+  ${INCDIR}${UIDIR}FontButton.hpp
   ${INCDIR}${UIDIR}UserInterface.hpp
   ${INCDIR}${TXTDIR}IrrFont.hpp
   ${INCDIR}${TXTDIR}IrrFontBuffer.hpp

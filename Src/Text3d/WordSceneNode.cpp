@@ -15,6 +15,11 @@ WordSceneNode::WordSceneNode(scene::ISceneManager *smgr, const std::string &_str
     setPosition(core::vector3df(0, 0, 0));
 }
 
+ std::vector<CharacterSceneNode*> WordSceneNode::getCharacterList() const
+{
+    return characterList;
+}
+
 void WordSceneNode::setPosition(const core::vector3df &position)
 {
     core::vector3df pos = position;
