@@ -41,7 +41,7 @@ set(SRC
   ${SRCDIR}${UIDIR}MenuElement.cpp
   ${SRCDIR}${UIDIR}ButtonElement.cpp
   ${SRCDIR}${UIDIR}Wheel.cpp
-  ${SRCDIR}${UIDIR}Render.cpp
+  ${SRCDIR}${UIDIR}UserInterface.cpp
   ${SRCDIR}${TXTDIR}IrrFont.cpp
   ${SRCDIR}${TXTDIR}IrrFontBuffer.cpp
   ${SRCDIR}${TXTDIR}CharacterSceneNode.cpp
@@ -67,6 +67,7 @@ set(INCLUDE
   ${INCDIR}${UIDIR}MenuElement.hpp
   ${INCDIR}${UIDIR}ButtonElement.hpp
   ${INCDIR}${UIDIR}Wheel.hpp
+  ${INCDIR}${UIDIR}UserInterface.hpp
   ${INCDIR}${TXTDIR}IrrFont.hpp
   ${INCDIR}${TXTDIR}IrrFontBuffer.hpp
   ${INCDIR}${TXTDIR}CharacterSceneNode.hpp

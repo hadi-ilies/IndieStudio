@@ -2,26 +2,27 @@
 ** EPITECH PROJECT, 2019
 ** OOP_indie_studio_2018
 ** File description:
-** Render
+** UserInterface
 */
 
-#include <vector>
-#include "Window.hpp"
+#include "UserInterface/UserInterface.hpp"
 #include "Error.hpp"
-#include "World.hpp"
-#include "Entity/Player.hpp"
-#include "Entity/PowerUp.hpp" //?
-#include "FormattedSocket.hpp"
-#include "UserInterface/Menu.hpp"
 
-using namespace std;
-using namespace irr;
-
-#include <iostream>
-
-void linkButtonToMenu(Window *window, Menu *menu)
+//background.png
+UserInterface::UserInterface(Window *window)
+    : window (window), menu(NULL), camera (NULL), lock(false), myPlayer(new Player(NULL, "Bomberman", "Bob", NULL, vector3du(0, 0 ,0)))
 {
-    //todo remove magic numbers
+    if (!window)
+        throw Error("You can't create a userInterface without Window !");
+}
+
+UserInterface::~UserInterface()
+{
+}
+
+//todo create factory menu
+void UserInterface::linkButtonToMenu(Window *window, Menu *menu)
+{
     Menu *soloMenu = new Menu(window, "Solo", vector3df(20, 50, 0), vector3df(10, 50, 0));
     Menu *StageMenu = new Menu(window, "Stage", vector3df(20, 100, 0), vector3df(10, 100, 0));
     Menu *multiPlayerMenu = new Menu(window, "Multiplayer", vector3df(70, 50, 0), vector3df(60, 50, 0));
@@ -52,34 +53,34 @@ void linkButtonToMenu(Window *window, Menu *menu)
     settingsMenu->linkMenu("Back", menu);
 }
 
-Menu *createMenuBomberman(Window *window)
+Menu *UserInterface::createMenuBomberman(Window *window)
 {
     float radius = 10;
     Menu *menu = new Menu(window, "Main", vector3df(20, 0, 0), vector3df(10, 0, 0));
-        std::cout << "LOL1" << std::endl;
-    menu->addWheel(vector3df(0, 0, 0), radius, {{"Solo", "Bomberman", "Dark"}, {"Multiplayer", "Bomberman", "Dark"}, {"Settings", "Bomberman", "Dark"}, {"Player", "Bomberman", "Dark"}, {"Exit", "Bomberman", "Dark"}});
-        std::cout << "LOL2" << std::endl;
 
+    menu->addWheel(vector3df(0, 0, 0), radius, {{"Solo", "Bomberman", "Dark"}, {"Multiplayer", "Bomberman", "Dark"}, {"Settings", "Bomberman", "Dark"}, {"Player", "Bomberman", "Dark"}, {"Exit", "Bomberman", "Dark"}});
     linkButtonToMenu(window, menu);
     return menu;
 }
 
-/**todo
- * add corentin font : Note : WordSceneNote = window.addText("Solo")
- * handle server and client mode
- * link the demo with the UI
- * add songs, texture
-**/
-bool demo(Window *window)
+void UserInterface::create() //tmp
 {
-    window->changeSkybox("Resources/Texture/demo.jpg");
+    menu = createMenuBomberman(window);
+}
+
+void UserInterface::setBackGround(const std::string &backGround)
+{
+    window->changeSkybox("Resources/Texture/" + backGround);
+}
+
+bool UserInterface::demo()
+{
     CameraMove cameraMoove;
     World world(window, "Resources/Map/DemoWithoutEdge");
     Player player(window, "Bomberman", "Bob", &world, vector3du(1, 1, 1));
-    bool spacePress = false; // tmp
     window->applyCameraMove(cameraMoove); // tmp
-
     window->setDebugMode(true); // tmp
+
     while (window->isOpen()) {
         if (window->isKeyPressed(KEY_KEY_P))
             return true;
@@ -87,16 +88,12 @@ bool demo(Window *window)
         player.update();
         window->display(); //move player
     }
+    return false;
 }
-void userInterface(Window *window)
-{
-    //Window window("Bomberman", dimension2d<u32>(1920 / 2, 1080 / 2), false);
-    Menu *menu = createMenuBomberman(window);
-    window->changeSkybox("Resources/Texture/background.png");
-    scene::ICameraSceneNode* camera = window->getCameraSceneNode(vector3df(20, 0, 0), vector3df(10, 0, 0));
-    bool lock = false;
 
-    Player *myPlayer = new Player(NULL, "Bomberman", "Bob", NULL, vector3du(0, 0 ,0));
+void UserInterface::run(const vector3df &cameraPos, const vector3df &cameraTarget)
+{
+    camera = window->getCameraSceneNode(cameraPos, cameraTarget);
 
     while (window->isOpen()) {
         if (menu->getKey() && menu->getName() == "Player")
@@ -113,7 +110,6 @@ void userInterface(Window *window)
                     //client(IpAddress("127.0.0.1"), port);
                 }
                 if (menu->getMenu()) {
-                    std::cout << "LOOOOOOOOOOOOOOOOOOOOOL" <<menu->getMenu()->getPosition().Y << std::endl;
                     CameraMove cameraAnim(menu->getPosition(), menu->getMenu()->getTargetPosition(), 1);
                     cameraAnim.addPoint(menu->getMenu()->getPosition());
                     window->applyCameraMove(cameraAnim);

@@ -13,6 +13,7 @@
 #include "Window.hpp"
 #include "World.hpp"
 #include "Entity/Player.hpp"
+#include "UserInterface/UserInterface.hpp"
 
 using namespace std;
 using namespace irr;
@@ -49,8 +50,6 @@ bool Demo()
     return true;
 }
 //todo put demo + userinterface in a class
-bool demo(Window *window);
-void userInterface(Window *window); //tmp
 
 int main(int argc, char **argv)
 {
@@ -58,9 +57,14 @@ int main(int argc, char **argv)
         srand(time(NULL));
         if (argc == 2 && strncmp(argv[1], "menu", strlen(argv[1])) == 0) {
             std::cout << "i have to call UI class\n"<< std::endl;
-            Window window("Bomberman", dimension2d<u32>(1920, 1080), false);
-            if (demo(&window));
-                userInterface(&window);
+            Window window("Bomberman", dimension2d<u32>(1920 / 2, 1080 / 2), false);
+            UserInterface userInterface(&window);
+            userInterface.create();
+            userInterface.setBackGround("demo.jpg");
+            if (userInterface.demo()) {
+                userInterface.setBackGround("background.png");
+                userInterface.run(vector3df(20, 0, 0), vector3df(10, 0, 0));
+            }
         }
         else if (argc == 5 && strncmp(argv[1], "server", strlen(argv[1])) == 0)
             server(std::atoi(argv[2]), argv[3], std::atoi(argv[4]));
