@@ -5,6 +5,7 @@
 ** UserInterface
 */
 
+#include <thread>
 #include "UserInterface/UserInterface.hpp"
 #include "Error.hpp"
 
@@ -91,6 +92,9 @@ bool UserInterface::demo()
     return false;
 }
 
+void server(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer);
+void client(const sf::IpAddress &ip, const ushort &port);
+
 void UserInterface::run(const vector3df &cameraPos, const vector3df &cameraTarget)
 {
     camera = window->getCameraSceneNode(cameraPos, cameraTarget);
@@ -106,8 +110,8 @@ void UserInterface::run(const vector3df &cameraPos, const vector3df &cameraTarge
                     window->close();
                 if (!menu->getMenu() && menu->getCurrentButtonName() == "Play") {
                     uint port = 8080;
-                    //server(port, "Resources/Map/Default", 1); have to write in a thread
-                    //client(IpAddress("127.0.0.1"), port);
+                    std::thread my_server(server, port, "Default", 1); //tmp remove window inside this func
+                    client(sf::IpAddress("127.0.0.1"), port); //tmp
                 }
                 if (menu->getMenu()) {
                     CameraMove cameraAnim(menu->getPosition(), menu->getMenu()->getTargetPosition(), 1);
