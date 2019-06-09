@@ -31,12 +31,12 @@ void UserInterface::linkButtonToMenu(Window *window, Menu *menu)
     Menu *modelMenu = new Menu(window, "Player", vector3df(20, 500, 0), vector3df(10, 500, 0));
     Menu *textureMenu = new Menu(window, "Texture", vector3df(20, 4000, 0), vector3df(10, 4000, 0));
 
-    soloMenu->addWheel(vector3df(0, 50, 0), 10, {{"Stage", "Bomberman", "Default"}, {"Play", "Bomberman", "Dark"}, {"Back", "Bomberman", "Dark"}}); //tmp
+    soloMenu->addWheel(vector3df(0, 50, 0), 10, {"Stage", "Play", "Back"}); //tmp
     StageMenu->addWheel(vector3df(0, 100, 0), 10, {{"Model1", "Bomberman", "Dark"}, {"Model2", "Bomberman", "Dark"}, {"Model3", "Bomberman", "Dark"}}); //tmp
-    multiPlayerMenu->addWheel(vector3df(50, 50, 0), 10, {{"Server", "Bomberman", "Default"}, {"Client", "Bomberman", "Default"}, {"Back", "Bomberman", "Default"}}); //tmp
-    settingsMenu->addWheel(vector3df(0, -100, 0), 10, {{"Sound", "Bomberman", "Default"}, {"Resolution", "Bomberman", "Dark"}, {"Back", "Bomberman", "Dark"}}); //tmp
-    modelMenu->addWheel(vector3df(0, 500, 0), 10, {{"Model1", "Bomberman", "Dark"}, {"Model2", "Bomberman", "Dark"}, {"Model3", "Bomberman", "Texture"}}); //tmp
-    textureMenu->addWheel(vector3df(0, 4000, 0), 10, {{"Texture1", "Bomberman", "Dark"}, {"Texture2", "Bomberman", "Dark"}, {"Texture3", "Bomberman", "Texture"}}); //tmp
+    multiPlayerMenu->addWheel(vector3df(50, 50, 0), 10, {"Server", "Client", "Back"}); //tmp
+    settingsMenu->addWheel(vector3df(0, -100, 0), 10, {"Sound", "Resolution", "Back"}); //tmp
+    modelMenu->addWheel(vector3df(0, 500, 0), 10, {{"Model1", "Bomberman", ""}, {"Model2", "Bomberman", ""}, {"Model3", "Bomberman", ""}}); //tmp
+    textureMenu->addWheel(vector3df(0, 4000, 0), 10, {{"Texture1", "Bomberman", "Test2"}, {"Texture2", "Bomberman", "Dark"}, {"Texture3", "Bomberman", "Default"}}); //tmp
 
     soloMenu->linkMenu(StageMenu->getName(), StageMenu);
     menu->linkMenu(soloMenu->getName(), soloMenu);
@@ -111,7 +111,7 @@ void UserInterface::run(const vector3df &cameraPos, const vector3df &cameraTarge
                 if (!menu->getMenu() && menu->getCurrentButtonName() == "Play") {
                     uint port = 8080;
                     std::thread my_server(server, port, "Default", 1); //tmp remove window inside this func
-                    client(sf::IpAddress("127.0.0.1"), port); //tmp
+                    client(sf::IpAddress("127.0.0.1"), port); //tmp // send player in funtion
                 }
                 if (menu->getMenu()) {
                     CameraMove cameraAnim(menu->getPosition(), menu->getMenu()->getTargetPosition(), 1);
