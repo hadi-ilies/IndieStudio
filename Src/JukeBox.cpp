@@ -8,6 +8,17 @@
 #include "JukeBox.hpp"
 #include "Error.hpp"
 
+JukeBox JukeBox::jukeboxInstance = JukeBox();
+
+JukeBox::JukeBox() = default;
+
+JukeBox::~JukeBox() = default;
+
+
+JukeBox &JukeBox::getInstance() {
+    return jukeboxInstance;
+}
+
 bool JukeBox::addMusic(const std::string &name, const std::string &fileName)
 {
     return musicMap[name].openFromFile(fileName);
@@ -39,3 +50,5 @@ void JukeBox::deleteEndedFile()
 {
     soundList.remove_if([](const sf::Sound &sound){return sound.getStatus() == sf::SoundSource::Stopped;});
 }
+
+

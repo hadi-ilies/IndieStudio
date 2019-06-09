@@ -33,15 +33,15 @@ bool Demo()
     window.changeSkybox("Resources/Texture/demo.jpg");
     CameraMove cameraMoove;
     World world(&window, "Resources/Map/DemoWithoutEdge");
-    JukeBox jukeBox;
+    JukeBox &jukeBox = JukeBox::getInstance();
     Player player(&window, "Bomberman", "Bob", &world, vector3du(1, 1, 1));
     bool spacePress = false; // tmp
     window.applyCameraMove(cameraMoove); // tmp
 
     //world.debugAff();
     window.setDebugMode(true); // tmp
-    jukeBox.addSound("test", "Resources/Sounds/Menu.ogg");
-    jukeBox.playSound("test");
+    jukeBox.addMusic("test", "Resources/Sound_Effects/Musics/DemoMusic.ogg");
+    jukeBox.playMusic("test");
     while (window.isOpen()) {
         world.update();
         player.update();
