@@ -6,6 +6,7 @@
 */
 
 #include "UserInterface/UserInterface.hpp"
+#include "JukeBox.hpp"
 #include "Error.hpp"
 
 /*
@@ -82,18 +83,24 @@ void UserInterface::setBackGround(const std::string &backGround) {
 }
 
 bool UserInterface::demo() {
+    Window &window = Window::getInstance();
     CameraMove cameraMoove;
     World world("Resources/Map/DemoWithoutEdge");
+    JukeBox &jukeBox = JukeBox::getInstance();
     Player player("Bomberman", "Bob", &world, vector3du(1, 1, 1));
-    Window::getInstance().applyCameraMove(cameraMoove); // tmp
-    Window::getInstance().setDebugMode(true); // tmp
+    cameraMoove.generateFirstMove();
+    window.applyCameraMove(cameraMoove);
 
-    while (Window::getInstance().isOpen()) {
-        if (Window::getInstance().isKeyPressed(KEY_KEY_P))
-            return true;
+    window.setDebugMode(true); // tmp
+    jukeBox.addMusic("test", "Resources/Sound_Effects/Musics/DemoMusic.ogg");
+    jukeBox.playMusic("test");
+
+    while (window.isOpen()) {
+        if (window.isKeyPressed(KEY_KEY_P))
+           return true;
         world.update();
         player.update();
-        Window::getInstance().display(); //move player
+        window.display(); //move player
     }
     return false;
 }
