@@ -8,7 +8,7 @@
 #include "Window.hpp"
 
 
-Window Window::windowInstance = Window("Bomberman", dimension2d<u32>(1920, 1080), false);
+Window Window::windowInstance = Window("Bomberman", dimension2d<u32>(1920 / 2, 1080 / 2), false);
 
 /*
  * Constructors // Destructors

@@ -5,6 +5,7 @@
 ** UserInterface
 */
 
+#include <SFML/Network.hpp>
 #include "UserInterface/UserInterface.hpp"
 #include "JukeBox.hpp"
 #include "Error.hpp"
@@ -96,14 +97,19 @@ bool UserInterface::demo() {
     jukeBox.playMusic("test");
 
     while (window.isOpen()) {
-        if (window.isKeyPressed(KEY_KEY_P))
+        if (window.isKeyPressed(KEY_KEY_P)) {
+            //todo put pause music
            return true;
+        }
         world.update();
         player.update();
         window.display(); //move player
     }
     return false;
 }
+
+void client(Player &myPlayer, const sf::IpAddress &ip, const ushort &port);
+void server(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer);
 
 void UserInterface::run(const vector3df &cameraPos, const vector3df &cameraTarget) {
     camera = Window::getInstance().getCameraSceneNode(cameraPos, cameraTarget);
@@ -118,9 +124,10 @@ void UserInterface::run(const vector3df &cameraPos, const vector3df &cameraTarge
                 if (!menu->getMenu() && menu->getCurrentButtonName() == "Exit")
                     Window::getInstance().close();
                 if (!menu->getMenu() && menu->getCurrentButtonName() == "Play") {
-                    /* uint port = 8080;
+                     uint port = 8080;
                      std::thread my_server(server, port, "Default", 1); //tmp remove window inside this func
-                     client(sf::IpAddress("127.0.0.1"), port); //tmp // send player in funtion*/
+                     sleep(10);
+                     client(*myPlayer, sf::IpAddress("127.0.0.1"), port); //tmp // send player in funtion*/
                 }
                 if (menu->getMenu()) {
                     CameraMove cameraAnim(menu->getPosition(), menu->getMenu()->getTargetPosition(), 1);

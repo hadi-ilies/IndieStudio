@@ -24,8 +24,8 @@ using namespace video;
 using namespace io;
 using namespace gui;
 
+void client(Player &myPlayer, const sf::IpAddress &ip, const ushort &port);
 void server(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer);
-void client(const sf::IpAddress &ip, const ushort &port);
 
 /*
  *  WindowMove windowMove;
@@ -107,8 +107,10 @@ int main(int argc, char **argv)
         }
         else if (argc == 5 && strncmp(argv[1], "server", strlen(argv[1])) == 0)
             server(std::atoi(argv[2]), argv[3], std::atoi(argv[4]));
-        else if (argc == 4 && strncmp(argv[1], "client", strlen(argv[1])) == 0)
-            client(sf::IpAddress(argv[2]), std::atoi(argv[3]));
+        else if (argc == 4 && strncmp(argv[1], "client", strlen(argv[1])) == 0) {
+            Player player("Bomberman", "Bob", NULL, vector3du(1, 1, 1));
+            client(player, sf::IpAddress(argv[2]), std::atoi(argv[3]));
+        }
         else {
             cerr << "USE : " << argv[0] << " [server]" << endl;
             Demo(); // tmp

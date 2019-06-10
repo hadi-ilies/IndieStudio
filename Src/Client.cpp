@@ -147,13 +147,13 @@ static void game(Window &window, FormattedSocket &client, World &world, vector<u
     loop.join();
 }
 
-void client(const sf::IpAddress &ip, const ushort &port) //put player in param
+void client(Player &myPlayer, const sf::IpAddress &ip, const ushort &port) //put player in param
 {
     FormattedSocket client;
     Window &window = Window::getInstance();
-    //World myWorld(&window, "TODO"); // Todo put pointer on world constructor. this we allow us to put NULL in constructor
-    Player myPlayer("Bomberman", "Bob", NULL, vector3du(1, 1 ,1));
-    myPlayer.changeTexture("Default");
+    //World myWorld("TODO"); // Todo put pointer on world constructor. this we allow us to put NULL in constructor
+    //Player myPlayer("Bomberman", "Bob", NULL, vector3du(1, 1 ,1));
+    //myPlayer.changeTexture("Default");
     if (!client.connect(ip, port))
         throw Error("an error has been detected in Connect function");
     size_t nbPlayer;

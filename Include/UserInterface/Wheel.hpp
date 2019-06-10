@@ -23,7 +23,7 @@ public:
         std::string model;
         std::string texture;
     };
-    enum Dir {RIGHT = 1, LEFT = -1};
+    enum Dir {BASE = 0, RIGHT = 1, LEFT = -1};
 
 public:
     Wheel(const vector3df &position, const float &radius, const std::vector<std::string> &buttonsNames);
@@ -35,9 +35,10 @@ public:
     AButton *getButton(const uint &buttonIndex) const;
     const vector3df getPosButton(const uint &buttonIndex);
     AButton *getCurrentButton() const;
-    
+
 private:
     const float radius;
     uint currentButton;
+    uint displayedButton;
     std::vector<AButton *> buttonList;
 };

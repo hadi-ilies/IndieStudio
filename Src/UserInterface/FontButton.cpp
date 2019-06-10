@@ -28,8 +28,8 @@ FontButton::~FontButton() = default;
  * Methods
  */
 bool FontButton::animation(const vector3df &destPos, const f32 &timestamps) {
-    //  if (!isAnimationFinished())
-    //     return false;
+    if (!isAnimationFinished())
+        return false;
     vector3df test = position;
     vector3df destTest = destPos;
     for (auto character : button->getCharacterList()) {
