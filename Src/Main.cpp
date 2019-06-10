@@ -69,11 +69,13 @@ bool Demo()
     Window &window = Window::getInstance();
     window.changeSkybox("Resources/Texture/demo.jpg");
     CameraMove cameraMoove;
-    World world(&window, "Resources/Map/DemoWithoutEdge");
+    World world("Resources/Map/DemoWithoutEdge");
     JukeBox &jukeBox = JukeBox::getInstance();
-    Player player(&window, "Bomberman", "Bob", &world, vector3du(1, 1, 1));
+    Player player("Bomberman", "Bob", &world, vector3du(1, 1, 1));
     bool spacePress = false; // tmp
-    window.applyCameraMove(cameraMoove); // tmp
+    cameraMoove.generateFirstMove();
+    window.applyCameraMove(cameraMoove);
+
 
     //world.debugAff();
     window.setDebugMode(true); // tmp

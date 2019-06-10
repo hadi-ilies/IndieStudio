@@ -5,59 +5,53 @@
 ** Block.cpp
 */
 
-#include <iostream> // ?
-#include <fstream> // ?
-#include <regex>
 #include "Block.hpp"
-#include "Utility.hpp"
 #include "Error.hpp"
 
-Block::Block(Window *window, const std::string &_type, const vector3du &position)
-    : type(_type), lifeTime(-1), cube(window ? window->addCube("Resources/Block/" + _type + "/Texture.png") : NULL)
-{
-    getProperty("Resources/Block/" + _type + "/Property"); // TODO set in init
-    if (window) {
-        const vector3df floatPos(position.X, position.Y, position.Z);
-
-        if (!cube)
-            throw Error("cube can't be create");
-        cube->setPosition(floatPos);
-    }
+/*
+ * Constructors // Destructors
+ */
+Block::Block(const std::string &_type, const vector3du &position) : type(_type), lifeTime(-1), cube(Window::getInstance().addCube(
+        "Resources/Block/" + _type + "/Texture.png")) {
+    getProperty("Resources/Block/" + _type + "/Property");
+    const vector3df floatPos(position.X, position.Y, position.Z);
+    if (!cube)
+        throw Error("cube can't be create");
+    cube->setPosition(floatPos);
 }
 
-Block::~Block()
-{
+Block::~Block() {
     cube->remove();
 }
 
-const std::string &Block::getType() const
-{
+/*
+ * Getters // Setters
+ */
+const std::string &Block::getType() const {
     return type;
 }
 
-const bool &Block::getOpaque() const
-{
+const bool &Block::getOpaque() const {
     return opaque;
 }
 
-const bool &Block::getDestructible() const
-{
+const bool &Block::getDestructible() const {
     return destructible;
 }
 
-const uint &Block::getLifeTime() const
-{
+const uint &Block::getLifeTime() const {
     return lifeTime;
 }
 
-void Block::update()
-{
+/*
+ * Methods
+ */
+void Block::update() {
     if (lifeTime && lifeTime != -1)
         lifeTime--;
 }
 
-void Block::getProperty(const std::string &fileName)
-{
+void Block::getProperty(const std::string &fileName) {
     std::ifstream file(fileName);
     std::string line;
     smatch match;
@@ -73,21 +67,3 @@ void Block::getProperty(const std::string &fileName)
             lifeTime = stoi(match[1]);
     }
 }
-
-/*const std::map<std::string, unique_ptr<Block>> createBlockMap(Window &window, const std::string &path)
-{
-    std::map<std::string, unique_ptr<Block>> blockMap;
-    const vector<std::string> blockPathList = globpp(path + "/*");
-
-    for (const std::string &blockPath : blockPathList) {
-        try {
-            unique_ptr<Block> block(new Block(window, blockPath));
-
-            blockMap[block->getType()] = move(block); // ? it works (to test)
-        }
-        catch (const exception &e) {
-            cerr << e.what() << endl;
-        }
-    }
-    return blockMap;
-    }*/

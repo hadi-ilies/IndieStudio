@@ -7,16 +7,22 @@
 
 #include "Entity/PowerUp.hpp"
 
-PowerUp::PowerUp(Window *window, const std::string &_type, World *world, const vector3du &position)
-    : Entity(window, _type, world, position), type(_type)
-{
+/*
+ * Constructors // Destructors
+ */
+PowerUp::PowerUp(std::string _type, World *world, const vector3du &position) : Entity(_type, world, position), type(std::move(_type)) {
+
 }
 
-PowerUp::~PowerUp()
-{
-}
+PowerUp::~PowerUp() = default;
 
-const std::string &PowerUp::getType() const
-{
+/*
+ * Getters // Setters
+ */
+const std::string &PowerUp::getType() const {
     return type;
 }
+
+/*
+ * Methods
+ */

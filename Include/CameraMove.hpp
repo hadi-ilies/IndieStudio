@@ -13,10 +13,9 @@
 using namespace irr;
 using namespace core;
 
-class CameraMove
-{
+class CameraMove {
 public:
-    CameraMove(); // for demo
+    CameraMove();
     CameraMove(const core::vector3df &_cameraPos, const core::vector3df &_targetPos, const float &_speed = 4); // ?
     ~CameraMove();
     const core::array<vector3df> &getPoints() const;
@@ -26,17 +25,20 @@ public:
     const bool &getLoop() const;
     void setTarget(const vector3df &pos);
     void setSpeed(const float &_speed);
+
+public:
     void addPoint(const vector3df &point);
 
-private:
-    void generatePointsDemo();
+public:
+    void generateFirstMove();
+    void generateDemoSecondMove();
 
 private:
-    core::array<core::vector3df> points; // TODO rename pointList
+    core::array<core::vector3df> pointsList;
     core::vector3df targetPos;
     float speed;
     float tightness;
     bool loop;
 };
 
-#endif
+#endif /* !BOMBERMAN_DEMO_HPP */

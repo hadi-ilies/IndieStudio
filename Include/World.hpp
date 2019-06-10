@@ -9,29 +9,32 @@
 #define WORLD_HPP
 
 #include <string>
-#include <memory> // ?
-#include "Block.hpp"
-
+#include <fstream>
+#include <vector>
 #include <irrlicht/irrlicht.h>
-#include "Window.hpp"
+
+#include "Utility.hpp"
+#include "Block.hpp"
+#include "World.hpp"
 
 using namespace std;
 using namespace irr;
 
-using namespace core; // tmp
+using namespace core;
 using namespace scene;
 using namespace video;
 using namespace io;
 using namespace gui;
 
-class World
-{
+class World {
 public:
-    World(Window *_window, const vector3du &_size, const uint &seed = time(0)); // ?
-    World(Window *_window, const std::string &_fileName); // TODO
+    World(const vector3du &_size, const uint &seed = time(0)); // ?
+    World(const std::string &_fileName); // TODO
     ~World();
     const vector3du &getSize() const;
     const Block *getBlock(const vector3du &pos) const;
+
+public:
     void explode(const vector3du &pos, const uint &power); // ? explode 2D or 3D // TODO ?
     bool generate(const vector3du &_size, const uint &seed = time(0)); // TODO
     bool load(const std::string &_fileName);
@@ -50,9 +53,8 @@ private:
 
 private:
     std::string fileName;
-    Window *window;
     vector3du size;
     Block ****tab;
 };
 
-#endif
+#endif /* !WORLD_HPP */

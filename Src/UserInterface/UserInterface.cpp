@@ -12,7 +12,7 @@
  *   Constructors // Destructors
  */
 UserInterface::UserInterface() : menu(nullptr), camera(nullptr), lock(false),
-                                 myPlayer(new Player(nullptr, "Bomberman", "Bob", nullptr, vector3du(0, 0, 0))) {
+                                 myPlayer(new Player("Bomberman", "Bob", nullptr, vector3du(0, 0, 0))) {
 
 }
 
@@ -103,7 +103,7 @@ void UserInterface::run(const vector3df &cameraPos, const vector3df &cameraTarge
 
     while (Window::getInstance().isOpen()) {
         if (menu->getKey() && menu->getName() == "Player")
-            myPlayer = new Player(NULL, menu->getCurrentButtonModel(), "BOB", NULL, vector3du(1, 1, 1));
+            myPlayer = new Player(menu->getCurrentButtonModel(), "BOB", NULL, vector3du(1, 1, 1));
         else if (menu->getKey() && menu->getName() == "Texture")
             myPlayer->changeTexture(menu->getCurrentButtonTexture());
         if (menu->getKey()) {

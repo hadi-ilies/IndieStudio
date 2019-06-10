@@ -9,27 +9,33 @@
 #define ENTITY_HPP
 
 #include <map>
+#include <regex>
+
+#include "Utility.hpp"
 #include "World.hpp"
 
 class Entity
 {
 public:
-    Entity(Window *_window, const std::string &_fileName, World *world, const vector3du &_pos); // ? fileName
+    Entity(const std::string &_fileName, World *world, const vector3du &_pos);
     ~Entity();
     const vector3du &getPosition() const;
     const std::string &getFileName() const;
     const std::string &getModel() const;
     const std::string &getTexture() const;
+
+public:
     bool changeModel(const std::string &model);
     bool changeTexture(const std::string &texture);
-    void update();
+
+    virtual void update();
 
 private:
+    void init();
     void getModel(const std::string &fileName);
     void getTexture(const std::string &fileName);
 
 protected:
-    Window *window;
     IAnimatedMeshSceneNode *mesh;
     World *world;
     vector3du position;

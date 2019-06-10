@@ -10,15 +10,16 @@
 
 #include "Entity.hpp"
 
-class Bomb : public Entity
-{
+class Bomb : public Entity {
 public:
-    Bomb(Window *window, const std::string &_type, const uint &_power, World *world, const vector3du &pos);
+    Bomb(const std::string &_type, const uint &_power, World *world, const vector3du &pos);
     ~Bomb();
     const std::string &getType() const;
     const uint &getPower() const;
     //const uint &getTick() const; // ? TODO
-    void update();
+
+public:
+    void update() override;
     void detonate(); // ? const
 
 private:
@@ -27,4 +28,4 @@ private:
     uint tick; // ? TODO
 };
 
-#endif
+#endif /* !BOMB_HPP */

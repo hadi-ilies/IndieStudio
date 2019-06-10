@@ -22,9 +22,11 @@ IrrFont::IrrFont(const sf::Font &font, const char &_c)
     sf::RenderTexture renderTexture;
 
     if (!renderTexture.create(tmpSprite.getGlobalBounds().width, tmpSprite.getGlobalBounds().height))
-        ; // TODO throw
+        throw Error("error font");
     renderTexture.clear(sf::Color::Transparent);
+    std::cout << "Hello = > " << &renderTexture << std::endl;
     renderTexture.draw(tmpSprite);
+    std::cout << "MDR" << std::endl;
     renderTexture.display();
     const sf::Texture &charTexture = renderTexture.getTexture();
     sf::Image image = charTexture.copyToImage();

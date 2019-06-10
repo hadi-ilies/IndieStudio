@@ -7,15 +7,15 @@
 
 #include "Window.hpp"
 
+
 Window Window::windowInstance = Window("Bomberman", dimension2d<u32>(1920, 1080), false);
 
-Window &Window::getInstance() {
-    return windowInstance;
-}
-
-Window::Window(const std::string &windowName, dimension2d<u32> size, const bool &fullscreen)
-    : irrFontBuffer("Resources/Font/Prototype.ttf", "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), debug(false)
-{
+/*
+ * Constructors // Destructors
+ */
+Window::Window(const std::string &windowName, dimension2d<u32> size, const bool &fullscreen) : irrFontBuffer("Resources/Font/Prototype.ttf",
+                                                                                                             "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"),
+                                                                                               debug(false) {
     const wstring title(windowName.begin(), windowName.end());
 
     device = createDevice(video::EDT_OPENGL, size, 16, fullscreen, false, false, &receiver);
@@ -32,34 +32,38 @@ Window::Window(const std::string &windowName, dimension2d<u32> size, const bool 
     //device->getCursorControl()->setVisible(false); // tmp
 }
 
-Window::~Window()
-{
+Window::~Window() {
     close();
     device->drop();
 }
 
-const bool &Window::getDebugMode() const
-{
+/*
+ * Getters // Setters
+ */
+Window &Window::getInstance() {
+    return windowInstance;
+}
+
+const bool &Window::getDebugMode() const {
     return debug;
 }
 
-void Window::setDebugMode(const bool &active)
-{
+void Window::setDebugMode(const bool &active) {
     debug = active;
 }
 
-void Window::close()
-{
+/*
+ * Methods
+ */
+void Window::close() {
     device->closeDevice();
 }
 
-bool Window::isOpen()
-{
+bool Window::isOpen() {
     return device->run();
 }
 
-void Window::display()
-{
+void Window::display() {
     if (debug)
         debugMode();
     driver->beginScene();
@@ -68,18 +72,15 @@ void Window::display()
     driver->endScene();
 }
 
-IAnimatedMesh *Window::getModel(const std::string &fileName)
-{
+IAnimatedMesh *Window::getModel(const std::string &fileName) {
     return smgr->getMesh(fileName.c_str());
 }
 
-ITexture *Window::getTexture(const std::string &fileName)
-{
+ITexture *Window::getTexture(const std::string &fileName) {
     return driver->getTexture(fileName.c_str());
 }
 
-ISceneNode *Window::addCube(const std::string &texture)
-{
+ISceneNode *Window::addCube(const std::string &texture) {
     scene::ISceneNode *node = smgr->addCubeSceneNode(1);
 
     if (!node)
@@ -89,8 +90,7 @@ ISceneNode *Window::addCube(const std::string &texture)
     return node;
 }
 
-IAnimatedMeshSceneNode *Window::addAnimatedMesh(const std::string &model, const std::string &texture)
-{
+IAnimatedMeshSceneNode *Window::addAnimatedMesh(const std::string &model, const std::string &texture) {
     IAnimatedMesh *mesh = smgr->getMesh(model.c_str());
     IAnimatedMeshSceneNode *node;
 
@@ -115,44 +115,38 @@ IAnimatedMeshSceneNode *Window::addAnimatedMesh(const std::string &model, const 
     return node;
 }
 
-WordSceneNode *Window::addText(const std::string &str)
-{
+WordSceneNode *Window::addText(const std::string &str) {
     return new WordSceneNode(smgr, str, irrFontBuffer);
 }
 
-ISceneNodeAnimator *Window::createTranslation(const vector3df &initPos, const vector3df &destPos, const u32 &timestamp)
-{
+ISceneNodeAnimator *Window::createTranslation(const vector3df &initPos, const vector3df &destPos, const u32 &timestamp) {
     return smgr->createFlyStraightAnimator(initPos, destPos, timestamp);
 }
 
-ICameraSceneNode *Window::getCameraSceneNode(const vector3df &pointOfView, const vector3df &lookAt)
-{
+ICameraSceneNode *Window::getCameraSceneNode(const vector3df &pointOfView, const vector3df &lookAt) {
     return smgr->addCameraSceneNode(0, pointOfView, lookAt);
 }
 
-bool Window::isKeyPressed(const irr::EKEY_CODE &keyCode) const
-{
+bool Window::isKeyPressed(const irr::EKEY_CODE &keyCode) const {
     return receiver.IsKeyDown(keyCode);
 }
 
-void Window::changeSkybox(const std::string &fileName)
-{
+void Window::changeSkybox(const std::string &fileName) {
     smgr->addSkyDomeSceneNode(getTexture(fileName));
 }
 
-void Window::applyCameraMove(const CameraMove &cameraMoove)
-{
+void Window::applyCameraMove(const CameraMove &cameraMoove) {
     scene::ICameraSceneNode *camera = nullptr;
     scene::ISceneNodeAnimator *sa = nullptr;
 
     camera = getCameraSceneNode(cameraMoove.getPoints()[0], cameraMoove.getTargetPos());
-    sa = smgr->createFollowSplineAnimator(device->getTimer()->getTime(), cameraMoove.getPoints(), cameraMoove.getSpeed(), cameraMoove.getTightness(), cameraMoove.getLoop());
+    sa = smgr->createFollowSplineAnimator(device->getTimer()->getTime(), cameraMoove.getPoints(), cameraMoove.getSpeed(),
+                                          cameraMoove.getTightness(), cameraMoove.getLoop());
     camera->addAnimator(sa);
     sa->drop();
 }
 
-void Window::debugMode()
-{
+void Window::debugMode() {
     wchar_t text[255];
     IGUISkin *skin;
 
@@ -164,12 +158,12 @@ void Window::debugMode()
 }
 
 // TODO supr func
-/*void Window::demoAnimation(core::array<core::vector3df> points, const core::vector3df& lookAt) {
+/*void Window::demoAnimation(core::array<core::vector3df> pointsList, const core::vector3df& lookAt) {
     scene::ICameraSceneNode* camera = nullptr;
     scene::ISceneNodeAnimator* sa = nullptr;
 
-    camera = getCameraSceneNode(points[0], lookAt);
-    sa = smgr->createFollowSplineAnimator(this->getDevice()->getTimer()->getTime(), points, 4, 0.5, false);
+    camera = getCameraSceneNode(pointsList[0], lookAt);
+    sa = smgr->createFollowSplineAnimator(this->getDevice()->getTimer()->getTime(), pointsList, 4, 0.5, false);
     camera->addAnimator(sa);
     sa->drop();
 }

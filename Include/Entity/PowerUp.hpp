@@ -8,12 +8,14 @@
 #ifndef POWERUP_HPP
 #define POWERUP_HPP
 
+#include <utility>
+
 #include "Entity.hpp"
 
 class PowerUp : public Entity
 {
 public:
-    PowerUp(Window *window, const std::string &_type, World *world, const vector3du &pos);
+    PowerUp(std::string _type, World *world, const vector3du &pos);
     ~PowerUp();
     const std::string &getType() const;
 

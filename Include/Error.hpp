@@ -10,17 +10,19 @@
 
 #include <string>
 #include <exception>
+#include <utility>
 
 using namespace std;
 
-class Error : public exception
-{
+class Error : public exception {
 public:
-    Error(const std::string &_message);
-    const char *what() const throw();
+    Error(std::string _message);
+
+public:
+    const char *what() const noexcept override;
 
 private:
     const std::string message;
 };
 
-#endif
+#endif /* !ERROR_HPP */

@@ -7,12 +7,19 @@
 
 #include "Error.hpp"
 
-Error::Error(const std::string &_message)
-    : message(_message)
-{
+/*
+ * Constructors // Destructors
+ */
+Error::Error(std::string _message) : message(std::move(_message)) {
 }
 
-const char *Error::what() const throw()
-{
+/*
+ * Getters // Setters
+ */
+const char *Error::what() const noexcept {
     return message.c_str();
 }
+
+/*
+ * Methods
+ */

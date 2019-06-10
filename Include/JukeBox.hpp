@@ -15,8 +15,7 @@
 
 using namespace boost::filesystem;
 
-class JukeBox
-{
+class JukeBox {
 public:
     static JukeBox &getInstance();
     bool addMusic(const std::string &name, const std::string &fileName);
@@ -38,4 +37,4 @@ private:
     std::map<std::string, sf::SoundBuffer> bufferMap;
 };
 
-#endif
+#endif /* !JUKEBOX_HPP */

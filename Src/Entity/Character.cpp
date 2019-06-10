@@ -7,33 +7,34 @@
 
 #include "Entity/Character.hpp"
 
-Character::Character(Window *window, const std::string &fileName, World *world, const vector3du &position)
-    : Entity(window, fileName, world, position), anim(NULL)
-{
+/*
+ * Constructors // Destructors
+ */
+Character::Character(const std::string &fileName, World *world, const vector3du &position) : Entity(fileName, world, position),
+                                                                                             anim(nullptr) {
 }
 
-Character::~Character()
-{
-}
+Character::~Character() = default;
 
-bool Character::animHasFinished() const
-{
+/*
+ * Getters // Setters
+ */
+bool Character::animHasFinished() const {
     return !anim || anim->hasFinished();
 }
 
-bool Character::checkMove(const vector2di &dir) const
-{
+/*
+ * Methods
+ */
+bool Character::checkMove(const vector2di &dir) const {
     const vector3du newPosition(position.X + dir.X, position.Y, position.Z + dir.Y); // vct2.Y is the vec3.Z
 
     if (newPosition.X >= world->getSize().X || newPosition.Y >= world->getSize().Y || newPosition.Z >= world->getSize().Z)
         return false;
-    if (world->getBlock(newPosition) && world->getBlock(newPosition)->getOpaque())
-        return false;
-    return true;
+    return !(world->getBlock(newPosition) && world->getBlock(newPosition)->getOpaque());
 }
 
-bool Character::move(const vector2di &dir)
-{
+bool Character::move(const vector2di &dir) {
     vector2di newDir = dir;
 
     if (!animHasFinished())
@@ -45,7 +46,7 @@ bool Character::move(const vector2di &dir)
     const vector3df initPosition(position.X, position.Y, position.Z);
     const vector3df destPosition(newPosition.X, newPosition.Y, newPosition.Z);
 
-    if (anim = window->createTranslation(initPosition, destPosition, TIMESTAMP))
+    if ((anim = Window::getInstance().createTranslation(initPosition, destPosition, TIMESTAMP)))
         mesh->addAnimator(anim);
     if (newDir.X == 0 && newDir.Y == 0)
         changeModel("Idle");

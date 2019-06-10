@@ -10,34 +10,38 @@
 
 JukeBox JukeBox::jukeboxInstance = JukeBox();
 
+/*
+ * Constructors // Destructors
+ */
 JukeBox::JukeBox() = default;
 
 JukeBox::~JukeBox() = default;
 
-
+/*
+ * Getters // Setters
+ */
 JukeBox &JukeBox::getInstance() {
     return jukeboxInstance;
 }
 
-bool JukeBox::addMusic(const std::string &name, const std::string &fileName)
-{
+/*
+ * Methods
+ */
+bool JukeBox::addMusic(const std::string &name, const std::string &fileName) {
     return musicMap[name].openFromFile(fileName);
 }
 
-bool JukeBox::addSound(const std::string &name, const std::string &fileName)
-{
+bool JukeBox::addSound(const std::string &name, const std::string &fileName) {
     sf::SoundBuffer buffer;
 
     return bufferMap[name].loadFromFile(fileName);
 }
 
-void JukeBox::playMusic(const std::string &name)
-{
+void JukeBox::playMusic(const std::string &name) {
     musicMap[name].play();
 }
 
-void JukeBox::playSound(const std::string &name)
-{
+void JukeBox::playSound(const std::string &name) {
     sf::Sound sound;
 
     sound.setBuffer(bufferMap[name]);
@@ -46,9 +50,8 @@ void JukeBox::playSound(const std::string &name)
     deleteEndedFile();
 }
 
-void JukeBox::deleteEndedFile()
-{
-    soundList.remove_if([](const sf::Sound &sound){return sound.getStatus() == sf::SoundSource::Stopped;});
+void JukeBox::deleteEndedFile() {
+    soundList.remove_if([](const sf::Sound &sound) { return sound.getStatus() == sf::SoundSource::Stopped; });
 }
 
 

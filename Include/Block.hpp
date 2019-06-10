@@ -9,31 +9,31 @@
 #define BLOCK_HPP
 
 #include <string>
-//#include <memory> // ?
-#include <map> // ?
+#include <regex>
 #include <irrlicht/irrlicht.h>
+
 #include "Window.hpp"
+#include "Utility.hpp"
 
 using namespace std;
 using namespace irr;
 
-using namespace core; // tmp
+using namespace core;
 using namespace scene;
 using namespace video;
 using namespace io;
 using namespace gui;
 
-typedef vector3d<uint> vector3du; // TODO ? move in Type.hpp or Utility.hpp
-
-class Block
-{
+class Block {
 public:
-    Block(Window *window, const std::string &_type, const vector3du &position);
+    Block(const std::string &_type, const vector3du &position);
     ~Block();
     const std::string &getType() const;
     const bool &getOpaque() const;
     const bool &getDestructible() const;
     const uint &getLifeTime() const;
+
+public:
     void update();
 
 private:
@@ -47,6 +47,4 @@ private:
     ISceneNode *cube;
 };
 
-//const std::map<std::string, unique_ptr<Block>> createBlockMap(Window &window, const std::string &path = "Resources/Block");
-
-#endif
+#endif /* !BLOCK_HPP */

@@ -152,7 +152,7 @@ void client(const sf::IpAddress &ip, const ushort &port) //put player in param
     FormattedSocket client;
     Window &window = Window::getInstance();
     //World myWorld(&window, "TODO"); // Todo put pointer on world constructor. this we allow us to put NULL in constructor
-    Player myPlayer(NULL, "Bomberman", "Bob", NULL, vector3du(1, 1 ,1));
+    Player myPlayer("Bomberman", "Bob", NULL, vector3du(1, 1 ,1));
     myPlayer.changeTexture("Default");
     if (!client.connect(ip, port))
         throw Error("an error has been detected in Connect function");
@@ -171,7 +171,7 @@ void client(const sf::IpAddress &ip, const ushort &port) //put player in param
     if (client.type != Message)
         throw Error("message error");
     cout << client.message << endl;
-    World world(&window, "Resources/Map/" + client.message);
+    World world("Resources/Map/" + client.message);
     vector<unique_ptr<Player>> playerList;
 
     //nb powerup
@@ -196,7 +196,7 @@ void client(const sf::IpAddress &ip, const ushort &port) //put player in param
         if (client.type != Position)
             throw Error("Position error");
         vector3du powerUpPosition = client.position;
-        powerUpList.push_back(unique_ptr<PowerUp>(new PowerUp(&window, powerUpType, &world, powerUpPosition)));
+        powerUpList.push_back(unique_ptr<PowerUp>(new PowerUp(powerUpType, &world, powerUpPosition)));
         powerUpList.back()->update();
     }
     if (!client.receive())
@@ -230,7 +230,7 @@ void client(const sf::IpAddress &ip, const ushort &port) //put player in param
             throw Error("Position error");
         vector3du position = client.position;
 
-        playerList.push_back(unique_ptr<Player>(new Player(&window, fileName, name, &world, position)));
+        playerList.push_back(unique_ptr<Player>(new Player(fileName, name, &world, position)));
         playerList.back()->changeTexture(texture);
     }
     if (!client.receive())

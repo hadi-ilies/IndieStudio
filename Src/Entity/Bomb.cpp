@@ -7,29 +7,33 @@
 
 #include "Entity/Bomb.hpp"
 
-Bomb::Bomb(Window *window, const std::string &_type, const uint &_power, World *world, const vector3du &position)
-    : Entity(window, "Bomb" + _type, world, position), type(_type), power(_power), tick(8)
-{
+/*
+ * Constructors // Desctructors
+ */
+Bomb::Bomb(const std::string &_type, const uint &_power, World *world, const vector3du &position) : Entity("Bomb" + _type, world, position),
+                                                                                                    type(_type), power(_power), tick(8) {
     // TODO ? put a invisible block
 }
 
-Bomb::~Bomb()
-{
+Bomb::~Bomb() {
     // TODO ? remove the invisible block
 }
 
-const std::string &Bomb::getType() const
-{
+/*
+ * Getters // Setters
+ */
+const std::string &Bomb::getType() const {
     return type;
 }
 
-const uint &Bomb::getPower() const
-{
+const uint &Bomb::getPower() const {
     return power;
 }
 
-void Bomb::update()
-{
+/*
+ * Methods
+ */
+void Bomb::update() {
     Entity::update();
     if (world->getBlock(position) && world->getBlock(position)->getType() == "Fire")
         tick = 0;
@@ -39,9 +43,7 @@ void Bomb::update()
         tick--;
 }
 
-#include <iostream> // tmp
-void Bomb::detonate()
-{
+void Bomb::detonate() {
     world->explode(position, power);
     power = 0;
     cerr << "BOOMMMMM !!!!!" << endl;

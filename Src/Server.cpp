@@ -1,3 +1,5 @@
+#include <memory>
+
 /*
 ** EPITECH PROJECT, 2019
 ** Bomberman
@@ -19,7 +21,7 @@ using namespace irr;
 
 void server(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer)
 {
-    World world(NULL, "Resources/Map/" + worldFileName);
+    World world("Resources/Map/" + worldFileName);
     std::vector<unique_ptr<Player>> playerList;
     std::vector<unique_ptr<PowerUp>> powerUpList;
 
@@ -27,7 +29,7 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
         for (uint j = 0; j < world.getSize().Y; j++)
             for (uint k = 0; k < world.getSize().Z; k++)
                 if (world.getBlock(vector3du(i, j, k)) && world.getBlock(vector3du(i, j, k))->getDestructible() && rand() % 2)
-                    powerUpList.push_back(unique_ptr<PowerUp>(new PowerUp(NULL, rand() %  2 ? "FireUp" : "BombUp", &world, vector3du(i, j, k)))); // tmp type
+                    powerUpList.push_back(std::make_unique<PowerUp>(rand() %  2 ? "FireUp" : "BombUp", &world, vector3du(i, j, k))); // tmp type
     sf::TcpListener listener;
     std::vector<unique_ptr<FormattedSocket>> socketList;
 
@@ -35,7 +37,7 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
     if (listener.listen(port) != sf::Socket::Done)
         throw Error("listen failed");
     while (playerList.size() < nbPlayer) {
-        unique_ptr<FormattedSocket> socket = unique_ptr<FormattedSocket>(new FormattedSocket);
+        unique_ptr<FormattedSocket> socket = std::make_unique<FormattedSocket>();
         std::string fileName;
         std::string texture;
         std::string name;
@@ -67,7 +69,7 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
                 position = vector3du(world.getSize().X - 2, 1, 1);
             else if (playerList.size() == 3)
                 position = vector3du(world.getSize().X - 2, 1, world.getSize().Z - 2);
-            unique_ptr<Player> player = unique_ptr<Player>(new Player(NULL, fileName, name, &world, position));
+            unique_ptr<Player> player = unique_ptr<Player>(new Player(fileName, name, &world, position));
 
             player->changeTexture(texture);
             //throw Error("texture doesn't exist");
