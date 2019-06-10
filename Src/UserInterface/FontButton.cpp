@@ -25,12 +25,14 @@ FontButton::~FontButton()
 
 bool FontButton::animation(Window *window, const vector3df &destPos, const f32 &timestamps)
 {
-    if (!animHasFinished())
-        return false;
+  //  if (!animHasFinished())
+   //     return false;
     vector3df test = position;
+    vector3df destTest = destPos;
     for (auto character : button->getCharacterList()) {
-        anim = window->createTranslation(test, destPos, timestamps);
+        anim = window->createTranslation(test, destTest, timestamps);
         position = destPos;
+        destTest.X += 1.50;
         if (anim) {
             character->addAnimator(anim);
             anim->drop();
