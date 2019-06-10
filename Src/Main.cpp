@@ -95,7 +95,7 @@ int main(int argc, char **argv)
         if (argc == 2 && strncmp(argv[1], "menu", strlen(argv[1])) == 0) {
             std::cout << "i have to call UI class\n"<< std::endl;
             Window &window = Window::getInstance();
-            UserInterface userInterface(&window);
+            UserInterface userInterface;
             userInterface.create();
             userInterface.setBackGround("demo.jpg");
             if (userInterface.demo()) {

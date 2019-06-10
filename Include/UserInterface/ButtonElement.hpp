@@ -10,12 +10,15 @@
 #include "UserInterface/MenuElement.hpp"
 #include "UserInterface/Button.hpp"
 
+/*
 class ButtonElement : public MenuElement {
-	public:
-		ButtonElement(Window *window, const vector3df &position, const std::string &name, const std::string &model, const std::string &texture);
-	    ~ButtonElement();
-        Button *getButton() const;
-	private:
-       Button *button;
+public:
+    ButtonElement(const vector3df &position, const std::string &name, const std::string &model, const std::string &texture);
+    ~ButtonElement();
+    Button *getButton() const;
+
+private:
+    Button *button;
 };
+*/
 

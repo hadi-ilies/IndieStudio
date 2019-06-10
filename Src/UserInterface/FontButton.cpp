@@ -5,32 +5,35 @@
 ** FontButton
 */
 
-#include "Error.hpp"
 #include "UserInterface/FontButton.hpp"
+#include "Error.hpp"
 
-FontButton::FontButton(Window *window, const vector3df &position, const std::string &name)
-    : AButton(window, position, name, "Font")
-{
-    if (window) {
-        button = window->addText(name);
-        if (!button)
-            throw Error("button can not be created");
-        button->setPosition(position);
-    }
+/*
+ * Constructors // Destructors
+ */
+FontButton::FontButton(const vector3df &position, const std::string &name) : AButton(position, name, "Font") {
+    button = Window::getInstance().addText(name);
+    if (!button)
+        throw Error("button can not be created");
+    button->setPosition(position);
 }
 
-FontButton::~FontButton()
-{
-}
+FontButton::~FontButton() = default;
 
-bool FontButton::animation(Window *window, const vector3df &destPos, const f32 &timestamps)
-{
-  //  if (!animHasFinished())
-   //     return false;
+/*
+ * Getters // Setters
+ */
+
+/*
+ * Methods
+ */
+bool FontButton::animation(const vector3df &destPos, const f32 &timestamps) {
+    //  if (!isAnimationFinished())
+    //     return false;
     vector3df test = position;
     vector3df destTest = destPos;
     for (auto character : button->getCharacterList()) {
-        anim = window->createTranslation(test, destTest, timestamps);
+        anim = Window::getInstance().createTranslation(test, destTest, timestamps);
         position = destPos;
         destTest.X += 1.50;
         if (anim) {

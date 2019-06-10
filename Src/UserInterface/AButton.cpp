@@ -7,26 +7,30 @@
 
 #include "UserInterface/AButton.hpp"
 
-AButton::AButton(Window *window, const vector3df &position, const std::string &name, const std::string &type)
-    : window(window), position(position), name(name), anim(NULL), type(type)
-{
+/*
+ * Constructors // Destructors
+ */
+AButton::AButton(const vector3df &position, std::string name, std::string type) : position(position), name(std::move(name)), anim(nullptr),
+                                                                                  type(std::move(type)) {
 }
 
-AButton::~AButton()
-{
-}
+AButton::~AButton() = default;
 
-const std::string AButton::getName() const
-{
+/*
+ * Getters // Setters
+ */
+const std::string AButton::getName() const {
     return name;
 }
 
-vector3df AButton::getPosition() const
-{
+vector3df AButton::getPosition() const {
     return position;
 }
 
-bool AButton::animHasFinished() const
-{
+bool AButton::isAnimationFinished() const {
     return !anim || anim->hasFinished();
 }
+
+/*
+ * Methods
+ */

@@ -10,14 +10,15 @@
 #include <memory>
 #include <vector>
 #include <map>
-#include "UserInterface/Button.hpp"
+
 #include "UserInterface/Wheel.hpp"
 #include "UserInterface/MenuElement.hpp"
 #include "Window.hpp"
+#include "CameraMove.hpp"
 
 class Menu {
 public:
-	Menu(Window *window, const std::string name, const vector3df &cameraPos, const vector3df &targetPos);
+	Menu(std::string name, const vector3df &cameraPos, const vector3df &targetPos);
 	~Menu();
     const std::string getName() const;
     std::string getCurrentButtonTexture() const;
@@ -37,7 +38,6 @@ private:
     const std::string name;
     const vector3df position;
     const vector3df targetPosition;
-    Window *window;
     Menu *prevMenu;
     std::vector<MenuElement *> MenuElements;
     std::map<std::string, Menu *> linkMap;

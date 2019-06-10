@@ -14,7 +14,7 @@
 #include "Window.hpp"
 #include "Menu.hpp"
 #include "World.hpp"
-#include "Entity/Player.hpp""
+#include "Entity/Player.hpp"
 
 class UserInterface {
 public:
