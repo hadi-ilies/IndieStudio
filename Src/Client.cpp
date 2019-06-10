@@ -150,7 +150,7 @@ static void game(Window &window, FormattedSocket &client, World &world, vector<u
 void client(const sf::IpAddress &ip, const ushort &port) //put player in param
 {
     FormattedSocket client;
-    Window window("Bomberman", dimension2d<u32>(1920 / 2, 1080 / 2), false);
+    Window &window = Window::getInstance();
     //World myWorld(&window, "TODO"); // Todo put pointer on world constructor. this we allow us to put NULL in constructor
     Player myPlayer(NULL, "Bomberman", "Bob", NULL, vector3du(1, 1 ,1));
     myPlayer.changeTexture("Default");

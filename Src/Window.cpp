@@ -7,6 +7,12 @@
 
 #include "Window.hpp"
 
+Window Window::windowInstance = Window("Bomberman", dimension2d<u32>(1920, 1080), false);
+
+Window &Window::getInstance() {
+    return windowInstance;
+}
+
 Window::Window(const std::string &windowName, dimension2d<u32> size, const bool &fullscreen)
     : irrFontBuffer("Resources/Font/Prototype.ttf", "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), debug(false)
 {

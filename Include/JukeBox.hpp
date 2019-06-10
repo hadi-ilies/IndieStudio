@@ -15,26 +15,7 @@
 
 using namespace boost::filesystem;
 
-/*
 class JukeBox
-{
-public:
-    bool addMusic(const std::string &name, const std::string &fileName);
-    bool addSound(const std::string &name, const std::string &fileName);
-    void playMusic(const std::string &name);
-    void playSound(const std::string &name);
-
-private:
-    void deleteEndedFile();
-
-private:
-    std::list<sf::Sound> soundList;
-    std::map<std::string, sf::Music> musicMap;
-    std::map<std::string, sf::SoundBuffer> bufferMap;
-};
-*/
-
-class JukeBox // TODO
 {
 public:
     static JukeBox &getInstance();
@@ -44,8 +25,8 @@ public:
     void playSound(const std::string &name);
 
 private:
-    JukeBox& operator= (const JukeBox&){}
-    JukeBox (const JukeBox&){}
+    JukeBox& operator=(const JukeBox&){}
+    JukeBox(const JukeBox&){}
     JukeBox();
     ~JukeBox();
     void deleteEndedFile();
@@ -55,6 +36,6 @@ private:
     std::list<sf::Sound> soundList;
     std::map<std::string, sf::Music> musicMap;
     std::map<std::string, sf::SoundBuffer> bufferMap;
-    };
+};
 
 #endif

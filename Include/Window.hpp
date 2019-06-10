@@ -27,8 +27,7 @@ using namespace gui;
 class Window
 {
 public:
-    Window(const std::string &windowName, dimension2d<u32> size, const bool &fullscreen);
-    ~Window();
+    static Window &getInstance();
     const bool &getDebugMode() const;
     void setDebugMode(const bool &active);
     void close();
@@ -43,13 +42,17 @@ public:
     ICameraSceneNode *getCameraSceneNode(const vector3df &pointOfView, const vector3df &lookAt); // ?
     bool isKeyPressed(const irr::EKEY_CODE &keyCode) const;
     void changeSkybox(const std::string &fileName);
-    void applyCameraMove(const CameraMove &cameraMoove); // tmp
-    void debugMode(const bool &active);
+    void applyCameraMove(const CameraMove &cameraMoove);
 
 private:
+    /*Window& operator=(const Window&){}
+    Window(const Window&){}*/
+    Window(const std::string &windowName, dimension2d<u32> size, const bool &fullscreen);
+    ~Window();
     void debugMode();
 
 private:
+    static Window windowInstance;
     IrrFontBuffer irrFontBuffer;
     EventReceiver receiver;
     IrrlichtDevice *device;

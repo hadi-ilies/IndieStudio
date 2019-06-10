@@ -29,7 +29,7 @@ void client(const sf::IpAddress &ip, const ushort &port);
 
 bool Demo()
 {
-    Window window("Bomberman", dimension2d<u32>(1920, 1080), false);
+    Window &window = Window::getInstance();
     window.changeSkybox("Resources/Texture/demo.jpg");
     CameraMove cameraMoove;
     World world(&window, "Resources/Map/DemoWithoutEdge");
@@ -57,7 +57,7 @@ int main(int argc, char **argv)
         srand(time(NULL));
         if (argc == 2 && strncmp(argv[1], "menu", strlen(argv[1])) == 0) {
             std::cout << "i have to call UI class\n"<< std::endl;
-            Window window("Bomberman", dimension2d<u32>(1920 / 2, 1080 / 2), false);
+            Window &window = Window::getInstance();
             UserInterface userInterface(&window);
             userInterface.create();
             userInterface.setBackGround("demo.jpg");
