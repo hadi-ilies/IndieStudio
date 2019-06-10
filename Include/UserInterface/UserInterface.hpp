@@ -9,26 +9,29 @@
 
 #include <vector>
 #include <memory>
+#include <thread>
+
 #include "Window.hpp"
 #include "Menu.hpp"
 #include "World.hpp"
-#include "Entity/Player.hpp"
-#include "Entity/PowerUp.hpp" //?
-#include "FormattedSocket.hpp"
+#include "Entity/Player.hpp""
 
 class UserInterface {
 public:
-	UserInterface(Window *window);
+	UserInterface();
 	~UserInterface();
     void setBackGround(const std::string &backGround);
+
+public:
     void create();
     bool demo();
     void run(const vector3df &cameraPos, const vector3df &cameraTarget);
+
 private:
-    Menu *createMenuBomberman(Window *window);
-    void linkButtonToMenu(Window *window, Menu *menu);
+    Menu *createMenuBomberman();
+    void linkButtonToMenu();
+
 private:
-    Window *window;
     Menu *menu;
     scene::ICameraSceneNode *camera;
     bool lock;
