@@ -39,6 +39,31 @@ void client(const sf::IpAddress &ip, const ushort &port);
     }
     return true;
  */
+/*
+ * void WindowMove::runDemo() {
+    Window &window = Window::getInstance();
+    JukeBox &jukeBox = JukeBox::getInstance();
+    World world("Resources/Map/DemoWithoutEdge");
+
+    window.changeSkybox("Resources/Texture/demo.jpg");
+    CameraMove cameraMove1;
+    CameraMove cameraMove2;
+
+    cameraMove1.generateDemoFirstMove();
+    cameraMove2.generateDemoSecondMove();
+    cameraMove2.setLoop(true);
+
+    window.applyCameraMove(cameraMove1); // tmp
+    window.applyCameraMove(cameraMove2);
+
+    jukeBox.addMusic("DemoMusic", "Resources/Sound_Effects/Musics/DemoMusic.ogg");
+    jukeBox.playMusic("DemoMusic");
+}
+
+void WindowMove::runUI() {
+    // TODO
+}
+ */
 bool Demo()
 {
     Window &window = Window::getInstance();
