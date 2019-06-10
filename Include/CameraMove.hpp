@@ -25,6 +25,7 @@ public:
     const bool &getLoop() const;
     void setTarget(const vector3df &pos);
     void setSpeed(const float &_speed);
+    void setLoop(bool loop);
 
 public:
     void addPoint(const vector3df &point);

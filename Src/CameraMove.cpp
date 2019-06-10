@@ -54,6 +54,10 @@ void CameraMove::setSpeed(const float &_speed) {
     speed = _speed;
 }
 
+void CameraMove::setLoop(bool _loop) {
+    CameraMove::loop = _loop;
+}
+
 /*
  * Methods
  */
