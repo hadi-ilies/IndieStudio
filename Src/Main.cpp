@@ -27,6 +27,18 @@ using namespace gui;
 void server(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer);
 void client(const sf::IpAddress &ip, const ushort &port);
 
+/*
+ *  WindowMove windowMove;
+    Window &window = Window::getInstance();
+    World world("Resources/Map/DemoWithoutEdge");
+
+    windowMove.runDemo();
+
+    while (window.isOpen()) {
+        window.display(); //move player
+    }
+    return true;
+ */
 bool Demo()
 {
     Window &window = Window::getInstance();
