@@ -5,7 +5,7 @@
 ** UserInterface
 */
 
-#include "JukeBox.hpp"
+#include "UserInterface/UserInterface.hpp"
 #include "Error.hpp"
 
 /*

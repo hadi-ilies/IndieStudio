@@ -14,6 +14,7 @@
 #include "Window.hpp"
 #include "Menu.hpp"
 #include "World.hpp"
+#include "JukeBox.hpp"
 #include "Entity/Player.hpp"
 
 class UserInterface {
