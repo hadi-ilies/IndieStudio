@@ -8,13 +8,10 @@
 #ifndef JUKEBOX_HPP
 #define JUKEBOX_HPP
 
-#include <iostream>
 #include <map>
 #include <boost/filesystem.hpp>
 #include <SFML/Network.hpp>
 #include <SFML/Audio.hpp>
-
-#include "UserInterface/UserInterface.hpp" // ???
 
 class JukeBox {
 public:
@@ -33,7 +30,7 @@ private:
     JukeBox(const JukeBox&) = delete;
     JukeBox() = default;
     ~JukeBox() = default;
-    void deleteEndedFile();
+    void deleteEndOfSound();
 
 private:
     static JukeBox jukeboxInstance;

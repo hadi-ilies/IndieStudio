@@ -40,7 +40,14 @@ void JukeBox::playSound(const std::string &name) {
     sound.setBuffer(bufferMap[name]);
     sound.play();
     soundMap[name] = sound;
-    deleteEndedFile();
+    deleteEndOfSound();
+}
+
+void JukeBox::deleteEndOfSound() {
+    for (auto it = soundMap.begin() ; it != soundMap.end() ; it++) {
+        if (it->second.getStatus() == sf::SoundSource::Stopped)
+            soundMap.erase(it);
+    }
 }
 
 void JukeBox::pauseMusic(const std::string &name) {

@@ -96,7 +96,7 @@ bool UserInterface::demo() {
     Window::getInstance().setDebugMode(true); // tmp
     JukeBox::getInstance().addMusic("demo", "Resources/Music/DemoMusic.ogg");
     JukeBox::getInstance().playMusic("demo");
-    
+
     while (Window::getInstance().isOpen()) {
         if (animation && animation->hasFinished()) {
             animation = Window::getInstance().applyCameraMove(cameraSecondMove);
