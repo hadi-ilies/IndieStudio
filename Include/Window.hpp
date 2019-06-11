@@ -42,7 +42,7 @@ public:
     ICameraSceneNode *getCameraSceneNode(const vector3df &pointOfView, const vector3df &lookAt); // ?
     bool isKeyPressed(const irr::EKEY_CODE &keyCode) const;
     void changeSkybox(const std::string &fileName);
-    void applyCameraMove(const CameraMove &cameraMoove);
+    ISceneNodeAnimator *applyCameraMove(const CameraMove &cameraMoove);
 
 private:
     /*Window& operator=(const Window&){}

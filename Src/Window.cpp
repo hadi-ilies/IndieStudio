@@ -83,7 +83,7 @@ ISceneNode *Window::addCube(const std::string &texture) {
     scene::ISceneNode *node = smgr->addCubeSceneNode(1);
 
     if (!node)
-        return NULL;
+        return nullptr;
     node->setMaterialTexture(0, driver->getTexture(texture.c_str())); // ? throw if getTexture failed
     node->setMaterialFlag(video::EMF_LIGHTING, false);
     return node;
@@ -94,7 +94,7 @@ IAnimatedMeshSceneNode *Window::addAnimatedMesh(const std::string &model, const 
     IAnimatedMeshSceneNode *node;
 
     if (!mesh)
-        return NULL;
+        return nullptr;
     node = smgr->addAnimatedMeshSceneNode(mesh);
     if (node) {
         node->setMaterialFlag(EMF_LIGHTING, false);
@@ -134,7 +134,7 @@ void Window::changeSkybox(const std::string &fileName) {
     smgr->addSkyDomeSceneNode(getTexture(fileName));
 }
 
-void Window::applyCameraMove(const CameraMove &cameraMoove) {
+ISceneNodeAnimator *Window::applyCameraMove(const CameraMove &cameraMoove) {
     scene::ICameraSceneNode *camera = nullptr;
     scene::ISceneNodeAnimator *sa = nullptr;
 
@@ -143,6 +143,7 @@ void Window::applyCameraMove(const CameraMove &cameraMoove) {
                                           cameraMoove.getTightness(), cameraMoove.getLoop());
     camera->addAnimator(sa);
     sa->drop();
+    return sa;
 }
 
 void Window::debugMode() {
