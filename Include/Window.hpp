@@ -52,7 +52,7 @@ private:
     void debugMode();
 
 private:
-    static Window windowInstance; // ????
+    static Window windowInstance; // ? // TODO rename instance // TODO use unique_ptr
     IrrFontBuffer irrFontBuffer;
     EventReceiver receiver;
     IrrlichtDevice *device;
