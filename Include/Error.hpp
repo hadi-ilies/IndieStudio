@@ -19,30 +19,30 @@
 #include <string>
 #include <sstream>
 
-class Error : public std::exception {
+class Error : public std::exception // TODO move in cpp
+{
 public:
-    explicit Error(std::string what = "unknown", std::string file = "unknown", std::string function = "unknown", int line = 0) : _what(
-            std::move(what)), _file(std::move(file)), _function(std::move(function)), _line(line) {};
+    explicit Error(std::string what = "unknown", std::string file = "unknown", std::string function = "unknown", size_t line = 0)
+        : _what(std::move(what)), _file(std::move(file)), _function(std::move(function)), _line(line) {};
     ~Error() = default;
 
 public:
-    const char *what() const noexcept override {
-        return this->_what.c_str();
-    }
-    const char *where() {
-        std::stringstream ss;
+    const char *what() const noexcept override
+        {
+            return this->_what.c_str();
+        }
+    const char *where()
+        {
+            std::string where = this->_file + " : " + this->_function + " : " + to_string(this->_line);
 
-        ss << this->_file << " : " << this->_function << " : " << this->_line;
-        this->_where = ss.str();
-        return this->_where.c_str();
-    }
+            return where.c_str();
+        }
 
 protected:
-    std::string _what;
-    std::string _where;
-    std::string _file;
-    std::string _function;
-    int _line;
+    const std::string _what;
+    const std::string _file;
+    const std::string _function;
+    const size_t _line;
 };
 
 #endif /* !ERROR_HPP */
