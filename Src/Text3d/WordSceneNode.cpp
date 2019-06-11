@@ -15,11 +15,6 @@ WordSceneNode::WordSceneNode(scene::ISceneManager *smgr, const std::string &_str
     setPosition(core::vector3df(0, 0, 0));
 }
 
- std::vector<CharacterSceneNode*> WordSceneNode::getCharacterList() const
-{
-    return characterList;
-}
-
 void WordSceneNode::setPosition(const core::vector3df &position)
 {
     core::vector3df pos = position;
@@ -29,3 +24,20 @@ void WordSceneNode::setPosition(const core::vector3df &position)
         pos.X += character->getAdvance() / 50.0; // TODO replace /50.0 with ...
     }
 }
+
+std::vector<CharacterSceneNode*> WordSceneNode::getCharacterList()
+{
+    return characterList;
+}
+
+/*void WordSceneNode::setRotation(const core::vector3df &rotation)
+{
+    // TODO
+}
+
+void WordSceneNode::addAnimator(scene::ISceneNodeAnimator *animator)
+{
+    for (auto &character : characterList) { // TODO
+        character->addAnimator(animator);
+    }
+    }*/

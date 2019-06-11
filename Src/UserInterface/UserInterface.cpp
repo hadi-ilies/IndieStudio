@@ -93,7 +93,7 @@ bool UserInterface::demo() {
     window.applyCameraMove(cameraMoove);
 
     window.setDebugMode(true); // tmp
-    jukeBox.addMusic("test", "Resources/Sound_Effects/Musics/DemoMusic.ogg");
+    jukeBox.addMusic("test", "Resources/Sound_Effects/Music/DemoMusic.ogg");
     jukeBox.playMusic("test");
 
     while (window.isOpen()) {

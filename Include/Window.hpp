@@ -52,7 +52,7 @@ private:
     void debugMode();
 
 private:
-    static Window windowInstance;
+    static Window windowInstance; // ????
     IrrFontBuffer irrFontBuffer;
     EventReceiver receiver;
     IrrlichtDevice *device;

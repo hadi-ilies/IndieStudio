@@ -56,7 +56,7 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
     window.applyCameraMove(cameraMove1); // tmp
     window.applyCameraMove(cameraMove2);
 
-    jukeBox.addMusic("DemoMusic", "Resources/Sound_Effects/Musics/DemoMusic.ogg");
+    jukeBox.addMusic("DemoMusic", "Resources/Music/DemoMusic.ogg");
     jukeBox.playMusic("DemoMusic");
 }
 
@@ -79,7 +79,7 @@ bool Demo()
 
     //world.debugAff();
     window.setDebugMode(true); // tmp
-    jukeBox.addMusic("test", "Resources/Sound_Effects/Musics/DemoMusic.ogg");
+    jukeBox.addMusic("test", "Resources/Music/DemoMusic.ogg");
     jukeBox.playMusic("test");
     while (window.isOpen()) {
         world.update();
