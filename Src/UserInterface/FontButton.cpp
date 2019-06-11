@@ -14,7 +14,7 @@
 FontButton::FontButton(const vector3df &position, const std::string &name) : AButton(position, name, "Font") {
     button = Window::getInstance().addText(name);
     if (!button)
-        throw Error("button can not be created");
+        throw Error("button can not be created", "FontButton");
     button->setPosition(position);
 }
 

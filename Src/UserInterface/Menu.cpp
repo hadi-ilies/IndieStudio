@@ -76,8 +76,8 @@ bool Menu::getKey() {
     return false;
 }
 
-bool Menu::linkMenu(const std::string &name, Menu *menu) {
-    linkMap[name] = menu;
+bool Menu::linkMenu(const std::string &_name, Menu *menu) {
+    linkMap[_name] = menu;
 }
 
 bool Menu::addWheel(const vector3df &_position, const float &radius, const std::vector<std::string> &buttonsNames) {
