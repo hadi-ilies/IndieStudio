@@ -22,11 +22,11 @@ IrrFont::IrrFont(const sf::Font &font, const char &_c)
     sf::RenderTexture renderTexture;
 
     if (!renderTexture.create(tmpSprite.getGlobalBounds().width, tmpSprite.getGlobalBounds().height))
-        throw Error("error font");
+        throw Error("font");
     renderTexture.clear(sf::Color::Transparent);
-    std::cout << "Hello = > " << &renderTexture << std::endl;
+    std::cout << "Hello = > " << &renderTexture << std::endl; // tmp
     renderTexture.draw(tmpSprite);
-    std::cout << "MDR" << std::endl;
+    std::cout << "MDR" << std::endl; // tmp
     renderTexture.display();
     const sf::Texture &charTexture = renderTexture.getTexture();
     sf::Image image = charTexture.copyToImage();
@@ -50,6 +50,7 @@ IrrFont::IrrFont(const sf::Font &font, const char &_c)
         }
     for (size_t i = 0; i < pointList.size(); i++)
         indiceList.push_back(i);
+    primitiveType = scene::EPT_LINE_LOOP;
     cerr << "pre generate character '" << c << "'" << endl;
 }
 
@@ -71,4 +72,9 @@ const std::vector<core::vector3df> &IrrFont::getPointList() const
 const std::vector<u16> &IrrFont::getIndiceList() const
 {
     return indiceList;
+}
+
+const scene::E_PRIMITIVE_TYPE &IrrFont::getPrimitiveType() const
+{
+    return primitiveType;
 }

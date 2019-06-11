@@ -25,6 +25,8 @@ public:
 private:
     core::aabbox3d<f32> box;
     std::vector<video::S3DVertex> vertexList;
+    std::vector<u16> indiceList;
+    scene::E_PRIMITIVE_TYPE primitiveType;
     video::SMaterial material;
     const char c;
     const float advance;

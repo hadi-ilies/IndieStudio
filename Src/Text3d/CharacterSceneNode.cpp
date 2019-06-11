@@ -15,6 +15,8 @@ CharacterSceneNode::CharacterSceneNode(scene::ISceneManager *smgr, const IrrFont
 
     for (const core::vector3df &point : irrFont.getPointList())
         vertexList.push_back(video::S3DVertex(point, core::vector3df(0, 0, 0),video::SColor(255, 255, 0, 0),core::vector2df(0, 0)));
+    indiceList = irrFont.getIndiceList();
+    primitiveType = irrFont.getPrimitiveType();
 
     box.reset(vertexList[0].Pos);
     for (s32 i = 1; i < vertexList.size(); i++)
@@ -30,14 +32,11 @@ void CharacterSceneNode::OnRegisterSceneNode()
 
 void CharacterSceneNode::render()
 {
-    u16 indices[vertexList.size()]; // tmp use indiceList of ...
     video::IVideoDriver *driver = SceneManager->getVideoDriver();
 
-    for (uint i = 0; i < vertexList.size(); i++)
-        indices[i] = i;
     driver->setMaterial(material);
     driver->setTransform(video::ETS_WORLD, AbsoluteTransformation);
-    driver->drawVertexPrimitiveList(vertexList.data(), vertexList.size(), &indices[0], vertexList.size(), video::EVT_STANDARD, scene::EPT_LINE_LOOP, video::EIT_16BIT); // TODO move EPT_LINE_LOOP in IrrFont
+    driver->drawVertexPrimitiveList(vertexList.data(), vertexList.size(), indiceList.data(), indiceList.size(), video::EVT_STANDARD, primitiveType, video::EIT_16BIT);
 }
 
 const core::aabbox3d<f32> &CharacterSceneNode::getBoundingBox() const

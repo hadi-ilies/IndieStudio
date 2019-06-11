@@ -14,7 +14,7 @@
 class IrrFontBuffer
 {
 public:
-    IrrFontBuffer(const std::string &fileName, const std::string &cList);
+    IrrFontBuffer(const std::string &fileName, const std::string &cList = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
     ~IrrFontBuffer();
     IrrFont *getIrrFont(const char &c);
 

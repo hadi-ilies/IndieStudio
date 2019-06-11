@@ -23,12 +23,14 @@ public:
     const float &getAdvance() const;
     const std::vector<core::vector3df> &getPointList() const;
     const std::vector<u16> &getIndiceList() const;
+    const scene::E_PRIMITIVE_TYPE &getPrimitiveType() const;
 
 private:
     const char c;
     float advance;
     std::vector<core::vector3df> pointList;
     std::vector<u16> indiceList;
+    scene::E_PRIMITIVE_TYPE primitiveType;
 };
 
 #endif

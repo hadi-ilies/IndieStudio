@@ -11,8 +11,8 @@
  * Constructors // Destructors
  */
 Entity::Entity(const std::string &_fileName, World *_world, const vector3du &_position) : mesh(
-        Window::getInstance().addAnimatedMesh("Resources/Entity/" + _fileName + "/Model/Idle.md2",
-                                              "Resources/Entity/" + _fileName + "/Texture/Default.png")), world(_world),
+    Window::getInstance().addAnimatedMesh("Resources/Entity/" + _fileName + "/Model/Idle.md2",
+                                          "Resources/Entity/" + _fileName + "/Texture/Default.png")), world(_world),
                                                                                           position(_position), fileName(_fileName),
                                                                                           modelUse("Idle"), textureUse("Default") {
     init();
