@@ -19,7 +19,7 @@ Button::Button(const vector3df &position, const std::string &name, const std::st
     button = Window::getInstance().addAnimatedMesh((std::string) "Resources/Entity/" + model + "/Model/Idle.md2",
                                                    (std::string) "Resources/Entity/" + model + "/Texture/" + texture + ".png");
     if (!button)
-        throw Error("button can not be created", "Button");
+        throw ERROR("button can not be created");
     button->setPosition(position);
 }
 

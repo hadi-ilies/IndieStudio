@@ -1,5 +1,3 @@
-#include <memory>
-
 /*
 ** EPITECH PROJECT, 2019
 ** Bomberman
@@ -29,12 +27,12 @@ void serverLoop(FormattedSocket *client)
 {
     while (client->receive()) {
         if (client->type != StartTurn)
-            throw Error("Thread failed", __FILE__, __FUNCTION__, __LINE__);
+            throw ERROR("Thread failed");
         startTurn = true;
         while (startTurn && client->isConnected());
     }
     if (client->isConnected())
-        throw Error("Thread failed", __FILE__, __FUNCTION__, __LINE__);
+        throw ERROR("Thread failed");
 }
 
 static bool turnHasFinished(vector<unique_ptr<Player>> &playerList)
@@ -69,32 +67,32 @@ static void execPlayerAction(PlayerAction &key, FormattedSocket &client, World &
     if (playerList[playerId]->getHp()) {
         if (key == PutBomb) {
             if (!client.sendPlayerPutBomb())
-                throw Error("SendPlayerBomb error", __FILE__, __FUNCTION__, __LINE__);
+                throw ERROR("SendPlayerBomb error");
         }
         else if (key == Left) {
             if (!client.sendPlayerMove(vector2di(-1, 0)))
-                throw Error("SendPlayer(-1, 0)", __FILE__, __FUNCTION__, __LINE__);
+                throw ERROR("SendPlayer(-1, 0)");
         }
         else if (key == Right) {
             if (!client.sendPlayerMove(vector2di(1, 0)))
-                throw Error("SendPlayerMov(1, 0)", __FILE__, __FUNCTION__, __LINE__);
+                throw ERROR("SendPlayerMov(1, 0)");
         }
         else if (key == Up) {
             if (!client.sendPlayerMove(vector2di(0, 1)))
-                throw Error("SendPlayerMove(0, 1)", __FILE__, __FUNCTION__, __LINE__);
+                throw ERROR("SendPlayerMove(0, 1)");
         }
         else if (key == Down) {
             if (!client.sendPlayerMove(vector2di(0, -1)))
-                throw Error("SendPlayerMove(0, -1)", __FILE__, __FUNCTION__, __LINE__);
+                throw ERROR("SendPlayerMove(0, -1)");
         }
         else if (!client.sendPlayerMove(vector2di(0, 0)))
-            throw Error("SendPlayerMove(0, 0)", __FILE__, __FUNCTION__, __LINE__);
+            throw ERROR("SendPlayerMove(0, 0)");
     }
     else if (!client.sendPlayerMove(vector2di(0, 0)))
-        throw Error("SendPlayerMove(0, 0)", __FILE__, __FUNCTION__, __LINE__);
+        throw ERROR("SendPlayerMove(0, 0)");
     for (unique_ptr<Player> &player: playerList) {
         if (!client.receive())
-            throw Error("Client receiver", __FILE__, __FUNCTION__, __LINE__);
+            throw ERROR("Client receiver");
         if (client.type == PlayerMove)
             player->move(client.direction);
         //check colision enenmies
@@ -138,7 +136,7 @@ static void game(Window &window, FormattedSocket &client, World &world, vector<u
         if (endTurn)
             if (turnHasFinished(playerList)) {
                 if (!client.sendEndTurn())
-                    throw Error("SendEndTurn failed", __FILE__, __FUNCTION__, __LINE__);
+                    throw ERROR("SendEndTurn failed");
                 endTurn = false;
                 //key = None; control Corentin dont remove it
             }
@@ -157,7 +155,7 @@ void client(Player &myPlayer, const sf::IpAddress &ip, const ushort &port) //put
     //Player myPlayer("Bomberman", "Bob", NULL, vector3du(1, 1 ,1));
     //myPlayer.changeTexture("Default");
     if (!client.connect(ip, port))
-        throw Error("An error has been detected in Connect function", __FILE__, __FUNCTION__, __LINE__);
+        throw ERROR("An error has been detected in Connect function");
     size_t nbPlayer;
 
     std::cout << "FileName : " << myPlayer.getFileName() << std::endl;
@@ -169,18 +167,18 @@ void client(Player &myPlayer, const sf::IpAddress &ip, const ushort &port) //put
     client.sendMessage(myPlayer.getName());
 
     if (!client.receive())
-        throw Error("Receive error", __FILE__, __FUNCTION__, __LINE__);
+        throw ERROR("Receive error");
     if (client.type != Message)
-        throw Error("Message error", __FILE__, __FUNCTION__, __LINE__);
+        throw ERROR("Message error");
     cout << client.message << endl;
     World world("Resources/Map/" + client.message);
     vector<unique_ptr<Player>> playerList;
 
     //nb powerup
     if (!client.receive())
-        throw Error("Receive bonus error", __FILE__, __FUNCTION__, __LINE__);
+        throw ERROR("Receive bonus error");
     if (client.type != Number)
-        throw Error("uin32 error", __FILE__, __FUNCTION__, __LINE__);
+        throw ERROR("uin32 error");
     size_t nbPowerUp = client.number;
     //loop type position
     vector<unique_ptr<PowerUp>> powerUpList;
@@ -188,57 +186,57 @@ void client(Player &myPlayer, const sf::IpAddress &ip, const ushort &port) //put
     for (size_t i = 0; i < nbPowerUp; i++) {
         //type
         if (!client.receive())
-            throw Error("Message error", __FILE__, __FUNCTION__, __LINE__);
+            throw ERROR("Message error");
         if (client.type != Message)
-            throw Error("Type error", __FILE__, __FUNCTION__, __LINE__);
+            throw ERROR("Type error");
         std::string powerUpType = client.message;
         //position
         if (!client.receive())
-            throw Error("Message error", __FILE__, __FUNCTION__, __LINE__);
+            throw ERROR("Message error");
         if (client.type != Position)
-            throw Error("Position error", __FILE__, __FUNCTION__, __LINE__);
+            throw ERROR("Position error");
         vector3du powerUpPosition = client.position;
         powerUpList.push_back(std::make_unique<PowerUp>(powerUpType, &world, powerUpPosition));
         powerUpList.back()->update();
     }
     if (!client.receive())
-        throw Error("Receive error", __FILE__, __FUNCTION__, __LINE__);
+        throw ERROR("Receive error");
     if (client.type != Number)
-        throw Error("uin32 error", __FILE__, __FUNCTION__, __LINE__);
+        throw ERROR("uin32 error");
     nbPlayer = client.number;
 
     for (size_t i = 0; i < nbPlayer; i++) {
         if (!client.receive())
-            throw Error("Receive error", __FILE__, __FUNCTION__, __LINE__);
+            throw ERROR("Receive error");
         if (client.type != Message)
-            throw Error("Model error", __FILE__, __FUNCTION__, __LINE__);;
+            throw ERROR("Model error");;
         std::string fileName = client.message;
 
         if (!client.receive())
-            throw Error("Receive error", __FILE__, __FUNCTION__, __LINE__);
+            throw ERROR("Receive error");
         if (client.type != Message)
-            throw Error("Texture error", __FILE__, __FUNCTION__, __LINE__);;
+            throw ERROR("Texture error");
         std::string texture = client.message;
 
         if (!client.receive())
-            throw Error("Receive error", __FILE__, __FUNCTION__, __LINE__);
+            throw ERROR("Receive error");
         if (client.type != Message)
-            throw Error("Name error", __FILE__, __FUNCTION__, __LINE__);
+            throw ERROR("Name error");
         std::string name = client.message;
 
         if (!client.receive())
-            throw Error("Receive error", __FILE__, __FUNCTION__, __LINE__);
+            throw ERROR("Receive error");
         if (client.type != Position)
-            throw Error("Position error", __FILE__, __FUNCTION__, __LINE__);
+            throw ERROR("Position error");
         vector3du position = client.position;
 
         playerList.push_back(std::make_unique<Player>(fileName, name, &world, position));
         playerList.back()->changeTexture(texture);
     }
     if (!client.receive())
-        throw Error("Receive error", __FILE__, __FUNCTION__, __LINE__);
+        throw ERROR("Receive error");
     if (client.type != Number)
-        throw Error("uint32 error", __FILE__, __FUNCTION__, __LINE__);
+        throw ERROR("uint32 error");
     size_t playerId = client.number;
 
     game(window, client, world, powerUpList, playerList, playerId);

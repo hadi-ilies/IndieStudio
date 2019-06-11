@@ -19,7 +19,7 @@ Entity::Entity(const std::string &_fileName, World *_world, const vector3du &_po
 {
     init();
     if (!mesh)
-        throw Error("Mesh can't be created", __FILE__, __FUNCTION__, __LINE__);
+        throw ERROR("Mesh can't be created");
     mesh->setAnimationSpeed(350); // ?
 }
 
