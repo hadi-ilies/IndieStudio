@@ -27,77 +27,6 @@ using namespace gui;
 void client(Player &myPlayer, const sf::IpAddress &ip, const ushort &port);
 void server(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer);
 
-/*
- *  WindowMove windowMove;
-    Window &window = Window::getInstance();
-    World world("Resources/Map/DemoWithoutEdge");
-
-    windowMove.runDemo();
-
-    while (window.isOpen()) {
-        window.display(); //move player
-    }
-    return true;
- */
-/*
- * void WindowMove::runDemo() {
-    Window &window = Window::getInstance();
-    JukeBox &jukeBox = JukeBox::getInstance();
-    World world("Resources/Map/DemoWithoutEdge");
-
-    window.changeSkybox("Resources/Texture/demo.jpg");
-    CameraMove cameraMove1;
-    CameraMove cameraMove2;
-
-    cameraMove1.generateDemoFirstMove();
-    cameraMove2.generateDemoSecondMove();
-    cameraMove2.setLoop(true);
-
-    window.applyCameraMove(cameraMove1); // tmp
-    window.applyCameraMove(cameraMove2);
-
-    jukeBox.addMusic("DemoMusic", "Resources/Music/DemoMusic.ogg");
-    jukeBox.playMusic("DemoMusic");
-}
-
-void WindowMove::runUI() {
-    // TODO
-}
- */
-bool Demo()
-{
-    Window &window = Window::getInstance();
-    window.changeSkybox("Resources/Texture/BackgroundHD.jpg");
-    CameraMove cameraMoove;
-    CameraMove cameraMoveA;
-    World world("Resources/Map/DemoWithoutEdge");
-    JukeBox &jukeBox = JukeBox::getInstance();
-    Player player("Bomberman", "Bob", &world, vector3du(1, 1, 1));
-    bool spacePress = false; // tmp
-    cameraMoove.generateFirstMove();
-    cameraMoveA.setLoop(true);
-    scene::ISceneNodeAnimator *a = window.applyCameraMove(cameraMoove);
-
-    cameraMoveA.generateDemoSecondMove();
-
-    //window.applyCameraMove(cameraMoveA);
-
-    //world.debugAff();
-    window.setDebugMode(true); // tmp
-    jukeBox.addMusic("test", "Resources/Music/DemoMusic.ogg");
-    jukeBox.playMusic("test");
-    while (window.isOpen()) {
-        if (a && a->hasFinished()) {
-            a = window.applyCameraMove(cameraMoveA);
-        }
-        world.update();
-        player.update();
-        window.display(); //move player
-    }
-    return true;
-}
-//todo put demo + userinterface in a class
-
 int main(int argc, char **argv)
 {
     try {
@@ -107,9 +36,9 @@ int main(int argc, char **argv)
             Window &window = Window::getInstance();
             UserInterface userInterface;
             userInterface.create();
-            userInterface.setBackGround("demo.jpg");
+            //userInterface.setBackGround("BackgroundMenu.jpg");
             if (userInterface.demo()) {
-                userInterface.setBackGround("background.png");
+                userInterface.setBackGround("BackgroundMenu.jpg");
                 userInterface.run(vector3df(20, 0, 0), vector3df(10, 0, 0));
             }
         }
@@ -118,10 +47,6 @@ int main(int argc, char **argv)
         else if (argc == 4 && strncmp(argv[1], "client", strlen(argv[1])) == 0) {
             Player player("Bomberman", "Bob", NULL, vector3du(1, 1, 1));
             client(player, sf::IpAddress(argv[2]), std::atoi(argv[3]));
-        }
-        else {
-            cerr << "USE : " << argv[0] << " [server]" << endl;
-            Demo(); // tmp
         }
     }
     catch (const exception &e) {

@@ -87,7 +87,7 @@ bool UserInterface::demo() {
     World world("Resources/Map/DemoWithoutEdge");
     ISceneNodeAnimator *animation;
 
-    setBackGround("BackgroundHD.jpg");
+    setBackGround("BackgroundDemo.jpg");
     cameraFirstMove.generateFirstMove();
     cameraSecondMove.generateDemoSecondMove();
     cameraSecondMove.setLoop(true);
@@ -102,6 +102,7 @@ bool UserInterface::demo() {
             animation = Window::getInstance().applyCameraMove(cameraSecondMove);
         }
         if (Window::getInstance().isKeyPressed(KEY_KEY_P)) {
+            setBackGround("BackgroundMenu.jpg");
             JukeBox::getInstance().pauseMusic("demo");
            return true;
         }
