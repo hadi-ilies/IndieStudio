@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** for_norme
+** Bomberman
 ** File description:
 ** IrrFontBuffer.hpp
 */
@@ -14,7 +14,7 @@
 class IrrFontBuffer
 {
 public:
-    IrrFontBuffer(const std::string &fileName, const std::string &cList = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+    explicit IrrFontBuffer(const std::string &fileName, const std::string &cList = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
     ~IrrFontBuffer();
     IrrFont *getIrrFont(const char &c);
 
@@ -22,4 +22,4 @@ private:
     std::map<char, IrrFont*> irrFontMap; // TODO use unique_ptr
 };
 
-#endif
+#endif /* !IRRFONTBUFFER_HPP */
