@@ -25,6 +25,8 @@ public:
     void playSound(const std::string &name);
     void pauseSound(const std::string &name);
     void pauseMusic(const std::string &name);
+    void setVolumeMusic(float volume);
+    void setVolumeSound(float volume);
 
 private:
     JukeBox& operator=(const JukeBox&){}

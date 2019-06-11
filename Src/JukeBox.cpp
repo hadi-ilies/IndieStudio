@@ -65,4 +65,17 @@ void JukeBox::pauseSound(const std::string &name) {
     soundMap[name].pause();
 }
 
+void JukeBox::setVolumeMusic(float volume) {
+    for (auto & it : musicMap) {
+        it.second.setVolume(volume);
+    }
+}
+
+void JukeBox::setVolumeSound(float volume) {
+    for (auto & it : soundMap) {
+        if(it.second.getStatus() != sf::SoundSource::Stopped)
+            it.second.setVolume(volume);
+    }
+}
+
 
