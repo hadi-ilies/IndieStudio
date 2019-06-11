@@ -14,7 +14,7 @@
 #include <SFML/Network.hpp>
 #include <SFML/Audio.hpp>
 
-#include "UserInterface/UserInterface.hpp"
+#include "UserInterface/UserInterface.hpp" // ???
 
 class JukeBox {
 public:
@@ -27,10 +27,10 @@ public:
     void pauseMusic(const std::string &name);
 
 private:
-    JukeBox& operator=(const JukeBox&){}
-    JukeBox(const JukeBox&){}
-    JukeBox();
-    ~JukeBox();
+    JukeBox& operator=(const JukeBox&) = delete;
+    JukeBox(const JukeBox&) = delete;
+    JukeBox() = default;
+    ~JukeBox() = default;
     void deleteEndedFile();
 
 private:

@@ -8,14 +8,7 @@
 #include "JukeBox.hpp"
 #include "Error.hpp"
 
-JukeBox JukeBox::jukeboxInstance = JukeBox();
-
-/*
- * Constructors // Destructors
- */
-JukeBox::JukeBox() = default;
-
-JukeBox::~JukeBox() = default;
+JukeBox JukeBox::jukeboxInstance;
 
 /*
  * Getters // Setters
@@ -50,13 +43,6 @@ void JukeBox::playSound(const std::string &name) {
     deleteEndedFile();
 }
 
-void JukeBox::deleteEndedFile() {
-    for (auto it = soundMap.begin() ; it != soundMap.end() ; it++) {
-        if(it->second.getStatus() == sf::SoundSource::Stopped)
-            soundMap.erase(it);
-    }
-}
-
 void JukeBox::pauseMusic(const std::string &name) {
     musicMap[name].pause();
 }
@@ -65,4 +51,9 @@ void JukeBox::pauseSound(const std::string &name) {
     soundMap[name].pause();
 }
 
-
+void JukeBox::deleteEndedFile() {
+    for (auto it = soundMap.begin() ; it != soundMap.end() ; it++) {
+        if(it->second.getStatus() == sf::SoundSource::Stopped)
+            soundMap.erase(it);
+    }
+}

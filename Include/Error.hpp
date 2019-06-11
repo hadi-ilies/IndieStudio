@@ -28,7 +28,7 @@ public:
 
     const char *where() const {
         static std::string where = this->_file + " : " + this->_function
-                                   + " : " + to_string(this->_line);
+            + " : " + std::to_string(this->_line);
         return where.c_str();
     }
 
