@@ -38,7 +38,7 @@ int main(int argc, char **argv)
             userInterface.create();
             //userInterface.setBackGround("BackgroundMenu.jpg");
             if (userInterface.demo()) {
-                userInterface.setBackGround("BackgroundMenu.jpg");
+                userInterface.setBackGround("BackgroundDemo.jpg");
                 userInterface.run(vector3df(20, 0, 0), vector3df(10, 0, 0));
             }
         }

@@ -102,7 +102,6 @@ bool UserInterface::demo() {
             animation = Window::getInstance().applyCameraMove(cameraSecondMove);
         }
         if (Window::getInstance().isKeyPressed(KEY_KEY_P)) {
-            setBackGround("BackgroundMenu.jpg");
             JukeBox::getInstance().pauseMusic("demo");
            return true;
         }
