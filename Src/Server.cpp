@@ -7,7 +7,6 @@
 
 #include <iostream> // ?
 #include <vector> // ?
-#include "Window.hpp"
 #include "World.hpp"
 #include "Entity/Player.hpp"
 #include "Entity/PowerUp.hpp" // ?
@@ -33,7 +32,7 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
 
     cerr << "start server" << endl;
     if (listener.listen(port) != sf::Socket::Done)
-        throw Error("Listen failed", __FILE__, __FUNCTION__, __LINE__);
+        throw ERROR("Listen failed");
     while (playerList.size() < nbPlayer) {
         unique_ptr<FormattedSocket> socket = std::make_unique<FormattedSocket>();
         std::string fileName;
