@@ -67,21 +67,29 @@ void WindowMove::runUI() {
 bool Demo()
 {
     Window &window = Window::getInstance();
-    window.changeSkybox("Resources/Texture/demo.jpg");
+    window.changeSkybox("Resources/Texture/BackgroundHD.jpg");
     CameraMove cameraMoove;
+    CameraMove cameraMoveA;
     World world("Resources/Map/DemoWithoutEdge");
     JukeBox &jukeBox = JukeBox::getInstance();
     Player player("Bomberman", "Bob", &world, vector3du(1, 1, 1));
     bool spacePress = false; // tmp
     cameraMoove.generateFirstMove();
-    window.applyCameraMove(cameraMoove);
+    cameraMoveA.setLoop(true);
+    scene::ISceneNodeAnimator *a = window.applyCameraMove(cameraMoove);
 
+    cameraMoveA.generateDemoSecondMove();
+
+    //window.applyCameraMove(cameraMoveA);
 
     //world.debugAff();
     window.setDebugMode(true); // tmp
     jukeBox.addMusic("test", "Resources/Music/DemoMusic.ogg");
     jukeBox.playMusic("test");
     while (window.isOpen()) {
+        if (a && a->hasFinished()) {
+            a = window.applyCameraMove(cameraMoveA);
+        }
         world.update();
         player.update();
         window.display(); //move player
@@ -93,7 +101,7 @@ bool Demo()
 int main(int argc, char **argv)
 {
     try {
-        srand(time(NULL));
+        srand(time(0));
         if (argc == 2 && strncmp(argv[1], "menu", strlen(argv[1])) == 0) {
             std::cout << "i have to call UI class\n"<< std::endl;
             Window &window = Window::getInstance();
@@ -115,10 +123,6 @@ int main(int argc, char **argv)
             cerr << "USE : " << argv[0] << " [server]" << endl;
             Demo(); // tmp
         }
-    }
-    catch (const Error &e) {
-        cerr << "ERROR : " << e.what() << " in " << e.where() << endl;
-        return 84;
     }
     catch (const exception &e) {
         cerr << "ERROR : " << e.what() << endl;

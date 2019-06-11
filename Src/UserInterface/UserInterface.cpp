@@ -5,8 +5,6 @@
 ** UserInterface
 */
 
-#include <SFML/Network.hpp>
-#include "UserInterface/UserInterface.hpp"
 #include "JukeBox.hpp"
 #include "Error.hpp"
 
@@ -84,26 +82,30 @@ void UserInterface::setBackGround(const std::string &backGround) {
 }
 
 bool UserInterface::demo() {
-    Window &window = Window::getInstance();
-    CameraMove cameraMoove;
+    CameraMove cameraFirstMove;
+    CameraMove cameraSecondMove;
     World world("Resources/Map/DemoWithoutEdge");
-    JukeBox &jukeBox = JukeBox::getInstance();
-    Player player("Bomberman", "Bob", &world, vector3du(1, 1, 1));
-    cameraMoove.generateFirstMove();
-    window.applyCameraMove(cameraMoove);
+    ISceneNodeAnimator *animation;
 
-    window.setDebugMode(true); // tmp
-    jukeBox.addMusic("test", "Resources/Sound_Effects/Music/DemoMusic.ogg");
-    jukeBox.playMusic("test");
+    setBackGround("BackgroundHD.jpg");
+    cameraFirstMove.generateFirstMove();
+    cameraSecondMove.generateDemoSecondMove();
+    cameraSecondMove.setLoop(true);
+    animation = Window::getInstance().applyCameraMove(cameraFirstMove);
 
-    while (window.isOpen()) {
-        if (window.isKeyPressed(KEY_KEY_P)) {
-            //todo put pause music
+    Window::getInstance().setDebugMode(true); // tmp
+    JukeBox::getInstance().addMusic("demo", "Resources/Music/DemoMusic.ogg");
+    JukeBox::getInstance().playMusic("demo");
+
+    while (Window::getInstance().isOpen()) {
+        if (animation && animation->hasFinished()) {
+            animation = Window::getInstance().applyCameraMove(cameraSecondMove);
+        }
+        if (Window::getInstance().isKeyPressed(KEY_KEY_P)) {
+            JukeBox::getInstance().pauseMusic("demo");
            return true;
         }
-        world.update();
-        player.update();
-        window.display(); //move player
+        Window::getInstance().display();
     }
     return false;
 }
@@ -116,7 +118,7 @@ void UserInterface::run(const vector3df &cameraPos, const vector3df &cameraTarge
 
     while (Window::getInstance().isOpen()) {
         if (menu->getKey() && menu->getName() == "Player")
-            myPlayer = new Player(menu->getCurrentButtonModel(), "BOB", NULL, vector3du(1, 1, 1));
+            myPlayer = new Player(menu->getCurrentButtonModel(), "BOB", nullptr, vector3du(1, 1, 1));
         else if (menu->getKey() && menu->getName() == "Texture")
             myPlayer->changeTexture(menu->getCurrentButtonTexture());
         if (menu->getKey()) {

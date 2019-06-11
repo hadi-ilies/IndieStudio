@@ -46,12 +46,23 @@ void JukeBox::playSound(const std::string &name) {
 
     sound.setBuffer(bufferMap[name]);
     sound.play();
-    soundList.push_back(sound);
+    soundMap[name] = sound;
     deleteEndedFile();
 }
 
 void JukeBox::deleteEndedFile() {
-    soundList.remove_if([](const sf::Sound &sound) { return sound.getStatus() == sf::SoundSource::Stopped; });
+    for (auto it = soundMap.begin() ; it != soundMap.end() ; it++) {
+        if(it->second.getStatus() == sf::SoundSource::Stopped)
+            soundMap.erase(it);
+    }
+}
+
+void JukeBox::pauseMusic(const std::string &name) {
+    musicMap[name].pause();
+}
+
+void JukeBox::pauseSound(const std::string &name) {
+    soundMap[name].pause();
 }
 
 

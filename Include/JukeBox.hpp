@@ -11,9 +11,10 @@
 #include <iostream>
 #include <map>
 #include <boost/filesystem.hpp>
+#include <SFML/Network.hpp>
 #include <SFML/Audio.hpp>
 
-using namespace boost::filesystem;
+#include "UserInterface/UserInterface.hpp"
 
 class JukeBox {
 public:
@@ -22,6 +23,8 @@ public:
     bool addSound(const std::string &name, const std::string &fileName);
     void playMusic(const std::string &name);
     void playSound(const std::string &name);
+    void pauseSound(const std::string &name);
+    void pauseMusic(const std::string &name);
 
 private:
     JukeBox& operator=(const JukeBox&){}
@@ -32,7 +35,7 @@ private:
 
 private:
     static JukeBox jukeboxInstance;
-    std::list<sf::Sound> soundList;
+    std::map<std::string, sf::Sound> soundMap;
     std::map<std::string, sf::Music> musicMap;
     std::map<std::string, sf::SoundBuffer> bufferMap;
 };

@@ -72,8 +72,12 @@ void CameraMove::generateFirstMove() {
 }
 
 void CameraMove::generateDemoSecondMove() {
-    for (int i = 15 ; i <= 35 ; i++)
+    /*for (int i = 15 ; i <= 35 ; i++)
         pointsList.push_back(core::vector3df(10,40,i));
     for (int i = 35 ; i >= 15 ; i--)
-        pointsList.push_back(core::vector3df(10,40,i));
+        pointsList.push_back(core::vector3df(10,40,i));*/
+     for (int i = 0 ; i <= 50 ; i++)
+        pointsList.push_back(core::vector3df(10,20,i));
+    for (int i = 50 ; i >= 0 ; i--)
+        pointsList.push_back(core::vector3df(10,20,i));
 }
