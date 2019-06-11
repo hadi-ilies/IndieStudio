@@ -18,7 +18,7 @@
 using namespace std;
 using namespace irr;
 
-using namespace core; // tmp
+using namespace core;
 using namespace scene;
 using namespace video;
 using namespace io;
@@ -49,9 +49,9 @@ int main(int argc, char **argv)
             client(player, sf::IpAddress(argv[2]), std::atoi(argv[3]));
         }
     }
-    catch (const exception &e) {
-        cerr << "ERROR : " << e.what() << endl;
-        return 84;
+    catch (Error e) {
+        std::cerr << "[" << e.where() << "]" << std::endl;
+        std::cerr << "\t" << e.what() << std::endl;
     }
     return 0;
 }
