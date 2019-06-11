@@ -15,7 +15,7 @@ IrrFontBuffer::IrrFontBuffer(const std::string &fileName, const string &cList) {
     sf::Font font;
 
     if (!font.loadFromFile(fileName))
-        throw Error("font", "IrrFontBuffer"); // TODO throw
+        throw Error("IrrFontBuffer error", __FILE__, __FUNCTION__, __LINE__);
     for (const char &c : cList)
         irrFontMap[c] = new IrrFont(font, c); // TODO not insert if IrrFont is NULL or IrrFont throw
 }

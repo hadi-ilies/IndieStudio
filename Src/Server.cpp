@@ -1,5 +1,3 @@
-#include <memory>
-
 /*
 ** EPITECH PROJECT, 2019
 ** Bomberman
@@ -35,7 +33,7 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
 
     cerr << "start server" << endl;
     if (listener.listen(port) != sf::Socket::Done)
-        throw ErrorServer("listen failed");
+        throw Error("Listen failed", __FILE__, __FUNCTION__, __LINE__);
     while (playerList.size() < nbPlayer) {
         unique_ptr<FormattedSocket> socket = std::make_unique<FormattedSocket>();
         std::string fileName;
@@ -43,22 +41,22 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
         std::string name;
 
         if (!socket->accept(listener))
-            throw ErrorServer("accept failed");
+            throw Error("Accept failed", __FILE__, __FUNCTION__, __LINE__);
         cerr << "new client" << endl;
         if (!socket->receive())
-            throw ErrorServer("receive failed");
+            throw Error("Listen failed", __FILE__, __FUNCTION__, __LINE__);
         if (socket->type != Message)
-            throw ErrorServer("bad type");
+            throw Error("Bad type", __FILE__, __FUNCTION__, __LINE__);
         fileName = socket->message;
         if (!socket->receive())
-            throw ErrorServer("receive failed");
+            throw Error("Receive failed", __FILE__, __FUNCTION__, __LINE__);
         if (socket->type != Message)
-            throw ErrorServer("bad type");
+            throw Error("Bad type", __FILE__, __FUNCTION__, __LINE__);
         texture = socket->message;
         if (!socket->receive())
-            throw ErrorServer("receive failed");
+            throw Error("Receive failed", __FILE__, __FUNCTION__, __LINE__);
         if (socket->type != Message)
-            throw ErrorServer("bad type");
+            throw Error("Bad type", __FILE__, __FUNCTION__, __LINE__);
         name = socket->message;
         try {
             vector3du position = vector3du(1, 1, 1); // TODO change pos
@@ -69,7 +67,7 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
                 position = vector3du(world.getSize().X - 2, 1, 1);
             else if (playerList.size() == 3)
                 position = vector3du(world.getSize().X - 2, 1, world.getSize().Z - 2);
-            unique_ptr<Player> player = unique_ptr<Player>(new Player(fileName, name, &world, position));
+            unique_ptr<Player> player = std::make_unique<Player>(fileName, name, &world, position);
 
             player->changeTexture(texture);
             //throw Error("texture doesn't exist");
@@ -108,7 +106,7 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
         cerr << "start turn : ";
         for (unique_ptr<FormattedSocket> &socket : socketList)
             if (!socket->sendStartTurn())
-                throw ErrorServer("send failed");
+                throw Error("Send failed", __FILE__, __FUNCTION__, __LINE__);
         cerr << "OK" << endl;
         cerr << "receive action : ";
         /*
@@ -125,28 +123,28 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
          */
         for (unique_ptr<FormattedSocket> &socket : socketList)
             if (!socket->receive())
-                throw ErrorServer("receiver failed");
+                throw Error("Receiver failed", __FILE__, __FUNCTION__, __LINE__);
         cerr << "OK" << endl;
         cerr << "transmit action : ";
         for (unique_ptr<FormattedSocket> &socket : socketList)
             for (unique_ptr<FormattedSocket> &socket2 : socketList)
                 if (socket2->type == PlayerMove) {
                     if (!socket->sendPlayerMove(socket2->direction)) // tmp
-                        throw ErrorServer("send failed");
+                        throw Error("Send failed", __FILE__, __FUNCTION__, __LINE__);
                 }
                 else if (socket2->type == PlayerPutBomb) {
                     if (!socket->sendPlayerPutBomb()) // tmp
-                        throw ErrorServer("send failed");
+                        throw Error("Send failed", __FILE__, __FUNCTION__, __LINE__);
                 }
                 else
-                    throw ErrorServer("bad type");
+                    throw Error("Bad type", __FILE__, __FUNCTION__, __LINE__);
         cerr << "OK" << endl;
         cerr << "end turn : ";
         for (unique_ptr<FormattedSocket> &socket : socketList) {
             if (!socket->receive())
-                throw ErrorServer("receiver failed");
+                throw Error("Receiver failed", __FILE__, __FUNCTION__, __LINE__);
             if (socket->type != EndTurn)
-                throw ErrorServer("bad type");
+                throw Error("Bad type", __FILE__, __FUNCTION__, __LINE__);
         }
         cerr << "OK" << endl;
     }

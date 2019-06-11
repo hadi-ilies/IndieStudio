@@ -19,7 +19,7 @@ Window::Window(const std::string &windowName, dimension2d<u32> size, const bool 
 
     device = createDevice(video::EDT_OPENGL, size, 16, fullscreen, false, false, &receiver);
     if (!device)
-        throw Error("device cant bo create", "Window");
+        throw Error("Device can't be created", __FILE__, __FUNCTION__, __LINE__);
     device->setWindowCaption(title.c_str());
     driver = device->getVideoDriver();
     smgr = device->getSceneManager();

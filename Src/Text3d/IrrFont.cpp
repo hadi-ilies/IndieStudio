@@ -25,7 +25,7 @@ IrrFont::IrrFont(const sf::Font &font, const char &_c)
     sf::RenderTexture renderTexture;
 
     if (!renderTexture.create(tmpSprite.getGlobalBounds().width, tmpSprite.getGlobalBounds().height))
-        throw Error("font", "Irrfont");
+        throw Error("IrrFont error", __FILE__, __FUNCTION__, __LINE__);
     renderTexture.clear(sf::Color::Transparent);
     std::cout << "Hello = > " << &renderTexture << std::endl; // tmp
     renderTexture.draw(tmpSprite);
