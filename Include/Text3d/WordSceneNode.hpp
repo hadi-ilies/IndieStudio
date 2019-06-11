@@ -19,8 +19,6 @@ public:
     void setPosition(const core::vector3df &position);
     std::vector<CharacterSceneNode*> getCharacterList(); // TODO supr
     //void setRotation(const core::vector3df &rotation);
-
-public:
     //void addAnimator(scene::ISceneNodeAnimator *animator);
 
 private:

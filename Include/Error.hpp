@@ -24,7 +24,7 @@ public:
 
 private:
     const std::string message;
-    std::string source;
+    const std::string source;
 };
 
 class ErrorClient : public Error {

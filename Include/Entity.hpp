@@ -31,7 +31,7 @@ public:
     virtual void update();
 
 private:
-    void init();
+    void init(); // TODO supr
     void getModel(const std::string &fileName);
     void getTexture(const std::string &fileName);
 
