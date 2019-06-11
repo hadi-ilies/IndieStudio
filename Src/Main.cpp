@@ -49,9 +49,12 @@ int main(int argc, char **argv)
             client(player, sf::IpAddress(argv[2]), std::atoi(argv[3]));
         }
     }
-    catch (Error e) {
+    catch (const Error &e) {
         std::cerr << "[" << e.where() << "]" << std::endl;
         std::cerr << "\t" << e.what() << std::endl;
+    }
+    catch (const exception &e) {
+        std::cerr << "EXCEPTION : " << e.what() << std::endl;
     }
     return 0;
 }
