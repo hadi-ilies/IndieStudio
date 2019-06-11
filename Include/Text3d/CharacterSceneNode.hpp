@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** for_norme
+** Bomberman
 ** File description:
 ** CharacterSceneNode.hpp
 */
@@ -10,17 +10,18 @@
 
 #include "IrrFont.hpp"
 
-class CharacterSceneNode : public scene::ISceneNode
-{
+class CharacterSceneNode : public scene::ISceneNode {
 public:
     CharacterSceneNode(scene::ISceneManager *smgr, const IrrFont &irrFont); // TODO add position
-    void OnRegisterSceneNode();
-    void render();
     const core::aabbox3d<f32> &getBoundingBox() const;
     u32 getMaterialCount() const;
     video::SMaterial &getMaterial(u32 i);
     const char &getC() const;
     const float &getAdvance() const;
+
+public:
+    void OnRegisterSceneNode();
+    void render();
 
 private:
     core::aabbox3d<f32> box;
@@ -32,4 +33,4 @@ private:
     const float advance;
 };
 
-#endif
+#endif /* !CHARACTERSCENENODE_HPP */

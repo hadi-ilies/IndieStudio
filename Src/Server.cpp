@@ -35,7 +35,7 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
 
     cerr << "start server" << endl;
     if (listener.listen(port) != sf::Socket::Done)
-        throw Error("listen failed");
+        throw ErrorServer("listen failed");
     while (playerList.size() < nbPlayer) {
         unique_ptr<FormattedSocket> socket = std::make_unique<FormattedSocket>();
         std::string fileName;
@@ -43,22 +43,22 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
         std::string name;
 
         if (!socket->accept(listener))
-            throw Error("accept failed");
+            throw ErrorServer("accept failed");
         cerr << "new client" << endl;
         if (!socket->receive())
-            throw Error("receive failed");
+            throw ErrorServer("receive failed");
         if (socket->type != Message)
-            throw Error("bad type");
+            throw ErrorServer("bad type");
         fileName = socket->message;
         if (!socket->receive())
-            throw Error("receive failed");
+            throw ErrorServer("receive failed");
         if (socket->type != Message)
-            throw Error("bad type");
+            throw ErrorServer("bad type");
         texture = socket->message;
         if (!socket->receive())
-            throw Error("receive failed");
+            throw ErrorServer("receive failed");
         if (socket->type != Message)
-            throw Error("bad type");
+            throw ErrorServer("bad type");
         name = socket->message;
         try {
             vector3du position = vector3du(1, 1, 1); // TODO change pos
@@ -108,7 +108,7 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
         cerr << "start turn : ";
         for (unique_ptr<FormattedSocket> &socket : socketList)
             if (!socket->sendStartTurn())
-                throw Error("send failed");
+                throw ErrorServer("send failed");
         cerr << "OK" << endl;
         cerr << "receive action : ";
         /*
@@ -125,28 +125,28 @@ void server(const ushort &port, const std::string &worldFileName, const size_t &
          */
         for (unique_ptr<FormattedSocket> &socket : socketList)
             if (!socket->receive())
-                throw Error("receiver failed");
+                throw ErrorServer("receiver failed");
         cerr << "OK" << endl;
         cerr << "transmit action : ";
         for (unique_ptr<FormattedSocket> &socket : socketList)
             for (unique_ptr<FormattedSocket> &socket2 : socketList)
                 if (socket2->type == PlayerMove) {
                     if (!socket->sendPlayerMove(socket2->direction)) // tmp
-                        throw Error("send failed");
+                        throw ErrorServer("send failed");
                 }
                 else if (socket2->type == PlayerPutBomb) {
                     if (!socket->sendPlayerPutBomb()) // tmp
-                        throw Error("send failed");
+                        throw ErrorServer("send failed");
                 }
                 else
-                    throw Error("bad type");
+                    throw ErrorServer("bad type");
         cerr << "OK" << endl;
         cerr << "end turn : ";
         for (unique_ptr<FormattedSocket> &socket : socketList) {
             if (!socket->receive())
-                throw Error("receiver failed");
+                throw ErrorServer("receiver failed");
             if (socket->type != EndTurn)
-                throw Error("bad type");
+                throw ErrorServer("bad type");
         }
         cerr << "OK" << endl;
     }

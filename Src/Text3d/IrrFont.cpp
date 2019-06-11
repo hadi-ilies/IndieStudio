@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** for_norme
+** Bomberman
 ** File description:
 ** IrrFont.cpp
 */
@@ -9,6 +9,9 @@
 #include "Text3d/IrrFont.hpp"
 #include "Error.hpp"
 
+/*
+ * Constructors // Destructors
+ */
 IrrFont::IrrFont(const sf::Font &font, const char &_c)
     : c(_c)
 {
@@ -22,7 +25,7 @@ IrrFont::IrrFont(const sf::Font &font, const char &_c)
     sf::RenderTexture renderTexture;
 
     if (!renderTexture.create(tmpSprite.getGlobalBounds().width, tmpSprite.getGlobalBounds().height))
-        throw Error("font");
+        throw Error("font", "Irrfont");
     renderTexture.clear(sf::Color::Transparent);
     std::cout << "Hello = > " << &renderTexture << std::endl; // tmp
     renderTexture.draw(tmpSprite);
@@ -54,6 +57,9 @@ IrrFont::IrrFont(const sf::Font &font, const char &_c)
     cerr << "pre generate character '" << c << "'" << endl;
 }
 
+/*
+ * Getters // Setters
+ */
 const char &IrrFont::getC() const
 {
     return c;
@@ -78,3 +84,7 @@ const scene::E_PRIMITIVE_TYPE &IrrFont::getPrimitiveType() const
 {
     return primitiveType;
 }
+
+/*
+ * Methods
+ */

@@ -16,13 +16,25 @@ using namespace std;
 
 class Error : public exception {
 public:
-    Error(std::string _message);
+    Error(std::string _message, std::string _source);
 
 public:
     const char *what() const noexcept override;
+    const char *where() const noexcept;
 
 private:
     const std::string message;
+    std::string source;
+};
+
+class ErrorClient : public Error {
+public:
+    explicit ErrorClient(std::string _message);
+};
+
+class ErrorServer : public Error {
+public:
+    explicit ErrorServer(std::string _message);
 };
 
 #endif /* !ERROR_HPP */

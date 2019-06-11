@@ -17,7 +17,7 @@ Entity::Entity(const std::string &_fileName, World *_world, const vector3du &_po
                                                                                           modelUse("Idle"), textureUse("Default") {
     init();
     if (!mesh)
-        throw Error("mesh can't be create");
+        throw Error("mesh can't be create", "Entity");
     mesh->setAnimationSpeed(350); // ?
 }
 

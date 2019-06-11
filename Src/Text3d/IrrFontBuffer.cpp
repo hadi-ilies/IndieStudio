@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** for_norme
+** Bomberman
 ** File description:
 ** IrrFontBuffer.cpp
 */
@@ -8,24 +8,31 @@
 #include "Text3d/IrrFontBuffer.hpp"
 #include "Error.hpp"
 
-IrrFontBuffer::IrrFontBuffer(const std::string &fileName, const string &cList)
-{
+/*
+ * Constructors // Destructors
+ */
+IrrFontBuffer::IrrFontBuffer(const std::string &fileName, const string &cList) {
     sf::Font font;
 
     if (!font.loadFromFile(fileName))
-        throw Error("error font"); // TODO throw
+        throw Error("font", "IrrFontBuffer"); // TODO throw
     for (const char &c : cList)
         irrFontMap[c] = new IrrFont(font, c); // TODO not insert if IrrFont is NULL or IrrFont throw
 }
 
-IrrFontBuffer::~IrrFontBuffer()
-{
-    for (auto & it : irrFontMap)
+IrrFontBuffer::~IrrFontBuffer() {
+    for (auto &it : irrFontMap)
         delete it.second;
 }
 
-IrrFont *IrrFontBuffer::getIrrFont(const char &c)
-{
+/*
+ * Getters // Setters
+ */
+IrrFont *IrrFontBuffer::getIrrFont(const char &c) {
     // TODO throw
     return irrFontMap[c];
 }
+
+/*
+ * Methods
+ */

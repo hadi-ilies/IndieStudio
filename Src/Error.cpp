@@ -10,16 +10,33 @@
 /*
  * Constructors // Destructors
  */
-Error::Error(std::string _message) : message(std::move(_message)) {
+Error::Error(std::string _message, std::string _source) {
+    _message = std::move(_message);
+    _source = std::move(_source);
 }
 
 /*
  * Getters // Setters
  */
-const char *Error::what() const noexcept {
-    return message.c_str();
-}
 
 /*
  * Methods
  */
+const char *Error::what() const noexcept {
+    return message.c_str();
+}
+
+const char *Error::where() const noexcept {
+    return source.c_str();
+}
+
+/*
+ * Sub-class
+ */
+ErrorClient::ErrorClient(std::string _message) : Error(std::move(_message), "Client") {
+
+}
+
+ErrorServer::ErrorServer(std::string _message) : Error(std::move(_message), "Server") {
+
+}

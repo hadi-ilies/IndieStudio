@@ -15,8 +15,7 @@
 using namespace std;
 using namespace irr;
 
-class IrrFont
-{
+class IrrFont {
 public:
     IrrFont(const sf::Font &font, const char &_c);
     const char &getC() const;
@@ -33,4 +32,4 @@ private:
     scene::E_PRIMITIVE_TYPE primitiveType;
 };
 
-#endif
+#endif /* !IRRFONT_HPP */
