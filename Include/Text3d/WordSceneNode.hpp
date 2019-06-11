@@ -17,9 +17,8 @@ class WordSceneNode {
 public:
     WordSceneNode(scene::ISceneManager *smgr, std::string _str, IrrFontBuffer &irrFontBuffer);
     void setPosition(const core::vector3df &position);
-    std::vector<CharacterSceneNode*> getCharacterList(); // TODO supr
-    //void setRotation(const core::vector3df &rotation);
-    //void addAnimator(scene::ISceneNodeAnimator *animator);
+    void setRotation(const core::vector3df &rotation);
+    scene::ISceneNodeAnimator *addTranslation(const core::vector3df &destPos, const u32 &timestamp);
 
 private:
     const std::string str;

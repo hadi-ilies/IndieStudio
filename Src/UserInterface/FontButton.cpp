@@ -16,6 +16,7 @@ FontButton::FontButton(const vector3df &position, const std::string &name) : ABu
     if (!button)
         throw Error("button can not be created", "FontButton");
     button->setPosition(position);
+    button->setRotation(vector3df(0, -90, 0)); // TODO set in param
 }
 
 FontButton::~FontButton() = default;
@@ -27,19 +28,10 @@ FontButton::~FontButton() = default;
 /*
  * Methods
  */
-bool FontButton::animation(const vector3df &destPos, const f32 &timestamps) {
+bool FontButton::animation(const vector3df &destPos, const f32 &timestamps)
+{
     if (!isAnimationFinished())
         return false;
-    vector3df test = position;
-    vector3df destTest = destPos;
-    for (auto character : button->getCharacterList()) {
-        anim = Window::getInstance().createTranslation(test, destTest, timestamps);
-        position = destPos;
-        destTest.X += 1.50;
-        if (anim) {
-            character->addAnimator(anim);
-            anim->drop();
-        }
-    }
+    anim = button->addTranslation(destPos, timestamps);
     return true;
 }

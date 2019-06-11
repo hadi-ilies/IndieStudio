@@ -6,45 +6,46 @@
 */
 
 #include "Text3d/WordSceneNode.hpp"
+#include "Window.hpp" // ?
 
-/*
- * Constructors // Destructors
- */
-WordSceneNode::WordSceneNode(scene::ISceneManager *smgr, std::string _str, IrrFontBuffer &irrFontBuffer) : str(std::move(_str)) {
+WordSceneNode::WordSceneNode(scene::ISceneManager *smgr, std::string _str, IrrFontBuffer &irrFontBuffer)
+    : str(std::move(_str))
+{
     for (char i : str)
         characterList.push_back(new CharacterSceneNode(smgr, *irrFontBuffer.getIrrFont(i)));
     setPosition(core::vector3df(0, 0, 0));
 }
 
-/*
- * Getters // Setters
- */
-void WordSceneNode::setPosition(const core::vector3df &position) {
+void WordSceneNode::setPosition(const core::vector3df &position)
+{
     core::vector3df pos = position;
 
     for (auto &character : characterList) {
         character->setPosition(pos);
-        pos.X += character->getAdvance() / 50.0; // TODO replace /50.0 with ...
+        pos.Z += character->getAdvance() / 50.0; // TODO replace "/ 50.0" with ...
     }
 }
 
-std::vector<CharacterSceneNode *> WordSceneNode::getCharacterList() {
-    return characterList;
+void WordSceneNode::setRotation(const core::vector3df &rotation)
+{
+    for (auto &character : characterList)
+        character->setRotation(rotation);
 }
 
-/*void WordSceneNode::setRotation(const core::vector3df &rotation)
+scene::ISceneNodeAnimator *WordSceneNode::addTranslation(const core::vector3df &destPos, const u32 &timestamp)
 {
-    // TODO
+    scene::ISceneNodeAnimator *anim = NULL;
+    core::vector3df pos = destPos;
+
+    for (auto &character : characterList) {
+        const core::vector3df initPos = character->getPosition();
+
+        anim = Window::getInstance().createTranslation(initPos, pos, timestamp);
+        if (anim) {
+            character->addAnimator(anim);
+            anim->drop();
+        }
+        pos.Z += character->getAdvance() / 50.0; // TODO replace "/ 50.0" with ...
+    }
+    return anim;
 }
-*/
-/*
- * Methods
- */
-/*
-void WordSceneNode::addAnimator(scene::ISceneNodeAnimator *animator)
-{
-    for (auto &character : characterList) { // TODO
-        character->addAnimator(animator);
-    }
-    }
-*/

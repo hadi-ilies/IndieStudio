@@ -116,6 +116,10 @@ int main(int argc, char **argv)
             Demo(); // tmp
         }
     }
+    catch (const Error &e) {
+        cerr << "ERROR : " << e.what() << " in " << e.where() << endl;
+        return 84;
+    }
     catch (const exception &e) {
         cerr << "ERROR : " << e.what() << endl;
         return 84;
