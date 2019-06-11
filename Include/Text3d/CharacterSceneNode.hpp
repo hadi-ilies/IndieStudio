@@ -10,7 +10,8 @@
 
 #include "IrrFont.hpp"
 
-class CharacterSceneNode : public scene::ISceneNode {
+class CharacterSceneNode : public scene::ISceneNode
+{
 public:
     CharacterSceneNode(scene::ISceneManager *smgr, const IrrFont &irrFont); // TODO add position
     const core::aabbox3d<f32> &getBoundingBox() const;
@@ -18,10 +19,11 @@ public:
     video::SMaterial &getMaterial(u32 i);
     const char &getC() const;
     const float &getAdvance() const;
-
-public:
     void OnRegisterSceneNode();
     void render();
+
+private:
+    u32 getPrimCount() const;
 
 private:
     core::aabbox3d<f32> box;

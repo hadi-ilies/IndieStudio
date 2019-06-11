@@ -7,12 +7,11 @@
 
 #include "Text3d/CharacterSceneNode.hpp"
 
-/*
- * Constructors // Destructors
- */
-CharacterSceneNode::CharacterSceneNode(scene::ISceneManager *smgr, const IrrFont &irrFont) : scene::ISceneNode(smgr->getRootSceneNode(),
-                                                                                                               smgr, -1), c(irrFont.getC()),
-                                                                                             advance(irrFont.getAdvance()) {
+CharacterSceneNode::CharacterSceneNode(scene::ISceneManager *smgr, const IrrFont &irrFont)
+    : scene::ISceneNode(smgr->getRootSceneNode(), smgr, -1),
+      c(irrFont.getC()),
+      advance(irrFont.getAdvance())
+{
     material.Wireframe = false;
     material.Lighting = false;
 
@@ -26,14 +25,13 @@ CharacterSceneNode::CharacterSceneNode(scene::ISceneManager *smgr, const IrrFont
         box.addInternalPoint(vertexList[i].Pos);
 }
 
-/*
- * Getters // Setters
- */
-const core::aabbox3d<f32> &CharacterSceneNode::getBoundingBox() const {
+const core::aabbox3d<f32> &CharacterSceneNode::getBoundingBox() const
+{
     return box;
 }
 
-u32 CharacterSceneNode::getMaterialCount() const {
+u32 CharacterSceneNode::getMaterialCount() const
+{
     return 1;
 }
 
@@ -41,28 +39,40 @@ video::SMaterial &CharacterSceneNode::getMaterial(u32 i) {
     return material;
 }
 
-const char &CharacterSceneNode::getC() const {
+const char &CharacterSceneNode::getC() const
+{
     return c;
 }
 
-const float &CharacterSceneNode::getAdvance() const {
+const float &CharacterSceneNode::getAdvance() const
+{
     return advance;
 }
 
-/*
- * Methods
- */
-void CharacterSceneNode::OnRegisterSceneNode() {
+void CharacterSceneNode::OnRegisterSceneNode()
+{
     if (IsVisible)
         SceneManager->registerNodeForRendering(this);
     ISceneNode::OnRegisterSceneNode();
 }
 
-void CharacterSceneNode::render() {
+void CharacterSceneNode::render()
+{
     video::IVideoDriver *driver = SceneManager->getVideoDriver();
 
     driver->setMaterial(material);
     driver->setTransform(video::ETS_WORLD, AbsoluteTransformation);
-    driver->drawVertexPrimitiveList(vertexList.data(), vertexList.size(), indiceList.data(), indiceList.size(), video::EVT_STANDARD,
-                                    primitiveType, video::EIT_16BIT);
+    driver->drawVertexPrimitiveList(vertexList.data(), vertexList.size(), indiceList.data(), getPrimCount(), video::EVT_STANDARD, primitiveType, video::EIT_16BIT);
+}
+
+u32 CharacterSceneNode::getPrimCount() const
+{
+    if (primitiveType == scene::EPT_POINTS)
+        return indiceList.size();
+    else if (primitiveType == scene::EPT_LINES)
+        return indiceList.size() / 2;
+    else if (primitiveType == scene::EPT_QUADS)
+        return indiceList.size() / 4;
+    else
+        return indiceList.size();
 }

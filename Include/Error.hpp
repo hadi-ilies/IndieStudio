@@ -11,6 +11,8 @@
 #include <string>
 #include <exception>
 
+#define ERROR(str) Error(str, __FILE__, __FUNCTION__, __LINE__)
+
 class Error : public std::exception // TODO move in cpp
 {
 public:
@@ -23,9 +25,9 @@ public:
         {
             return this->_what.c_str();
         }
-    const char *where()
+    const char *where() const
         {
-            std::string where = this->_file + " : " + this->_function + " : " + to_string(this->_line);
+            static std::string where = this->_file + " : " + this->_function + " : " + to_string(this->_line);
 
             return where.c_str();
         }
