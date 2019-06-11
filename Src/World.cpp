@@ -13,12 +13,12 @@
  */
 World::World(const vector3du &_size, const uint &seed) : size(_size) {
     if (!generate(size, seed))
-        throw Error("generation failed");
+        throw Error("generation failed", "World");
 }
 
 World::World(const std::string &_fileName) {
     if (!load(_fileName))
-        throw Error("load failed");
+        throw Error("load failed", "World");
 }
 
 //todo issue

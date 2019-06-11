@@ -29,3 +29,14 @@ const char *Error::what() const noexcept {
 const char *Error::where() const noexcept {
     return source.c_str();
 }
+
+/*
+ * Sub-class
+ */
+ErrorClient::ErrorClient(std::string _message) : Error(std::move(_message), "Client") {
+
+}
+
+ErrorServer::ErrorServer(std::string _message) : Error(std::move(_message), "Server") {
+
+}

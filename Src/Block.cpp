@@ -16,7 +16,7 @@ Block::Block(const std::string &_type, const vector3du &position) : type(_type),
     getProperty("Resources/Block/" + _type + "/Property");
     const vector3df floatPos(position.X, position.Y, position.Z);
     if (!cube)
-        throw Error("cube can't be create");
+        throw Error("cube can't be create", "Block");
     cube->setPosition(floatPos);
 }
 
@@ -57,7 +57,7 @@ void Block::getProperty(const std::string &fileName) {
     smatch match;
 
     if (!file)
-        throw Error("\"" + fileName + "\" cant be open");
+        throw Error("\"" + fileName + "\" cant be open", "Block");
     while (getline(file, line)) {
         if (regex_search(line, match, regex(R"(^opaque *: *(false|true)$)")))
             opaque = match[1] == "true";

@@ -1,3 +1,5 @@
+#include <memory>
+
 /*
 ** EPITECH PROJECT, 2019
 ** Bomberman
@@ -27,12 +29,12 @@ void serverLoop(FormattedSocket *client)
 {
     while (client->receive()) {
         if (client->type != StartTurn)
-            throw Error("Thread failed 1");
+            throw ErrorClient("Thread failed 1");
         startTurn = true;
         while (startTurn && client->isConnected());
     }
     if (client->isConnected())
-        throw Error("Thread failed");
+        throw ErrorClient("Thread failed");
 }
 
 static bool turnHasFinished(vector<unique_ptr<Player>> &playerList)
@@ -67,32 +69,32 @@ static void execPlayerAction(PlayerAction &key, FormattedSocket &client, World &
     if (playerList[playerId]->getHp()) {
         if (key == PutBomb) {
             if (!client.sendPlayerPutBomb())
-                throw Error("SendPlayerBomb");
+                throw ErrorClient("SendPlayerBomb");
         }
         else if (key == Left) {
             if (!client.sendPlayerMove(vector2di(-1, 0)))
-                throw Error("SendPlayer(-1, 0)");
+                throw ErrorClient("SendPlayer(-1, 0)");
         }
         else if (key == Right) {
             if (!client.sendPlayerMove(vector2di(1, 0)))
-                throw Error("SendPlayer(1, 0)");
+                throw ErrorClient("SendPlayer(1, 0)");
         }
         else if (key == Up) {
             if (!client.sendPlayerMove(vector2di(0, 1)))
-                throw Error("SendPlayer(0, 1)");
+                throw ErrorClient("SendPlayer(0, 1)");
         }
         else if (key == Down) {
             if (!client.sendPlayerMove(vector2di(0, -1)))
-                throw Error("SendPlayer(0, -1)");
+                throw ErrorClient("SendPlayer(0, -1)");
         }
         else if (!client.sendPlayerMove(vector2di(0, 0)))
-            throw Error("sendPlayerMove(0, 0)");
+            throw ErrorClient("sendPlayerMove(0, 0)");
     }
     else if (!client.sendPlayerMove(vector2di(0, 0)))
-        throw Error("sendPlayerMove(0, 0)");
+        throw ErrorClient("sendPlayerMove(0, 0)");
     for (unique_ptr<Player> &player: playerList) {
         if (!client.receive())
-            throw Error("client Receiver");
+            throw ErrorClient("client Receiver");
         if (client.type == PlayerMove)
             player->move(client.direction);
         //check colision enenmies
@@ -136,7 +138,7 @@ static void game(Window &window, FormattedSocket &client, World &world, vector<u
         if (endTurn)
             if (turnHasFinished(playerList)) {
                 if (!client.sendEndTurn())
-                    throw Error("sendEndTurn failed");
+                    throw ErrorClient("sendEndTurn failed");
                 endTurn = false;
                 //key = None; control Corentin dont remove it
             }
@@ -155,7 +157,7 @@ void client(Player &myPlayer, const sf::IpAddress &ip, const ushort &port) //put
     //Player myPlayer("Bomberman", "Bob", NULL, vector3du(1, 1 ,1));
     //myPlayer.changeTexture("Default");
     if (!client.connect(ip, port))
-        throw Error("an error has been detected in Connect function");
+        throw ErrorClient("an error has been detected in Connect function");
     size_t nbPlayer;
 
     std::cout << "FileName : " << myPlayer.getFileName() << std::endl;
@@ -167,18 +169,18 @@ void client(Player &myPlayer, const sf::IpAddress &ip, const ushort &port) //put
     client.sendMessage(myPlayer.getName());
 
     if (!client.receive())
-        throw Error("receive error 1");
+        throw ErrorClient("receive error 1");
     if (client.type != Message)
-        throw Error("message error");
+        throw ErrorClient("message error");
     cout << client.message << endl;
     World world("Resources/Map/" + client.message);
     vector<unique_ptr<Player>> playerList;
 
     //nb powerup
     if (!client.receive())
-        throw Error("receive error bonus");
+        throw ErrorClient("receive error bonus");
     if (client.type != Number)
-        throw Error("uint 32 Error");
+        throw ErrorClient("uint 32 Error");
     size_t nbPowerUp = client.number;
     //loop type position
     vector<unique_ptr<PowerUp>> powerUpList;
@@ -186,57 +188,57 @@ void client(Player &myPlayer, const sf::IpAddress &ip, const ushort &port) //put
     for (size_t i = 0; i < nbPowerUp; i++) {
         //type
         if (!client.receive())
-            throw Error("message Error");
+            throw ErrorClient("message Error");
         if (client.type != Message)
-            throw Error("type error");
+            throw ErrorClient("type error");
         std::string powerUpType = client.message;
         //position
         if (!client.receive())
-            throw Error("message Error");
+            throw ErrorClient("message Error");
         if (client.type != Position)
-            throw Error("Position error");
+            throw ErrorClient("Position error");
         vector3du powerUpPosition = client.position;
-        powerUpList.push_back(unique_ptr<PowerUp>(new PowerUp(powerUpType, &world, powerUpPosition)));
+        powerUpList.push_back(std::make_unique<PowerUp>(powerUpType, &world, powerUpPosition));
         powerUpList.back()->update();
     }
     if (!client.receive())
-        throw Error("receive error 2");
+        throw ErrorClient("receive error 2");
     if (client.type != Number)
-        throw Error("uint 32 error");
+        throw ErrorClient("uint 32 error");
     nbPlayer = client.number;
 
     for (size_t i = 0; i < nbPlayer; i++) {
         if (!client.receive())
-            throw Error("receive error 3");
+            throw ErrorClient("receive error 3");
         if (client.type != Message)
-            throw Error("model error");
+            throw ErrorClient("model error");
         std::string fileName = client.message;
 
         if (!client.receive())
-            throw Error("receive error 4");
+            throw ErrorClient("receive error 4");
         if (client.type != Message)
-            throw Error("Texture error");
+            throw ErrorClient("Texture error");
         std::string texture = client.message;
 
         if (!client.receive())
-            throw Error("receive error 5");
+            throw ErrorClient("receive error 5");
         if (client.type != Message)
-            throw Error("name error");
+            throw ErrorClient("name error");
         std::string name = client.message;
 
         if (!client.receive())
-            throw Error("receive error 6");
+            throw ErrorClient("receive error 6");
         if (client.type != Position)
-            throw Error("Position error");
+            throw ErrorClient("Position error");
         vector3du position = client.position;
 
-        playerList.push_back(unique_ptr<Player>(new Player(fileName, name, &world, position)));
+        playerList.push_back(std::make_unique<Player>(fileName, name, &world, position));
         playerList.back()->changeTexture(texture);
     }
     if (!client.receive())
-        throw Error("receive error 7");
+        throw ErrorClient("receive error 7");
     if (client.type != Number)
-        throw Error("uint 32 error id");
+        throw ErrorClient("uint 32 error id");
     size_t playerId = client.number;
 
     game(window, client, world, powerUpList, playerList, playerId);

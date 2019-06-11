@@ -27,17 +27,14 @@ private:
     std::string source;
 };
 
-#endif /* !ERROR_HPP */
-
-/*
- * public:
-    Error(std::string const &message, std::string const &source);
-
+class ErrorClient : public Error {
 public:
-    const char *what() const noexcept;
-    const char *where() const noexcept;
+    explicit ErrorClient(std::string _message);
+};
 
-protected:
-    std::string message;
-    std::string source;
- */
+class ErrorServer : public Error {
+public:
+    explicit ErrorServer(std::string _message);
+};
+
+#endif /* !ERROR_HPP */
