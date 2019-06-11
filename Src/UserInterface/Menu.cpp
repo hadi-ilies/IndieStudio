@@ -7,6 +7,7 @@
 ** Menu
 */
 
+#include "JukeBox.hpp"
 #include "UserInterface/Menu.hpp"
 
 /*
@@ -64,14 +65,17 @@ std::string Menu::getCurrentButtonModel() const {
 }
 
 bool Menu::getKey() {
-    std::cout << getCurrentButtonName() << std::endl;
+    //std::cout << getCurrentButtonName() << std::endl;
     if (Window::getInstance().isKeyPressed(KEY_SPACE) || Window::getInstance().isKeyPressed(KEY_RETURN)) {
+        JukeBox::getInstance().playSound("Enter");
         return true;
     }
     if (Window::getInstance().isKeyPressed(KEY_RIGHT)) {
         static_cast<Wheel *>(MenuElements.back())->turnButtons(Wheel::RIGHT, 1000);
+        JukeBox::getInstance().playSound("Switch");
     } else if (Window::getInstance().isKeyPressed(KEY_LEFT)) {
         static_cast<Wheel *>(MenuElements.back())->turnButtons(Wheel::LEFT, 1000);
+        JukeBox::getInstance().playSound("Switch");
     }
     return false;
 }

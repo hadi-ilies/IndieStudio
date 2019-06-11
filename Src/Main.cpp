@@ -35,9 +35,10 @@ int main(int argc, char **argv)
             std::cout << "i have to call UI class\n"<< std::endl;
             Window &window = Window::getInstance();
             UserInterface userInterface;
-            userInterface.create();
+            //userInterface.create();
             //userInterface.setBackGround("BackgroundMenu.jpg");
             if (userInterface.demo()) {
+                            userInterface.create("MenuMusic.ogg");
                 userInterface.setBackGround("BackgroundDemo.jpg");
                 userInterface.run(vector3df(20, 0, 0), vector3df(10, 0, 0));
             }
