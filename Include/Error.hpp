@@ -1,7 +1,3 @@
-#include <utility>
-
-#include <utility>
-
 /*
 ** EPITECH PROJECT, 2019
 ** Bomberman
@@ -14,10 +10,6 @@
 
 #include <string>
 #include <exception>
-#include <utility>
-
-#include <string>
-#include <sstream>
 
 class Error : public std::exception // TODO move in cpp
 {
