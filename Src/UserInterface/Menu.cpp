@@ -83,9 +83,9 @@ bool Menu::getKey() {
         return true;
     }
     if (window.isKeyPressed(KEY_RIGHT)) {
-        static_cast<Wheel*>(MenuElements.back())->turnButtons(Wheel::RIGHT, 100);
+        static_cast<Wheel*>(MenuElements.back())->turnButtons(Wheel::RIGHT, 1000);
     } else if (window.isKeyPressed(KEY_LEFT)) {
-        static_cast<Wheel*>(MenuElements.back())->turnButtons(Wheel::LEFT, 100);
+        static_cast<Wheel*>(MenuElements.back())->turnButtons(Wheel::LEFT, 1000);
 
     }
     return false;

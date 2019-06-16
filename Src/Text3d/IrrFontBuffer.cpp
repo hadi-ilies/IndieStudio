@@ -12,7 +12,7 @@
  * Constructors // Desctructors
  */
 IrrFontBuffer::IrrFontBuffer(const std::string &fileName, const string &cList)
-    : charSize(20)
+    : charSize(200)
 {
     sf::Font font;
 
