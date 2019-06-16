@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** Bomberman
+** OOP_indie_studio_2018
 ** File description:
 ** Entity.hpp
 */
@@ -17,8 +17,8 @@
 class Entity
 {
 public:
-    Entity(const std::string &_fileName, World *world, const vector3du &_pos);
-    ~Entity();
+    Entity(Window *_window, const std::string &_fileName, World *world, const vector3du &_pos);
+    virtual ~Entity();
     const vector3du &getPosition() const;
     const std::string &getFileName() const;
     const std::string &getModel() const;
@@ -31,11 +31,11 @@ public:
     virtual void update();
 
 private:
-    void init(); // TODO supr
     void getModel(const std::string &fileName);
     void getTexture(const std::string &fileName);
 
 protected:
+    Window *window;
     IAnimatedMeshSceneNode *mesh;
     World *world;
     vector3du position;

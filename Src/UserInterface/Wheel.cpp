@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** wheel
+** OOP_indie_studio_2018
 ** File description:
 ** Wheel
 */
@@ -10,31 +10,35 @@
 /*
  * Constructors // Destructors
  */
-Wheel::Wheel(const vector3df &position, const float &radius, const std::vector<std::string> &buttonsNames) : MenuElement(position, "Wheel"),
-                                                                                                             radius(radius),
-                                                                                                             currentButton(0),
-                                                                                                             displayedButton(0) {
+Wheel::Wheel(Window &_window, const vector3df &position, const float &radius, const std::vector<std::string> &buttonsNames, IrrFontBuffer &irrFontBuffer)
+    : MenuElement(position, "Wheel"),
+      radius(radius),
+      currentButton(0),
+      displayedButton(0)
+{
     for (uint i = 0 ; i < buttonsNames.size() ; i++) {
         vector3df pos = getPosButton(i);
-        buttonList.push_back(new FontButton(pos, buttonsNames[i]));
+        buttonList.push_back(new FontButton(_window, pos, buttonsNames[i], irrFontBuffer));
     }
     turnButtons(BASE, 1000);
 }
 
-Wheel::Wheel(const vector3df &position, const float &radius, const std::vector<Wheel::ParamButton> &buttons) : MenuElement(position,
-                                                                                                                           "Wheel"),
-                                                                                                               radius(radius),
-                                                                                                               currentButton(0) {
-    //std::cout << "Position :" << position.X << "  " << position.Y << "  " << position.Z << std::endl;
+Wheel::Wheel(Window &_window, const vector3df &position, const float &radius, const std::vector<Wheel::ParamButton> &buttons)
+    : MenuElement(position, "Wheel"),
+      radius(radius),
+      currentButton(0)
+{
     for (uint i = 0 ; i < buttons.size() ; i++) {
         vector3df pos = getPosButton(i);
-        //  std::cout << "WIWI" << std::endl;
-        buttonList.push_back(new Button(pos, buttons[i].name, buttons[i].model, buttons[i].texture));
+        buttonList.push_back(new Button(_window, pos, buttons[i].name, buttons[i].model, buttons[i].texture));
     }
     turnButtons(BASE, 1000);
 }
 
-Wheel::~Wheel() = default;
+Wheel::~Wheel() {
+    for (auto &it : buttonList)
+        delete it;
+}
 
 /*
  * Getters // Setters
@@ -61,6 +65,6 @@ void Wheel::turnButtons(const Wheel::Dir &direction, const f32 &timestamps) {
             buttonList[i]->animation(getPosButton((i + displayedButton + buttonList.size() + direction) % buttonList.size()), timestamps);
         displayedButton = (displayedButton + buttonList.size() + direction) % buttonList.size();
         currentButton = displayedButton == 0 ? 0 : (buttonList.size() - displayedButton);
-        std::cout << "currentButton: " << currentButton << std::endl;
+        JukeBox::getInstance().playSound("Switch");
     }
 }

@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2019
-** FontButton
+** OOP_indie_studio_2018
 ** File description:
-** FontButton
+** FontButton.hpp
 */
 
 #pragma once
@@ -14,9 +14,10 @@
 #include "Text3d/WordSceneNode.hpp"
 #include "UserInterface/AButton.hpp"
 
-class FontButton : public AButton {
+class FontButton : public AButton
+{
 public:
-    FontButton(const vector3df &position, const std::string &name);
+    FontButton(Window &window, const vector3df &position, const std::string &name, IrrFontBuffer &irrFontBuffer);
     ~FontButton();
 
 public:

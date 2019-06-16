@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** Bomberman
+** OOP_indie_studio_2018
 ** File description:
 ** Character.hpp
 */
@@ -12,11 +12,12 @@
 
 #define TIMESTAMP 500
 
-class Character : public Entity
-{
+class Character : public Entity {
 public:
-    Character(const std::string &fileName, World *world, const vector3du &pos);
-    ~Character();
+    Character(Window *window, const std::string &fileName, World *world, const vector3du &pos);
+    virtual ~Character();
+
+public:
     bool animHasFinished() const;
     bool checkMove(const vector2di &dir) const;
     bool move(const vector2di &dir);

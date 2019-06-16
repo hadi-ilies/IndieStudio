@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** Bomberman
+** OOP_indie_studio_2018
 ** File description:
 ** World.hpp
 */
@@ -28,8 +28,8 @@ using namespace gui;
 
 class World {
 public:
-    World(const vector3du &_size, const uint &seed = time(0)); // ?
-    World(const std::string &_fileName); // TODO
+    World(Window *_window, const vector3du &_size, const uint &seed = time(0)); // ?
+    World(Window *_window, const std::string &_fileName); // TODO
     ~World();
     const vector3du &getSize() const;
     const Block *getBlock(const vector3du &pos) const;
@@ -53,6 +53,7 @@ private:
 
 private:
     std::string fileName;
+    Window *window;
     vector3du size;
     Block ****tab;
 };

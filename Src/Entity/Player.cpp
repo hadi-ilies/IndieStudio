@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** Bomberman
+** OOP_indie_studio_2018
 ** File description:
 ** Player.cpp
 */
@@ -8,43 +8,79 @@
 #include "Entity/Player.hpp"
 
 /*
- * Constructors // Desctructors
+ * Constructors // Destructors
  */
-Player::Player(const std::string &fileName, std::string _name, World *world, const vector3du &position) : Character(
-        fileName, world, position), name(std::move(_name)), hp(1), bombType("Timer"), bombPower(2), nbBomb(1) {
+Player::Player(Window *window, const std::string &fileName, std::string _name, World *world, const vector3du &position)
+    : Character(window, fileName, world, position),
+      name(std::move(_name)), hp(1), bombType("Timer"),
+      bombPower(2), nbBomb(1)
+{
+    if (window) {
+        JukeBox::getInstance().addSound("Damage", "Resources/Sound/Damage.ogg");
+        JukeBox::getInstance().addSound("PutBomb", "Resources/Sound/PutBomb.ogg");
+        JukeBox::getInstance().addSound("TakePowerUp", "Resources/Sound/TakePowerUp.ogg");
+    }
 }
 
-Player::~Player() = default;
+Player::~Player()
+{
+    for (Bomb *bomb : bombList)
+        delete bomb;
+}
 
 /*
  * Getters // Setters
  */
-const std::string &Player::getName() const {
+const std::string &Player::getName() const
+{
     return name;
 }
 
-const uint &Player::getHp() const {
+const uint &Player::getHp() const
+{
     return hp;
+}
+
+const uint &Player::getBombPower() const
+{
+    return bombPower;
+}
+
+const uint &Player::getNbBomb() const
+{
+    return nbBomb;
+}
+
+const std::list<Bomb *> &Player::getBombList() const
+{
+    return bombList;
 }
 
 /*
  * Methods
  */
-bool Player::putBomb() {
+bool Player::putBomb()
+{
     const vector3df floatPosition(position.X, position.Y, position.Z);
 
     if (bombList.size() >= nbBomb)
         return false;
     if (!animHasFinished())
         return false;
-    changeModel("Put");
-    if ((anim = Window::getInstance().createTranslation(floatPosition, floatPosition, TIMESTAMP)))
-        mesh->addAnimator(anim);
-    bombList.push_back(unique_ptr<Bomb>(new Bomb(bombType, bombPower, world, position)));
+    if (window) {
+        JukeBox::getInstance().playSound("PutBomb");
+        changeModel("Put");
+        if ((anim = window->createTranslation(floatPosition, floatPosition, TIMESTAMP)))
+            mesh->addAnimator(anim);
+    }
+    bombList.push_back(new Bomb(window, bombType, bombPower, world, position));
     return true;
 }
 
-bool Player::takePowerUp(const PowerUp &powerUp) {
+bool Player::takePowerUp(const PowerUp &powerUp)
+{
+    if (window)
+        JukeBox::getInstance().playSound("TakePowerUp");
     if (powerUp.getType() == "FireUp")
         bombPower++;
     else if (powerUp.getType() == "BombUp")
@@ -54,22 +90,29 @@ bool Player::takePowerUp(const PowerUp &powerUp) {
     return true;
 }
 
-void Player::takeDamage() {
+bool Player::takeDamage()
+{
     if (hp) {
         hp--;
+        if (window)
+            JukeBox::getInstance().playSound("Damage");
         if (!hp)
-            //mesh->setVisible(false); // ??
-            mesh->setRotation(vector3df(0, 0, 90));
+            if (mesh)
+                //mesh->setVisible(false); // ??
+                mesh->setRotation(vector3df(0, 0, 90));
     }
+    return !hp;
 }
 
-void Player::update() {
+void Player::update()
+{
     Entity::update();
-    for (unique_ptr<Bomb> &bomb : bombList) // TODO fusion of two for
-        bomb->update();
-    for (auto it = bombList.begin() ; it != bombList.end() ;)
-        if (!(*it)->getPower())
+    for (auto it = bombList.begin() ; it != bombList.end() ;) {
+        (*it)->update();
+        if (!(*it)->getPower()) {
+            delete *it;
             it = bombList.erase(it);
-        else
+        } else
             it++;
+    }
 }

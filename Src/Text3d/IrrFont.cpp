@@ -1,18 +1,17 @@
 /*
 ** EPITECH PROJECT, 2019
-** Bomberman
+** OOP_indie_studio_2018
 ** File description:
 ** IrrFont.cpp
 */
 
-#include <iostream> // ?
 #include "Text3d/IrrFont.hpp"
 #include "Error.hpp"
 
-IrrFont::IrrFont(const sf::Font &font, const char &_c)
-    : c(_c)
-{
-    const uint size = 100;
+/*
+ * Constructors // Destructors
+ */
+IrrFont::IrrFont(const sf::Font &font, const char &_c, const uint &size) : c(_c) {
     const sf::Texture &fontTexture = font.getTexture(size);
     const sf::Glyph &glyph = font.getGlyph(c, size, false);
     advance = glyph.advance;
@@ -29,8 +28,8 @@ IrrFont::IrrFont(const sf::Font &font, const char &_c)
     const sf::Texture &charTexture = renderTexture.getTexture();
     sf::Image image = charTexture.copyToImage();
 
-    for (uint i = 0; i < image.getSize().x; i++)
-        for (uint j = 0; j < image.getSize().y; j++) {
+    for (uint i = 0 ; i < image.getSize().x ; i++)
+        for (uint j = 0 ; j < image.getSize().y ; j++) {
             bool bord = false;
 
             if (image.getPixel(i, j).a < 100)
@@ -44,35 +43,39 @@ IrrFont::IrrFont(const sf::Font &font, const char &_c)
             else if (j == image.getSize().y - 1 || image.getPixel(i, j + 1).a < 100)
                 bord = true;
             if (bord)
-                pointList.push_back(core::vector3df(i / (size / 2.0), (image.getSize().y - j) / (size / 2.0), 0 / (size / 2.0))); // TODO - size / 2
+                for (uint n = 0 ; n < 20 ; n++)
+                    pointList.emplace_back(i / (float) size, (image.getSize().y - j) / (float) size, n / 100.0);
+            pointList.emplace_back(i / (float) size, (image.getSize().y - j) / (float) size,
+                                                0 / (float) size); // TODO - size / 2
         }
-    for (size_t i = 0; i < pointList.size(); i++)
+    for (size_t i = 0 ; i < pointList.size() ; i++)
         indiceList.push_back(i);
     primitiveType = scene::EPT_POINTS; // TODO use EPT_QUADS
-    cerr << "pre generate character '" << c << "'" << endl;
 }
 
-const char &IrrFont::getC() const
-{
+/*
+ * Getters // Setters
+ */
+const char &IrrFont::getC() const {
     return c;
 }
 
-const float &IrrFont::getAdvance() const
-{
+const float &IrrFont::getAdvance() const {
     return advance;
 }
 
-const std::vector<core::vector3df> &IrrFont::getPointList() const
-{
+const std::vector<core::vector3df> &IrrFont::getPointList() const {
     return pointList;
 }
 
-const std::vector<u16> &IrrFont::getIndiceList() const
-{
+const std::vector<u16> &IrrFont::getIndiceList() const {
     return indiceList;
 }
 
-const scene::E_PRIMITIVE_TYPE &IrrFont::getPrimitiveType() const
-{
+const scene::E_PRIMITIVE_TYPE &IrrFont::getPrimitiveType() const {
     return primitiveType;
 }
+
+/*
+ * Methods
+ */

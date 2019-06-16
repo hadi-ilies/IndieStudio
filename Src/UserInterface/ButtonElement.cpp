@@ -3,32 +3,27 @@
 ** OOP_indie_studio_2018
 ** File description:
 ** ButtonElement
-*//*
+*/
 
 
 #include "UserInterface/ButtonElement.hpp"
-
-*/
 /*
  * Contructors // Destructors
- *//*
-
-ButtonElement::ButtonElement(const vector3df &position, const std::string &name, const std::string &model, const std::string &texture)
-        : MenuElement(position, "Button"), button(new Button(position, name, model, texture)) {
+ */
+ButtonElement::ButtonElement(Window &_window, const vector3df &position, const std::string &name, const std::string &model, const std::string &texture)
+        : MenuElement(position, "Button"), button(new Button(_window, position, name, model, texture)) {
 }
 
 ButtonElement::~ButtonElement() = default;
 
-*/
 /*
  * Getters // Setters
- *//*
+ */
 
-Button *ButtonElement::getButton() const {
+AButton *ButtonElement::getButton() const {
     return button;
 }
 
-*/
 /*
  * Methods
  */

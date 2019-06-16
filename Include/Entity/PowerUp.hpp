@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** Bomberman
+** OOP_indie_studio_2018
 ** File description:
 ** PowerUp.hpp
 */
@@ -12,10 +12,9 @@
 
 #include "Entity.hpp"
 
-class PowerUp : public Entity
-{
+class PowerUp : public Entity {
 public:
-    PowerUp(std::string _type, World *world, const vector3du &pos);
+    PowerUp(Window *window, std::string _type, World *world, const vector3du &pos);
     ~PowerUp();
     const std::string &getType() const;
 
@@ -23,4 +22,4 @@ private:
     std::string type;
 };
 
-#endif
+#endif /* !POWERUP_HPP */

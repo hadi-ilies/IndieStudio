@@ -10,12 +10,16 @@
 /*
  * Constructors // Destructors
  */
-AButton::AButton(const vector3df &position, std::string name, std::string type) : position(position), name(std::move(name)), anim(nullptr),
-                                                                                  type(std::move(type)) {
+AButton::AButton(Window &_window, const vector3df &position, std::string name, std::string type)
+    : window(_window),
+    position(position),
+    name(std::move(name)),
+    anim(nullptr),
+    type(std::move(type)) {
+
 }
 
 AButton::~AButton() = default;
-
 /*
  * Getters // Setters
  */

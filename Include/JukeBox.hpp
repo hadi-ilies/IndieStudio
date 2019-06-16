@@ -20,23 +20,23 @@ public:
     bool addSound(const std::string &name, const std::string &fileName);
     void playMusic(const std::string &name);
     void playSound(const std::string &name);
-    void pauseSound(const std::string &name);
     void pauseMusic(const std::string &name);
-    void setVolumeMusic(float volume);
-    void setVolumeSound(float volume);
+    void setVolumeMusic(const float &volume);
+    void setVolumeSound(const float &volume);
 
 private:
+    JukeBox();
+    ~JukeBox() = default;
     JukeBox& operator=(const JukeBox&) = delete;
     JukeBox(const JukeBox&) = delete;
-    JukeBox() = default;
-    ~JukeBox() = default;
     void deleteEndOfSound();
 
 private:
     static JukeBox jukeboxInstance;
-    std::map<std::string, sf::Sound> soundMap;
     std::map<std::string, sf::Music> musicMap;
     std::map<std::string, sf::SoundBuffer> bufferMap;
+    std::list<sf::Sound> soundList;
+    float soundVolume;
 };
 
 #endif /* !JUKEBOX_HPP */

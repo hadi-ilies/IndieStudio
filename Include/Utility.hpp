@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** Bomberman
+** OOP_indie_studio_2018
 ** File description:
 ** Utility.hpp
 */
@@ -17,6 +17,7 @@ using namespace std;
 using namespace irr;
 using namespace core;
 
+typedef vector2d<uint> vector2du;
 typedef vector3d<uint> vector3du;
 
 vector<std::string> globpp(const std::string &pathFolder);

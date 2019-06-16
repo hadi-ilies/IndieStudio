@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2019
-** Wheel
+** OOP_indie_studio_2018
 ** File description:
-** Wheel
+** Wheel.hpp
 */
 
 #pragma once
@@ -16,19 +16,20 @@
 #include "UserInterface/FontButton.hpp"
 #include "Window.hpp"
 
-class Wheel : public MenuElement {
+class Wheel : public MenuElement
+{
 public:
     struct ParamButton {
         std::string name;
         std::string model;
         std::string texture;
     };
-    enum Dir {BASE = 0, RIGHT = 1, LEFT = -1};
+    enum Dir {BASE = 0, RIGHT = -1, LEFT = 1};
 
 public:
-    Wheel(const vector3df &position, const float &radius, const std::vector<std::string> &buttonsNames);
-	Wheel(const vector3df &position, const float &radius, const std::vector<Wheel::ParamButton> &buttons);
-	~Wheel();
+    Wheel(Window &_window, const vector3df &position, const float &radius, const std::vector<std::string> &buttonsNames, IrrFontBuffer &irrFontBuffer);
+    Wheel(Window &_window, const vector3df &position, const float &radius, const std::vector<Wheel::ParamButton> &buttons);
+    ~Wheel() override;
 
 public:
     void turnButtons(const Dir &direction, const f32 &timestamps);

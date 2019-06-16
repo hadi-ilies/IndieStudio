@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** Bomberman
+** OOP_indie_studio_2018
 ** File description:
 ** WordSceneNode.hpp
 */
@@ -12,16 +12,24 @@
 
 #include "CharacterSceneNode.hpp"
 #include "IrrFontBuffer.hpp"
+#include "Window.hpp"
 
-class WordSceneNode {
+class WordSceneNode
+{
 public:
-    WordSceneNode(scene::ISceneManager *smgr, std::string _str, IrrFontBuffer &irrFontBuffer);
+    WordSceneNode(Window &_window, std::string _str, const SColor &color, IrrFontBuffer &irrFontBuffer);
+    ~WordSceneNode();
     void setPosition(const core::vector3df &position);
     void setRotation(const core::vector3df &rotation);
     scene::ISceneNodeAnimator *addTranslation(const core::vector3df &destPos, const u32 &timestamp);
 
 private:
+    const float getWorldSize() const;
+
+private:
+    Window &window; // ?
     const std::string str;
+    const uint charSize;
     std::vector<CharacterSceneNode*> characterList; // TODO use unique_ptr
 };
 

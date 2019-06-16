@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** Bomberman
+** OOP_indie_studio_2018
 ** File description:
 ** CharacterSceneNode.hpp
 */
@@ -9,11 +9,13 @@
 #define CHARACTERSCENENODE_HPP
 
 #include "IrrFont.hpp"
+#include "Window.hpp"
 
 class CharacterSceneNode : public scene::ISceneNode
 {
 public:
-    CharacterSceneNode(scene::ISceneManager *smgr, const IrrFont &irrFont); // TODO add position
+    CharacterSceneNode(Window &window, const IrrFont &irrFont, const SColor &color); // TODO add position
+    ~CharacterSceneNode();
     const core::aabbox3d<f32> &getBoundingBox() const;
     u32 getMaterialCount() const;
     video::SMaterial &getMaterial(u32 i);

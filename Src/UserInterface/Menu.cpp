@@ -1,8 +1,6 @@
-#include <utility>
-
 /*
 ** EPITECH PROJECT, 2019
-** Menu
+** OOP_indie_studio_2018
 ** File description:
 ** Menu
 */
@@ -13,12 +11,20 @@
 /*
  *   Constructors // Destructors
  */
-Menu::Menu(std::string  name, const vector3df &cameraPos, const vector3df &targetPos) : name(std::move(name)), prevMenu(nullptr),
-                                                                                             position(cameraPos),
-                                                                                             targetPosition(targetPos) {
+Menu::Menu(Window &_window, IrrFontBuffer &_irrFontBuffer, std::string _name, const vector3df &cameraPos, const vector3df &targetPos)
+    : window(_window),
+      irrFontBuffer(_irrFontBuffer),
+      name(std::move(_name)),
+      prevMenu(nullptr),
+      position(cameraPos),
+      targetPosition(targetPos)
+{
 }
 
-Menu::~Menu() = default;
+Menu::~Menu() {
+    for (auto &it : MenuElements)
+        delete it;
+}
 
 /*
  *   Getters // Setters
@@ -27,6 +33,12 @@ const std::string Menu::getName() const {
     return name;
 }
 
+Menu *Menu::getMenuFromName(const std::string &_name)
+{
+    if (linkMap.find(name) != linkMap.end())
+        return linkMap.at(_name);
+    return nullptr;
+}
 
 const vector3df &Menu::getPosition() const {
     return position;
@@ -43,6 +55,7 @@ Menu *Menu::getPrevMenu() const {
 void Menu::setPrevMenu(Menu *menu) {
     prevMenu = menu;
 }
+
 /*
  *   Methods
  */
@@ -53,45 +66,44 @@ Menu *Menu::getMenu() {
 }
 
 std::string Menu::getCurrentButtonName() const {
-    return static_cast<Wheel *>(MenuElements.back())->getCurrentButton()->getName();
+    return static_cast<Wheel*>(MenuElements.back())->getCurrentButton()->getName();
 }
 
 std::string Menu::getCurrentButtonTexture() const {
-    return dynamic_cast<Button *> (static_cast<Wheel *>(MenuElements.back())->getCurrentButton())->getTexture();
+    return dynamic_cast<Button*> (static_cast<Wheel*>(MenuElements.back())->getCurrentButton())->getTexture();
 }
 
 std::string Menu::getCurrentButtonModel() const {
-    return dynamic_cast<Button *> (static_cast<Wheel *>(MenuElements.back())->getCurrentButton())->getModel();
+    return dynamic_cast<Button*> (static_cast<Wheel*>(MenuElements.back())->getCurrentButton())->getModel();
 }
 
 bool Menu::getKey() {
-    //std::cout << getCurrentButtonName() << std::endl;
-    if (Window::getInstance().isKeyPressed(KEY_SPACE) || Window::getInstance().isKeyPressed(KEY_RETURN)) {
+    if (window.isKeyPressed(KEY_SPACE) || window.isKeyPressed(KEY_RETURN)) {
         JukeBox::getInstance().playSound("Enter");
         return true;
     }
-    if (Window::getInstance().isKeyPressed(KEY_RIGHT)) {
-        static_cast<Wheel *>(MenuElements.back())->turnButtons(Wheel::RIGHT, 1000);
-        JukeBox::getInstance().playSound("Switch");
-    } else if (Window::getInstance().isKeyPressed(KEY_LEFT)) {
-        static_cast<Wheel *>(MenuElements.back())->turnButtons(Wheel::LEFT, 1000);
-        JukeBox::getInstance().playSound("Switch");
+    if (window.isKeyPressed(KEY_RIGHT)) {
+        static_cast<Wheel*>(MenuElements.back())->turnButtons(Wheel::RIGHT, 100);
+    } else if (window.isKeyPressed(KEY_LEFT)) {
+        static_cast<Wheel*>(MenuElements.back())->turnButtons(Wheel::LEFT, 100);
+
     }
     return false;
 }
 
-bool Menu::linkMenu(const std::string &_name, Menu *menu) {
+void Menu::linkMenu(const std::string &_name, Menu *menu) {
     linkMap[_name] = menu;
 }
 
-bool Menu::addWheel(const vector3df &_position, const float &radius, const std::vector<std::string> &buttonsNames) {
-    MenuElements.push_back(new Wheel(_position, radius, buttonsNames));
+void Menu::addWheel(const vector3df &_position, const float &radius, const std::vector<std::string> &buttonsNames)
+{
+    MenuElements.push_back(new Wheel(window, _position, radius, buttonsNames, irrFontBuffer));
 }
 
-bool Menu::addWheel(const vector3df &_position, const float &radius, const std::vector<Wheel::ParamButton> &buttons) {
-    MenuElements.push_back(new Wheel(_position, radius, buttons));
+void Menu::addWheel(const vector3df &_position, const float &radius, const std::vector<Wheel::ParamButton> &buttons) {
+    MenuElements.push_back(new Wheel(window, _position, radius, buttons));
 }
 
-bool Menu::addButton(const vector3df &_position, const std::string &_name, const std::string &model, const std::string &texture) {
+void Menu::addButton(const vector3df &_position, const std::string &_name, const std::string &model, const std::string &texture) {
     //MenuElements.push_back(new ButtonElement(_position, _name, model, texture));
 }

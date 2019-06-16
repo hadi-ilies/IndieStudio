@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** for_norme
+** OOP_indie_studio_2018
 ** File description:
 ** IrrFont.hpp
 */
@@ -15,9 +15,10 @@
 using namespace std;
 using namespace irr;
 
-class IrrFont {
+class IrrFont
+{
 public:
-    IrrFont(const sf::Font &font, const char &_c);
+    IrrFont(const sf::Font &font, const char &_c, const uint &size = 100);
     const char &getC() const;
     const float &getAdvance() const;
     const std::vector<core::vector3df> &getPointList() const;
@@ -32,4 +33,4 @@ private:
     scene::E_PRIMITIVE_TYPE primitiveType;
 };
 
-#endif /* !IRRFONT_HPP */
+#endif

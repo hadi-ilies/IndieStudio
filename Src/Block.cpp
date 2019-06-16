@@ -1,27 +1,35 @@
 /*
 ** EPITECH PROJECT, 2019
-** Bomberman
+** OOP_indie_studio_2018
 ** File description:
 ** Block.cpp
 */
 
+#include <iostream>
 #include "Block.hpp"
 #include "Error.hpp"
 
 /*
  * Constructors // Destructors
  */
-Block::Block(const std::string &_type, const vector3du &position) : type(_type), lifeTime(-1), cube(Window::getInstance().addCube(
-        "Resources/Block/" + _type + "/Texture.png")) {
-    getProperty("Resources/Block/" + _type + "/Property");
+Block::Block(Window *window, const std::string &_type, const vector3du &position)
+    : type(_type), opaque(true), destructible(true),
+      half(false), lifeTime(-1),
+      cube(window ? window->addCube("Resources/Block/" + _type + "/Texture.png") : nullptr)
+{
     const vector3df floatPos(position.X, position.Y, position.Z);
-    if (!cube)
-        throw ERROR("Cube can't be created");
-    cube->setPosition(floatPos);
+
+    getProperty("Resources/Block/" + _type + "/Property");
+    if (window) {
+        if (!cube)
+            throw ERROR("Cube can't be created");
+        cube->setPosition(floatPos);
+    }
 }
 
 Block::~Block() {
-    cube->remove();
+    if (cube)
+        cube->remove();
 }
 
 /*
@@ -37,6 +45,10 @@ const bool &Block::getOpaque() const {
 
 const bool &Block::getDestructible() const {
     return destructible;
+}
+
+const bool &Block::gethalf() const {
+    return half;
 }
 
 const uint &Block::getLifeTime() const {
@@ -63,7 +75,11 @@ void Block::getProperty(const std::string &fileName) {
             opaque = match[1] == "true";
         else if (regex_search(line, match, regex(R"(^destructible *: *(false|true)$)")))
             destructible = match[1] == "true";
+        else if (regex_search(line, match, regex(R"(^half *: *(\d+)$)")))
+            lifeTime = stoi(match[1]);
         else if (regex_search(line, match, regex(R"(^lifeTime *: *(\d+)$)")))
             lifeTime = stoi(match[1]);
+        else
+            cerr << "In file " << fileName << " unused line : {" << line << "}" << endl;
     }
 }

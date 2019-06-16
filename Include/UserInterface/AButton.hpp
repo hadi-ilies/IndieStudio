@@ -22,8 +22,8 @@ using namespace gui;
 
 class AButton {
 public:
-    AButton(const vector3df &position, std::string name, std::string type);
-    ~AButton();
+    AButton(Window &_window, const vector3df &position, std::string name, std::string type);
+    virtual ~AButton();
     const std::string getName() const;
     vector3df getPosition() const;
     bool isAnimationFinished() const;
@@ -32,6 +32,7 @@ public:
     virtual bool animation(const vector3df &destPos, const f32 &timestamps) = 0;
 
 protected:
+    Window &window;
     vector3df position;
     const std::string name;
     ISceneNodeAnimator *anim;

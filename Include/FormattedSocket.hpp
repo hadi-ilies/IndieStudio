@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** Bomberman
+** OOP_indie_studio_2018
 ** File description:
 ** FormattedSocket.hpp
 */
@@ -9,8 +9,8 @@
 #define FORMATTEDSOCKET_HPP
 
 #include <SFML/Network.hpp>
-#include "World.hpp" // ?
-#include "Entity/Player.hpp" // ?
+
+#include "Utility.hpp"
 
 using namespace std;
 
@@ -23,6 +23,7 @@ enum DataType
     Position,
     PlayerMove,
     PlayerPutBomb,
+    PlayerDisconnect,
 };
 
 class FormattedSocket
@@ -33,6 +34,8 @@ public:
     ushort getLocalPort() const;
     sf::IpAddress getRemoteAddress() const;
     ushort getRemotePort() const;
+
+public:
     bool connect(const sf::IpAddress &remoteAddress, const ushort &remotePort, const sf::Time &timeout = sf::Time::Zero);
     bool accept(sf::TcpListener &listener); // connect for server
     void disconnect();
@@ -44,8 +47,7 @@ public:
     bool sendPosition(const vector3du &pos);
     bool sendPlayerMove(const vector2di &dir);
     bool sendPlayerPutBomb();
-    //bool sendWorld(const World &world);
-    //bool sendPlayer(const Player &player);
+    bool sendPlayerDisconnect();
     bool receive();
 
 private:
@@ -67,4 +69,4 @@ private:
 
 sf::Packet &operator>>(sf::Packet &packet, DataType &dataType);
 
-#endif
+#endif /* !FORMATTEDSOCKET_HPP */

@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** Bomberman
+** OOP_indie_studio_2018
 ** File description:
 ** IrrFontBuffer.cpp
 */
@@ -9,18 +9,21 @@
 #include "Error.hpp"
 
 /*
- * Constructors // Destructors
+ * Constructors // Desctructors
  */
-IrrFontBuffer::IrrFontBuffer(const std::string &fileName, const string &cList) {
+IrrFontBuffer::IrrFontBuffer(const std::string &fileName, const string &cList)
+    : charSize(20)
+{
     sf::Font font;
 
     if (!font.loadFromFile(fileName))
-        throw ERROR("IrrFontBuffer error");
+        throw ERROR("IrrFontBuffer");
     for (const char &c : cList)
-        irrFontMap[c] = new IrrFont(font, c); // TODO not insert if IrrFont is NULL or IrrFont throw
+        irrFontMap[c] = new IrrFont(font, c, charSize);
 }
 
-IrrFontBuffer::~IrrFontBuffer() {
+IrrFontBuffer::~IrrFontBuffer()
+{
     for (auto &it : irrFontMap)
         delete it.second;
 }
@@ -28,7 +31,13 @@ IrrFontBuffer::~IrrFontBuffer() {
 /*
  * Getters // Setters
  */
-IrrFont *IrrFontBuffer::getIrrFont(const char &c) {
+const uint &IrrFontBuffer::getCharSize() const
+{
+    return charSize;
+}
+
+IrrFont *IrrFontBuffer::getIrrFont(const char &c)
+{
     // TODO throw
     return irrFontMap[c];
 }

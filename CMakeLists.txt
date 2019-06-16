@@ -51,6 +51,7 @@ set(SRC
 
 set(INCLUDE
   ${INCDIR}FormattedSocket.hpp
+  ${INCDIR}Server.hpp
   ${INCDIR}Window.hpp
   ${INCDIR}Error.hpp
   ${INCDIR}Utility.hpp

@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** Bomberman
+** OOP_indie_studio_2018
 ** File description:
 ** World.cpp
 */
@@ -11,18 +11,22 @@
 /*
  * Constructors // Destructors
  */
-World::World(const vector3du &_size, const uint &seed) : size(_size) {
+World::World(Window *_window, const vector3du &_size, const uint &seed)
+    : window(_window), size(_size)
+{
     if (!generate(size, seed))
         throw ERROR("Generation world failed");
 }
 
-World::World(const std::string &_fileName) {
+World::World(Window *_window, const std::string &_fileName) : window(_window)
+{
     if (!load(_fileName))
         throw ERROR("Load world failed");
 }
 
 //todo issue
-World::~World() {
+World::~World()
+{
     for (uint i = 0 ; i < size.X ; i++) {
         for (uint j = 0 ; j < size.Y ; j++) {
             for (uint k = 0 ; k < size.Z ; k++)
@@ -37,25 +41,29 @@ World::~World() {
 /*
  * Getters // Setters
  */
-const vector3du &World::getSize() const {
+const vector3du &World::getSize() const
+{
     return size;
 }
 
-const Block *World::getBlock(const vector3du &pos) const {
+const Block *World::getBlock(const vector3du &pos) const
+{
     return tab[pos.X][pos.Y][pos.Z];
 }
 
 /*
  * Methods
  */
-void World::explode(const vector3du &pos, const uint &power) {
+void World::explode(const vector3du &pos, const uint &power)
+{
     vector<vector3du> dirList = {
-            vector3du(-1, 0, 0), vector3du(1, 0, 0), vector3du(0, 0, -1), vector3du(0, 0, 1), vector3du(0, -1, 0), // ? 3D
+            vector3du(-1, 0, 0), vector3du(1, 0, 0), vector3du(0, 0, -1), vector3du(0, 0, 1),
+            vector3du(0, -1, 0), // ? 3D
             vector3du(0, 1, 0), // ? 3D
     };
 
-    for (uint i = 1 ; i <= power ; i++) {
-        for (auto & j : dirList) {
+    for (uint i = 0; i <= power; i++)
+        for (auto &j : dirList) {
             const vector3du newPos = pos + j * i;
 
             if (newPos.X >= size.X || newPos.Y >= size.Y || newPos.Z >= size.Z)
@@ -70,10 +78,10 @@ void World::explode(const vector3du &pos, const uint &power) {
             if (!tab[newPos.X][newPos.Y][newPos.Z])
                 addBlock(newPos, "Fire"); // ?
         }
-    }
 }
 
-bool World::generate(const vector3du &_size, const uint &seed) {
+bool World::generate(const vector3du &_size, const uint &seed)
+{
     float nbBox;
     float maxBlock;
     int nbCube = 0;
@@ -86,7 +94,7 @@ bool World::generate(const vector3du &_size, const uint &seed) {
     if (size.X < 3 || size.Y < 2 || size.Z < 3)
         return false;
 
-    fillPercentage = rand() % (80 - 40 + 1) + 40;
+    fillPercentage = rand() % (50 - 25 + 1) + 25;
     create(size);
     for (uint i = 0 ; i < size.X ; i++) // tmp
         for (uint j = 0 ; j < size.Z ; j++) {
@@ -135,7 +143,8 @@ bool World::load(const std::string &_fileName) {
     return true;
 }
 
-bool World::save(const std::string &_fileName) {
+bool World::save(const std::string &_fileName)
+{
     ofstream file(_fileName, ifstream::binary | ifstream::trunc);
 
     file.write((char *) &size, sizeof(size));
@@ -155,7 +164,8 @@ bool World::save(const std::string &_fileName) {
     return true;
 }
 
-void World::update() {
+void World::update()
+{
     for (uint i = 0 ; i < size.X ; i++)
         for (uint j = 0 ; j < size.Y ; j++)
             for (uint k = 0 ; k < size.Z ; k++)
@@ -166,7 +176,8 @@ void World::update() {
                 }
 }
 
-void World::create(const vector3du &_size) {
+void World::create(const vector3du &_size)
+{
     size = _size;
     tab = new Block ***[size.X];
     for (uint i = 0 ; i < size.X ; i++) {
@@ -179,14 +190,16 @@ void World::create(const vector3du &_size) {
     }
 }
 
-bool World::addBlock(const vector3du &pos, const std::string &type) {
+bool World::addBlock(const vector3du &pos, const std::string &type)
+{
     if (tab[pos.X][pos.Y][pos.Z])
         return false;
-    tab[pos.X][pos.Y][pos.Z] = new Block(type, pos); // ?
+    tab[pos.X][pos.Y][pos.Z] = new Block(window, type, pos); // ?
     return true;
 }
 
-bool World::removeBlock(const vector3du &pos) {
+bool World::removeBlock(const vector3du &pos)
+{
     if (!tab[pos.X][pos.Y][pos.Z])
         return false;
     delete tab[pos.X][pos.Y][pos.Z];
@@ -197,7 +210,8 @@ bool World::removeBlock(const vector3du &pos) {
 /*
  * Check position of the block
  */
-bool World::isValidPosition(int randomPosX, int randomPosZ) {
+bool World::isValidPosition(int randomPosX, int randomPosZ)
+{
 
     /*switch (this->nbPlayer) {
         case 1:
@@ -211,23 +225,29 @@ bool World::isValidPosition(int randomPosX, int randomPosZ) {
         default:
             return true;
     }*/
-    return isValidOneP(randomPosX, randomPosZ) && isValidTwoP(randomPosX, randomPosZ) && isValidThreeP(randomPosX, randomPosZ)
-           && isValidFourP(randomPosX, randomPosZ);
+    return isValidOneP(randomPosX, randomPosZ) && isValidTwoP(randomPosX, randomPosZ)
+           && isValidThreeP(randomPosX, randomPosZ) && isValidFourP(randomPosX, randomPosZ);
 }
 
-bool World::isValidOneP(int posX, int posZ) {
+bool World::isValidOneP(int posX, int posZ)
+{
     return !((posX == 1 && posZ == 1) || (posX == 2 && posZ == 1) || (posX == 1 && posZ == 2));
 }
 
-bool World::isValidTwoP(int posX, int posZ) {
+bool World::isValidTwoP(int posX, int posZ)
+{
     return !((posX == size.X - 2 && posZ == size.Z - 2) || (posX == size.X - 2 && posZ == size.Z - 3)
              || (posX == size.X - 3 && posZ == size.Z - 2));
 }
 
-bool World::isValidThreeP(int posX, int posZ) {
-    return !((posX == 1 && posZ == size.Z - 2) || (posX == 1 && posZ == size.Z - 3) || (posX == 2 && posZ == size.Z - 2));
+bool World::isValidThreeP(int posX, int posZ)
+{
+    return !((posX == 1 && posZ == size.Z - 2) || (posX == 1 && posZ == size.Z - 3)
+             || (posX == 2 && posZ == size.Z - 2));
 }
 
-bool World::isValidFourP(int posX, int posZ) {
-    return !((posX == size.X - 2 && posZ == 1) || (posX == size.X - 3 && posZ == 1) || (posX == size.X - 2 && posZ == 2));
+bool World::isValidFourP(int posX, int posZ)
+{
+    return !((posX == size.X - 2 && posZ == 1) || (posX == size.X - 3 && posZ == 1)
+             || (posX == size.X - 2 && posZ == 2));
 }

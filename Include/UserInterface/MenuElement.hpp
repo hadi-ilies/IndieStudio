@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2019
 ** OOP_indie_studio_2018
 ** File description:
-** UserInterface
+** UserInterface.hpp
 */
 
 #pragma once
@@ -15,7 +15,7 @@
 class MenuElement {
 public:
 	MenuElement(const vector3df &position, std::string type);
-	~MenuElement();
+	virtual ~MenuElement();
 	vector3df getPosition() const;
 	std::string getType() const;
 

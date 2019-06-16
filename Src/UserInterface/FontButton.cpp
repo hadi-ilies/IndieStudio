@@ -11,15 +11,19 @@
 /*
  * Constructors // Destructors
  */
-FontButton::FontButton(const vector3df &position, const std::string &name) : AButton(position, name, "Font") {
-    button = Window::getInstance().addText(name);
+FontButton::FontButton(Window &window, const vector3df &position, const std::string &name, IrrFontBuffer &irrFontBuffer)
+    : AButton(window, position, name, "Font")
+{
+    button = new WordSceneNode(window, name, SColor(255, rand() % 2 * 255, rand() % 2 * 255, rand() % 2 * 255), irrFontBuffer);;
     if (!button)
         throw ERROR("button can not be created");
     button->setPosition(position);
     button->setRotation(vector3df(0, -90, 0)); // TODO set in param
 }
 
-FontButton::~FontButton() = default;
+FontButton::~FontButton() {
+    delete button;
+}
 
 /*
  * Getters // Setters
@@ -28,8 +32,7 @@ FontButton::~FontButton() = default;
 /*
  * Methods
  */
-bool FontButton::animation(const vector3df &destPos, const f32 &timestamps)
-{
+bool FontButton::animation(const vector3df &destPos, const f32 &timestamps) {
     if (!isAnimationFinished())
         return false;
     anim = button->addTranslation(destPos, timestamps);

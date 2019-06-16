@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** Bomberman
+** OOP_indie_studio_2018
 ** File description:
 ** Entity.cpp
 */
@@ -10,91 +10,111 @@
 /*
  * Constructors // Destructors
  */
-Entity::Entity(const std::string &_fileName, World *_world, const vector3du &_position) :
-    mesh(Window::getInstance().addAnimatedMesh("Resources/Entity/" + _fileName + "/Model/Idle.md2",
-                                          "Resources/Entity/" + _fileName + "/Texture/Default.png")),
-    world(_world),
-    position(_position), fileName(_fileName),
-    modelUse("Idle"), textureUse("Default")
+Entity::Entity(Window *_window, const std::string &_fileName, World *_world, const vector3du &_position)
+    : window(_window),
+      mesh(_window ? _window->addAnimatedMesh("Resources/Entity/" + _fileName + "/Model/Idle.md2", "Resources/Entity/" + _fileName + "/Texture/Default.png") : nullptr),
+      world(_world),
+      position(_position), fileName(_fileName),
+      modelUse("Idle"), textureUse("Default")
 {
-    init();
-    if (!mesh)
-        throw ERROR("Mesh can't be created");
-    mesh->setAnimationSpeed(350); // ?
+    getModel("Resources/Entity/" + fileName + "/Model");
+    getTexture("Resources/Entity/" + fileName + "/Texture");
+    if (window) {
+        if (!mesh)
+            throw ERROR("Mesh can't be created");
+        mesh->setAnimationSpeed(350); // ?
+    }
 }
 
-Entity::~Entity() {
-    if (mesh) // ?
+Entity::~Entity()
+{
+    if (mesh)
         mesh->remove();
 }
 
 /*
  * Getters // Setters
  */
-const vector3du &Entity::getPosition() const {
+const vector3du &Entity::getPosition() const
+{
     return position;
 }
 
-const std::string &Entity::getFileName() const {
+const std::string &Entity::getFileName() const
+{
     return fileName;
 }
 
-const std::string &Entity::getModel() const {
+const std::string &Entity::getModel() const
+{
     return modelUse;
 }
 
-const std::string &Entity::getTexture() const {
+const std::string &Entity::getTexture() const
+{
     return textureUse;
 }
 
 /*
  * Methods
  */
-bool Entity::changeModel(const std::string &model) {
+bool Entity::changeModel(const std::string &model)
+{
     if (model == modelUse)
         return false;
-    if (modelMap.find(model) == modelMap.end())
-        return false;
-    mesh->setMesh(modelMap[model]);
+    if (window) {
+        if (modelMap.find(model) == modelMap.end())
+            return false;
+        mesh->setMesh(modelMap[model]);
+    }
     changeTexture(textureUse);
     modelUse = model;
     return true;
 }
 
-bool Entity::changeTexture(const std::string &texture) {
-    if (textureMap.find(texture) == textureMap.end())
-        return false;
-    mesh->setMaterialFlag(EMF_LIGHTING, false);
-    mesh->setMaterialTexture(0, textureMap[texture]);
+bool Entity::changeTexture(const std::string &texture)
+{
+    if (texture == "RANDOM" && textureMap.size() > 0) {
+        auto it = textureMap.begin();
+        size_t npa = rand() % textureMap.size();
+
+        for (size_t i = 0; i < npa; i++, it++);
+        return changeTexture(it->first);
+    }
+    if (window) {
+        if (textureMap.find(texture) == textureMap.end())
+            return false;
+        mesh->setMaterialFlag(EMF_LIGHTING, false);
+        mesh->setMaterialTexture(0, textureMap[texture]);
+    }
     textureUse = texture;
     return true;
 }
 
-void Entity::update() {
-    mesh->setPosition(vector3df(position.X, position.Y, position.Z));
+void Entity::update()
+{
+    if (mesh)
+        mesh->setPosition(vector3df(position.X, position.Y, position.Z));
 }
 
-void Entity::getModel(const std::string &_fileName) {
+void Entity::getModel(const std::string &_fileName)
+{
     const vector<std::string> modelStrList = globpp(_fileName);
     smatch match;
 
     for (const std::string &modelStr : modelStrList)
         if (regex_search(modelStr, match, regex(R"(/(\w+).md2$)")))
-            if (IAnimatedMesh *model = Window::getInstance().getModel(modelStr))
+            if (IAnimatedMesh *model = window ? window->getModel(modelStr) : nullptr)
                 modelMap[match[1]] = model;
 }
 
-void Entity::getTexture(const std::string &_fileName) {
+void Entity::getTexture(const std::string &_fileName)
+{
     const vector<std::string> textureStrList = globpp(_fileName);
     smatch match;
 
     for (const std::string &textureStr : textureStrList)
         if (regex_search(textureStr, match, regex(R"(/(\w+).png)")))
-            if (ITexture *texture = Window::getInstance().getTexture(textureStr))
+            if (ITexture *texture = window ? window->getTexture(textureStr) : nullptr)
                 textureMap[match[1]] = texture;
-}
-
-void Entity::init() {
-    getModel("Resources/Entity/" + fileName + "/Model");
-    getTexture("Resources/Entity/" + fileName + "/Texture");
 }

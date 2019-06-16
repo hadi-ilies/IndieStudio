@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** Bomberman
+** OOP_indie_studio_2018
 ** File description:
 ** PowerUp.cpp
 */
@@ -10,7 +10,10 @@
 /*
  * Constructors // Destructors
  */
-PowerUp::PowerUp(std::string _type, World *world, const vector3du &position) : Entity(_type, world, position), type(std::move(_type)) {
+PowerUp::PowerUp(Window *window, std::string _type, World *world, const vector3du &position)
+    : Entity(window, _type,
+    world, position),
+    type(std::move(_type)) {
 
 }
 

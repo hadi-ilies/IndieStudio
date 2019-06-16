@@ -1,20 +1,13 @@
 /*
 ** EPITECH PROJECT, 2019
-** Bomberman
+** OOP_indie_studio_2018
 ** File description:
 ** Window.cpp
 */
 
 #include "Window.hpp"
 
-Window Window::windowInstance = Window("Bomberman", dimension2d<u32>(1920 / 2, 1080 / 2), false);
-
-/*
- * Constructors // Destructors
- */
-Window::Window(const std::string &windowName, dimension2d<u32> size, const bool &fullscreen) : irrFontBuffer("Resources/Font/Prototype.ttf",
-                                                                                                             "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"),
-                                                                                               debug(false) {
+Window::Window(const std::string &windowName, dimension2d<u32> size, const bool &fullscreen) : debug(false) {
     const wstring title(windowName.begin(), windowName.end());
 
     device = createDevice(video::EDT_OPENGL, size, 16, fullscreen, false, false, &receiver);
@@ -39,16 +32,16 @@ Window::~Window() {
 /*
  * Getters // Setters
  */
-Window &Window::getInstance() {
-    return windowInstance;
-}
-
 const bool &Window::getDebugMode() const {
     return debug;
 }
 
 void Window::setDebugMode(const bool &active) {
     debug = active;
+}
+
+ISceneManager *Window::getSmgr() {
+    return smgr;
 }
 
 /*
@@ -114,11 +107,8 @@ IAnimatedMeshSceneNode *Window::addAnimatedMesh(const std::string &model, const 
     return node;
 }
 
-WordSceneNode *Window::addText(const std::string &str) {
-    return new WordSceneNode(smgr, str, irrFontBuffer);
-}
-
-ISceneNodeAnimator *Window::createTranslation(const vector3df &initPos, const vector3df &destPos, const u32 &timestamp) {
+ISceneNodeAnimator *
+Window::createTranslation(const vector3df &initPos, const vector3df &destPos, const u32 &timestamp) {
     return smgr->createFlyStraightAnimator(initPos, destPos, timestamp);
 }
 
@@ -139,8 +129,8 @@ ISceneNodeAnimator *Window::applyCameraMove(const CameraMove &cameraMoove) {
     scene::ISceneNodeAnimator *sa = nullptr;
 
     camera = getCameraSceneNode(cameraMoove.getPoints()[0], cameraMoove.getTargetPos());
-    sa = smgr->createFollowSplineAnimator(device->getTimer()->getTime(), cameraMoove.getPoints(), cameraMoove.getSpeed(),
-                                          cameraMoove.getTightness(), cameraMoove.getLoop());
+    sa = smgr->createFollowSplineAnimator(device->getTimer()->getTime(), cameraMoove.getPoints(),
+                                          cameraMoove.getSpeed(), cameraMoove.getTightness(), cameraMoove.getLoop());
     camera->addAnimator(sa);
     sa->drop();
     return sa;
@@ -151,20 +141,12 @@ void Window::debugMode() {
     IGUISkin *skin;
 
     guienv->clear();
-    swprintf(text, 255, L"fps: %3d", driver->getFPS()); // ?
+    swprintf(text, 255, L"FPS: %3d", driver->getFPS()); // ?
     skin = guienv->getSkin();
     skin->setColor(gui::EGDC_BUTTON_TEXT, video::SColor(255, 255, 255, 0));
     guienv->addStaticText(text, rect<s32>(10, 10, 55, 22), true);
 }
 
-// TODO supr func
-/*void Window::demoAnimation(core::array<core::vector3df> pointsList, const core::vector3df& lookAt) {
-    scene::ICameraSceneNode* camera = nullptr;
-    scene::ISceneNodeAnimator* sa = nullptr;
-
-    camera = getCameraSceneNode(pointsList[0], lookAt);
-    sa = smgr->createFollowSplineAnimator(this->getDevice()->getTimer()->getTime(), pointsList, 4, 0.5, false);
-    camera->addAnimator(sa);
-    sa->drop();
+void Window::canBeResized(bool isResize) {
+    device->setResizable(isResize);
 }
-*/

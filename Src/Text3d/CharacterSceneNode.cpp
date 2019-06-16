@@ -1,28 +1,35 @@
 /*
 ** EPITECH PROJECT, 2019
-** for_norme
+** OOP_indie_studio_2018
 ** File description:
 ** CharacterSceneNode.cpp
 */
 
 #include "Text3d/CharacterSceneNode.hpp"
 
-CharacterSceneNode::CharacterSceneNode(scene::ISceneManager *smgr, const IrrFont &irrFont)
-    : scene::ISceneNode(smgr->getRootSceneNode(), smgr, -1),
+#include <iostream> // tmp
+CharacterSceneNode::CharacterSceneNode(Window &window, const IrrFont &irrFont, const SColor &color)
+    : scene::ISceneNode(window.getSmgr()->getRootSceneNode(), window.getSmgr(), -1),
       c(irrFont.getC()),
       advance(irrFont.getAdvance())
 {
+    //const video::SColor color(255, rand() % 256, rand() % 256, rand() % 256);
     material.Wireframe = false;
     material.Lighting = false;
 
     for (const core::vector3df &point : irrFont.getPointList())
-        vertexList.emplace_back(point, core::vector3df(0, 0, 0), video::SColor(255, 255, 0, 0), core::vector2df(0, 0));
+        vertexList.emplace_back(point, core::vector3df(0, 0, 0), color, core::vector2df(0, 0));
     indiceList = irrFont.getIndiceList();
     primitiveType = irrFont.getPrimitiveType();
 
     box.reset(vertexList[0].Pos);
     for (s32 i = 1 ; i < vertexList.size() ; i++)
         box.addInternalPoint(vertexList[i].Pos);
+}
+
+
+CharacterSceneNode::~CharacterSceneNode() {
+    remove();
 }
 
 const core::aabbox3d<f32> &CharacterSceneNode::getBoundingBox() const
@@ -35,7 +42,8 @@ u32 CharacterSceneNode::getMaterialCount() const
     return 1;
 }
 
-video::SMaterial &CharacterSceneNode::getMaterial(u32 i) {
+video::SMaterial &CharacterSceneNode::getMaterial(u32 i)
+{
     return material;
 }
 

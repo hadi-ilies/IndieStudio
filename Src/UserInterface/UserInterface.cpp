@@ -6,175 +6,325 @@
 */
 
 #include "UserInterface/UserInterface.hpp"
+#include "Server.hpp"
+#include "Client.hpp"
 #include "Error.hpp"
 
 /*
  *   Constructors // Destructors
  */
-UserInterface::UserInterface() : menu(nullptr), prevMenu(nullptr), camera(nullptr), interfaceMusics(40), interfaceSounds(100), lock(false),
-                                 myPlayer(new Player("Bomberman", "Bob", nullptr, vector3du(0, 0, 0)))
-{
+UserInterface::UserInterface() :irrFontBuffer(FONT_TYPE, GENERATE_FONT),
+                                window("Bomberman", dimension2d<u32>(1920, 1080), false), menu(nullptr),
+                                prevMenu(nullptr), camera(nullptr), interfaceMusics(40), interfaceSounds(100),
+                                ipDisplayerMenu(nullptr),
+                                soundMenu (nullptr),
+                                musicMenu (nullptr),
+                                lock(false),
+                                myPlayer(new Player(nullptr, "Bomberman", "Bob", nullptr, vector3du(0, 0, 0))),
+                                mapGame("Default") {
+    //create sounds
+    JukeBox::getInstance().addMusic("Menu", "Resources/Music/MenuMusic.ogg");
+    JukeBox::getInstance().addSound("Back", "Resources/Sound/buttonClick.ogg");
+    JukeBox::getInstance().addSound("Enter", "Resources/Sound/Transition.ogg");
+    JukeBox::getInstance().addSound("Switch", "Resources/Sound/buttonClick.ogg");
+
+    //create musics
+    JukeBox::getInstance().setVolumeMusic(interfaceMusics);
+    JukeBox::getInstance().setVolumeSound(interfaceSounds);
 }
 
-UserInterface::~UserInterface() = default;
-
-/*
- *   Getters // Setters
- */
+UserInterface::~UserInterface() = default; // TODO in hpp
 
 /*
  *   Methods
  */
 //todo create factory menu
-void UserInterface::linkButtonToMenu() {
-    Menu *soloMenu = new Menu("Solo", vector3df(20, 50, 0), vector3df(10, 50, 0));
-    Menu *StageMenu = new Menu("Stage", vector3df(20, 100, 0), vector3df(10, 100, 0));
-    Menu *multiPlayerMenu = new Menu("Multiplayer", vector3df(70, 50, 0), vector3df(60, 50, 0));
-    Menu *settingsMenu = new Menu("Settings", vector3df(20, -100, 0), vector3df(10, -100, 0));
-    Menu *soundMenu = new Menu("Sound", vector3df(20, -400, 0), vector3df(10, -400, 0));
-    Menu *musicMenu = new Menu("Music", vector3df(20, -800, 0), vector3df(10, -800, 0));
-    Menu *modelMenu = new Menu("Player", vector3df(20, 500, 0), vector3df(10, 500, 0));
-    Menu *textureMenu = new Menu("Texture", vector3df(20, 4000, 0), vector3df(10, 4000, 0));
 
+void UserInterface::linkButtonToMenu() {
+    //create menus
+    Menu *soloMenu = new Menu(window, irrFontBuffer, "Solo", vector3df(20, 53, 0), vector3df(10, 50, 0));
+    Menu *multiPlayerMenu = new Menu(window, irrFontBuffer, "Multi", vector3df(70, 53, 0), vector3df(60, 50, 0));
+    Menu *nbPlayerMenu = new Menu(window, irrFontBuffer, "nbPlayer", vector3df(130, 53, 0), vector3df(120, 50, 0));
+    Menu *ipMenu = new Menu(window, irrFontBuffer, "ip", vector3df(-90, 53, 0), vector3df(-100, 50, 0));
+    Menu *settingsMenu = new Menu(window, irrFontBuffer, "Settings", vector3df(20, -97, 0), vector3df(10, -100, 0));
+    Menu *soundMenu = new Menu(window, irrFontBuffer, "Sound", vector3df(20, -397, 0), vector3df(10, -400, 0));
+    Menu *musicMenu = new Menu(window, irrFontBuffer, "Music", vector3df(20, -797, 0), vector3df(10, -800, 0));
+    Menu *modelMenu = new Menu(window, irrFontBuffer, "Player", vector3df(20, 503, 0), vector3df(10, 500, 0));
+
+    //create Wheels
     soloMenu->addWheel(vector3df(0, 50, 0), 10, { "Stage", "Play", "Back" }); //tmp
-    StageMenu->addWheel(vector3df(0, 100, 0), 10, {{ "Model1", "Bomberman", "Dark" },
-                                                   { "Model2", "Bomberman", "Dark" },
-                                                   { "Model3", "Bomberman", "Dark" }}); //tmp
-    multiPlayerMenu->addWheel(vector3df(50, 50, 0), 10, { "Server", "Client", "Back" }); //tmp
-    settingsMenu->addWheel(vector3df(0, -100, 0), 10, { "Music", "Sound", "Resolution", "Back" }); //tmp
+    multiPlayerMenu->addWheel(vector3df(50, 50, 0), 10, { "Server", "Client", "Stage", "Back" }); //tmp
+    nbPlayerMenu->addWheel(vector3df(110, 50, 0), 10, { "2", "3", "4", "5", "6", "7", "8", "9", "Back" }); //tmp
+    ipMenu->addWheel(vector3df(-110, 50, 0), 10,
+                     { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "<==", "Back", "SelectIp" }); //tmp
+    settingsMenu->addWheel(vector3df(0, -100, 0), 10, { "Music", "Sound", "Back" }); //tmp
     soundMenu->addWheel(vector3df(0, -400, 0), 10, { "More", "Less", "Back" }); //tmp
     musicMenu->addWheel(vector3df(0, -800, 0), 10, { "More", "Less", "Back" }); //tmp
-    modelMenu->addWheel(vector3df(0, 500, 0), 10, {{ "Model1", "Bomberman", "" },
-                                                   { "Model2", "Bomberman", "" },
-                                                   { "Model3", "Bomberman", "" }}); //tmp
-    textureMenu->addWheel(vector3df(0, 4000, 0), 10, {{ "Texture1", "Bomberman", "Test2" },
-                                                      { "Texture2", "Bomberman", "Dark" },
-                                                      { "Texture3", "Bomberman", "Default" }}); //tmp
+    modelMenu->addWheel(vector3df(5, 500, 0), 10, {{ "Model1", "Bomberman", "Default" },
+                                                   { "Model2", "Sydney", "Default" },
+                                                   { "Model3", "Fairy", "Default" }}); //tmp
 
-    soloMenu->linkMenu(StageMenu->getName(), StageMenu);
+    //link buttons
     menu->linkMenu(soloMenu->getName(), soloMenu);
     menu->linkMenu(multiPlayerMenu->getName(), multiPlayerMenu);
+    multiPlayerMenu->linkMenu("Server", nbPlayerMenu);
+    multiPlayerMenu->linkMenu("Client", ipMenu);
     menu->linkMenu(settingsMenu->getName(), settingsMenu);
-    modelMenu->linkMenu("Model1", textureMenu);
-    modelMenu->linkMenu("Model2", textureMenu);
-    modelMenu->linkMenu("Model3", textureMenu);
-    textureMenu->linkMenu("Texture1", menu);
-    textureMenu->linkMenu("Texture2", menu);
-    textureMenu->linkMenu("Texture3", menu);
     menu->linkMenu(modelMenu->getName(), modelMenu);
     settingsMenu->linkMenu(soundMenu->getName(), soundMenu);
     settingsMenu->linkMenu(musicMenu->getName(), musicMenu);
+
+    //link back buttons
     soloMenu->linkMenu("Back", menu);
     multiPlayerMenu->linkMenu("Back", menu);
     settingsMenu->linkMenu("Back", menu);
     soundMenu->linkMenu("Back", settingsMenu);
     musicMenu->linkMenu("Back", settingsMenu);
+    nbPlayerMenu->linkMenu("Back", multiPlayerMenu);
+    ipMenu->linkMenu("Back", multiPlayerMenu);
 }
 
 Menu *UserInterface::createMenuBomberman() {
-    float radius = 10;
+    const float radius = 10;
 
-    menu = new Menu("Main", vector3df(20, 0, 0), vector3df(10, 0, 0));
-    menu->addWheel(vector3df(0, 0, 0), radius, { "Solo", "Multi", "Settings", "Player", "Exit" });
+    menu = new Menu(window, irrFontBuffer, "Main", vector3df(20, -3, 0), vector3df(10, -5, 0));
+    menu->addWheel(vector3df(5, -5, 0), radius, { "Solo", "Multi", "Settings", "Player", "Exit" });
     linkButtonToMenu();
     return menu;
 }
 
-void UserInterface::create(const std::string &backgroundMusic) //tmp
-{
-    JukeBox::getInstance().addMusic("Menu", "Resources/Music/" + backgroundMusic);
-    JukeBox::getInstance().addSound("Back", "Resources/Sound/Off.ogg");
-    JukeBox::getInstance().addSound("Enter", "Resources/Sound/Transition.ogg");
-    JukeBox::getInstance().addSound("Switch", "Resources/Sound/On.ogg");
-
-    JukeBox::getInstance().setVolumeMusic(interfaceMusics);
-    JukeBox::getInstance().setVolumeSound(interfaceSounds);
-
+void UserInterface::create() {
+    //create menu
     menu = createMenuBomberman();
+    //set a save of the root menu
+    mainMenu = menu;
 }
 
 void UserInterface::setBackGround(const std::string &backGround) {
-    Window::getInstance().changeSkybox("Resources/Texture/" + backGround);
+    window.changeSkybox("Resources/Texture/" + backGround);
 }
 
 bool UserInterface::demo() {
     CameraMove cameraFirstMove;
     CameraMove cameraSecondMove;
-    World world("Resources/Map/DemoWithoutEdge");
+    World world(&window, "Resources/Map/DemoWithoutEdge");
     ISceneNodeAnimator *animation;
 
     setBackGround("BackgroundDemo.jpg");
     cameraFirstMove.generateFirstMove();
     cameraSecondMove.generateDemoSecondMove();
     cameraSecondMove.setLoop(true);
-    animation = Window::getInstance().applyCameraMove(cameraFirstMove);
+    animation = window.applyCameraMove(cameraFirstMove);
 
-    Window::getInstance().setDebugMode(true); // tmp
+    window.setDebugMode(true); // tmp
     JukeBox::getInstance().addMusic("demo", "Resources/Music/DemoMusic.ogg");
     JukeBox::getInstance().playMusic("demo");
 
-    while (Window::getInstance().isOpen()) {
+    while (window.isOpen()) {
         if (animation && animation->hasFinished()) {
-            animation = Window::getInstance().applyCameraMove(cameraSecondMove);
+            animation = window.applyCameraMove(cameraSecondMove);
         }
-        if (Window::getInstance().isKeyPressed(KEY_KEY_P)) {
+        if (window.isKeyPressed(KEY_KEY_P)) {
             JukeBox::getInstance().pauseMusic("demo");
-           return true;
+            return true;
         }
-        Window::getInstance().display();
+        window.display();
     }
     return false;
 }
 
-void client(Player &myPlayer, const sf::IpAddress &ip, const ushort &port);
-void server(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer);
+void UserInterface::checkVolume() {
+    bool musicLock = true;
+    bool soundLock = true;
 
-void UserInterface::checkVolume()
-{
-    if (menu->getCurrentButtonName() == "More" && menu->getName() == "Sound")
-        JukeBox::getInstance().setVolumeSound(interfaceSounds == 100 ? 100 : ++interfaceSounds);
-    else if (menu->getCurrentButtonName() == "More" && menu->getName() == "Music")
-        JukeBox::getInstance().setVolumeMusic(interfaceMusics == 100 ? 100 : ++interfaceMusics);
-    else if (menu->getCurrentButtonName() == "Less" && menu->getName() == "Sound")
-        JukeBox::getInstance().setVolumeSound(interfaceSounds == 0 ? 0 : --interfaceSounds);
-    else if (menu->getCurrentButtonName() == "Less" && menu->getName() == "Music")
-        JukeBox::getInstance().setVolumeMusic(interfaceMusics == 0 ? 0 : --interfaceMusics);
+    if (menu->getCurrentButtonName() == "More" && menu->getName() == "Sound") {
+        JukeBox::getInstance().setVolumeSound(interfaceSounds >= 100 ? 100 : interfaceSounds += 5);
+        soundLock = false;
+    } else if (menu->getCurrentButtonName() == "More" && menu->getName() == "Music") {
+        JukeBox::getInstance().setVolumeMusic(interfaceMusics >= 100 ? 100 : interfaceMusics += 5);
+        musicLock = false;
+    }
+    else if (menu->getCurrentButtonName() == "Less" && menu->getName() == "Sound") {
+        JukeBox::getInstance().setVolumeSound(interfaceSounds <= 0 ? 0 : interfaceSounds -= 5);
+        soundLock = false;
+    }
+    else if (menu->getCurrentButtonName() == "Less" && menu->getName() == "Music") {
+        JukeBox::getInstance().setVolumeMusic(interfaceMusics <= 0 ? 0 : interfaceMusics -= 5);
+        musicLock = false;
+    }
+    if (!musicLock) {
+        delete musicMenu;
+        musicMenu = new Menu (window, irrFontBuffer, "musicDisplayer", vector3df(20, -797, 0), vector3df(10, -800, 0));
+        musicMenu->addWheel(vector3df(0, -795, 0), 10, {"", std::to_string((int)interfaceMusics) + "%"});
+    }
+    if (!soundLock) {
+        delete soundMenu;
+        soundMenu = new Menu (window, irrFontBuffer, "musicDisplayer", vector3df(20, -397, 0), vector3df(10, -400, 0));
+        soundMenu->addWheel(vector3df(0, -395, 0), 10, {"", std::to_string((int)interfaceSounds) + "%"});
+    }
 }
 
-void UserInterface::run(const vector3df &cameraPos, const vector3df &cameraTarget) {
-    camera = Window::getInstance().getCameraSceneNode(cameraPos, cameraTarget);
-    JukeBox::getInstance().playMusic("Menu");
+void UserInterface::createTexture() {
+    int i = 0;
+    Menu *textureMenu = new Menu(window, irrFontBuffer, "texture", vector3df(20, 4003, 0), vector3df(10, 4000, 0));
+    std::vector<Wheel::ParamButton> textures;
 
-    while (Window::getInstance().isOpen()) {
-        if (menu->getKey() && menu->getName() == "Player")
-            myPlayer = new Player(menu->getCurrentButtonModel(), "BOB", nullptr, vector3du(1, 1, 1));
-        else if (menu->getKey() && menu->getName() == "Texture")
-            myPlayer->changeTexture(menu->getCurrentButtonTexture());
+    for (std::string &texture: globpp("Resources/Entity/" + myPlayer->getFileName() + "/Texture")) {
+        smatch match;
+        if (regex_search(texture, match, regex(R"(([\w\d]+)\.png$)"))) {
+            std::string buttonName = (std::string) "texture" + std::to_string(++i);
+            textures.push_back({ buttonName, myPlayer->getFileName(), match[1] });
+            textureMenu->linkMenu(buttonName, mainMenu);
+        }
+    }
+    textureMenu->addWheel(vector3df(5, 4000, 0), 10, textures);
+    menu->linkMenu(menu->getCurrentButtonName(), textureMenu);
+}
+
+
+void UserInterface::createMaps() {
+    Menu *stageMenu = new Menu(window, irrFontBuffer, "stage", vector3df(20, 103, 0), vector3df(10, 100, 0));
+    std::vector<std::string> maps;
+
+    for (std::string &map: globpp("Resources/Map/Game")) {
+        smatch match;
+        if (regex_search(map, match, regex(R"(([\w\d]+)$)"))) {
+            std::string filename = match[1];
+            maps.push_back(filename);
+            stageMenu->linkMenu(filename, menu);
+        }
+    }
+    stageMenu->addWheel(vector3df(0, 100, 0), 10, maps);
+    menu->linkMenu(menu->getCurrentButtonName(), stageMenu);
+}
+
+void UserInterface::checkPlayerFeatures() {
+    if (menu->getKey() && menu->getName() == "Player") {
+        delete myPlayer;
+        myPlayer = new Player(&window, menu->getCurrentButtonModel(), "BOB", nullptr, vector3du(1, 1, 1));
+        createTexture();
+    } else if (menu->getKey() && menu->getName() == "texture")
+        myPlayer->changeTexture(menu->getCurrentButtonTexture());
+    else if (menu->getKey() && menu->getCurrentButtonName() == "Stage") //Warning if create another button stage that do not do the same work its will be an issue
+        createMaps();
+    else if (menu->getKey() && menu->getName() == "stage")
+        mapGame = menu->getCurrentButtonName();
+}
+
+bool UserInterface::isIpV4Address(const std::string &ip) {
+    struct sockaddr_in sa;
+
+    return inet_pton(AF_INET, ip.c_str(), &(sa.sin_addr)) != 0;
+}
+
+void UserInterface::switchStatusMenu(const std::string &status)
+{
+    Menu *statusMenu = new Menu(window, irrFontBuffer, status, vector3df(-480, -500, 0), vector3df(-490, -500, 0));
+
+    statusMenu->addWheel(vector3df(-500, -500, 0), 10, {status}); //tmp
+    statusMenu->linkMenu(status, mainMenu);
+    menu->linkMenu(menu->getCurrentButtonName(), statusMenu);
+}
+
+void UserInterface::ipDisplayer(std::string &ipServer)
+{
+    ipDisplayerMenu = new Menu (window, irrFontBuffer, "ipDisplayer", vector3df(-90, 53, 0), vector3df(-100, 50, 0));
+    ipDisplayerMenu->addWheel(vector3df(-101, 53, 0), 10, {"", ipServer});
+}
+
+void UserInterface::selectIp(std::string &ipServer) {
+    if (menu->getCurrentButtonName() == "SelectIp" && isIpV4Address(ipServer)) {
+        if (client(&window, myPlayer, Human, sf::IpAddress(ipServer), SERVER_PORT))
+            switchStatusMenu("Victory");
+        else
+            switchStatusMenu("Defeat");
+    changeScene(menu->getPosition(), menu->getMenu()->getPosition(), menu->getMenu()->getTargetPosition());
+    switchMenu();
+    } else if (menu->getCurrentButtonName() == "<==" && !ipServer.empty()) {
+        delete ipDisplayerMenu;
+        ipServer.pop_back();
+        ipDisplayer(ipServer);
+    } else if (ipServer.size() < 15) {
+        if (menu->getCurrentButtonName() == "." || (menu->getCurrentButtonName() != "Back" && menu->getCurrentButtonName() != "SelectIp" && menu->getCurrentButtonName() != "<==")) {
+            delete ipDisplayerMenu;
+            ipServer += menu->getCurrentButtonName();
+            ipDisplayer(ipServer);
+        }
+    }
+}
+
+void UserInterface::changeScene(const vector3df &cameraPos, const vector3df &cameraDestPos, const vector3df &cameraTarget) {
+    CameraMove cameraAnim(cameraPos, cameraTarget, 1);
+    cameraAnim.addPoint(cameraDestPos);
+    window.applyCameraMove(cameraAnim);
+}
+
+void UserInterface::playGame(const std::string &targetIp, const size_t &nbPlayer, const size_t &port, const bool soloMode)
+{
+    std::unique_ptr<std::thread> myIa;
+    std::thread myServer(server, port, mapGame, nbPlayer);
+    sleep(1); // ? make a pause to let time to the server to load
+
+    if (soloMode) {
+            Player *aiPlayer = new Player(&window, "Bomberman", "Bob", nullptr, vector3du(0, 0, 0));
+            aiPlayer->changeTexture("RANDOM");
+            myIa = std::move(std::make_unique<std::thread> (client, nullptr, aiPlayer, IACorentin, sf::IpAddress(targetIp), port)); // TODO join
+            sleep(1); // tmp // TODO supr
+            delete aiPlayer;
+    }
+    JukeBox::getInstance().pauseMusic("Menu");
+    if (client(&window, myPlayer, Human, sf::IpAddress(targetIp), port))
+        switchStatusMenu("Victory");
+    else
+        switchStatusMenu("Defeat");
+    if (soloMode)
+        myIa->join(); // tmp
+    myServer.join();
+    changeScene(menu->getPosition(), menu->getMenu()->getPosition(), menu->getMenu()->getTargetPosition());
+    JukeBox::getInstance().playMusic("Menu");
+    switchMenu();
+}
+
+void UserInterface::switchMenu() {
+    changeScene(menu->getPosition(), menu->getMenu()->getPosition(), menu->getMenu()->getTargetPosition());
+    prevMenu = menu;
+    Menu *tmpMenu = menu->getMenu();
+    if (menu->getName() == "texture" || menu->getName() == "stage" || menu->getName() == "Defeat" || menu->getName() == "Victory")
+        delete menu;
+    menu = tmpMenu;
+}
+
+
+void UserInterface::run(const vector3df &cameraPos, const vector3df &cameraTarget) {
+    camera = window.getCameraSceneNode(cameraPos, cameraTarget);
+    JukeBox::getInstance().playMusic("Menu");
+    std::string ipServer;
+
+    while (window.isOpen()) {
         if (menu->getKey()) {
             if (!lock) {
                 checkVolume();
-                if(menu->getCurrentButtonName() == "Back")
+                checkPlayerFeatures();
+                if (menu->getCurrentButtonName() == "Back") {
                     JukeBox::getInstance().playSound("Back");
-                if(!menu->getMenu() && menu->getCurrentButtonName() == "Exit")
-                    Window::getInstance().close();
-                else if (!menu->getMenu() && menu->getCurrentButtonName() == "Play") {
-                     //uint port = 8080;
-                     //std::thread my_server(server, port, "Default", 1); //tmp remove window inside this func
-                     //sleep(10);
-                     //client(*myPlayer, sf::IpAddress("127.0.0.1"), port); //tmp // send player in funtion*/
+                    switchMenu();
+                    lock = true;
+                    continue;
                 }
-                else if (menu->getMenu()) {
-                    CameraMove cameraAnim(menu->getPosition(), menu->getMenu()->getTargetPosition(), 1);
-                    cameraAnim.addPoint(menu->getMenu()->getPosition());
-                    Window::getInstance().applyCameraMove(cameraAnim);
-                    //menu->setPrevMenu(menu);
-                    prevMenu = menu;
-                    menu = menu->getMenu();
-                }
+                if (!menu->getMenu() && menu->getCurrentButtonName() == "Exit")
+                    window.close();
+                else if (menu->getCurrentButtonName() == "Play")
+                    playGame(LOCALHOST, SOLO, SERVER_PORT, true);
+                else if (menu->getName() == "ip")
+                    selectIp(ipServer);
+                else if (menu->getName() == "nbPlayer")
+                    playGame(LOCALHOST, std::stoi(menu->getCurrentButtonName()), SERVER_PORT, false);
+                else if (menu->getMenu())
+                    switchMenu();
                 lock = true;
             }
         } else
             lock = false;
-        Window::getInstance().display();
+        window.display();
     }
 }

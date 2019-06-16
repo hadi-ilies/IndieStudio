@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2019
-** button
+** OOP_indie_studio_2018
 ** File description:
-** button
+** Button.hpp
 */
 
 #pragma once
@@ -17,7 +17,7 @@
 
 class Button : public AButton {
 public:
-    Button(const vector3df &position, const std::string &name, const std::string &model, const std::string &texture);
+    Button(Window &window, const vector3df &position, const std::string &name, const std::string &model, const std::string &texture);
     ~Button();
     const std::string getTexture() const;
     const std::string getModel() const;

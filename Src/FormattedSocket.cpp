@@ -1,77 +1,73 @@
 /*
 ** EPITECH PROJECT, 2019
-** Bomberman
+** OOP_indie_studio_2018
 ** File description:
 ** FormattedSocket.cpp
 */
 
 #include "FormattedSocket.hpp"
 
-FormattedSocket::FormattedSocket()
-    : connected(false)
-{
+/*
+ * Constructors // Destructors
+ */
+FormattedSocket::FormattedSocket() : connected(false) {
+
 }
 
-FormattedSocket::~FormattedSocket()
-{
-}
+FormattedSocket::~FormattedSocket() = default;
 
-ushort FormattedSocket::getLocalPort() const
-{
+/*
+ * Getters // Setters
+ */
+ushort FormattedSocket::getLocalPort() const {
     return socket.getLocalPort();
 }
 
-sf::IpAddress FormattedSocket::getRemoteAddress() const
-{
+sf::IpAddress FormattedSocket::getRemoteAddress() const {
     return socket.getRemoteAddress();
 }
 
-ushort FormattedSocket::getRemotePort() const
-{
+ushort FormattedSocket::getRemotePort() const {
     return socket.getRemotePort();
 }
 
-bool FormattedSocket::connect(const sf::IpAddress &remoteAddress, const ushort &remotePort, const sf::Time &timeout)
-{
+/*
+ * Methods
+ */
+bool FormattedSocket::connect(const sf::IpAddress &remoteAddress, const ushort &remotePort, const sf::Time &timeout) {
     connected = socket.connect(remoteAddress, remotePort, timeout) == sf::Socket::Done;
     return connected;
 }
 
-bool FormattedSocket::accept(sf::TcpListener &listener)
-{
+bool FormattedSocket::accept(sf::TcpListener &listener) {
     connected = listener.accept(socket) == sf::Socket::Done;
     return connected;
 }
 
-void FormattedSocket::disconnect()
-{
+void FormattedSocket::disconnect() {
     socket.disconnect();
     connected = false;
 }
 
-bool FormattedSocket::isConnected() const
-{
+bool FormattedSocket::isConnected() const {
     return connected;
 }
 
-bool FormattedSocket::sendStartTurn()
-{
+bool FormattedSocket::sendStartTurn() {
     sf::Packet packet;
 
     packet << StartTurn;
     return sendPacket(packet);
 }
 
-bool FormattedSocket::sendEndTurn()
-{
+bool FormattedSocket::sendEndTurn() {
     sf::Packet packet;
 
     packet << EndTurn;
     return sendPacket(packet);
 }
 
-bool FormattedSocket::sendMessage(const std::string &msg)
-{
+bool FormattedSocket::sendMessage(const std::string &msg) {
     sf::Packet packet;
 
     packet << Message;
@@ -79,8 +75,7 @@ bool FormattedSocket::sendMessage(const std::string &msg)
     return sendPacket(packet);
 }
 
-bool FormattedSocket::sendNumber(const sf::Uint32 &num)
-{
+bool FormattedSocket::sendNumber(const sf::Uint32 &num) {
     sf::Packet packet;
 
     packet << Number;
@@ -88,8 +83,7 @@ bool FormattedSocket::sendNumber(const sf::Uint32 &num)
     return sendPacket(packet);
 }
 
-bool FormattedSocket::sendPosition(const vector3du &pos)
-{
+bool FormattedSocket::sendPosition(const vector3du &pos) {
     sf::Packet packet;
 
     packet << Position;
@@ -99,8 +93,7 @@ bool FormattedSocket::sendPosition(const vector3du &pos)
     return sendPacket(packet);
 }
 
-bool FormattedSocket::sendPlayerMove(const vector2di &dir)
-{
+bool FormattedSocket::sendPlayerMove(const vector2di &dir) {
     sf::Packet packet;
 
     packet << PlayerMove;
@@ -109,16 +102,21 @@ bool FormattedSocket::sendPlayerMove(const vector2di &dir)
     return sendPacket(packet);
 }
 
-bool FormattedSocket::sendPlayerPutBomb()
-{
+bool FormattedSocket::sendPlayerPutBomb() {
     sf::Packet packet;
 
     packet << PlayerPutBomb;
     return sendPacket(packet);
 }
 
-bool FormattedSocket::receive()
-{
+bool FormattedSocket::sendPlayerDisconnect() {
+    sf::Packet packet;
+
+    packet << PlayerDisconnect;
+    return sendPacket(packet);
+}
+
+bool FormattedSocket::receive() {
     sf::Packet packet;
 
     if (!receivePacket(packet))
@@ -128,12 +126,10 @@ bool FormattedSocket::receive()
     if (type == Message) {
         if (!(packet >> message))
             return false;
-    }
-    else if (type == Number) {
+    } else if (type == Number) {
         if (!(packet >> number))
             return false;
-    }
-    else if (type == Position) {
+    } else if (type == Position) {
         uint x;
         uint y;
         uint z;
@@ -143,8 +139,7 @@ bool FormattedSocket::receive()
         position.X = x;
         position.Y = y;
         position.Z = z;
-    }
-    else if (type == PlayerMove) {
+    } else if (type == PlayerMove) {
         int x;
         int y;
 
@@ -157,29 +152,29 @@ bool FormattedSocket::receive()
     return true;
 }
 
-bool FormattedSocket::sendPacket(sf::Packet &packet)
-{
+bool FormattedSocket::sendPacket(sf::Packet &packet) {
     const sf::Socket::Status status = socket.send(packet);
 
-    if (status == sf::Socket::Disconnected)
+    if (status == sf::Socket::Disconnected || status == sf::Socket::Error)
         connected = false;
     return status == sf::Socket::Done;
 }
 
-bool FormattedSocket::receivePacket(sf::Packet &packet)
-{
+bool FormattedSocket::receivePacket(sf::Packet &packet) {
     const sf::Socket::Status status = socket.receive(packet);
 
-    if (status == sf::Socket::Disconnected)
+    if (status == sf::Socket::Disconnected || status == sf::Socket::Error)
         connected = false;
     return status == sf::Socket::Done;
 }
 
-sf::Packet &operator>>(sf::Packet &packet, DataType &dataType)
-{
+/*
+ * Redefinition
+ */
+sf::Packet &operator>>(sf::Packet &packet, DataType &dataType) {
     sf::Uint32 tmp;
 
     packet >> tmp;
-    dataType = (DataType)tmp;
+    dataType = (DataType) tmp;
     return packet;
 }

@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** Bomberman
+** OOP_indie_studio_2018
 ** File description:
 ** Error.hpp
 */
@@ -13,13 +13,12 @@
 
 #define ERROR(str) Error(str, __FILE__, __FUNCTION__, __LINE__)
 
-class Error : public std::exception { // todo move in cpp ??
+class Error : public std::exception {
 public:
     explicit Error(std::string what = "unknown", std::string file = "unknown",
                    std::string function = "unknown", size_t line = 0) : _what(
             std::move(what)), _file(std::move(file)), _function(
             std::move(function)), _line(line) {};
-    ~Error() = default;
 
 public:
     const char *what() const noexcept override {
@@ -32,7 +31,7 @@ public:
         return where.c_str();
     }
 
-protected:
+private:
     const std::string _what;
     const std::string _file;
     const std::string _function;
