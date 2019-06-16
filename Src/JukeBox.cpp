@@ -14,7 +14,7 @@ JukeBox JukeBox::jukeboxInstance;
  * Constructors // Destructors
  */
 JukeBox::JukeBox()
-    : soundVolume(100.0)
+    : musicVolume(100.0), soundVolume(100.0)
 {
 }
 
@@ -34,6 +34,7 @@ bool JukeBox::addMusic(const std::string &name, const std::string &fileName)
     if (musicMap.find(name) != musicMap.end())
         return true;
     if (musicMap[name].openFromFile(fileName)) {
+        musicMap[name].setVolume(musicVolume);
         musicMap[name].setLoop(true);
         return true;
     }
@@ -72,6 +73,7 @@ void JukeBox::pauseMusic(const std::string &name)
 
 void JukeBox::setVolumeMusic(const float &volume)
 {
+    musicVolume = volume;
     for (auto &it : musicMap)
         it.second.setVolume(volume);
 }
@@ -79,6 +81,8 @@ void JukeBox::setVolumeMusic(const float &volume)
 void JukeBox::setVolumeSound(const float &volume)
 {
     soundVolume = volume;
+    for (auto &it : soundList)
+        it.setVolume(volume);
 }
 
 void JukeBox::deleteEndOfSound()

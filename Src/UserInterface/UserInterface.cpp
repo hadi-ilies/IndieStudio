@@ -232,8 +232,10 @@ void UserInterface::ipDisplayer(std::string &ipServer)
     ipDisplayerMenu->addWheel(vector3df(-101, 53, 0), 10, {"", ipServer});
 }
 
-void UserInterface::selectIp(std::string &ipServer) {
+void UserInterface::selectIp(std::string &ipServer)
+{
     if (menu->getCurrentButtonName() == "SelectIp" && isIpV4Address(ipServer)) {
+        JukeBox::getInstance().pauseMusic("Menu");
         if (client(&window, myPlayer, Human, sf::IpAddress(ipServer), SERVER_PORT))
             switchStatusMenu("Victory");
         else

@@ -13,7 +13,8 @@
 #include <SFML/Network.hpp>
 #include <SFML/Audio.hpp>
 
-class JukeBox {
+class JukeBox
+{
 public:
     static JukeBox &getInstance();
     bool addMusic(const std::string &name, const std::string &fileName);
@@ -36,6 +37,7 @@ private:
     std::map<std::string, sf::Music> musicMap;
     std::map<std::string, sf::SoundBuffer> bufferMap;
     std::list<sf::Sound> soundList;
+    float musicVolume;
     float soundVolume;
 };
 
