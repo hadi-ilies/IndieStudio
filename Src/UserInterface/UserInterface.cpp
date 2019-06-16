@@ -54,7 +54,7 @@ void UserInterface::linkButtonToMenu() {
 
     //create Wheels
     soloMenu->addWheel(vector3df(0, 50, 0), 10, { "Stage", "Play", "Back" }); //tmp
-    multiPlayerMenu->addWheel(vector3df(50, 50, 0), 10, { "Server", "Client", "Stage", "Back" }); //tmp
+    multiPlayerMenu->addWheel(vector3df(50, 50, 0), 10, { "Host", "Join", "Stage", "Back" }); //tmp
     nbPlayerMenu->addWheel(vector3df(110, 50, 0), 10, { "2", "3", "4", "5", "6", "7", "8", "9", "Back" }); //tmp
     ipMenu->addWheel(vector3df(-110, 50, 0), 10,
                      { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "<==", "Back", "SelectIp" }); //tmp
@@ -68,8 +68,8 @@ void UserInterface::linkButtonToMenu() {
     //link buttons
     menu->linkMenu(soloMenu->getName(), soloMenu);
     menu->linkMenu(multiPlayerMenu->getName(), multiPlayerMenu);
-    multiPlayerMenu->linkMenu("Server", nbPlayerMenu);
-    multiPlayerMenu->linkMenu("Client", ipMenu);
+    multiPlayerMenu->linkMenu("Host", nbPlayerMenu);
+    multiPlayerMenu->linkMenu("Join", ipMenu);
     menu->linkMenu(settingsMenu->getName(), settingsMenu);
     menu->linkMenu(modelMenu->getName(), modelMenu);
     settingsMenu->linkMenu(soundMenu->getName(), soundMenu);
