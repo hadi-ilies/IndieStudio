@@ -13,15 +13,16 @@
 /*
  *   Constructors // Destructors
  */
-UserInterface::UserInterface() :irrFontBuffer(FONT_TYPE, GENERATE_FONT),
-                                window("Bomberman", dimension2d<u32>(1920, 1080), false), menu(nullptr),
-                                prevMenu(nullptr), camera(nullptr), interfaceMusics(40), interfaceSounds(100),
-                                ipDisplayerMenu(nullptr),
-                                soundMenu (nullptr),
-                                musicMenu (nullptr),
-                                lock(false),
-                                myPlayer(new Player(nullptr, "Bomberman", "Bob", nullptr, vector3du(0, 0, 0))),
-                                mapGame("Default") {
+UserInterface::UserInterface()
+    : irrFontBuffer(FONT_TYPE, GENERATE_FONT),
+      window("Bomberman", dimension2d<u32>(1920, 1080), false), menu(nullptr),
+      prevMenu(nullptr), camera(nullptr), interfaceMusics(40), interfaceSounds(100),
+      ipDisplayerMenu(nullptr),
+      soundMenu (nullptr),
+      musicMenu (nullptr),
+      lock(false),
+      myPlayer(new Player(nullptr, "Bomberman", "Bob", nullptr, vector3du(0, 0, 0))),
+      mapGame("Default") {
     //create sounds
     JukeBox::getInstance().addMusic("Menu", "Resources/Music/MenuMusic.ogg");
     JukeBox::getInstance().addSound("Back", "Resources/Sound/buttonClick.ogg");
@@ -240,6 +241,7 @@ void UserInterface::selectIp(std::string &ipServer)
             switchStatusMenu("Victory");
         else
             switchStatusMenu("Defeat");
+        JukeBox::getInstance().playMusic("Menu");
     changeScene(menu->getPosition(), menu->getMenu()->getPosition(), menu->getMenu()->getTargetPosition());
     switchMenu();
     } else if (menu->getCurrentButtonName() == "<==" && !ipServer.empty()) {
