@@ -15,7 +15,13 @@
 
 int main(int argc, char **argv)
 {
-    try {
+    Window window("Bomberman", dimension2d<u32>(1920, 1080), false);
+
+    World world (&window, vector3du(7,2,7));
+
+    world.save("Resources/Map/Game/7x7");
+
+    /*try {
         srand(time(nullptr));
         UserInterface userInterface;
 
@@ -32,5 +38,6 @@ int main(int argc, char **argv)
     catch (const exception &e) {
         std::cerr << "EXCEPTION : " << e.what() << std::endl;
     }
-    return 0;
+    return 0;*/
 }
+
