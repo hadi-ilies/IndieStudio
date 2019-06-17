@@ -185,9 +185,8 @@ static int execPlayerAction(PlayerAction &key, FormattedSocket &client, const Pl
             else
                 it++;
         }
-    }
-    for (unique_ptr<Player> &player: playerList)
         player->update();
+    }
     world.update();
     endTurn = true;
     startTurn = false;
@@ -238,7 +237,7 @@ std::list<Bomb*> getBombList(const vector<unique_ptr<Player>> &playerList)
     return bombList;
 }
 
-static void explode(std::vector<std::vector<std::string>> &tab, const vector2du &pos, const uint &power, const uint &tick)
+static void explode(std::vector<std::vector<std::string>> &tab, const vector2du &pos, const uint &power, const uint &tick = 0)
 {
     vector<vector2du> dirList = {
         vector2du(-1, 0),
@@ -248,16 +247,18 @@ static void explode(std::vector<std::vector<std::string>> &tab, const vector2du 
     };
 
     tab[pos.X][pos.Y] = "";
-    for (uint i = 0 ; i <= power ; i++)
+    for (uint i = 0; i <= power; i++)
         for (vector2du &j : dirList) {
             const vector2du newPos = pos + j * i;
 
             if (newPos.X >= tab.size() || newPos.Y >= tab[0].size())
                 continue;
             if (tab[newPos.X][newPos.Y] == "Box") {
-                //tab[newPos.X][newPos.Y] = ""; // add tick befor explode on Box
-                j = vector2du(0, 0);
+                tab[newPos.X][newPos.Y] = "Fire"; // tmp
+                //tab[newPos.X][newPos.Y] = ""; // TODO add tick befor explode on Box (ex: "Box:4")
             }
+            if (regex_search(tab[newPos.X][newPos.Y], regex("^Ground|Wall|Box$")))
+                j = vector2du(0, 0);
             // TODO req explode (if tab[newPos.X][newPos.Y] == "^Bomb:\d+:\d+$")
             if (regex_search(tab[newPos.X][newPos.Y], regex(R"(^Fire:\d+$)"))) // TODO && Fire:tick > tick
                 tab[newPos.X][newPos.Y] = "";
@@ -268,7 +269,7 @@ static void explode(std::vector<std::vector<std::string>> &tab, const vector2du 
 
 #define NOSET -1
 #define WALL -2
-#define FIRE -3 // ?
+#define FIRE -3 // ? use WALL ?
 
 std::vector<std::vector<int>> getMoveTab(const std::vector<std::vector<std::string>> &tab, const vector2du &origin, const bool fireWall = true)
 {
@@ -278,10 +279,10 @@ std::vector<std::vector<int>> getMoveTab(const std::vector<std::vector<std::stri
     moveTab.resize(tab.size(), std::vector<int>(tab[0].size(), NOSET));
     for (size_t i = 0; i < tab.size(); i++)
         for (size_t j = 0; j < tab[i].size(); j++)
-            if (tab[i][j] == "Ground" || tab[i][j] == "Wall" || tab[i][j] == "Box" || tab[i][j] == "Fire")
+            if (regex_search(tab[i][j], regex("^Ground|Wall|Box|Fire$")))
                 moveTab[i][j] = WALL;
             else if (fireWall && regex_search(tab[i][j], regex(R"(^Fire:\d+$)")))
-                moveTab[i][j] = WALL; // don't walk in fire
+                moveTab[i][j] = FIRE; // don't walk in fire
     moveTab[origin.X][origin.Y] = 0;
     for (int n = 0; spread; n++) {
         spread = false;
@@ -299,12 +300,37 @@ std::vector<std::vector<int>> getMoveTab(const std::vector<std::vector<std::stri
                         moveTab[i + 1][j] = n + 1;
                 }
     }
+    if (fireWall && regex_search(tab[origin.X][origin.Y], regex(R"(^Fire:\d+$)")))
+        moveTab[origin.X][origin.Y] = FIRE;
     return moveTab;
 }
 
-static vector2du findCloser(const std::vector<std::vector<std::string>> &tab, const std::string &str, const vector2du &myPos, const bool fireWall = true)
+static bool findDist(const std::vector<std::vector<std::string>> &tab, const regex &rgx, const vector2du &pos, const uint &dist)
 {
-    std::vector<std::vector<int>> moveTab = getMoveTab(tab, myPos, fireWall);
+    vector<vector2du> dirList = {
+        vector2du(-1, 0),
+        vector2du(1, 0),
+        vector2du(0, -1),
+        vector2du(0, 1)
+    };
+
+    for (uint i = 0; i <= dist; i++)
+        for (vector2du &j : dirList) {
+            const vector2du newPos = pos + j * i;
+
+            if (newPos.X >= tab.size() || newPos.Y >= tab[0].size())
+                continue;
+            if (regex_search(tab[newPos.X][newPos.Y], rgx))
+                return true;
+            if (regex_search(tab[newPos.X][newPos.Y], regex("^Ground|Wall|Box$")))
+                j = vector2du(0, 0);
+        }
+    return false;
+}
+
+static vector2du findCloser(const std::vector<std::vector<std::string>> &tab, const regex &rgx, const vector2du &pos, const uint &dist = 0, const bool fireWall = true)
+{
+    std::vector<std::vector<int>> moveTab = getMoveTab(tab, pos, fireWall);
     vector2du less(0, 0);
 
     /*if (str != "")
@@ -315,10 +341,48 @@ static vector2du findCloser(const std::vector<std::vector<std::string>> &tab, co
 
     for (size_t i = 0; i < tab.size(); i++)
         for (size_t j = 0; j < tab[i].size(); j++)
-            if (tab[i][j] == str && moveTab[i][j] >= 0)
+            if (moveTab[i][j] >= 0 && findDist(tab, rgx, vector2du(i, j), dist))
                 if (less == vector2du(0, 0) || moveTab[i][j] < moveTab[less.X][less.Y])
                     less = vector2du(i, j);
     return less;
+}
+
+static std::vector<vector2du> getFreePosList(const std::vector<std::vector<std::string>> &tab, const vector2du &myPos, const bool fireWall = true)
+{
+    std::vector<std::vector<int>> moveTab = getMoveTab(tab, myPos, fireWall);
+    std::vector<tuple<vector2du, int>> freePosDistList;
+    std::vector<vector2du> freePosList;
+
+    /*cerr << "---------- MOVE MAP ----------" << endl; // for debug
+    for (size_t i = 0; i < moveTab.size(); i++) {
+        for (size_t j = 0; j < moveTab[i].size(); j++)
+            cerr << moveTab[i][j] << " ";
+        cerr << endl;
+        }//*/
+
+    for (size_t i = 0; i < tab.size(); i++)
+        for (size_t j = 0; j < tab[i].size(); j++)
+            if (moveTab[i][j] >= 0)
+                freePosDistList.push_back(make_tuple(vector2du(i, j), moveTab[i][j]));
+    sort(freePosDistList.begin(), freePosDistList.end(), [](auto a, auto b){return get<1>(a) < get<1>(b);});
+    for (const auto &freePosDist : freePosDistList)
+        freePosList.push_back(get<0>(freePosDist));
+    return freePosList;
+}
+
+static vector2du getCloserPutBombSafe(const std::vector<std::vector<std::string>> &tab, const regex &rgx, const vector2du &myPos, const uint &bombPower)
+{
+    std::vector<vector2du> freePosList = getFreePosList(tab, myPos);
+
+    for (const vector2du &freePos : freePosList)
+        if (findDist(tab, rgx, freePos, bombPower)) {
+            std::vector<std::vector<std::string>> cpy(tab);
+
+            explode(cpy, freePos, bombPower);
+            if (findCloser(cpy, regex(R"(^(|Enemy|(PowerUp:\w+))$)"), myPos, 0, false) != vector2du(0, 0))
+                return freePos;
+        }
+    return vector2du(0, 0);
 }
 
 PlayerAction iaCorentin(const World &world, const vector<unique_ptr<PowerUp>> &powerUpList, const vector<unique_ptr<Player>> &playerList, const size_t &playerId)
@@ -332,7 +396,7 @@ PlayerAction iaCorentin(const World &world, const vector<unique_ptr<PowerUp>> &p
         if (bomb)
             explode(tab, vector2du(bomb->getPosition().X, bomb->getPosition().Z), bomb->getPower(), bomb->getTick());
     if (regex_search(tab[myPos.X][myPos.Y], regex(R"(^Fire:\d+$)"))) {
-        std::vector<std::vector<int>> moveTab = getMoveTab(tab, findCloser(tab, "", myPos, false), false);
+        std::vector<std::vector<int>> moveTab = getMoveTab(tab, findCloser(tab, regex(R"(^(|Enemy|(PowerUp:\w+))$)"), myPos, 0, false), false); // regex "|ok|42" match with "", "ok" and "42"
 
         if (moveTab[myPos.X][myPos.Y - 1] >= 0 && moveTab[myPos.X][myPos.Y - 1] < moveTab[myPos.X][myPos.Y])
             return Down;
@@ -345,21 +409,40 @@ PlayerAction iaCorentin(const World &world, const vector<unique_ptr<PowerUp>> &p
     }
     for (const unique_ptr<PowerUp> &powerUp : powerUpList)
         if (powerUp && tab[powerUp->getPosition().X][powerUp->getPosition().Z] == "")
-            tab[powerUp->getPosition().X][powerUp->getPosition().Z] = "PowerUp";//"PowerUp:" + powerUp->getType();
-    vector2du CloserPowerUp = findCloser(tab, "PowerUp", myPos);
+            tab[powerUp->getPosition().X][powerUp->getPosition().Z] = "PowerUp:" + powerUp->getType();
+    for (const vector2du &playerPos : playerPosList)
+        if (playerPos != myPos && tab[playerPos.X][playerPos.Y] == "")
+            tab[playerPos.X][playerPos.Y] = "Enemy";
+    vector2du closerPowerUp = findCloser(tab, regex(R"(^PowerUp:\w+$)"), myPos);
 
-    /*cerr << "------- MAP -------" << endl;
-    for (size_t i = 0; i < tab.size(); i++) {
-        for (size_t j = 0; j < tab[i].size(); j++) {
-            for (size_t n = tab[i][j].size(); n < 8; n++)
-                cerr << " ";
-            cerr << tab[i][j] << " ";
-        }
-        cerr << endl;
-        }*/
+    /*cerr << "------- MAP -------" << endl; // for debug
+      for (size_t i = 0; i < tab.size(); i++) {
+      for (size_t j = 0; j < tab[i].size(); j++) {
+      for (size_t n = tab[i][j].size(); n < 8; n++)
+      cerr << " ";
+      cerr << tab[i][j] << " ";
+      }
+      cerr << endl;
+      }//*/
 
-    if (CloserPowerUp != vector2du(0, 0)) {
-        std::vector<std::vector<int>> moveTab = getMoveTab(tab, CloserPowerUp);
+    if (closerPowerUp != vector2du(0, 0)) {
+        std::vector<std::vector<int>> moveTab = getMoveTab(tab, closerPowerUp);
+
+        if (moveTab[myPos.X][myPos.Y - 1] >= 0 && moveTab[myPos.X][myPos.Y - 1] < moveTab[myPos.X][myPos.Y])
+            return Down;
+        if (moveTab[myPos.X][myPos.Y + 1] >= 0 && moveTab[myPos.X][myPos.Y + 1] < moveTab[myPos.X][myPos.Y])
+            return Up;
+        if (moveTab[myPos.X - 1][myPos.Y] >= 0 && moveTab[myPos.X - 1][myPos.Y] < moveTab[myPos.X][myPos.Y])
+            return Left;
+        if (moveTab[myPos.X + 1][myPos.Y] >= 0 && moveTab[myPos.X + 1][myPos.Y] < moveTab[myPos.X][myPos.Y])
+            return Right;
+    }
+    vector2du posToPutBomb = getCloserPutBombSafe(tab, regex("^Enemy|Box$"), myPos, playerList[playerId]->getBombPower());
+
+    if (posToPutBomb != vector2du(0, 0)) {
+        if (myPos == posToPutBomb)
+            return PutBomb;
+        std::vector<std::vector<int>> moveTab = getMoveTab(tab, posToPutBomb);
 
         if (moveTab[myPos.X][myPos.Y - 1] >= 0 && moveTab[myPos.X][myPos.Y - 1] < moveTab[myPos.X][myPos.Y])
             return Down;
