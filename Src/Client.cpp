@@ -253,18 +253,19 @@ static void explode(std::vector<std::vector<std::string>> &tab, const vector2du 
 
             if (newPos.X >= tab.size() || newPos.Y >= tab[0].size())
                 continue;
+            if (regex_search(tab[newPos.X][newPos.Y], regex("^Ground|Wall|Box$")))
+                j = vector2du(0, 0);
             if (tab[newPos.X][newPos.Y] == "Box") {
                 tab[newPos.X][newPos.Y] = "Fire"; // tmp
                 //tab[newPos.X][newPos.Y] = ""; // TODO add tick befor explode on Box (ex: "Box:4")
             }
-            if (regex_search(tab[newPos.X][newPos.Y], regex("^Ground|Wall|Box$")))
-                j = vector2du(0, 0);
             // TODO req explode (if tab[newPos.X][newPos.Y] == "^Bomb:\d+:\d+$")
             if (regex_search(tab[newPos.X][newPos.Y], regex(R"(^Fire:\d+$)"))) // TODO && Fire:tick > tick
                 tab[newPos.X][newPos.Y] = "";
-            if (tab[newPos.X][newPos.Y].empty())
+            if (regex_search(tab[newPos.X][newPos.Y], regex(R"(^(|Enemy|(PowerUp:\w+))$)")))
                 tab[newPos.X][newPos.Y] = "Fire:" + to_string(tick);
         }
+
 }
 
 #define NOSET -1
@@ -333,12 +334,6 @@ static vector2du findCloser(const std::vector<std::vector<std::string>> &tab, co
     std::vector<std::vector<int>> moveTab = getMoveTab(tab, pos, fireWall);
     vector2du less(0, 0);
 
-    /*if (str != "")
-        for (size_t i = 0; i < tab.size(); i++)
-            for (size_t j = 0; j < tab[i].size(); j++)
-                if (regex_search(tab[i][j], regex(R"(^Fire:\d+$)")))
-                moveTab[i][j] = FIRE;*/
-
     for (size_t i = 0; i < tab.size(); i++)
         for (size_t j = 0; j < tab[i].size(); j++)
             if (moveTab[i][j] >= 0 && findDist(tab, rgx, vector2du(i, j), dist))
@@ -378,6 +373,10 @@ static vector2du getCloserPutBombSafe(const std::vector<std::vector<std::string>
         if (findDist(tab, rgx, freePos, bombPower)) {
             std::vector<std::vector<std::string>> cpy(tab);
 
+            for (size_t i = 0; i < cpy.size(); i++)
+                for (size_t j = 0; j < cpy[i].size(); j++)
+                    if (regex_search(cpy[i][j], regex(R"(^Fire:\d+$)")))
+                        cpy[i][j] = "Fire";
             explode(cpy, freePos, bombPower);
             if (findCloser(cpy, regex(R"(^(|Enemy|(PowerUp:\w+))$)"), myPos, 0, false) != vector2du(0, 0))
                 return freePos;
@@ -392,14 +391,14 @@ PlayerAction moveTo(const std::vector<std::vector<std::string>> &tab, const vect
             return PutBomb;
         std::vector<std::vector<int>> moveTab = getMoveTab(tab, pos, fireWall);
 
-        if (moveTab[myPos.X][myPos.Y - 1] >= 0 && moveTab[myPos.X][myPos.Y - 1] < moveTab[myPos.X][myPos.Y])
-            return Down;
         if (moveTab[myPos.X][myPos.Y + 1] >= 0 && moveTab[myPos.X][myPos.Y + 1] < moveTab[myPos.X][myPos.Y])
             return Up;
-        if (moveTab[myPos.X - 1][myPos.Y] >= 0 && moveTab[myPos.X - 1][myPos.Y] < moveTab[myPos.X][myPos.Y])
-            return Left;
         if (moveTab[myPos.X + 1][myPos.Y] >= 0 && moveTab[myPos.X + 1][myPos.Y] < moveTab[myPos.X][myPos.Y])
             return Right;
+        if (moveTab[myPos.X - 1][myPos.Y] >= 0 && moveTab[myPos.X - 1][myPos.Y] < moveTab[myPos.X][myPos.Y])
+            return Left;
+        if (moveTab[myPos.X][myPos.Y - 1] >= 0 && moveTab[myPos.X][myPos.Y - 1] < moveTab[myPos.X][myPos.Y])
+            return Down;
     }
     return None;
 }
@@ -414,32 +413,53 @@ PlayerAction iaCorentin(const World &world, const vector<unique_ptr<PowerUp>> &p
     for (const Bomb *bomb : bombList)
         if (bomb)
             explode(tab, vector2du(bomb->getPosition().X, bomb->getPosition().Z), bomb->getPower(), bomb->getTick());
+
     if (regex_search(tab[myPos.X][myPos.Y], regex(R"(^Fire:\d+$)"))) {
         vector2du closerEmpty = findCloser(tab, regex(R"(^(|Enemy|(PowerUp:\w+))$)"), myPos, 0, false); // regex "|ok|42" match with "", "ok" and "42"
 
         if (PlayerAction key = moveTo(tab, closerEmpty, myPos, false, false))
             return key;
     }
+
     for (const unique_ptr<PowerUp> &powerUp : powerUpList)
         if (powerUp && tab[powerUp->getPosition().X][powerUp->getPosition().Z] == "")
             tab[powerUp->getPosition().X][powerUp->getPosition().Z] = "PowerUp:" + powerUp->getType();
+
+    // if NbBomb is not enough : pick BombUp
+    if (playerList[playerId]->getNbBomb() < 4) { // more than BombTick / 2 is not it is not useful
+        vector2du closerPowerUp = findCloser(tab, regex(R"(^PowerUp:BombUp$)"), myPos);
+
+        if (PlayerAction key = moveTo(tab, closerPowerUp, myPos))
+            return key;
+    }
+
+    // if BombPower is not enough : pick BombUp
+    if (playerList[playerId]->getBombPower() < (world.getSize().X + world.getSize().Z) / 4.0) { // stop to pick FireUp if bomb explode half of the map
+        vector2du closerPowerUp = findCloser(tab, regex(R"(^PowerUp:FireUp$)"), myPos);
+
+        if (PlayerAction key = moveTo(tab, closerPowerUp, myPos))
+            return key;
+    }
+
     for (const vector2du &playerPos : playerPosList)
         if (playerPos != myPos && tab[playerPos.X][playerPos.Y] == "")
             tab[playerPos.X][playerPos.Y] = "Enemy";
-    vector2du closerPowerUp = findCloser(tab, regex(R"(^PowerUp:\w+$)"), myPos);
 
-    /*cerr << "------- MAP -------" << endl; // for debug
-      for (size_t i = 0; i < tab.size(); i++) {
-      for (size_t j = 0; j < tab[i].size(); j++) {
-      for (size_t n = tab[i][j].size(); n < 8; n++)
-      cerr << " ";
-      cerr << tab[i][j] << " ";
-      }
-      cerr << endl;
-      }//*/
+    // if IA do not put all his bombs : put bomb
+    if (playerList[playerId]->getBombList().size() < playerList[playerId]->getNbBomb()) {
+        vector2du posToPutBomb = getCloserPutBombSafe(tab, regex("^Enemy|Box$"), myPos, playerList[playerId]->getBombPower());
+
+        if (PlayerAction key = moveTo(tab, posToPutBomb, myPos, true, true))
+            return key;
+    }
+
+    // if nothing to do : pick PowerUp
+    vector2du closerPowerUp = findCloser(tab, regex(R"(^PowerUp:\w+$)"), myPos);
 
     if (PlayerAction key = moveTo(tab, closerPowerUp, myPos))
         return key;
+
+    // if realy nothing to do : move to PutBomb pos
     vector2du posToPutBomb = getCloserPutBombSafe(tab, regex("^Enemy|Box$"), myPos, playerList[playerId]->getBombPower());
 
     if (PlayerAction key = moveTo(tab, posToPutBomb, myPos, true))
