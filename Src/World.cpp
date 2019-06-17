@@ -27,9 +27,9 @@ World::World(Window *_window, const std::string &_fileName) : window(_window)
 //todo issue
 World::~World()
 {
-    for (uint i = 0 ; i < size.X ; i++) {
-        for (uint j = 0 ; j < size.Y ; j++) {
-            for (uint k = 0 ; k < size.Z ; k++)
+    for (uint i = 0; i < size.X; i++) {
+        for (uint j = 0; j < size.Y; j++) {
+            for (uint k = 0; k < size.Z; k++)
                 removeBlock(vector3du(i, j, k));
             delete[] tab[i][j];
         }
@@ -96,8 +96,8 @@ bool World::generate(const vector3du &_size, const uint &seed)
 
     fillPercentage = rand() % (50 - 25 + 1) + 25;
     create(size);
-    for (uint i = 0 ; i < size.X ; i++) // tmp
-        for (uint j = 0 ; j < size.Z ; j++) {
+    for (uint i = 0; i < size.X; i++) // tmp
+        for (uint j = 0; j < size.Z; j++) {
             addBlock(vector3du(i, 0, j), "Ground");
             if (i == 0 || j == 0 || i == size.X - 1 || j == size.Z - 1)
                 addBlock(vector3du(i, 1, j), "Ground");
@@ -130,11 +130,11 @@ bool World::load(const std::string &_fileName) {
     file.read((char *) &size, sizeof(size));
 
     create(size);
-    for (uint i = 0 ; i < size.X ; i++) {
-        for (uint j = 0 ; j < size.Y ; j++) {
-            for (uint k = 0 ; k < size.Z ; k++) {
+    for (uint i = 0; i < size.X; i++) {
+        for (uint j = 0; j < size.Y; j++) {
+            for (uint k = 0; k < size.Z; k++) {
                 type = "";
-                for (char c ; file.read(&c, sizeof(char)) && c ; type += c);
+                for (char c; file.read(&c, sizeof(char)) && c; type += c);
                 if (!type.empty())
                     addBlock(vector3du(i, j, k), type);
             }
@@ -149,9 +149,9 @@ bool World::save(const std::string &_fileName)
 
     file.write((char *) &size, sizeof(size));
 
-    for (uint i = 0 ; i < size.X ; i++) {
-        for (uint j = 0 ; j < size.Y ; j++) {
-            for (uint k = 0 ; k < size.Z ; k++) {
+    for (uint i = 0; i < size.X; i++) {
+        for (uint j = 0; j < size.Y; j++) {
+            for (uint k = 0; k < size.Z; k++) {
                 if (!tab[i][j][k])
                     file.write("\0", 1);
                 else {
@@ -166,9 +166,9 @@ bool World::save(const std::string &_fileName)
 
 void World::update()
 {
-    for (uint i = 0 ; i < size.X ; i++)
-        for (uint j = 0 ; j < size.Y ; j++)
-            for (uint k = 0 ; k < size.Z ; k++)
+    for (uint i = 0; i < size.X; i++)
+        for (uint j = 0; j < size.Y; j++)
+            for (uint k = 0; k < size.Z; k++)
                 if (tab[i][j][k]) {
                     tab[i][j][k]->update();
                     if (!tab[i][j][k]->getLifeTime())
@@ -180,11 +180,11 @@ void World::create(const vector3du &_size)
 {
     size = _size;
     tab = new Block ***[size.X];
-    for (uint i = 0 ; i < size.X ; i++) {
+    for (uint i = 0; i < size.X; i++) {
         tab[i] = new Block **[size.Y];
-        for (uint j = 0 ; j < size.Y ; j++) {
+        for (uint j = 0; j < size.Y; j++) {
             tab[i][j] = new Block *[size.Z];
-            for (uint k = 0 ; k < size.Z ; k++)
+            for (uint k = 0; k < size.Z; k++)
                 tab[i][j][k] = nullptr;
         }
     }
