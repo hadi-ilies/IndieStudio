@@ -12,7 +12,8 @@
 
 #include "Entity.hpp"
 
-class PowerUp : public Entity {
+class PowerUp : public Entity
+{
 public:
     PowerUp(Window *window, std::string _type, World *world, const vector3du &pos);
     ~PowerUp();

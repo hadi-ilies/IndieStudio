@@ -18,7 +18,7 @@
 class Player : public Character
 {
 public:
-    Player(Window *window, const std::string &fileName, std::string _name, World *world, const vector3du &pos);
+    Player(Window *window, const std::string &fileName, std::string name, World *world, const vector3du &pos);
     ~Player();
 
     const uint &getBombPower() const;

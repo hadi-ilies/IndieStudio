@@ -10,8 +10,9 @@
 /*
  * Constructors // Destructors
  */
-Character::Character(Window *window, const std::string &fileName, World *world, std::string _name, const vector3du &position) : Entity(
-        window, fileName, world, position), name(std::move(_name)), anim(nullptr), hp(1)
+Character::Character(Window *window, const std::string &fileName, World *world, std::string _name, const vector3du &position)
+    : Entity(window, fileName, world, position),
+      name(std::move(_name)), anim(nullptr), hp(1)
 {
 }
 

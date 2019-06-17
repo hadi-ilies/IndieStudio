@@ -12,7 +12,8 @@
 
 #define TIMESTAMP 500
 
-class Character : public Entity {
+class Character : public Entity
+{
 public:
     Character(Window *window, const std::string &fileName, World *world, std::string _name, const vector3du &pos);
     virtual ~Character();

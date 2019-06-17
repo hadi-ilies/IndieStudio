@@ -14,7 +14,8 @@
 
 using namespace std;
 
-class Bomb : public Entity {
+class Bomb : public Entity
+{
 public:
     Bomb(Window *window, const std::string &_type, const uint &_power, World *world, const vector3du &pos);
     ~Bomb();
