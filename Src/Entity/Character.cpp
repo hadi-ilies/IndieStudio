@@ -14,6 +14,8 @@ Character::Character(Window *window, const std::string &fileName, World *world, 
     : Entity(window, fileName, world, position),
       name(std::move(_name)), anim(nullptr), hp(1)
 {
+    if (window)
+        JukeBox::getInstance().addSound("Damage", "Resources/Sound/Damage.ogg");
 }
 
 Character::~Character() = default;
