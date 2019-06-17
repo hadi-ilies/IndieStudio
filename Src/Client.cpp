@@ -237,7 +237,7 @@ std::list<Bomb*> getBombList(const vector<unique_ptr<Player>> &playerList)
     return bombList;
 }
 
-static void explode(std::vector<std::vector<std::string>> &tab, const vector2du &pos, const uint &power, const uint &tick = 0)
+static void explode(std::vector<std::vector<std::string>> &tab, const vector2du &pos, const uint &power, const uint tick = 0)
 {
     vector<vector2du> dirList = {
         vector2du(-1, 0),
@@ -385,6 +385,25 @@ static vector2du getCloserPutBombSafe(const std::vector<std::vector<std::string>
     return vector2du(0, 0);
 }
 
+PlayerAction moveTo(const std::vector<std::vector<std::string>> &tab, const vector2du &pos, const vector2du &myPos, const bool putBomb = false, const bool fireWall = true)
+{
+    if (pos != vector2du(0, 0)) {
+        if (putBomb && myPos == pos)
+            return PutBomb;
+        std::vector<std::vector<int>> moveTab = getMoveTab(tab, pos, fireWall);
+
+        if (moveTab[myPos.X][myPos.Y - 1] >= 0 && moveTab[myPos.X][myPos.Y - 1] < moveTab[myPos.X][myPos.Y])
+            return Down;
+        if (moveTab[myPos.X][myPos.Y + 1] >= 0 && moveTab[myPos.X][myPos.Y + 1] < moveTab[myPos.X][myPos.Y])
+            return Up;
+        if (moveTab[myPos.X - 1][myPos.Y] >= 0 && moveTab[myPos.X - 1][myPos.Y] < moveTab[myPos.X][myPos.Y])
+            return Left;
+        if (moveTab[myPos.X + 1][myPos.Y] >= 0 && moveTab[myPos.X + 1][myPos.Y] < moveTab[myPos.X][myPos.Y])
+            return Right;
+    }
+    return None;
+}
+
 PlayerAction iaCorentin(const World &world, const vector<unique_ptr<PowerUp>> &powerUpList, const vector<unique_ptr<Player>> &playerList, const size_t &playerId)
 {
     std::vector<std::vector<std::string>> tab = getTabFromWorld(world);
@@ -396,16 +415,10 @@ PlayerAction iaCorentin(const World &world, const vector<unique_ptr<PowerUp>> &p
         if (bomb)
             explode(tab, vector2du(bomb->getPosition().X, bomb->getPosition().Z), bomb->getPower(), bomb->getTick());
     if (regex_search(tab[myPos.X][myPos.Y], regex(R"(^Fire:\d+$)"))) {
-        std::vector<std::vector<int>> moveTab = getMoveTab(tab, findCloser(tab, regex(R"(^(|Enemy|(PowerUp:\w+))$)"), myPos, 0, false), false); // regex "|ok|42" match with "", "ok" and "42"
+        vector2du closerEmpty = findCloser(tab, regex(R"(^(|Enemy|(PowerUp:\w+))$)"), myPos, 0, false); // regex "|ok|42" match with "", "ok" and "42"
 
-        if (moveTab[myPos.X][myPos.Y - 1] >= 0 && moveTab[myPos.X][myPos.Y - 1] < moveTab[myPos.X][myPos.Y])
-            return Down;
-        if (moveTab[myPos.X][myPos.Y + 1] >= 0 && moveTab[myPos.X][myPos.Y + 1] < moveTab[myPos.X][myPos.Y])
-            return Up;
-        if (moveTab[myPos.X - 1][myPos.Y] >= 0 && moveTab[myPos.X - 1][myPos.Y] < moveTab[myPos.X][myPos.Y])
-            return Left;
-        if (moveTab[myPos.X + 1][myPos.Y] >= 0 && moveTab[myPos.X + 1][myPos.Y] < moveTab[myPos.X][myPos.Y])
-            return Right;
+        if (PlayerAction key = moveTo(tab, closerEmpty, myPos, false, false))
+            return key;
     }
     for (const unique_ptr<PowerUp> &powerUp : powerUpList)
         if (powerUp && tab[powerUp->getPosition().X][powerUp->getPosition().Z] == "")
@@ -425,34 +438,12 @@ PlayerAction iaCorentin(const World &world, const vector<unique_ptr<PowerUp>> &p
       cerr << endl;
       }//*/
 
-    if (closerPowerUp != vector2du(0, 0)) {
-        std::vector<std::vector<int>> moveTab = getMoveTab(tab, closerPowerUp);
-
-        if (moveTab[myPos.X][myPos.Y - 1] >= 0 && moveTab[myPos.X][myPos.Y - 1] < moveTab[myPos.X][myPos.Y])
-            return Down;
-        if (moveTab[myPos.X][myPos.Y + 1] >= 0 && moveTab[myPos.X][myPos.Y + 1] < moveTab[myPos.X][myPos.Y])
-            return Up;
-        if (moveTab[myPos.X - 1][myPos.Y] >= 0 && moveTab[myPos.X - 1][myPos.Y] < moveTab[myPos.X][myPos.Y])
-            return Left;
-        if (moveTab[myPos.X + 1][myPos.Y] >= 0 && moveTab[myPos.X + 1][myPos.Y] < moveTab[myPos.X][myPos.Y])
-            return Right;
-    }
+    if (PlayerAction key = moveTo(tab, closerPowerUp, myPos))
+        return key;
     vector2du posToPutBomb = getCloserPutBombSafe(tab, regex("^Enemy|Box$"), myPos, playerList[playerId]->getBombPower());
 
-    if (posToPutBomb != vector2du(0, 0)) {
-        if (myPos == posToPutBomb)
-            return PutBomb;
-        std::vector<std::vector<int>> moveTab = getMoveTab(tab, posToPutBomb);
-
-        if (moveTab[myPos.X][myPos.Y - 1] >= 0 && moveTab[myPos.X][myPos.Y - 1] < moveTab[myPos.X][myPos.Y])
-            return Down;
-        if (moveTab[myPos.X][myPos.Y + 1] >= 0 && moveTab[myPos.X][myPos.Y + 1] < moveTab[myPos.X][myPos.Y])
-            return Up;
-        if (moveTab[myPos.X - 1][myPos.Y] >= 0 && moveTab[myPos.X - 1][myPos.Y] < moveTab[myPos.X][myPos.Y])
-            return Left;
-        if (moveTab[myPos.X + 1][myPos.Y] >= 0 && moveTab[myPos.X + 1][myPos.Y] < moveTab[myPos.X][myPos.Y])
-            return Right;
-    }
+    if (PlayerAction key = moveTo(tab, posToPutBomb, myPos, true))
+        return key;
     return None;
 }
 
