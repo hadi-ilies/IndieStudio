@@ -157,10 +157,8 @@ static int execPlayerAction(PlayerAction &key, FormattedSocket &client, const Pl
         //check colision enenmies
         if (world.getBlock(player->getPosition()) && world.getBlock(player->getPosition())->getType() == "Fire") {
             player->takeDamage();
-            int tmp = playEndMusic(playerList, playerId, playerType);
-
             if (!returnValue)
-                returnValue = tmp;
+                returnValue = playEndMusic(playerList, playerId, playerType);
         }
         if (player->getHp()) {
             if (client.type == PlayerMove)
@@ -171,10 +169,8 @@ static int execPlayerAction(PlayerAction &key, FormattedSocket &client, const Pl
             }
             else if (client.type == PlayerDisconnect) {
                 while (!player->takeDamage());
-                int tmp = playEndMusic(playerList, playerId, playerType);
-
                 if (!returnValue)
-                    returnValue = tmp;
+                    returnValue = playEndMusic(playerList, playerId, playerType);
             }
         }
         //check colision power up
@@ -270,23 +266,9 @@ static void explode(std::vector<std::vector<std::string>> &tab, const vector2du 
         }
 }
 
-static void simulBombExplode(std::vector<std::vector<std::string>> &tab)
-{
-    smatch match;
-
-    for (size_t i = 0; i < tab.size(); i++)
-        for (size_t j = 0; j < tab[i].size(); j++)
-            if (regex_search(tab[i][j], match, regex(R"(^Bomb:(\d+):(\d+)$)"))) {
-                uint power = stoul(match[1]);
-                uint tick = stoul(match[2]);
-
-                explode(tab, vector2du(i, j), power, tick);
-            }
-}
-
 #define NOSET -1
 #define WALL -2
-#define FIRE -3
+#define FIRE -3 // ?
 
 std::vector<std::vector<int>> getMoveTab(const std::vector<std::vector<std::string>> &tab, const vector2du &origin, const bool fireWall = true)
 {
@@ -348,8 +330,7 @@ PlayerAction iaCorentin(const World &world, const vector<unique_ptr<PowerUp>> &p
 
     for (const Bomb *bomb : bombList)
         if (bomb)
-            tab[bomb->getPosition().X][bomb->getPosition().Z] = "Bomb:" + to_string(bomb->getPower()) + ":" + to_string(bomb->getTick());
-    simulBombExplode(tab);
+            explode(tab, vector2du(bomb->getPosition().X, bomb->getPosition().Z), bomb->getPower(), bomb->getTick());
     if (regex_search(tab[myPos.X][myPos.Y], regex(R"(^Fire:\d+$)"))) {
         std::vector<std::vector<int>> moveTab = getMoveTab(tab, findCloser(tab, "", myPos, false), false);
 
@@ -411,9 +392,9 @@ static bool game(Window *window, FormattedSocket &client, const PlayerType &play
         JukeBox::getInstance().addSound("Defeat", "Resources/Sound/Defeat.ogg"); // TODO move in ctor // TODO add Defeat.ogg in Resources/Sound/
         JukeBox::getInstance().playMusic("InGame");
         if (window) {
-            CameraMove cameraAnim(vector3df(world.getSize().X / 2.0, 20, world.getSize().Z / 2.0 - 10), vector3df(world.getSize().X / 2.0, 0, world.getSize().Z / 2.0), 1);
+            CameraMove cameraAnim(vector3df(world.getSize().X / 2.0, world.getSize().Z * 2.0, world.getSize().Z / 2.0 - world.getSize().Z / 2.0), vector3df(world.getSize().X / 2.0, 0, world.getSize().Z / 2.0), 1);
 
-            cameraAnim.addPoint(vector3df(world.getSize().X / 2.0, 20, world.getSize().Z / 2.0 - 10));
+            cameraAnim.addPoint(vector3df(world.getSize().X / 2.0, world.getSize().Z, world.getSize().Z / 2.0 - world.getSize().Z / 4.0));
             window->applyCameraMove(cameraAnim);
         }
     }
