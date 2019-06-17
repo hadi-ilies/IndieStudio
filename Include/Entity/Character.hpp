@@ -22,6 +22,7 @@ public:
 
 public:
     bool animHasFinished() const;
+    bool takeDamage();
     bool checkMove(const vector2di &dir) const;
     bool move(const vector2di &dir);
 

@@ -28,7 +28,6 @@ public:
 public:
     bool putBomb();
     bool takePowerUp(const PowerUp &powerUp);
-    bool takeDamage(); // ? move in Character
     void update() override;
 
 private:

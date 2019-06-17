@@ -79,20 +79,6 @@ bool Player::takePowerUp(const PowerUp &powerUp)
     return true;
 }
 
-bool Player::takeDamage()
-{
-    if (hp) {
-        hp--;
-        if (window)
-            JukeBox::getInstance().playSound("Damage");
-        if (!hp)
-            if (mesh)
-                //mesh->setVisible(false); // ??
-                mesh->setRotation(vector3df(0, 0, 90));
-    }
-    return !hp;
-}
-
 void Player::update()
 {
     Entity::update();

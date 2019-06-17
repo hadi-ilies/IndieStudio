@@ -20,10 +20,6 @@ Character::~Character() = default;
 /*
  * Getters // Setters
  */
-
-/*
- * Methods
- */
 const std::string &Character::getName() const
 {
     return name;
@@ -34,9 +30,27 @@ const uint &Character::getHp() const
     return hp;
 }
 
+/*
+ * Methods
+ */
 bool Character::animHasFinished() const {
     return !anim || anim->hasFinished();
 }
+
+bool Character::takeDamage()
+{
+    if (hp) {
+        hp--;
+        if (window)
+            JukeBox::getInstance().playSound("Damage");
+        if (!hp)
+            if (mesh)
+                //mesh->setVisible(false); // ??
+                mesh->setRotation(vector3df(0, 0, 90));
+    }
+    return !hp;
+}
+
 
 bool Character::checkMove(const vector2di &dir) const {
     const vector3du newPosition(position.X + dir.X, position.Y, position.Z + dir.Y); // vct2.Y is the vec3.Z
