@@ -20,8 +20,7 @@ class Player : public Character
 public:
     Player(Window *window, const std::string &fileName, std::string _name, World *world, const vector3du &pos);
     ~Player();
-    const std::string &getName() const; // ? move in Character
-    const uint &getHp() const; // ? move in Character
+
     const uint &getBombPower() const;
     const uint &getNbBomb() const;
     const std::list<Bomb*> &getBombList() const;
@@ -33,8 +32,6 @@ public:
     void update() override;
 
 private:
-    std::string name; // ? move in Character
-    uint hp; // ? move in Character
     std::string bombType;
     uint bombPower;
     uint nbBomb;

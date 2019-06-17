@@ -10,8 +10,8 @@
 /*
  * Constructors // Destructors
  */
-Character::Character(Window *window, const std::string &fileName, World *world, const vector3du &position) : Entity(
-        window, fileName, world, position), anim(nullptr)
+Character::Character(Window *window, const std::string &fileName, World *world, std::string _name, const vector3du &position) : Entity(
+        window, fileName, world, position), name(std::move(_name)), anim(nullptr), hp(1)
 {
 }
 
@@ -23,6 +23,16 @@ Character::~Character() = default;
 /*
  * Methods
  */
+const std::string &Character::getName() const
+{
+    return name;
+}
+
+const uint &Character::getHp() const
+{
+    return hp;
+}
+
 bool Character::animHasFinished() const {
     return !anim || anim->hasFinished();
 }

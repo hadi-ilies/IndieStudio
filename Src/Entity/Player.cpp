@@ -11,8 +11,7 @@
  * Constructors // Destructors
  */
 Player::Player(Window *window, const std::string &fileName, std::string _name, World *world, const vector3du &position)
-    : Character(window, fileName, world, position),
-      name(std::move(_name)), hp(1), bombType("Timer"),
+    : Character(window, fileName, world, std::move(_name), position), bombType("Timer"),
       bombPower(2), nbBomb(1)
 {
     if (window) {
@@ -31,16 +30,6 @@ Player::~Player()
 /*
  * Getters // Setters
  */
-const std::string &Player::getName() const
-{
-    return name;
-}
-
-const uint &Player::getHp() const
-{
-    return hp;
-}
-
 const uint &Player::getBombPower() const
 {
     return bombPower;
