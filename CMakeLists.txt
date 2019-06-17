@@ -79,7 +79,7 @@ set(INCLUDE
   )
 
 #set(CMAKE_CXX_FLAGS "-W -Wall -Wextra")
-set(CMAKE_CXX_FLAGS "-pedantic")
+set(CMAKE_CXX_FLAGS "-pedantic -O3")
 
 # On indique que l'on veut un exécutable "bomberman" compilé à partir des fichiers décrits par les variables SRC et INCLUDE
 add_executable(Bomberman ${SRC} ${INCLUDE})
