@@ -19,8 +19,6 @@
 using namespace std;
 using namespace irr;
 
-#define LOCAL_ADDRESS sf::IpAddress::getLocalAddress().toString()
-
 enum PlayerAction {None, Exit, Save, Up, Down, Left, Right, PutBomb};
 enum PlayerType {Human, IACorentin};
 

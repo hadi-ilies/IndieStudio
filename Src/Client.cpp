@@ -25,7 +25,7 @@ void serverLoop(FormattedSocket *client, bool *startTurn, bool *endTurn)
         throw ERROR("Thread failed");
 }
 
-void addVictory()
+void addVictory(const std::string &winnerName)
 {
     std::map<std::string, uint> ipScoreMap;
 
@@ -37,40 +37,39 @@ void addVictory()
     while (getline(file, line)) {
         if (line.empty())
             continue;
-        if (regex_search(line, match, regex(R"(^((\d+\.){3}\d+) *: *(\d+)$)")))
-            ipScoreMap[match[1]] = stoul(match[3]);
+        if (regex_search(line, match, regex(R"(^\"(.+)\" *: *(\d+)$)")))
+            ipScoreMap[match[1]] = stoul(match[2]);
     }
-    if (ipScoreMap.find(LOCAL_ADDRESS) == ipScoreMap.end())
-        ipScoreMap[LOCAL_ADDRESS] = 0;
-    ipScoreMap[LOCAL_ADDRESS]++;
+    if (ipScoreMap.find(winnerName) == ipScoreMap.end()) // ?
+        ipScoreMap[winnerName] = 0;
+    ipScoreMap[winnerName]++;
     file.close();
 
     // save
     ofstream file2("Resources/Score", ifstream::trunc);
 
     for (const auto &ipScore : ipScoreMap)
-        file2 << ipScore.first << " : " << ipScore.second << endl;
+        file2 << "\"" << ipScore.first << "\" : " << ipScore.second << endl;
 }
 
-int playEndMusic(vector<unique_ptr<Player>> &playerList, const size_t &playerId, const PlayerType &playerType)
+int playEndMusic(vector<unique_ptr<Player>> &playerList, const size_t &playerId, const PlayerType &playerType) // TODO call playEndMusic once per game
 {
     size_t nbPlayerAlive = 0;
-    bool isMe = false;
+    size_t winner;
 
     for (size_t i = 0; i < playerList.size(); i++)
         if (playerList[i]->getHp()) {
             nbPlayerAlive++;
-            if (i == playerId)
-                isMe = true;
+            winner = i;
         }
     if (!nbPlayerAlive)
         return -1;
     if (nbPlayerAlive == 1) {
+        addVictory(playerList[winner]->getName());
         if (playerType == Human)
             JukeBox::getInstance().pauseMusic("InGame");
-        if (isMe) {
+        if (winner == playerId) { // is me
             if (playerType == Human) {
-                addVictory();
                 JukeBox::getInstance().playSound("Victory");
             }
             return 1;

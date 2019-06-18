@@ -21,7 +21,7 @@ UserInterface::UserInterface()
       soundMenu (nullptr),
       musicMenu (nullptr),
       lock(false),
-      myPlayer(new Player(nullptr, "Bomberman", "Bob", nullptr, vector3du(0, 0, 0))),
+      myPlayer(new Player(nullptr, "Bomberman", USERNAME, nullptr, vector3du(0, 0, 0))),
       mapGame("Default") {
     //create sounds
     JukeBox::getInstance().addMusic("Menu", "Resources/Music/MenuMusic.ogg");
@@ -202,7 +202,7 @@ void UserInterface::createMaps() {
 void UserInterface::checkPlayerFeatures() {
     if (menu->getKey() && menu->getName() == "Player") {
         delete myPlayer;
-        myPlayer = new Player(&window, menu->getCurrentButtonModel(), "BOB", nullptr, vector3du(1, 1, 1));
+        myPlayer = new Player(&window, menu->getCurrentButtonModel(), USERNAME, nullptr, vector3du(1, 1, 1));
         createTexture();
     } else if (menu->getKey() && menu->getName() == "texture")
         myPlayer->changeTexture(menu->getCurrentButtonTexture());
@@ -265,25 +265,29 @@ void UserInterface::changeScene(const vector3df &cameraPos, const vector3df &cam
 
 void UserInterface::playGame(const std::string &targetIp, const size_t &nbPlayer, const size_t &port, const bool soloMode)
 {
-    std::unique_ptr<std::thread> myIa;
+    std::vector<std::unique_ptr<std::thread>> myIaList;
     std::thread myServer(server, port, mapGame, nbPlayer);
+    bool victory;
     sleep(1); // ? make a pause to let time to the server to load
 
-    if (soloMode) {
+    if (soloMode)
+        for (size_t i = 1; i < nbPlayer; i++) {
             Player *aiPlayer = new Player(&window, "Bomberman", "Bob", nullptr, vector3du(0, 0, 0));
+
             aiPlayer->changeTexture("RANDOM");
-            myIa = std::move(std::make_unique<std::thread> (client, nullptr, aiPlayer, IACorentin, sf::IpAddress(targetIp), port)); // TODO join
+            myIaList.push_back(std::move(std::make_unique<std::thread> (client, nullptr, aiPlayer, IACorentin, sf::IpAddress(targetIp), port)));
             sleep(1); // tmp // TODO supr
             delete aiPlayer;
-    }
+        }
+    victory = client(&window, myPlayer, Human, sf::IpAddress(targetIp), port);
+    for (auto &myIa : myIaList)
+        myIa->join();
+    myServer.join();
     JukeBox::getInstance().pauseMusic("Menu");
-    if (client(&window, myPlayer, Human, sf::IpAddress(targetIp), port))
+    if (victory)
         switchStatusMenu("Victory");
     else
         switchStatusMenu("Defeat");
-    if (soloMode)
-        myIa->join(); // tmp
-    myServer.join();
     changeScene(menu->getPosition(), menu->getMenu()->getPosition(), menu->getMenu()->getTargetPosition());
     JukeBox::getInstance().playMusic("Menu");
     switchMenu();

@@ -11,6 +11,8 @@
 #include <memory>
 #include <thread>
 #include <arpa/inet.h>
+#include <pwd.h>
+#include <unistd.h>
 
 #include "Window.hpp"
 #include "Menu.hpp"
@@ -23,6 +25,7 @@
 #define SOLO 2
 #define SERVER_PORT 8080
 #define LOCALHOST sf::IpAddress::LocalHost.toString()
+#define USERNAME (getpwuid(geteuid()) ? std::string(getpwuid(geteuid())->pw_name) : sf::IpAddress::getLocalAddress().toString())
 
 class UserInterface {
 public:

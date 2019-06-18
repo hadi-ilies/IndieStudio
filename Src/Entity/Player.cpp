@@ -15,7 +15,6 @@ Player::Player(Window *window, const std::string &fileName, std::string _name, W
       bombPower(2), nbBomb(1)
 {
     if (window) {
-        JukeBox::getInstance().addSound("Damage", "Resources/Sound/Damage.ogg");
         JukeBox::getInstance().addSound("PutBomb", "Resources/Sound/PutBomb.ogg");
         JukeBox::getInstance().addSound("TakePowerUp", "Resources/Sound/TakePowerUp.ogg");
     }
