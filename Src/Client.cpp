@@ -419,7 +419,7 @@ PlayerAction iaCorentin(const World &world, const vector<unique_ptr<PowerUp>> &p
 {
     std::vector<std::vector<std::string>> tab = getTabFromWorld(world);
     vector<vector2du> playerPosList = getPlayerPos(playerList);
-    vector2du &myPos = playerPosList[playerId];
+    vector2du myPos = vector2du(playerList[playerId]->getPosition().X, playerList[playerId]->getPosition().Z);
     std::list<Bomb*> bombList = getBombList(playerList);
 
     for (const Bomb *bomb : bombList)
