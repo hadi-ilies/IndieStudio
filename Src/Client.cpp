@@ -331,14 +331,23 @@ static bool findDist(const std::vector<std::vector<std::string>> &tab, const reg
 static vector2du findCloser(const std::vector<std::vector<std::string>> &tab, const regex &rgx, const vector2du &pos, const uint &dist = 0, const bool fireWall = true)
 {
     std::vector<std::vector<int>> moveTab = getMoveTab(tab, pos, fireWall);
-    vector2du less(0, 0);
+    std::vector<vector2du> lessList;
 
     for (size_t i = 0; i < tab.size(); i++)
         for (size_t j = 0; j < tab[i].size(); j++)
-            if (moveTab[i][j] >= 0 && findDist(tab, rgx, vector2du(i, j), dist))
-                if (less == vector2du(0, 0) || moveTab[i][j] < moveTab[less.X][less.Y])
-                    less = vector2du(i, j);
-    return less;
+            if (moveTab[i][j] >= 0 && findDist(tab, rgx, vector2du(i, j), dist)) {
+                if (lessList.empty())
+                    lessList.push_back(vector2du(i, j));
+                else if (moveTab[i][j] < moveTab[lessList[0].X][lessList[0].Y]) {
+                    lessList.clear();
+                    lessList.push_back(vector2du(i, j));
+                }
+                else if (moveTab[i][j] == moveTab[lessList[0].X][lessList[0].Y])
+                    lessList.push_back(vector2du(i, j));
+            }
+    if (lessList.empty())
+        return vector2du(0, 0);
+    return lessList[rand() % lessList.size()];
 }
 
 static std::vector<vector2du> getFreePosList(const std::vector<std::vector<std::string>> &tab, const vector2du &myPos, const bool fireWall = true)

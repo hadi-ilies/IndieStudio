@@ -275,7 +275,7 @@ void UserInterface::playGame(const std::string &targetIp, const size_t &nbPlayer
             Player *aiPlayer = new Player(&window, "Bomberman", "Bob", nullptr, vector3du(0, 0, 0));
 
             aiPlayer->changeTexture("RANDOM");
-            myIaList.push_back(std::move(std::make_unique<std::thread> (client, nullptr, aiPlayer, IACorentin, sf::IpAddress(targetIp), port)));
+            myIaList.push_back(std::move(std::make_unique<std::thread>(client, nullptr, aiPlayer, IACorentin, sf::IpAddress(targetIp), port)));
             sleep(1); // tmp // TODO supr
             delete aiPlayer;
         }
