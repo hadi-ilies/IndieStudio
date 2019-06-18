@@ -11,6 +11,7 @@ CMakeSave.txt
 cmake_install.cmake
 bomberman
 Bomberman
+Score
 \.idea/
 *.vscode
 cmake-build-debug/Bomberman\.cbp

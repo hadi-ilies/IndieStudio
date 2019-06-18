@@ -10,8 +10,8 @@
 /*
  * Constructors // Destructors
  */
-Player::Player(Window *window, const std::string &fileName, std::string _name, World *world, const vector3du &position)
-    : Character(window, fileName, world, std::move(_name), position), bombType("Timer"),
+Player::Player(Window *window, const std::string &fileName, const std::string &name, World *world, const vector3du &position)
+    : Character(window, fileName, world, name, position), bombType("Timer"),
       bombPower(2), nbBomb(1)
 {
     if (window) {

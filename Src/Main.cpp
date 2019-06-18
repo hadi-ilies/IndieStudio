@@ -15,6 +15,7 @@
 
 int main(int argc, char **argv)
 {
+    cerr << "USERNAME : " << USERNAME << endl;
     try {
         srand(time(nullptr));
         UserInterface userInterface;

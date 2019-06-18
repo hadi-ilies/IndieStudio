@@ -10,9 +10,9 @@
 /*
  * Constructors // Destructors
  */
-Character::Character(Window *window, const std::string &fileName, World *world, std::string _name, const vector3du &position)
+Character::Character(Window *window, const std::string &fileName, World *world, const std::string &_name, const vector3du &position)
     : Entity(window, fileName, world, position),
-      name(std::move(_name)), anim(nullptr), hp(1)
+      name(_name), anim(nullptr), hp(1)
 {
     if (window)
         JukeBox::getInstance().addSound("Damage", "Resources/Sound/Damage.ogg");
