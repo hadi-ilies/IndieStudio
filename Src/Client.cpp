@@ -399,15 +399,18 @@ PlayerAction moveTo(const std::vector<std::vector<std::string>> &tab, const vect
         if (putBomb && myPos == pos)
             return PutBomb;
         std::vector<std::vector<int>> moveTab = getMoveTab(tab, pos, fireWall);
+        std::vector<PlayerAction> option;
 
         if (moveTab[myPos.X][myPos.Y + 1] >= 0 && moveTab[myPos.X][myPos.Y + 1] < moveTab[myPos.X][myPos.Y])
-            return Up;
-        if (moveTab[myPos.X + 1][myPos.Y] >= 0 && moveTab[myPos.X + 1][myPos.Y] < moveTab[myPos.X][myPos.Y])
-            return Right;
-        if (moveTab[myPos.X - 1][myPos.Y] >= 0 && moveTab[myPos.X - 1][myPos.Y] < moveTab[myPos.X][myPos.Y])
-            return Left;
+            option.push_back(Up);
         if (moveTab[myPos.X][myPos.Y - 1] >= 0 && moveTab[myPos.X][myPos.Y - 1] < moveTab[myPos.X][myPos.Y])
-            return Down;
+            option.push_back(Down);
+        if (moveTab[myPos.X + 1][myPos.Y] >= 0 && moveTab[myPos.X + 1][myPos.Y] < moveTab[myPos.X][myPos.Y])
+            option.push_back(Right);
+        if (moveTab[myPos.X - 1][myPos.Y] >= 0 && moveTab[myPos.X - 1][myPos.Y] < moveTab[myPos.X][myPos.Y])
+            option.push_back(Left);
+        if (!option.empty())
+            return option[rand() % option.size()];
     }
     return None;
 }
