@@ -214,6 +214,7 @@ vector<vector2du> getPlayerPos(const vector<unique_ptr<Player>> &playerList)
     vector<vector2du> playerPos;
 
     for (const unique_ptr<Player> &player : playerList)
+        if (player->getHp() > 0)
         playerPos.push_back(vector2du(player->getPosition().X, player->getPosition().Z));
     return playerPos;
 }
