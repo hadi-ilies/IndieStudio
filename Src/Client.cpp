@@ -30,7 +30,7 @@ void addVictory(const std::string &winnerName)
     std::map<std::string, uint> ipScoreMap;
 
     // load
-    ifstream file("Resources/Score");
+    ifstream file("Score");
     std::string line;
     smatch match;
 
@@ -46,7 +46,7 @@ void addVictory(const std::string &winnerName)
     file.close();
 
     // save
-    ofstream file2("Resources/Score", ifstream::trunc);
+    ofstream file2("Score", ifstream::trunc);
 
     for (const auto &ipScore : ipScoreMap)
         file2 << "\"" << ipScore.first << "\" : " << ipScore.second << endl;
