@@ -476,6 +476,13 @@ PlayerAction iaCorentin(const World &world, const vector<unique_ptr<PowerUp>> &p
 
     if (PlayerAction key = moveTo(tab, posToPutBomb, myPos, true))
         return key;
+
+    // if realy realy nothing to do : move empty
+    tab[myPos.X][myPos.Y] = "???";
+    vector2du posCloserSafe = findCloser(tab, regex("^$"), myPos);
+
+    if (PlayerAction key = moveTo(tab, posCloserSafe, myPos, true))
+        return key;
     return None;
 }
 
