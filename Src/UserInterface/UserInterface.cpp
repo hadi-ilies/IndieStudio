@@ -279,11 +279,11 @@ void UserInterface::playGame(const std::string &targetIp, const size_t &nbPlayer
             sleep(1); // tmp // TODO supr
             delete aiPlayer;
         }
+    JukeBox::getInstance().pauseMusic("Menu");
     victory = client(&window, myPlayer, Human, sf::IpAddress(targetIp), port);
     for (auto &myIa : myIaList)
         myIa->join();
     myServer.join();
-    JukeBox::getInstance().pauseMusic("Menu");
     if (victory)
         switchStatusMenu("Victory");
     else
