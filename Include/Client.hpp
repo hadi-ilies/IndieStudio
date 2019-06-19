@@ -1,19 +1,21 @@
-/*
-** EPITECH PROJECT, 2019
-** OOP_indie_studio_2018
-** File description:
-** Client.hpp
-*/
+/**
+ * @author Corentin Gautier (https://github.com/Adorr29)
+ * @author Hadi Bereksi (https://github.com/hadi-ilies)
+ * @author Camille Police (https://github.com/CamillePolice)
+ * @copyright © 2019, Zappy group
+ * @file Client
+ */
 
 #ifndef CLIENT_HPP
 #define CLIENT_HPP
 
-#include <vector> // ?
+#include <vector>
 #include <thread>
+
 #include "Window.hpp"
 #include "World.hpp"
 #include "Entity/Player.hpp"
-#include "Entity/PowerUp.hpp" // ?
+#include "Entity/PowerUp.hpp"
 #include "FormattedSocket.hpp"
 
 using namespace std;

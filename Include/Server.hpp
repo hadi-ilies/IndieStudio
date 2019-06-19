@@ -1,9 +1,10 @@
-/*
-** EPITECH PROJECT, 2019
-** OOP_indie_studio_2018
-** File description:
-** Server.hpp
-*/
+/**
+ * @author Corentin Gautier (https://github.com/Adorr29)
+ * @author Hadi Bereksi (https://github.com/hadi-ilies)
+ * @author Camille Police (https://github.com/CamillePolice)
+ * @copyright © 2019, Zappy group
+ * @file Server
+ */
 
 #ifndef SERVER_HPP
 #define SERVER_HPP

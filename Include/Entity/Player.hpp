@@ -1,8 +1,8 @@
 /**
  * @author Corentin Gautier (https://github.com/Adorr29)
  * @author Hadi Bereksi (https://github.com/hadi-ilies)
- * @date © 2019, Zappy group
  * @author Camille Police (https://github.com/CamillePolice)
+ * @copyright © 2019, Zappy group
  * @package Entity
  * @file Player
  */

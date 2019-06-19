@@ -2,10 +2,11 @@
  * @author Corentin Gautier (https://github.com/Adorr29)
  * @author Hadi Bereksi (https://github.com/hadi-ilies)
  * @author Camille Police (https://github.com/CamillePolice)
- * @date © 2019, Zappy group
+ * @copyright © 2019, Zappy group
  * @package UI Package
  * @file Menu
  */
+
 #pragma once
 
 #include <memory>
