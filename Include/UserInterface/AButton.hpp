@@ -1,9 +1,13 @@
-/*
-** EPITECH PROJECT, 2019
-** OOP_indie_studio_2018
-** File description:
-** AButton
-*/
+/**
+ * @author Corentin Gautier (https://github.com/Adorr29)
+ * @author Hadi Bereksi (https://github.com/hadi-ilies)
+ * @author Camille Police (https://github.com/CamillePolice)
+ * @date © 2019, Zappy group
+ * @package UI Package
+ * @file AButton
+ * @see Button.cpp
+ * @see FontButton.cpp
+ */
 
 #pragma once
 
@@ -14,6 +18,9 @@
 #include "Entity.hpp"
 #include "Window.hpp"
 
+/**
+ * @namespace Irrlicht
+ */
 using namespace irr;
 using namespace scene;
 using namespace video;

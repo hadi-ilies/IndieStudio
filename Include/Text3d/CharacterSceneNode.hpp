@@ -1,9 +1,11 @@
-/*
-** EPITECH PROJECT, 2019
-** OOP_indie_studio_2018
-** File description:
-** CharacterSceneNode.hpp
-*/
+/**
+ * @author Corentin Gautier (https://github.com/Adorr29)
+ * @author Hadi Bereksi (https://github.com/hadi-ilies)
+ * @author Camille Police (https://github.com/CamillePolice)
+ * @date © 2019, Zappy group
+ * @package 3D FontGenerator
+ * @file CharacterSceneNode
+ */
 
 #ifndef CHARACTERSCENENODE_HPP
 #define CHARACTERSCENENODE_HPP
@@ -11,8 +13,7 @@
 #include "IrrFont.hpp"
 #include "Window.hpp"
 
-class CharacterSceneNode : public scene::ISceneNode
-{
+class CharacterSceneNode : public scene::ISceneNode {
 public:
     CharacterSceneNode(Window &window, const IrrFont &irrFont, const SColor &color); // TODO add position
     ~CharacterSceneNode();

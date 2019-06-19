@@ -1,9 +1,10 @@
-/*
-** EPITECH PROJECT, 2019
-** OOP_indie_studio_2018
-** File description:
-** Block.hpp
-*/
+/**
+ * @author Corentin Gautier (https://github.com/Adorr29)
+ * @author Hadi Bereksi (https://github.com/hadi-ilies)
+ * @author Camille Police (https://github.com/CamillePolice)
+ * @date © 2019, Zappy group
+ * @file Block
+ */
 
 #ifndef BLOCK_HPP
 #define BLOCK_HPP
@@ -17,16 +18,18 @@
 #include "JukeBox.hpp"
 
 using namespace std;
-using namespace irr;
 
-using namespace core; // ?
+/**
+ * @namespace Irrlicht
+ */
+using namespace irr;
+using namespace core;
 using namespace scene;
 using namespace video;
 using namespace io;
 using namespace gui;
 
-class Block
-{
+class Block {
 public:
     Block(Window *window, const std::string &_type, const vector3du &position);
     ~Block();
@@ -44,8 +47,8 @@ private:
 
 private:
     std::string type;
-    bool opaque; // ?
-    bool destructible; // ? name
+    bool opaque;
+    bool destructible;
     bool half;
     uint lifeTime;
     ISceneNode *cube;

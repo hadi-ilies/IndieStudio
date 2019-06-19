@@ -44,9 +44,10 @@ IrrFont::IrrFont(const sf::Font &font, const char &_c, const uint &size) : c(_c)
                 bord = true;
             if (bord)
                 for (uint n = 0 ; n < 20 ; n++)
-                    pointList.emplace_back(i / (float) size, (image.getSize().y - j) / (float) size, n / 100.0);
+                    pointList.emplace_back(i / (float) size, (image.getSize().y - j) / (float) size,
+                                           n / 100.0);
             pointList.emplace_back(i / (float) size, (image.getSize().y - j) / (float) size,
-                                                0 / (float) size); // TODO - size / 2
+                                   0 / (float) size); // TODO - size / 2
         }
     for (size_t i = 0 ; i < pointList.size() ; i++)
         indiceList.push_back(i);
@@ -64,11 +65,11 @@ const float &IrrFont::getAdvance() const {
     return advance;
 }
 
-const std::vector<core::vector3df> &IrrFont::getPointList() const {
+const std::vector <core::vector3df> &IrrFont::getPointList() const {
     return pointList;
 }
 
-const std::vector<u16> &IrrFont::getIndiceList() const {
+const std::vector <u16> &IrrFont::getIndiceList() const {
     return indiceList;
 }
 

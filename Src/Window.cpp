@@ -7,7 +7,14 @@
 
 #include "Window.hpp"
 
-Window::Window(const std::string &windowName, dimension2d<u32> size, const bool &fullscreen) : debug(false) {
+/**
+ * Window constructor
+ * @param windowName
+ * @param size
+ * @param is fullscreen
+ */
+Window::Window(const std::string &windowName, dimension2d <u32> size, const bool &fullscreen) : debug(
+        false) {
     const wstring title(windowName.begin(), windowName.end());
 
     device = createDevice(video::EDT_OPENGL, size, 16, fullscreen, false, false, &receiver);
@@ -18,10 +25,8 @@ Window::Window(const std::string &windowName, dimension2d<u32> size, const bool 
     smgr = device->getSceneManager();
     guienv = device->getGUIEnvironment();
 
-    smgr->addCameraSceneNodeFPS(0, 100, 0.05); // tmp
-    device->getCursorControl()->setVisible(false); // tmp
-
-    //device->getCursorControl()->setVisible(false); // tmp
+    smgr->addCameraSceneNodeFPS(0, 100, 0.05);
+    device->getCursorControl()->setVisible(false);
 }
 
 Window::~Window() {
@@ -47,14 +52,24 @@ ISceneManager *Window::getSmgr() {
 /*
  * Methods
  */
+/**
+ * Use to close the window
+ */
 void Window::close() {
     device->closeDevice();
 }
 
+/**
+ * Check if the window is open
+ * @return Window status
+ */
 bool Window::isOpen() {
     return device->run();
 }
 
+/**
+ * Display the window
+ */
 void Window::display() {
     if (debug)
         debugMode();
@@ -64,14 +79,29 @@ void Window::display() {
     driver->endScene();
 }
 
+/**
+ * Get the mesh given in parameter
+ * @param fileName
+ * @return Mesh
+ */
 IAnimatedMesh *Window::getModel(const std::string &fileName) {
     return smgr->getMesh(fileName.c_str());
 }
 
+/**
+ * Get the texture given in parameter
+ * @param fileName
+ * @return Texture
+ */
 ITexture *Window::getTexture(const std::string &fileName) {
     return driver->getTexture(fileName.c_str());
 }
 
+/**
+ * Add a cube to the SceneNode
+ * @param texture
+ * @return Scene if success, nullptr otherwise
+ */
 ISceneNode *Window::addCube(const std::string &texture) {
     scene::ISceneNode *node = smgr->addCubeSceneNode(1);
 
@@ -82,6 +112,12 @@ ISceneNode *Window::addCube(const std::string &texture) {
     return node;
 }
 
+/**
+ * Add a mesh to the AnimatedMesh
+ * @param model
+ * @param texture
+ * @return AnimatedMeshSceneNode node if success, nullptr otherwise
+ */
 IAnimatedMeshSceneNode *Window::addAnimatedMesh(const std::string &model, const std::string &texture) {
     IAnimatedMesh *mesh = smgr->getMesh(model.c_str());
     IAnimatedMeshSceneNode *node;
@@ -94,7 +130,7 @@ IAnimatedMeshSceneNode *Window::addAnimatedMesh(const std::string &model, const 
         node->setMD2Animation(scene::EMAT_STAND);
         node->setMaterialTexture(0, driver->getTexture(texture.c_str()));
 
-        const core::aabbox3d<f32> boundingBox = node->getTransformedBoundingBox();
+        const core::aabbox3d <f32> boundingBox = node->getTransformedBoundingBox();
         const vector3df size = boundingBox.getExtent();
         float scale = 1 / size.X;
 
@@ -107,35 +143,66 @@ IAnimatedMeshSceneNode *Window::addAnimatedMesh(const std::string &model, const 
     return node;
 }
 
-ISceneNodeAnimator *
-Window::createTranslation(const vector3df &initPos, const vector3df &destPos, const u32 &timestamp) {
+/**
+ * Move the Scene nod to initPos to destPos
+ * @param initPos
+ * @param destPos
+ * @param timestamp
+ * @return Animation created (FlyStraightAnimator)
+ */
+ISceneNodeAnimator *Window::createTranslation(const vector3df &initPos, const vector3df &destPos, const u32 &timestamp) {
     return smgr->createFlyStraightAnimator(initPos, destPos, timestamp);
 }
 
+/**
+ * Add a camera to the window
+ * @param pointOfView
+ * @param lookAt
+ * @return Camera created
+ */
 ICameraSceneNode *Window::getCameraSceneNode(const vector3df &pointOfView, const vector3df &lookAt) {
     return smgr->addCameraSceneNode(0, pointOfView, lookAt);
 }
 
+/**
+ * Getter on the keyboard
+ * @param keyCode
+ * @return Key pressed
+ */
 bool Window::isKeyPressed(const irr::EKEY_CODE &keyCode) const {
     return receiver.IsKeyDown(keyCode);
 }
 
+/**
+ * Change window background
+ * @param Background path
+ */
 void Window::changeSkybox(const std::string &fileName) {
     smgr->addSkyDomeSceneNode(getTexture(fileName));
 }
 
-ISceneNodeAnimator *Window::applyCameraMove(const CameraMove &cameraMoove) {
+/**
+ * Move the camera
+ * \see CameraMove.cpp
+ * @param CameraMove
+ * @return Animation create with the move given in parameter
+ */
+ISceneNodeAnimator *Window::applyCameraMove(const CameraMove &cameraMove) {
     scene::ICameraSceneNode *camera = nullptr;
     scene::ISceneNodeAnimator *sa = nullptr;
 
     camera = getCameraSceneNode(cameraMoove.getPoints()[0], cameraMoove.getTargetPos());
     sa = smgr->createFollowSplineAnimator(device->getTimer()->getTime(), cameraMoove.getPoints(),
-                                          cameraMoove.getSpeed(), cameraMoove.getTightness(), cameraMoove.getLoop());
+                                          cameraMoove.getSpeed(), cameraMoove.getTightness(),
+                                          cameraMoove.getLoop());
     camera->addAnimator(sa);
     sa->drop();
     return sa;
 }
 
+/**
+ * Display the current number of FPS
+ */
 void Window::debugMode() {
     wchar_t text[255];
     IGUISkin *skin;
@@ -147,6 +214,10 @@ void Window::debugMode() {
     guienv->addStaticText(text, rect<s32>(10, 10, 55, 22), true);
 }
 
+/**
+ * Allow or not the resized mode
+ * @param isResize
+ */
 void Window::canBeResized(bool isResize) {
     device->setResizable(isResize);
 }

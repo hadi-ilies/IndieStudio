@@ -1,9 +1,10 @@
-/*
-** EPITECH PROJECT, 2019
-** OOP_indie_studio_2018
-** File description:
-** FormattedSocket.hpp
-*/
+/**
+ * @author Corentin Gautier (https://github.com/Adorr29)
+ * @author Hadi Bereksi (https://github.com/hadi-ilies)
+ * @author Camille Police (https://github.com/CamillePolice)
+ * @date © 2019, Zappy group
+ * @file Socket methods
+ */
 
 #ifndef FORMATTEDSOCKET_HPP
 #define FORMATTEDSOCKET_HPP
@@ -14,8 +15,7 @@
 
 using namespace std;
 
-enum DataType
-{
+enum DataType {
     StartTurn,
     EndTurn,
     Message,
@@ -26,8 +26,7 @@ enum DataType
     PlayerDisconnect,
 };
 
-class FormattedSocket
-{
+class FormattedSocket {
 public:
     FormattedSocket();
     ~FormattedSocket();
@@ -37,7 +36,7 @@ public:
 
 public:
     bool connect(const sf::IpAddress &remoteAddress, const ushort &remotePort, const sf::Time &timeout = sf::Time::Zero);
-    bool accept(sf::TcpListener &listener); // connect for server
+    bool accept(sf::TcpListener &listener);
     void disconnect();
     bool isConnected() const;
     bool sendStartTurn();

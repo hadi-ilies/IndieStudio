@@ -25,7 +25,6 @@ set(SRC
   ${SRCDIR}Server.cpp
   ${SRCDIR}Client.cpp
   ${SRCDIR}Window.cpp
-  ${SRCDIR}Utility.cpp
   ${SRCDIR}Block.cpp
   ${SRCDIR}World.cpp
   ${SRCDIR}Entity.cpp

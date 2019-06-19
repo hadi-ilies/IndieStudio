@@ -5,12 +5,17 @@
 ** Block.cpp
 */
 
-#include <iostream>
 #include "Block.hpp"
 #include "Error.hpp"
 
 /*
  * Constructors // Destructors
+ */
+/**
+ * Create a block
+ * @param window
+ * @param _type
+ * @param position
  */
 Block::Block(Window *window, const std::string &_type, const vector3du &position)
     : type(_type), opaque(true), destructible(true),
@@ -63,6 +68,10 @@ void Block::update() {
         lifeTime--;
 }
 
+/**
+ * Create a block with property stored in a file
+ * @param fileName (File Path)
+ */
 void Block::getProperty(const std::string &fileName) {
     std::ifstream file(fileName);
     std::string line;

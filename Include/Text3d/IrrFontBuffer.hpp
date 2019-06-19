@@ -1,9 +1,11 @@
-/*
-** EPITECH PROJECT, 2019
-** OOP_indie_studio_2018
-** File description:
-** IrrFontBuffer.hpp
-*/
+/**
+ * @author Corentin Gautier (https://github.com/Adorr29)
+ * @author Hadi Bereksi (https://github.com/hadi-ilies)
+ * @author Camille Police (https://github.com/CamillePolice)
+ * @date © 2019, Zappy group
+ * @package 3D FontGenerator
+ * @file IrrFontBuffer
+ */
 
 #ifndef IRRFONTBUFFER_HPP
 #define IRRFONTBUFFER_HPP
@@ -11,8 +13,7 @@
 #include <iostream> // tmp
 #include "IrrFont.hpp"
 
-class IrrFontBuffer
-{
+class IrrFontBuffer {
 public:
     explicit IrrFontBuffer(const std::string &fileName, const std::string &cList = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
     ~IrrFontBuffer();

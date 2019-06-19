@@ -1,9 +1,11 @@
-/*
-** EPITECH PROJECT, 2019
-** OOP_indie_studio_2018
-** File description:
-** Entity.hpp
-*/
+/**
+ * @author Corentin Gautier (https://github.com/Adorr29)
+ * @author Hadi Bereksi (https://github.com/hadi-ilies)
+ * @author Camille Police (https://github.com/CamillePolice)
+ * @date © 2019, Zappy group
+ * @file Entity class
+ * @see Bomb.cpp, Character.cpp, Player.cpp, PowerUp.cpp
+ */
 
 #ifndef ENTITY_HPP
 #define ENTITY_HPP
@@ -14,8 +16,7 @@
 #include "Utility.hpp"
 #include "World.hpp"
 
-class Entity
-{
+class Entity {
 public:
     Entity(Window *_window, const std::string &_fileName, World *world, const vector3du &_pos);
     virtual ~Entity();
@@ -48,4 +49,4 @@ private:
     std::map<std::string, ITexture*> textureMap;
 };
 
-#endif
+#endif /* !ENTITY_HPP */

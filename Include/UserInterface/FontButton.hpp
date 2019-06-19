@@ -14,10 +14,10 @@
 #include "Text3d/WordSceneNode.hpp"
 #include "UserInterface/AButton.hpp"
 
-class FontButton : public AButton
-{
+class FontButton : public AButton {
 public:
-    FontButton(Window &window, const vector3df &position, const std::string &name, IrrFontBuffer &irrFontBuffer);
+    FontButton(Window &window, const vector3df &position, const std::string &name,
+               IrrFontBuffer &irrFontBuffer);
     ~FontButton();
 
 public:

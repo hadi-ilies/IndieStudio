@@ -1,9 +1,11 @@
-/*
-** EPITECH PROJECT, 2019
-** OOP_indie_studio_2018
-** File description:
-** Wheel.hpp
-*/
+/**
+ * @author Corentin Gautier (https://github.com/Adorr29)
+ * @author Hadi Bereksi (https://github.com/hadi-ilies)
+ * @author Camille Police (https://github.com/CamillePolice)
+ * @date © 2019, Zappy group
+ * @package UI Package
+ * @file Wheel (scroll menu)
+ */
 
 #pragma once
 
@@ -16,15 +18,18 @@
 #include "UserInterface/FontButton.hpp"
 #include "Window.hpp"
 
-class Wheel : public MenuElement
-{
+class Wheel : public MenuElement {
 public:
     struct ParamButton {
         std::string name;
         std::string model;
         std::string texture;
     };
-    enum Dir {BASE = 0, RIGHT = -1, LEFT = 1};
+    enum Dir {
+        BASE = 0,
+        RIGHT = -1,
+        LEFT = 1
+    };
 
 public:
     Wheel(Window &_window, const vector3df &position, const float &radius, const std::vector<std::string> &buttonsNames, IrrFontBuffer &irrFontBuffer);

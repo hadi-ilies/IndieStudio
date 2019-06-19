@@ -8,17 +8,21 @@
 #ifndef SERVER_HPP
 #define SERVER_HPP
 
-#include <vector> // ?
+#include <vector>
+
 #include "World.hpp"
 #include "Entity/Player.hpp"
-#include "Entity/PowerUp.hpp" // ?
+#include "Entity/PowerUp.hpp"
 #include "FormattedSocket.hpp"
 
 using namespace std;
+
+/**
+ * @namespace Irrlicht
+ */
 using namespace irr;
 
-class Server
-{
+class Server {
 public:
     Server(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer);
     ~Server();

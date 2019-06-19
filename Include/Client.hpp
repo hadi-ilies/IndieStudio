@@ -17,24 +17,32 @@
 #include "FormattedSocket.hpp"
 
 using namespace std;
+
+/**
+ * @namespace Irrlicht
+ */
 using namespace irr;
 
-enum PlayerAction {None, Exit, Save, Up, Down, Left, Right, PutBomb};
-enum PlayerType {Human, IACorentin};
+/**
+ * Player action enum
+ */
+enum PlayerAction {
+    None,
+    Exit,
+    Save, Up,
+    Down,
+    Left,
+    Right,
+    PutBomb
+};
 
-/*class Client
-{
-public:
-    Client(Window *window, Player *myPlayer, const PlayerType &playerType, const sf::IpAddress &ip, const ushort &port);
-    bool run();
-
-private:
-    void init();
-    void game();
-
-private:
-    // var
-};*/
+/**
+ * Player type (Human or AI)
+ */
+enum PlayerType{
+    Human,
+    IACorentin
+};
 
 bool client(Window *window, Player *myPlayer, const PlayerType &playerType, const sf::IpAddress &ip, const ushort &port);
 

@@ -1,22 +1,26 @@
-/*
-** EPITECH PROJECT, 2019
-** OOP_indie_studio_2018
-** File description:
-** CameraMove.hpp
-*/
+/**
+ * @author Corentin Gautier (https://github.com/Adorr29)
+ * @author Hadi Bereksi (https://github.com/hadi-ilies)
+ * @author Camille Police (https://github.com/CamillePolice)
+ * @date © 2019, Zappy group
+ * @file Initialize movements vectors
+ */
 
 #ifndef BOMBERMAN_DEMO_HPP
 #define BOMBERMAN_DEMO_HPP
 
 #include <irrlicht/irrlicht.h>
 
+/**
+ * @namespace Irrlicht
+ */
 using namespace irr;
 using namespace core;
 
 class CameraMove {
 public:
     CameraMove();
-    CameraMove(const core::vector3df &_cameraPos, const core::vector3df &_targetPos, const float &_speed = 4); // ?
+    CameraMove(const core::vector3df &_cameraPos, const core::vector3df &_targetPos, const float &_speed = 4);
     ~CameraMove();
     const core::array<vector3df> &getPoints() const;
     const vector3df &getTargetPos() const;

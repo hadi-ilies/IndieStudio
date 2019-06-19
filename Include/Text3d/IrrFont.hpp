@@ -1,9 +1,11 @@
-/*
-** EPITECH PROJECT, 2019
-** OOP_indie_studio_2018
-** File description:
-** IrrFont.hpp
-*/
+/**
+ * @author Corentin Gautier (https://github.com/Adorr29)
+ * @author Hadi Bereksi (https://github.com/hadi-ilies)
+ * @author Camille Police (https://github.com/CamillePolice)
+ * @date © 2019, Zappy group
+ * @package 3D FontGenerator
+ * @file Irrfont
+ */
 
 #ifndef IRRFONT_HPP
 #define IRRFONT_HPP
@@ -13,10 +15,13 @@
 #include <SFML/Graphics.hpp>
 
 using namespace std;
+
+/**
+ * @namespace Irrlicht
+ */
 using namespace irr;
 
-class IrrFont
-{
+class IrrFont {
 public:
     IrrFont(const sf::Font &font, const char &_c, const uint &size = 100);
     const char &getC() const;
@@ -33,4 +38,4 @@ private:
     scene::E_PRIMITIVE_TYPE primitiveType;
 };
 
-#endif
+#endif /* !IRRFONT_HPP */

@@ -1,10 +1,11 @@
-/*
-** EPITECH PROJECT, 2019
-** OOP_indie_studio_2018
-** File description:
-** Menu.hpp
-*/
-
+/**
+ * @author Corentin Gautier (https://github.com/Adorr29)
+ * @author Hadi Bereksi (https://github.com/hadi-ilies)
+ * @author Camille Police (https://github.com/CamillePolice)
+ * @date © 2019, Zappy group
+ * @package UI Package
+ * @file Menu
+ */
 #pragma once
 
 #include <memory>
@@ -17,8 +18,7 @@
 #include "Window.hpp"
 #include "CameraMove.hpp"
 
-class Menu
-{
+class Menu {
 public:
     Menu(Window &_window, IrrFontBuffer &irrFontBuffer, std::string name, const vector3df &cameraPos, const vector3df &targetPos);
     ~Menu();
