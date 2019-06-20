@@ -89,6 +89,6 @@ void Block::getProperty(const std::string &fileName) {
         else if (regex_search(line, match, regex(R"(^lifeTime *: *(\d+)$)")))
             lifeTime = stoi(match[1]);
         else
-            cerr << "In file " << fileName << " unused line : {" << line << "}" << endl;
+           cerr << "In file " << fileName << " unused line : {" << line << "}" << endl;
     }
 }

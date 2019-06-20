@@ -35,7 +35,7 @@ public:
     void addPoint(const vector3df &point);
 
 public:
-    void generateFirstMove();
+    void generateDemoFirstMove();
     void generateDemoSecondMove();
 
 private:

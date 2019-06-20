@@ -10,6 +10,7 @@
 #define BLOCK_HPP
 
 #include <string>
+#include <iostream>
 #include <regex>
 #include <irrlicht/irrlicht.h>
 

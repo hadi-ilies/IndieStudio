@@ -113,7 +113,7 @@ bool UserInterface::demo() {
     ISceneNodeAnimator *animation;
 
     setBackGround("BackgroundDemo.jpg");
-    cameraFirstMove.generateFirstMove();
+    cameraFirstMove.generateDemoFirstMove();
     cameraSecondMove.generateDemoSecondMove();
     cameraSecondMove.setLoop(true);
     animation = window.applyCameraMove(cameraFirstMove);

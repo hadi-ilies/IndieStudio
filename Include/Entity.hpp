@@ -28,7 +28,6 @@ public:
 public:
     bool changeModel(const std::string &model);
     bool changeTexture(const std::string &texture);
-
     virtual void update();
 
 private:

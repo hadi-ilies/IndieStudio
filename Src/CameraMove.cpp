@@ -73,7 +73,7 @@ void CameraMove::addPoint(const vector3df &menu) {
     pointsList.push_back(menu);
 }
 
-void CameraMove::generateFirstMove() {
+void CameraMove::generateDemoFirstMove() {
     for (int n = 0 ; n < 64 * 2 ; n += 4)
         pointsList.push_back(core::vector3df(cos(n * M_PI / 64) * 20 + 30.5, -5 + n / 4,
                                              sin(n * M_PI / 64) * 20 + 30.5));
