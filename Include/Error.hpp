@@ -2,8 +2,8 @@
  * @author Corentin Gautier (https://github.com/Adorr29)
  * @author Hadi Bereksi (https://github.com/hadi-ilies)
  * @author Camille Police (https://github.com/CamillePolice)
- * @date © 2019, Zappy group
- * @file
+ * @copyright © 2019, OOP_indie_studio_2018, Zappy group
+ * @file Error file
  */
 
 #ifndef ERROR_HPP

@@ -2,7 +2,7 @@
  * @author Corentin Gautier (https://github.com/Adorr29)
  * @author Hadi Bereksi (https://github.com/hadi-ilies)
  * @author Camille Police (https://github.com/CamillePolice)
- * @copyright © 2019, Zappy group
+ * @copyright © 2019, OOP_indie_studio_2018, Zappy group
  * @package UI Package
  * @file Wheel (scroll menu)
  */
