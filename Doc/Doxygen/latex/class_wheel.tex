@@ -1,0 +1,120 @@
+\hypertarget{class_wheel}{}\section{Wheel Class Reference}
+\label{class_wheel}\index{Wheel@{Wheel}}
+
+
+{\ttfamily \#include $<$Wheel.\+hpp$>$}
+
+Inheritance diagram for Wheel\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_wheel}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_wheel_1_1_param_button}{Param\+Button}}
+\end{DoxyCompactItemize}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{class_wheel_ae7bd200dca893d41c3177b4c356dad6e}{Dir}} \{ \mbox{\hyperlink{class_wheel_ae7bd200dca893d41c3177b4c356dad6ead153018ab6d3b3727419d2b19413f170}{B\+A\+SE}} = 0, 
+\mbox{\hyperlink{class_wheel_ae7bd200dca893d41c3177b4c356dad6ea2449384218f36dce1f1936035443c003}{R\+I\+G\+HT}} = -\/1, 
+\mbox{\hyperlink{class_wheel_ae7bd200dca893d41c3177b4c356dad6ea2991cb740ecf8791a54cb65a52595954}{L\+E\+FT}} = 1
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_wheel_a2a5799dbe85ddadfc4ef50e69602d5df}{Wheel}} (\mbox{\hyperlink{class_window}{Window}} \&\+\_\+window, const vector3df \&\mbox{\hyperlink{class_menu_element_a7f59490282ff54f6c82ee478c8ea6cc1}{position}}, const float \&radius, const std\+::vector$<$ std\+::string $>$ \&buttons\+Names, \mbox{\hyperlink{class_irr_font_buffer}{Irr\+Font\+Buffer}} \&irr\+Font\+Buffer)
+\item 
+\mbox{\hyperlink{class_wheel_a2dda8257d6aa2bc6c2c657e724db1803}{Wheel}} (\mbox{\hyperlink{class_window}{Window}} \&\+\_\+window, const vector3df \&\mbox{\hyperlink{class_menu_element_a7f59490282ff54f6c82ee478c8ea6cc1}{position}}, const float \&radius, const std\+::vector$<$ \mbox{\hyperlink{struct_wheel_1_1_param_button}{Wheel\+::\+Param\+Button}} $>$ \&buttons)
+\item 
+\mbox{\hyperlink{class_wheel_a947c31796408a9bb9b6a01629c093806}{$\sim$\+Wheel}} () override
+\item 
+void \mbox{\hyperlink{class_wheel_a925987839e4f1137b975cb43d49c6771}{turn\+Buttons}} (const \mbox{\hyperlink{class_wheel_ae7bd200dca893d41c3177b4c356dad6e}{Dir}} \&direction, const f32 \&timestamps)
+\item 
+\mbox{\hyperlink{class_a_button}{A\+Button}} $\ast$ \mbox{\hyperlink{class_wheel_a873fe00de07b96a68156204c06d85310}{get\+Button}} (const uint \&button\+Index) const
+\item 
+const vector3df \mbox{\hyperlink{class_wheel_a7306c439e5da787bf3f1402216ecfc4b}{get\+Pos\+Button}} (const uint \&button\+Index)
+\item 
+\mbox{\hyperlink{class_a_button}{A\+Button}} $\ast$ \mbox{\hyperlink{class_wheel_a691db55aeb41d47eb065b5bffd0d8798}{get\+Current\+Button}} () const
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{class_wheel_ae7bd200dca893d41c3177b4c356dad6e}\label{class_wheel_ae7bd200dca893d41c3177b4c356dad6e}} 
+\index{Wheel@{Wheel}!Dir@{Dir}}
+\index{Dir@{Dir}!Wheel@{Wheel}}
+\subsubsection{\texorpdfstring{Dir}{Dir}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_wheel_ae7bd200dca893d41c3177b4c356dad6e}{Wheel\+::\+Dir}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BASE@{BASE}!Wheel@{Wheel}}\index{Wheel@{Wheel}!BASE@{BASE}}}\mbox{\Hypertarget{class_wheel_ae7bd200dca893d41c3177b4c356dad6ead153018ab6d3b3727419d2b19413f170}\label{class_wheel_ae7bd200dca893d41c3177b4c356dad6ead153018ab6d3b3727419d2b19413f170}} 
+B\+A\+SE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RIGHT@{RIGHT}!Wheel@{Wheel}}\index{Wheel@{Wheel}!RIGHT@{RIGHT}}}\mbox{\Hypertarget{class_wheel_ae7bd200dca893d41c3177b4c356dad6ea2449384218f36dce1f1936035443c003}\label{class_wheel_ae7bd200dca893d41c3177b4c356dad6ea2449384218f36dce1f1936035443c003}} 
+R\+I\+G\+HT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LEFT@{LEFT}!Wheel@{Wheel}}\index{Wheel@{Wheel}!LEFT@{LEFT}}}\mbox{\Hypertarget{class_wheel_ae7bd200dca893d41c3177b4c356dad6ea2991cb740ecf8791a54cb65a52595954}\label{class_wheel_ae7bd200dca893d41c3177b4c356dad6ea2991cb740ecf8791a54cb65a52595954}} 
+L\+E\+FT&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_wheel_a2a5799dbe85ddadfc4ef50e69602d5df}\label{class_wheel_a2a5799dbe85ddadfc4ef50e69602d5df}} 
+\index{Wheel@{Wheel}!Wheel@{Wheel}}
+\index{Wheel@{Wheel}!Wheel@{Wheel}}
+\subsubsection{\texorpdfstring{Wheel()}{Wheel()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Wheel\+::\+Wheel (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_window}{Window}} \&}]{\+\_\+window,  }\item[{const vector3df \&}]{position,  }\item[{const float \&}]{radius,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{buttons\+Names,  }\item[{\mbox{\hyperlink{class_irr_font_buffer}{Irr\+Font\+Buffer}} \&}]{irr\+Font\+Buffer }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_wheel_a2dda8257d6aa2bc6c2c657e724db1803}\label{class_wheel_a2dda8257d6aa2bc6c2c657e724db1803}} 
+\index{Wheel@{Wheel}!Wheel@{Wheel}}
+\index{Wheel@{Wheel}!Wheel@{Wheel}}
+\subsubsection{\texorpdfstring{Wheel()}{Wheel()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Wheel\+::\+Wheel (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_window}{Window}} \&}]{\+\_\+window,  }\item[{const vector3df \&}]{position,  }\item[{const float \&}]{radius,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{struct_wheel_1_1_param_button}{Wheel\+::\+Param\+Button}} $>$ \&}]{buttons }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_wheel_a947c31796408a9bb9b6a01629c093806}\label{class_wheel_a947c31796408a9bb9b6a01629c093806}} 
+\index{Wheel@{Wheel}!````~Wheel@{$\sim$Wheel}}
+\index{````~Wheel@{$\sim$Wheel}!Wheel@{Wheel}}
+\subsubsection{\texorpdfstring{$\sim$Wheel()}{~Wheel()}}
+{\footnotesize\ttfamily Wheel\+::$\sim$\+Wheel (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_wheel_a873fe00de07b96a68156204c06d85310}\label{class_wheel_a873fe00de07b96a68156204c06d85310}} 
+\index{Wheel@{Wheel}!getButton@{getButton}}
+\index{getButton@{getButton}!Wheel@{Wheel}}
+\subsubsection{\texorpdfstring{getButton()}{getButton()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_a_button}{A\+Button}} $\ast$ Wheel\+::get\+Button (\begin{DoxyParamCaption}\item[{const uint \&}]{button\+Index }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_wheel_a691db55aeb41d47eb065b5bffd0d8798}\label{class_wheel_a691db55aeb41d47eb065b5bffd0d8798}} 
+\index{Wheel@{Wheel}!getCurrentButton@{getCurrentButton}}
+\index{getCurrentButton@{getCurrentButton}!Wheel@{Wheel}}
+\subsubsection{\texorpdfstring{getCurrentButton()}{getCurrentButton()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_a_button}{A\+Button}} $\ast$ Wheel\+::get\+Current\+Button (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_wheel_a7306c439e5da787bf3f1402216ecfc4b}\label{class_wheel_a7306c439e5da787bf3f1402216ecfc4b}} 
+\index{Wheel@{Wheel}!getPosButton@{getPosButton}}
+\index{getPosButton@{getPosButton}!Wheel@{Wheel}}
+\subsubsection{\texorpdfstring{getPosButton()}{getPosButton()}}
+{\footnotesize\ttfamily const vector3df Wheel\+::get\+Pos\+Button (\begin{DoxyParamCaption}\item[{const uint \&}]{button\+Index }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_wheel_a925987839e4f1137b975cb43d49c6771}\label{class_wheel_a925987839e4f1137b975cb43d49c6771}} 
+\index{Wheel@{Wheel}!turnButtons@{turnButtons}}
+\index{turnButtons@{turnButtons}!Wheel@{Wheel}}
+\subsubsection{\texorpdfstring{turnButtons()}{turnButtons()}}
+{\footnotesize\ttfamily void Wheel\+::turn\+Buttons (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_wheel_ae7bd200dca893d41c3177b4c356dad6e}{Dir}} \&}]{direction,  }\item[{const f32 \&}]{timestamps }\end{DoxyParamCaption})}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Include/\+User\+Interface/\mbox{\hyperlink{_wheel_8hpp}{Wheel.\+hpp}}\item 
+Src/\+User\+Interface/\mbox{\hyperlink{_wheel_8cpp}{Wheel.\+cpp}}\end{DoxyCompactItemize}

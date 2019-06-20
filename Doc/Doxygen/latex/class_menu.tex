@@ -1,0 +1,157 @@
+\hypertarget{class_menu}{}\section{Menu Class Reference}
+\label{class_menu}\index{Menu@{Menu}}
+
+
+{\ttfamily \#include $<$Menu.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_menu_a11bdc9ab879916fe9b8fbd1d0c360a45}{Menu}} (\mbox{\hyperlink{class_window}{Window}} \&\+\_\+window, \mbox{\hyperlink{class_irr_font_buffer}{Irr\+Font\+Buffer}} \&irr\+Font\+Buffer, std\+::string name, const vector3df \&camera\+Pos, const vector3df \&target\+Pos)
+\item 
+\mbox{\hyperlink{class_menu_a831387f51358cfb88cd018e1777bc980}{$\sim$\+Menu}} ()
+\item 
+const std\+::string \mbox{\hyperlink{class_menu_aa8de5fb849c062542a390bd1a6494602}{get\+Name}} () const
+\item 
+std\+::string \mbox{\hyperlink{class_menu_a2d80778321bd29e0ba8d17efd59eb6ff}{get\+Current\+Button\+Texture}} () const
+\item 
+std\+::string \mbox{\hyperlink{class_menu_af6bbe099006c79f939910b1109be4ce5}{get\+Current\+Button\+Model}} () const
+\item 
+\mbox{\hyperlink{class_menu}{Menu}} $\ast$ \mbox{\hyperlink{class_menu_af8f1a84e17db62dbf0aa91b7d7aeeca2}{get\+Menu}} ()
+\item 
+void \mbox{\hyperlink{class_menu_a1b31b024f1504e95e883164895929084}{set\+Prev\+Menu}} (\mbox{\hyperlink{class_menu}{Menu}} $\ast$menu)
+\item 
+\mbox{\hyperlink{class_menu}{Menu}} $\ast$ \mbox{\hyperlink{class_menu_a35cba1773e1c1df44ac830133d461320}{get\+Prev\+Menu}} () const
+\item 
+const vector3df \& \mbox{\hyperlink{class_menu_a41ba3aaa9818176a6a956956edff67d8}{get\+Position}} () const
+\item 
+const vector3df \& \mbox{\hyperlink{class_menu_a41bc0c154f360e94b05e6a6da8ef9ac7}{get\+Target\+Position}} () const
+\item 
+bool \mbox{\hyperlink{class_menu_a30af92ed09a79c7c7309250790735f1a}{get\+Key}} ()
+\item 
+std\+::string \mbox{\hyperlink{class_menu_a82e1cb07e79c10467890b04d799d998d}{get\+Current\+Button\+Name}} () const
+\item 
+\mbox{\hyperlink{class_menu}{Menu}} $\ast$ \mbox{\hyperlink{class_menu_ad4b3784a847783e4c5d004057cfe8c51}{get\+Menu\+From\+Name}} (const std\+::string \&\+\_\+name)
+\item 
+void \mbox{\hyperlink{class_menu_a652cad89bd210ee73ced43f27c94ad26}{link\+Menu}} (const std\+::string \&name, \mbox{\hyperlink{class_menu}{Menu}} $\ast$menu)
+\item 
+void \mbox{\hyperlink{class_menu_a367dc9b5e8662346cfa853c91e17ee3b}{add\+Wheel}} (const vector3df \&position, const float \&radius, const std\+::vector$<$ std\+::string $>$ \&buttons\+Names)
+\item 
+void \mbox{\hyperlink{class_menu_aaef68ff726b362a3807bfa0987430c69}{add\+Wheel}} (const vector3df \&position, const float \&radius, const std\+::vector$<$ \mbox{\hyperlink{struct_wheel_1_1_param_button}{Wheel\+::\+Param\+Button}} $>$ \&buttons)
+\item 
+void \mbox{\hyperlink{class_menu_a1b9e0149e9112ee9a8d60e65bc5dcbfa}{add\+Button}} (const vector3df \&position, const std\+::string \&name, const std\+::string \&model, const std\+::string \&texture)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_menu_a11bdc9ab879916fe9b8fbd1d0c360a45}\label{class_menu_a11bdc9ab879916fe9b8fbd1d0c360a45}} 
+\index{Menu@{Menu}!Menu@{Menu}}
+\index{Menu@{Menu}!Menu@{Menu}}
+\subsubsection{\texorpdfstring{Menu()}{Menu()}}
+{\footnotesize\ttfamily Menu\+::\+Menu (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_window}{Window}} \&}]{\+\_\+window,  }\item[{\mbox{\hyperlink{class_irr_font_buffer}{Irr\+Font\+Buffer}} \&}]{irr\+Font\+Buffer,  }\item[{std\+::string}]{name,  }\item[{const vector3df \&}]{camera\+Pos,  }\item[{const vector3df \&}]{target\+Pos }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_menu_a831387f51358cfb88cd018e1777bc980}\label{class_menu_a831387f51358cfb88cd018e1777bc980}} 
+\index{Menu@{Menu}!````~Menu@{$\sim$Menu}}
+\index{````~Menu@{$\sim$Menu}!Menu@{Menu}}
+\subsubsection{\texorpdfstring{$\sim$Menu()}{~Menu()}}
+{\footnotesize\ttfamily Menu\+::$\sim$\+Menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_menu_a1b9e0149e9112ee9a8d60e65bc5dcbfa}\label{class_menu_a1b9e0149e9112ee9a8d60e65bc5dcbfa}} 
+\index{Menu@{Menu}!addButton@{addButton}}
+\index{addButton@{addButton}!Menu@{Menu}}
+\subsubsection{\texorpdfstring{addButton()}{addButton()}}
+{\footnotesize\ttfamily void Menu\+::add\+Button (\begin{DoxyParamCaption}\item[{const vector3df \&}]{position,  }\item[{const std\+::string \&}]{name,  }\item[{const std\+::string \&}]{model,  }\item[{const std\+::string \&}]{texture }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_menu_a367dc9b5e8662346cfa853c91e17ee3b}\label{class_menu_a367dc9b5e8662346cfa853c91e17ee3b}} 
+\index{Menu@{Menu}!addWheel@{addWheel}}
+\index{addWheel@{addWheel}!Menu@{Menu}}
+\subsubsection{\texorpdfstring{addWheel()}{addWheel()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Menu\+::add\+Wheel (\begin{DoxyParamCaption}\item[{const vector3df \&}]{position,  }\item[{const float \&}]{radius,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{buttons\+Names }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_menu_aaef68ff726b362a3807bfa0987430c69}\label{class_menu_aaef68ff726b362a3807bfa0987430c69}} 
+\index{Menu@{Menu}!addWheel@{addWheel}}
+\index{addWheel@{addWheel}!Menu@{Menu}}
+\subsubsection{\texorpdfstring{addWheel()}{addWheel()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Menu\+::add\+Wheel (\begin{DoxyParamCaption}\item[{const vector3df \&}]{position,  }\item[{const float \&}]{radius,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{struct_wheel_1_1_param_button}{Wheel\+::\+Param\+Button}} $>$ \&}]{buttons }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_menu_af6bbe099006c79f939910b1109be4ce5}\label{class_menu_af6bbe099006c79f939910b1109be4ce5}} 
+\index{Menu@{Menu}!getCurrentButtonModel@{getCurrentButtonModel}}
+\index{getCurrentButtonModel@{getCurrentButtonModel}!Menu@{Menu}}
+\subsubsection{\texorpdfstring{getCurrentButtonModel()}{getCurrentButtonModel()}}
+{\footnotesize\ttfamily std\+::string Menu\+::get\+Current\+Button\+Model (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_menu_a82e1cb07e79c10467890b04d799d998d}\label{class_menu_a82e1cb07e79c10467890b04d799d998d}} 
+\index{Menu@{Menu}!getCurrentButtonName@{getCurrentButtonName}}
+\index{getCurrentButtonName@{getCurrentButtonName}!Menu@{Menu}}
+\subsubsection{\texorpdfstring{getCurrentButtonName()}{getCurrentButtonName()}}
+{\footnotesize\ttfamily std\+::string Menu\+::get\+Current\+Button\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_menu_a2d80778321bd29e0ba8d17efd59eb6ff}\label{class_menu_a2d80778321bd29e0ba8d17efd59eb6ff}} 
+\index{Menu@{Menu}!getCurrentButtonTexture@{getCurrentButtonTexture}}
+\index{getCurrentButtonTexture@{getCurrentButtonTexture}!Menu@{Menu}}
+\subsubsection{\texorpdfstring{getCurrentButtonTexture()}{getCurrentButtonTexture()}}
+{\footnotesize\ttfamily std\+::string Menu\+::get\+Current\+Button\+Texture (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_menu_a30af92ed09a79c7c7309250790735f1a}\label{class_menu_a30af92ed09a79c7c7309250790735f1a}} 
+\index{Menu@{Menu}!getKey@{getKey}}
+\index{getKey@{getKey}!Menu@{Menu}}
+\subsubsection{\texorpdfstring{getKey()}{getKey()}}
+{\footnotesize\ttfamily bool Menu\+::get\+Key (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_menu_af8f1a84e17db62dbf0aa91b7d7aeeca2}\label{class_menu_af8f1a84e17db62dbf0aa91b7d7aeeca2}} 
+\index{Menu@{Menu}!getMenu@{getMenu}}
+\index{getMenu@{getMenu}!Menu@{Menu}}
+\subsubsection{\texorpdfstring{getMenu()}{getMenu()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_menu}{Menu}} $\ast$ Menu\+::get\+Menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_menu_ad4b3784a847783e4c5d004057cfe8c51}\label{class_menu_ad4b3784a847783e4c5d004057cfe8c51}} 
+\index{Menu@{Menu}!getMenuFromName@{getMenuFromName}}
+\index{getMenuFromName@{getMenuFromName}!Menu@{Menu}}
+\subsubsection{\texorpdfstring{getMenuFromName()}{getMenuFromName()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_menu}{Menu}} $\ast$ Menu\+::get\+Menu\+From\+Name (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{\+\_\+name }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_menu_aa8de5fb849c062542a390bd1a6494602}\label{class_menu_aa8de5fb849c062542a390bd1a6494602}} 
+\index{Menu@{Menu}!getName@{getName}}
+\index{getName@{getName}!Menu@{Menu}}
+\subsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily const std\+::string Menu\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_menu_a41ba3aaa9818176a6a956956edff67d8}\label{class_menu_a41ba3aaa9818176a6a956956edff67d8}} 
+\index{Menu@{Menu}!getPosition@{getPosition}}
+\index{getPosition@{getPosition}!Menu@{Menu}}
+\subsubsection{\texorpdfstring{getPosition()}{getPosition()}}
+{\footnotesize\ttfamily const vector3df \& Menu\+::get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_menu_a35cba1773e1c1df44ac830133d461320}\label{class_menu_a35cba1773e1c1df44ac830133d461320}} 
+\index{Menu@{Menu}!getPrevMenu@{getPrevMenu}}
+\index{getPrevMenu@{getPrevMenu}!Menu@{Menu}}
+\subsubsection{\texorpdfstring{getPrevMenu()}{getPrevMenu()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_menu}{Menu}} $\ast$ Menu\+::get\+Prev\+Menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_menu_a41bc0c154f360e94b05e6a6da8ef9ac7}\label{class_menu_a41bc0c154f360e94b05e6a6da8ef9ac7}} 
+\index{Menu@{Menu}!getTargetPosition@{getTargetPosition}}
+\index{getTargetPosition@{getTargetPosition}!Menu@{Menu}}
+\subsubsection{\texorpdfstring{getTargetPosition()}{getTargetPosition()}}
+{\footnotesize\ttfamily const vector3df \& Menu\+::get\+Target\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_menu_a652cad89bd210ee73ced43f27c94ad26}\label{class_menu_a652cad89bd210ee73ced43f27c94ad26}} 
+\index{Menu@{Menu}!linkMenu@{linkMenu}}
+\index{linkMenu@{linkMenu}!Menu@{Menu}}
+\subsubsection{\texorpdfstring{linkMenu()}{linkMenu()}}
+{\footnotesize\ttfamily void Menu\+::link\+Menu (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{\mbox{\hyperlink{class_menu}{Menu}} $\ast$}]{menu }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_menu_a1b31b024f1504e95e883164895929084}\label{class_menu_a1b31b024f1504e95e883164895929084}} 
+\index{Menu@{Menu}!setPrevMenu@{setPrevMenu}}
+\index{setPrevMenu@{setPrevMenu}!Menu@{Menu}}
+\subsubsection{\texorpdfstring{setPrevMenu()}{setPrevMenu()}}
+{\footnotesize\ttfamily void Menu\+::set\+Prev\+Menu (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_menu}{Menu}} $\ast$}]{menu }\end{DoxyParamCaption})}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Include/\+User\+Interface/\mbox{\hyperlink{_menu_8hpp}{Menu.\+hpp}}\item 
+Src/\+User\+Interface/\mbox{\hyperlink{_menu_8cpp}{Menu.\+cpp}}\end{DoxyCompactItemize}

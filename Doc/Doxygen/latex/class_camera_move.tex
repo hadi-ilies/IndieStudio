@@ -1,0 +1,142 @@
+\hypertarget{class_camera_move}{}\section{Camera\+Move Class Reference}
+\label{class_camera_move}\index{CameraMove@{CameraMove}}
+
+
+{\ttfamily \#include $<$Camera\+Move.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_camera_move_a43a97ea2a268ce918de3f9e81b949016}{Camera\+Move}} ()
+\item 
+\mbox{\hyperlink{class_camera_move_a2397a927288ccadb4ee045727e6c8422}{Camera\+Move}} (const core\+::vector3df \&\+\_\+camera\+Pos, const core\+::vector3df \&\+\_\+target\+Pos, const float \&\+\_\+speed=4)
+\item 
+\mbox{\hyperlink{class_camera_move_a0cb144035fef2df240dc99005bc6f2fb}{$\sim$\+Camera\+Move}} ()
+\item 
+const core\+::array$<$ vector3df $>$ \& \mbox{\hyperlink{class_camera_move_aead3c97a2191291f3dcd767480d4106e}{get\+Points}} () const
+\item 
+const vector3df \& \mbox{\hyperlink{class_camera_move_aee3587ddae21b6b488aff441fe6b35ee}{get\+Target\+Pos}} () const
+\item 
+const float \& \mbox{\hyperlink{class_camera_move_a5ede7abe6d5f9def855d41b2d455b8d5}{get\+Speed}} () const
+\item 
+const float \& \mbox{\hyperlink{class_camera_move_abefb0317a48e3461955fe6cf32645fa6}{get\+Tightness}} () const
+\item 
+const bool \& \mbox{\hyperlink{class_camera_move_a6e00aa01788a602f8739bdd475f5c7e6}{get\+Loop}} () const
+\item 
+void \mbox{\hyperlink{class_camera_move_a94a1b0d11858511420b7a5d9d084f8c8}{set\+Target}} (const vector3df \&pos)
+\item 
+void \mbox{\hyperlink{class_camera_move_aa201a349bebb67370850864af47528cc}{set\+Speed}} (const float \&\+\_\+speed)
+\item 
+void \mbox{\hyperlink{class_camera_move_a69610708690e020a0774ef5ade52e288}{set\+Loop}} (bool loop)
+\item 
+void \mbox{\hyperlink{class_camera_move_acf17e6c4e083e7d2565ec8aae99b39bc}{add\+Point}} (const vector3df \&point)
+\item 
+void \mbox{\hyperlink{class_camera_move_a56c064e8e26e70facba67cf82d45ef77}{generate\+Demo\+First\+Move}} ()
+\item 
+void \mbox{\hyperlink{class_camera_move_a1a14a405dca4d297b2cf15c4aedc9321}{generate\+Demo\+Second\+Move}} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_camera_move_a43a97ea2a268ce918de3f9e81b949016}\label{class_camera_move_a43a97ea2a268ce918de3f9e81b949016}} 
+\index{CameraMove@{CameraMove}!CameraMove@{CameraMove}}
+\index{CameraMove@{CameraMove}!CameraMove@{CameraMove}}
+\subsubsection{\texorpdfstring{CameraMove()}{CameraMove()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Camera\+Move\+::\+Camera\+Move (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Default constructor \mbox{\Hypertarget{class_camera_move_a2397a927288ccadb4ee045727e6c8422}\label{class_camera_move_a2397a927288ccadb4ee045727e6c8422}} 
+\index{CameraMove@{CameraMove}!CameraMove@{CameraMove}}
+\index{CameraMove@{CameraMove}!CameraMove@{CameraMove}}
+\subsubsection{\texorpdfstring{CameraMove()}{CameraMove()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Camera\+Move\+::\+Camera\+Move (\begin{DoxyParamCaption}\item[{const core\+::vector3df \&}]{\+\_\+camera\+Pos,  }\item[{const core\+::vector3df \&}]{\+\_\+target\+Pos,  }\item[{const float \&}]{\+\_\+speed = {\ttfamily 4} }\end{DoxyParamCaption})}
+
+Constructor used when vectors are already initialize 
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+camera\+Pos} & \\
+\hline
+{\em \+\_\+target\+Pos} & \\
+\hline
+{\em \+\_\+speed} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_camera_move_a0cb144035fef2df240dc99005bc6f2fb}\label{class_camera_move_a0cb144035fef2df240dc99005bc6f2fb}} 
+\index{CameraMove@{CameraMove}!````~CameraMove@{$\sim$CameraMove}}
+\index{````~CameraMove@{$\sim$CameraMove}!CameraMove@{CameraMove}}
+\subsubsection{\texorpdfstring{$\sim$CameraMove()}{~CameraMove()}}
+{\footnotesize\ttfamily Camera\+Move\+::$\sim$\+Camera\+Move (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_camera_move_acf17e6c4e083e7d2565ec8aae99b39bc}\label{class_camera_move_acf17e6c4e083e7d2565ec8aae99b39bc}} 
+\index{CameraMove@{CameraMove}!addPoint@{addPoint}}
+\index{addPoint@{addPoint}!CameraMove@{CameraMove}}
+\subsubsection{\texorpdfstring{addPoint()}{addPoint()}}
+{\footnotesize\ttfamily void Camera\+Move\+::add\+Point (\begin{DoxyParamCaption}\item[{const vector3df \&}]{point }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_camera_move_a56c064e8e26e70facba67cf82d45ef77}\label{class_camera_move_a56c064e8e26e70facba67cf82d45ef77}} 
+\index{CameraMove@{CameraMove}!generateDemoFirstMove@{generateDemoFirstMove}}
+\index{generateDemoFirstMove@{generateDemoFirstMove}!CameraMove@{CameraMove}}
+\subsubsection{\texorpdfstring{generateDemoFirstMove()}{generateDemoFirstMove()}}
+{\footnotesize\ttfamily void Camera\+Move\+::generate\+Demo\+First\+Move (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_camera_move_a1a14a405dca4d297b2cf15c4aedc9321}\label{class_camera_move_a1a14a405dca4d297b2cf15c4aedc9321}} 
+\index{CameraMove@{CameraMove}!generateDemoSecondMove@{generateDemoSecondMove}}
+\index{generateDemoSecondMove@{generateDemoSecondMove}!CameraMove@{CameraMove}}
+\subsubsection{\texorpdfstring{generateDemoSecondMove()}{generateDemoSecondMove()}}
+{\footnotesize\ttfamily void Camera\+Move\+::generate\+Demo\+Second\+Move (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_camera_move_a6e00aa01788a602f8739bdd475f5c7e6}\label{class_camera_move_a6e00aa01788a602f8739bdd475f5c7e6}} 
+\index{CameraMove@{CameraMove}!getLoop@{getLoop}}
+\index{getLoop@{getLoop}!CameraMove@{CameraMove}}
+\subsubsection{\texorpdfstring{getLoop()}{getLoop()}}
+{\footnotesize\ttfamily const bool \& Camera\+Move\+::get\+Loop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_camera_move_aead3c97a2191291f3dcd767480d4106e}\label{class_camera_move_aead3c97a2191291f3dcd767480d4106e}} 
+\index{CameraMove@{CameraMove}!getPoints@{getPoints}}
+\index{getPoints@{getPoints}!CameraMove@{CameraMove}}
+\subsubsection{\texorpdfstring{getPoints()}{getPoints()}}
+{\footnotesize\ttfamily const array$<$ vector3df $>$ \& Camera\+Move\+::get\+Points (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_camera_move_a5ede7abe6d5f9def855d41b2d455b8d5}\label{class_camera_move_a5ede7abe6d5f9def855d41b2d455b8d5}} 
+\index{CameraMove@{CameraMove}!getSpeed@{getSpeed}}
+\index{getSpeed@{getSpeed}!CameraMove@{CameraMove}}
+\subsubsection{\texorpdfstring{getSpeed()}{getSpeed()}}
+{\footnotesize\ttfamily const float \& Camera\+Move\+::get\+Speed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_camera_move_aee3587ddae21b6b488aff441fe6b35ee}\label{class_camera_move_aee3587ddae21b6b488aff441fe6b35ee}} 
+\index{CameraMove@{CameraMove}!getTargetPos@{getTargetPos}}
+\index{getTargetPos@{getTargetPos}!CameraMove@{CameraMove}}
+\subsubsection{\texorpdfstring{getTargetPos()}{getTargetPos()}}
+{\footnotesize\ttfamily const vector3df \& Camera\+Move\+::get\+Target\+Pos (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_camera_move_abefb0317a48e3461955fe6cf32645fa6}\label{class_camera_move_abefb0317a48e3461955fe6cf32645fa6}} 
+\index{CameraMove@{CameraMove}!getTightness@{getTightness}}
+\index{getTightness@{getTightness}!CameraMove@{CameraMove}}
+\subsubsection{\texorpdfstring{getTightness()}{getTightness()}}
+{\footnotesize\ttfamily const float \& Camera\+Move\+::get\+Tightness (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_camera_move_a69610708690e020a0774ef5ade52e288}\label{class_camera_move_a69610708690e020a0774ef5ade52e288}} 
+\index{CameraMove@{CameraMove}!setLoop@{setLoop}}
+\index{setLoop@{setLoop}!CameraMove@{CameraMove}}
+\subsubsection{\texorpdfstring{setLoop()}{setLoop()}}
+{\footnotesize\ttfamily void Camera\+Move\+::set\+Loop (\begin{DoxyParamCaption}\item[{bool}]{loop }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_camera_move_aa201a349bebb67370850864af47528cc}\label{class_camera_move_aa201a349bebb67370850864af47528cc}} 
+\index{CameraMove@{CameraMove}!setSpeed@{setSpeed}}
+\index{setSpeed@{setSpeed}!CameraMove@{CameraMove}}
+\subsubsection{\texorpdfstring{setSpeed()}{setSpeed()}}
+{\footnotesize\ttfamily void Camera\+Move\+::set\+Speed (\begin{DoxyParamCaption}\item[{const float \&}]{\+\_\+speed }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_camera_move_a94a1b0d11858511420b7a5d9d084f8c8}\label{class_camera_move_a94a1b0d11858511420b7a5d9d084f8c8}} 
+\index{CameraMove@{CameraMove}!setTarget@{setTarget}}
+\index{setTarget@{setTarget}!CameraMove@{CameraMove}}
+\subsubsection{\texorpdfstring{setTarget()}{setTarget()}}
+{\footnotesize\ttfamily void Camera\+Move\+::set\+Target (\begin{DoxyParamCaption}\item[{const vector3df \&}]{pos }\end{DoxyParamCaption})}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Include/\mbox{\hyperlink{_camera_move_8hpp}{Camera\+Move.\+hpp}}\item 
+Src/\mbox{\hyperlink{_camera_move_8cpp}{Camera\+Move.\+cpp}}\end{DoxyCompactItemize}

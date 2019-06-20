@@ -1,9 +1,10 @@
-/*
-** EPITECH PROJECT, 2019
-** OOP_indie_studio_2018
-** File description:
-** Error.hpp
-*/
+/**
+ * @author Corentin Gautier (https://github.com/Adorr29)
+ * @author Hadi Bereksi (https://github.com/hadi-ilies)
+ * @author Camille Police (https://github.com/CamillePolice)
+ * @copyright © 2019, OOP_indie_studio_2018, Zappy group
+ * @file Error file
+ */
 
 #ifndef ERROR_HPP
 #define ERROR_HPP
@@ -11,6 +12,9 @@
 #include <string>
 #include <exception>
 
+/**
+ * Macro to create an Error (File, function and line are set by default)
+ */
 #define ERROR(str) Error(str, __FILE__, __FUNCTION__, __LINE__)
 
 class Error : public std::exception {

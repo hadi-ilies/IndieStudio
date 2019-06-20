@@ -148,7 +148,6 @@ bool FormattedSocket::receive() {
         direction.X = x;
         direction.Y = y;
     }
-    //else if (type == ...) // TODO
     return true;
 }
 

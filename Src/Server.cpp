@@ -5,33 +5,48 @@
 ** Server.cpp
 */
 
-#include <iostream> // ?
 #include "Server.hpp"
 #include "Error.hpp"
 
 sf::TcpListener Server::listener;
 
-Server::Server(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer)
-    : world(nullptr, "Resources/Map/Game/" + worldFileName)
-{
-    for (uint i = 0; i < world.getSize().X; i++)
-        for (uint j = 0; j < world.getSize().Y; j++)
-            for (uint k = 0; k < world.getSize().Z; k++)
-                if (world.getBlock(vector3du(i, j, k)) && world.getBlock(vector3du(i, j, k))->getDestructible() && rand() % 4 == 0)
-                    powerUpList.push_back(make_unique<PowerUp>(nullptr, rand() %  2 ? "FireUp" : "BombUp", &world, vector3du(i, j, k))); // tmp type
+/*
+ * Constructors // Destructors
+ */
+Server::Server(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer) : world(
+        nullptr, "Resources/Map/Game/" + worldFileName) {
+    for (uint i = 0 ; i < world.getSize().X ; i++)
+        for (uint j = 0 ; j < world.getSize().Y ; j++)
+            for (uint k = 0 ; k < world.getSize().Z ; k++)
+                if (world.getBlock(vector3du(i, j, k))
+                    && world.getBlock(vector3du(i, j, k))->getDestructible() && rand() % 4 == 0)
+                    powerUpList.push_back(
+                            make_unique<PowerUp>(nullptr, rand() % 2 ? "FireUp" : "BombUp", &world,
+                                                 vector3du(i, j, k))); // tmp type
     init(port, worldFileName, nbPlayer);
     loop();
 }
 
-Server::~Server()
-{
-    for (unique_ptr<FormattedSocket> &socket : socketList) // remove disconnect all player
+Server::~Server() {
+    for (unique_ptr <FormattedSocket> &socket : socketList) // remove disconnect all player
         if (socket->isConnected())
             socket->disconnect();
 }
 
-void Server::init(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer)
-{
+/*
+ * Getters // Setters
+ */
+
+/*
+ * Methods
+ */
+/**
+ * Initialize the server
+ * @param port
+ * @param worldFileName
+ * @param nbPlayer
+ */
+void Server::init(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer) {
 
     if (listener.getLocalPort() == 0)
         if (listener.listen(port) != sf::Socket::Done)
@@ -41,15 +56,15 @@ void Server::init(const ushort &port, const std::string &worldFileName, const si
     //listener.close();
     cerr << "clients connected" << endl;
 
-    for (size_t i = 0; i < socketList.size(); i++) {
+    for (size_t i = 0 ; i < socketList.size() ; i++) {
         socketList[i]->sendMessage(worldFileName);
         socketList[i]->sendNumber(powerUpList.size());
-        for (unique_ptr<PowerUp> &powerUp : powerUpList) {
+        for (unique_ptr <PowerUp> &powerUp : powerUpList) {
             socketList[i]->sendMessage(powerUp->getType());
             socketList[i]->sendPosition(powerUp->getPosition());
         }
         socketList[i]->sendNumber(socketList.size());
-        for (unique_ptr<Player> &player : playerList) {
+        for (unique_ptr <Player> &player : playerList) {
             socketList[i]->sendMessage(player->getFileName());
             socketList[i]->sendMessage(player->getTexture());
             socketList[i]->sendMessage(player->getName());
@@ -59,47 +74,42 @@ void Server::init(const ushort &port, const std::string &worldFileName, const si
     }
 }
 
-void Server::loop()
-{
+void Server::loop() {
     while (!socketList.empty() && clientIsConnected()) {
-        for (unique_ptr<FormattedSocket> &socket : socketList) // start turn
+        for (unique_ptr <FormattedSocket> &socket : socketList) // start turn
             if (socket->isConnected())
                 if (!socket->sendStartTurn())
                     throw ERROR("Send failed");
-        for (unique_ptr<FormattedSocket> &socket : socketList) // wait player
+        for (unique_ptr <FormattedSocket> &socket : socketList) // wait player
             if (socket->isConnected())
                 if (!socket->receive())
                     throw ERROR("Receiver failed");
-        for (unique_ptr<FormattedSocket> &socket : socketList) // send info
+        for (unique_ptr <FormattedSocket> &socket : socketList) // send info
             if (socket->isConnected())
-                for (unique_ptr<FormattedSocket> &socket2 : socketList)
+                for (unique_ptr <FormattedSocket> &socket2 : socketList)
                     if (!socket2->isConnected()) {
                         if (!socket->sendPlayerMove(vector2di(0, 0)))
                             throw ERROR("Send failed");
-                    }
-                    else {
+                    } else {
                         if (socket2->type == PlayerMove) {
                             if (!socket->sendPlayerMove(socket2->direction))
                                 throw ERROR("Send failed");
-                        }
-                        else if (socket2->type == PlayerPutBomb) {
+                        } else if (socket2->type == PlayerPutBomb) {
                             if (!socket->sendPlayerPutBomb())
                                 throw ERROR("Send failed");
-                        }
-                        else if (socket2->type == PlayerDisconnect) {
+                        } else if (socket2->type == PlayerDisconnect) {
                             if (!socket->sendPlayerDisconnect())
                                 throw ERROR("Send failed");
-                        }
-                        else
+                        } else
                             throw ERROR("Bad type");
                     }
-        for (unique_ptr<FormattedSocket> &socket : socketList) // remove disconnect player
+        for (unique_ptr <FormattedSocket> &socket : socketList) // remove disconnect player
             if (socket->isConnected())
                 if (socket->type == PlayerDisconnect) {
                     cerr << "Player Disconnect" << endl;
                     socket->disconnect();
                 }
-        for (unique_ptr<FormattedSocket> &socket : socketList) // end turn
+        for (unique_ptr <FormattedSocket> &socket : socketList) // end turn
             if (socket->isConnected()) {
                 if (!socket->receive())
                     throw ERROR("Receiver failed");
@@ -109,9 +119,8 @@ void Server::loop()
     }
 }
 
-void Server::addClient()
-{
-    unique_ptr<FormattedSocket> socket = make_unique<FormattedSocket>();
+void Server::addClient() {
+    unique_ptr <FormattedSocket> socket = make_unique<FormattedSocket>();
     std::string fileName;
     std::string texture;
     std::string name;
@@ -143,38 +152,39 @@ void Server::addClient()
             position = vector3du(world.getSize().X - 2, 1, 1);
         else if (playerList.size() == 3)
             position = vector3du(world.getSize().X - 2, 1, world.getSize().Z - 2);
-        unique_ptr<Player> player = make_unique<Player>(nullptr, fileName, name, &world, position);
+        unique_ptr <Player> player = make_unique<Player>(nullptr, fileName, name, &world, position);
 
         if (!player->changeTexture(texture))
             throw ERROR("texture doesn't exist");
         playerList.push_back(move(player));
         socketList.push_back(move(socket));
         cerr << "client validate" << endl;
-    }
-    catch (const exception &e) {
+    } catch (const exception &e) {
         cerr << "ERROR : " << e.what() << endl;
         cerr << "client reject" << endl;
     }
 }
 
-bool Server::clientIsConnected()
-{
-    for (unique_ptr<FormattedSocket> &socket : socketList)
+bool Server::clientIsConnected() {
+    for (unique_ptr <FormattedSocket> &socket : socketList)
         if (socket->isConnected())
             return true;
     return false;
 }
 
-void server(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer)
-{
+/**
+ * Start the server
+ * @param port
+ * @param worldFileName
+ * @param nbPlayer
+ */
+void server(const ushort &port, const std::string &worldFileName, const size_t &nbPlayer) {
     try {
         Server svr(port, worldFileName, nbPlayer);
-    }
-    catch (const Error &e) {
+    } catch (const Error &e) {
         std::cerr << "[" << e.where() << "]" << std::endl;
         std::cerr << "\t" << e.what() << std::endl;
-    }
-    catch (const exception &e) {
+    } catch (const exception &e) {
         std::cerr << "EXCEPTION : " << e.what() << std::endl;
     }
 }

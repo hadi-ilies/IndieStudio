@@ -1,9 +1,12 @@
-/*
-** EPITECH PROJECT, 2019
-** OOP_indie_studio_2018
-** File description:
-** UserInterface.hpp
-*/
+/**
+ * @author Corentin Gautier (https://github.com/Adorr29)
+ * @author Hadi Bereksi (https://github.com/hadi-ilies)
+ * @author Camille Police (https://github.com/CamillePolice)
+ * @copyright © 2019, OOP_indie_studio_2018, Zappy group
+ * @package UI Package
+ * @file UserInterface
+ * @remark Core of the UI
+ */
 
 #pragma once
 
@@ -14,6 +17,8 @@
 #include <pwd.h>
 #include <unistd.h>
 
+#include "Server.hpp"
+#include "Client.hpp"
 #include "Window.hpp"
 #include "Menu.hpp"
 #include "World.hpp"

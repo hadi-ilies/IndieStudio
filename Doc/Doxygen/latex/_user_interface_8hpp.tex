@@ -1,0 +1,79 @@
+\hypertarget{_user_interface_8hpp}{}\section{Include/\+User\+Interface/\+User\+Interface.hpp File Reference}
+\label{_user_interface_8hpp}\index{Include/UserInterface/UserInterface.hpp@{Include/UserInterface/UserInterface.hpp}}
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$thread$>$}\newline
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\newline
+{\ttfamily \#include $<$pwd.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Server.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Client.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Window.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Menu.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}World.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Juke\+Box.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Entity/\+Player.\+hpp\char`\"{}}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_user_interface}{User\+Interface}}
+\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespace_u_i}{UI}}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_user_interface_8hpp_a2161bb7d6c3fc0dbb567198a4b503597}{F\+O\+N\+T\+\_\+\+T\+Y\+PE}}~\char`\"{}Resources/Font/Prototype.\+ttf\char`\"{}
+\item 
+\#define \mbox{\hyperlink{_user_interface_8hpp_a87d5887ae42edab7b1d10ac8e90339ba}{G\+E\+N\+E\+R\+A\+T\+E\+\_\+\+F\+O\+NT}}~\char`\"{}abcdefghijklmnopqrstuvwxyz\+A\+B\+C\+D\+E\+F\+G\+H\+I\+J\+K\+L\+M\+N\+O\+P\+Q\+R\+S\+T\+U\+V\+W\+X\+Y\+Z0123456789.$<$=\+\_\+\%\char`\"{}
+\item 
+\#define \mbox{\hyperlink{_user_interface_8hpp_acba82fa0ab61ad9d3537629b401af051}{S\+O\+LO}}~2
+\item 
+\#define \mbox{\hyperlink{_user_interface_8hpp_ac42367fe5c999ec6650de83e9d72fe8c}{S\+E\+R\+V\+E\+R\+\_\+\+P\+O\+RT}}~8080
+\item 
+\#define \mbox{\hyperlink{_user_interface_8hpp_acfc12278a87672861e438f8841a7a713}{L\+O\+C\+A\+L\+H\+O\+ST}}~sf\+::\+Ip\+Address\+::\+Local\+Host.\+to\+String()
+\item 
+\#define \mbox{\hyperlink{_user_interface_8hpp_a3a747cf18fa28f0de7920de0f89f5144}{U\+S\+E\+R\+N\+A\+ME}}~(getpwuid(geteuid()) ? std\+::string(getpwuid(geteuid())-\/$>$pw\+\_\+name) \+: sf\+::\+Ip\+Address\+::get\+Local\+Address().to\+String())
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_user_interface_8hpp_a2161bb7d6c3fc0dbb567198a4b503597}\label{_user_interface_8hpp_a2161bb7d6c3fc0dbb567198a4b503597}} 
+\index{UserInterface.hpp@{UserInterface.hpp}!FONT\_TYPE@{FONT\_TYPE}}
+\index{FONT\_TYPE@{FONT\_TYPE}!UserInterface.hpp@{UserInterface.hpp}}
+\subsubsection{\texorpdfstring{FONT\_TYPE}{FONT\_TYPE}}
+{\footnotesize\ttfamily \#define F\+O\+N\+T\+\_\+\+T\+Y\+PE~\char`\"{}Resources/Font/Prototype.\+ttf\char`\"{}}
+
+\mbox{\Hypertarget{_user_interface_8hpp_a87d5887ae42edab7b1d10ac8e90339ba}\label{_user_interface_8hpp_a87d5887ae42edab7b1d10ac8e90339ba}} 
+\index{UserInterface.hpp@{UserInterface.hpp}!GENERATE\_FONT@{GENERATE\_FONT}}
+\index{GENERATE\_FONT@{GENERATE\_FONT}!UserInterface.hpp@{UserInterface.hpp}}
+\subsubsection{\texorpdfstring{GENERATE\_FONT}{GENERATE\_FONT}}
+{\footnotesize\ttfamily \#define G\+E\+N\+E\+R\+A\+T\+E\+\_\+\+F\+O\+NT~\char`\"{}abcdefghijklmnopqrstuvwxyz\+A\+B\+C\+D\+E\+F\+G\+H\+I\+J\+K\+L\+M\+N\+O\+P\+Q\+R\+S\+T\+U\+V\+W\+X\+Y\+Z0123456789.$<$=\+\_\+\%\char`\"{}}
+
+\mbox{\Hypertarget{_user_interface_8hpp_acfc12278a87672861e438f8841a7a713}\label{_user_interface_8hpp_acfc12278a87672861e438f8841a7a713}} 
+\index{UserInterface.hpp@{UserInterface.hpp}!LOCALHOST@{LOCALHOST}}
+\index{LOCALHOST@{LOCALHOST}!UserInterface.hpp@{UserInterface.hpp}}
+\subsubsection{\texorpdfstring{LOCALHOST}{LOCALHOST}}
+{\footnotesize\ttfamily \#define L\+O\+C\+A\+L\+H\+O\+ST~sf\+::\+Ip\+Address\+::\+Local\+Host.\+to\+String()}
+
+\mbox{\Hypertarget{_user_interface_8hpp_ac42367fe5c999ec6650de83e9d72fe8c}\label{_user_interface_8hpp_ac42367fe5c999ec6650de83e9d72fe8c}} 
+\index{UserInterface.hpp@{UserInterface.hpp}!SERVER\_PORT@{SERVER\_PORT}}
+\index{SERVER\_PORT@{SERVER\_PORT}!UserInterface.hpp@{UserInterface.hpp}}
+\subsubsection{\texorpdfstring{SERVER\_PORT}{SERVER\_PORT}}
+{\footnotesize\ttfamily \#define S\+E\+R\+V\+E\+R\+\_\+\+P\+O\+RT~8080}
+
+\mbox{\Hypertarget{_user_interface_8hpp_acba82fa0ab61ad9d3537629b401af051}\label{_user_interface_8hpp_acba82fa0ab61ad9d3537629b401af051}} 
+\index{UserInterface.hpp@{UserInterface.hpp}!SOLO@{SOLO}}
+\index{SOLO@{SOLO}!UserInterface.hpp@{UserInterface.hpp}}
+\subsubsection{\texorpdfstring{SOLO}{SOLO}}
+{\footnotesize\ttfamily \#define S\+O\+LO~2}
+
+\mbox{\Hypertarget{_user_interface_8hpp_a3a747cf18fa28f0de7920de0f89f5144}\label{_user_interface_8hpp_a3a747cf18fa28f0de7920de0f89f5144}} 
+\index{UserInterface.hpp@{UserInterface.hpp}!USERNAME@{USERNAME}}
+\index{USERNAME@{USERNAME}!UserInterface.hpp@{UserInterface.hpp}}
+\subsubsection{\texorpdfstring{USERNAME}{USERNAME}}
+{\footnotesize\ttfamily \#define U\+S\+E\+R\+N\+A\+ME~(getpwuid(geteuid()) ? std\+::string(getpwuid(geteuid())-\/$>$pw\+\_\+name) \+: sf\+::\+Ip\+Address\+::get\+Local\+Address().to\+String())}
+

@@ -1,12 +1,11 @@
 /*
-** EPITECH PROJECT, 2019
+** EPITECH PROJECT, 2018
 ** OOP_indie_studio_2018
 ** File description:
 ** Utility.cpp
 */
 
 #include "Utility.hpp"
-#include "Error.hpp"
 
 vector<std::string> globpp(const std::string &pathFolder) {
     boost::filesystem::path p(pathFolder);

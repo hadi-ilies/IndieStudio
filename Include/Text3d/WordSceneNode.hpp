@@ -1,9 +1,11 @@
-/*
-** EPITECH PROJECT, 2019
-** OOP_indie_studio_2018
-** File description:
-** WordSceneNode.hpp
-*/
+/**
+ * @author Corentin Gautier (https://github.com/Adorr29)
+ * @author Hadi Bereksi (https://github.com/hadi-ilies)
+ * @author Camille Police (https://github.com/CamillePolice)
+ * @copyright © 2019, OOP_indie_studio_2018, Zappy group
+ * @package 3D FontGenerator
+ * @file WordSceneNode
+ */
 
 #ifndef WORDSCENENODE_HPP
 #define WORDSCENENODE_HPP
@@ -14,8 +16,7 @@
 #include "IrrFontBuffer.hpp"
 #include "Window.hpp"
 
-class WordSceneNode
-{
+class WordSceneNode {
 public:
     WordSceneNode(Window &_window, std::string _str, const SColor &color, IrrFontBuffer &irrFontBuffer);
     ~WordSceneNode();
@@ -27,10 +28,10 @@ private:
     const float getWorldSize() const;
 
 private:
-    Window &window; // ?
+    Window &window;
     const std::string str;
     const uint charSize;
-    std::vector<CharacterSceneNode*> characterList; // TODO use unique_ptr
+    std::vector<CharacterSceneNode *> characterList; // TODO use unique_ptr
 };
 
 #endif /* !WORDSCENENODE_HPP */

@@ -1,9 +1,11 @@
-/*
-** EPITECH PROJECT, 2019
-** OOP_indie_studio_2018
-** File description:
-** Character.hpp
-*/
+/**
+ * @author Corentin Gautier (https://github.com/Adorr29)
+ * @author Hadi Bereksi (https://github.com/hadi-ilies)
+ * @author Camille Police (https://github.com/CamillePolice)
+ * @copyright © 2019, OOP_indie_studio_2018, Zappy group
+ * @package Entity
+ * @file Character
+ */
 
 #ifndef CHARACTER_HPP
 #define CHARACTER_HPP
@@ -12,8 +14,7 @@
 
 #define TIMESTAMP 500
 
-class Character : public Entity
-{
+class Character : public Entity {
 public:
     Character(Window *window, const std::string &fileName, World *world, const std::string &_name, const vector3du &pos);
     virtual ~Character();

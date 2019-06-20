@@ -1,9 +1,11 @@
-/*
-** EPITECH PROJECT, 2019
-** OOP_indie_studio_2018
-** File description:
-** Bomb.hpp
-*/
+/**
+ * @author Corentin Gautier (https://github.com/Adorr29)
+ * @author Hadi Bereksi (https://github.com/hadi-ilies)
+ * @author Camille Police (https://github.com/CamillePolice)
+ * @copyright © 2019, OOP_indie_studio_2018, Zappy group
+ * @package Entity
+ * @file Bomb
+ */
 
 #ifndef BOMB_HPP
 #define BOMB_HPP
@@ -14,8 +16,7 @@
 
 using namespace std;
 
-class Bomb : public Entity
-{
+class Bomb : public Entity {
 public:
     Bomb(Window *window, const std::string &_type, const uint &_power, World *world, const vector3du &pos);
     ~Bomb();
@@ -25,12 +26,12 @@ public:
 
 public:
     void update() override;
-    void detonate(); // private ?
+    void detonate();
 
 private:
-    std::string type; // ?
+    std::string type;
     uint power;
-    uint tick; // ? TODO
+    uint tick;
 };
 
 #endif /* !BOMB_HPP */

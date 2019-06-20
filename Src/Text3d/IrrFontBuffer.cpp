@@ -11,9 +11,7 @@
 /*
  * Constructors // Desctructors
  */
-IrrFontBuffer::IrrFontBuffer(const std::string &fileName, const string &cList)
-    : charSize(200)
-{
+IrrFontBuffer::IrrFontBuffer(const std::string &fileName, const string &cList) : charSize(200) {
     sf::Font font;
 
     if (!font.loadFromFile(fileName))
@@ -22,8 +20,7 @@ IrrFontBuffer::IrrFontBuffer(const std::string &fileName, const string &cList)
         irrFontMap[c] = new IrrFont(font, c, charSize);
 }
 
-IrrFontBuffer::~IrrFontBuffer()
-{
+IrrFontBuffer::~IrrFontBuffer() {
     for (auto &it : irrFontMap)
         delete it.second;
 }
@@ -31,14 +28,11 @@ IrrFontBuffer::~IrrFontBuffer()
 /*
  * Getters // Setters
  */
-const uint &IrrFontBuffer::getCharSize() const
-{
+const uint &IrrFontBuffer::getCharSize() const {
     return charSize;
 }
 
-IrrFont *IrrFontBuffer::getIrrFont(const char &c)
-{
-    // TODO throw
+IrrFont *IrrFontBuffer::getIrrFont(const char &c) {
     return irrFontMap[c];
 }
 

@@ -1,0 +1,157 @@
+\hypertarget{class_world}{}\section{World Class Reference}
+\label{class_world}\index{World@{World}}
+
+
+{\ttfamily \#include $<$World.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_world_a4e50a05db3a33ba840e97513c533370d}{World}} (\mbox{\hyperlink{class_window}{Window}} $\ast$\+\_\+window, const \mbox{\hyperlink{_utility_8hpp_ac675fa2b6c79d0be47ae76e5d0ce38a8}{vector3du}} \&\+\_\+size, const uint \&seed=time(0))
+\item 
+\mbox{\hyperlink{class_world_a132e6d6a7b665882b07d8208f7f2feca}{World}} (\mbox{\hyperlink{class_window}{Window}} $\ast$\+\_\+window, const std\+::string \&\+\_\+file\+Name)
+\item 
+\mbox{\hyperlink{class_world_a8c73fba541a5817fff65147ba47cd827}{$\sim$\+World}} ()
+\item 
+const \mbox{\hyperlink{_utility_8hpp_ac675fa2b6c79d0be47ae76e5d0ce38a8}{vector3du}} \& \mbox{\hyperlink{class_world_a967df6dfad453fec941be8df521dca15}{get\+Size}} () const
+\item 
+const \mbox{\hyperlink{class_block}{Block}} $\ast$ \mbox{\hyperlink{class_world_ad9c5dd128373fd90b8e644355f64ae5a}{get\+Block}} (const \mbox{\hyperlink{_utility_8hpp_ac675fa2b6c79d0be47ae76e5d0ce38a8}{vector3du}} \&pos) const
+\item 
+void \mbox{\hyperlink{class_world_affc0ca196e8806697260336c57f53d6e}{explode}} (const \mbox{\hyperlink{_utility_8hpp_ac675fa2b6c79d0be47ae76e5d0ce38a8}{vector3du}} \&pos, const uint \&power)
+\item 
+bool \mbox{\hyperlink{class_world_a9f9fb4301a1f96649db884f6ce7f3e25}{generate}} (const \mbox{\hyperlink{_utility_8hpp_ac675fa2b6c79d0be47ae76e5d0ce38a8}{vector3du}} \&\+\_\+size, const uint \&seed=time(0))
+\item 
+bool \mbox{\hyperlink{class_world_ac9eb168d9faee4243edbee43b8a769bb}{load}} (const std\+::string \&\+\_\+file\+Name)
+\item 
+bool \mbox{\hyperlink{class_world_a589deeba74f3e6cfab5ab4427c4255ed}{save}} (const std\+::string \&\+\_\+file\+Name=\char`\"{}\char`\"{})
+\item 
+void \mbox{\hyperlink{class_world_aac8c1fde63c06577ffc648aaefdb37f0}{update}} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_world_a4e50a05db3a33ba840e97513c533370d}\label{class_world_a4e50a05db3a33ba840e97513c533370d}} 
+\index{World@{World}!World@{World}}
+\index{World@{World}!World@{World}}
+\subsubsection{\texorpdfstring{World()}{World()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily World\+::\+World (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_window}{Window}} $\ast$}]{\+\_\+window,  }\item[{const \mbox{\hyperlink{_utility_8hpp_ac675fa2b6c79d0be47ae76e5d0ce38a8}{vector3du}} \&}]{\+\_\+size,  }\item[{const uint \&}]{seed = {\ttfamily time(0)} }\end{DoxyParamCaption})}
+
+Constructor used to create a world from a random generated map 
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+window} & \\
+\hline
+{\em \+\_\+size} & \\
+\hline
+{\em seed} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_world_a132e6d6a7b665882b07d8208f7f2feca}\label{class_world_a132e6d6a7b665882b07d8208f7f2feca}} 
+\index{World@{World}!World@{World}}
+\index{World@{World}!World@{World}}
+\subsubsection{\texorpdfstring{World()}{World()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily World\+::\+World (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_window}{Window}} $\ast$}]{\+\_\+window,  }\item[{const std\+::string \&}]{\+\_\+file\+Name }\end{DoxyParamCaption})}
+
+Constructor used to create a world loaded from a map from a file 
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+window} & \\
+\hline
+{\em \+\_\+file\+Name} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_world_a8c73fba541a5817fff65147ba47cd827}\label{class_world_a8c73fba541a5817fff65147ba47cd827}} 
+\index{World@{World}!````~World@{$\sim$World}}
+\index{````~World@{$\sim$World}!World@{World}}
+\subsubsection{\texorpdfstring{$\sim$World()}{~World()}}
+{\footnotesize\ttfamily World\+::$\sim$\+World (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_world_affc0ca196e8806697260336c57f53d6e}\label{class_world_affc0ca196e8806697260336c57f53d6e}} 
+\index{World@{World}!explode@{explode}}
+\index{explode@{explode}!World@{World}}
+\subsubsection{\texorpdfstring{explode()}{explode()}}
+{\footnotesize\ttfamily void World\+::explode (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{_utility_8hpp_ac675fa2b6c79d0be47ae76e5d0ce38a8}{vector3du}} \&}]{pos,  }\item[{const uint \&}]{power }\end{DoxyParamCaption})}
+
+Make the bomb explosion \begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000004}{Todo}}]Add 3\mbox{\hyperlink{namespace_d}{D}} explosion \end{DoxyRefDesc}
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & \\
+\hline
+{\em power} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_world_a9f9fb4301a1f96649db884f6ce7f3e25}\label{class_world_a9f9fb4301a1f96649db884f6ce7f3e25}} 
+\index{World@{World}!generate@{generate}}
+\index{generate@{generate}!World@{World}}
+\subsubsection{\texorpdfstring{generate()}{generate()}}
+{\footnotesize\ttfamily bool World\+::generate (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{_utility_8hpp_ac675fa2b6c79d0be47ae76e5d0ce38a8}{vector3du}} \&}]{\+\_\+size,  }\item[{const uint \&}]{seed = {\ttfamily time(0)} }\end{DoxyParamCaption})}
+
+Map generator \begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000005}{Todo}}]Add 3\mbox{\hyperlink{namespace_d}{D}} \end{DoxyRefDesc}
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+size} & \\
+\hline
+{\em seed} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_world_ad9c5dd128373fd90b8e644355f64ae5a}\label{class_world_ad9c5dd128373fd90b8e644355f64ae5a}} 
+\index{World@{World}!getBlock@{getBlock}}
+\index{getBlock@{getBlock}!World@{World}}
+\subsubsection{\texorpdfstring{getBlock()}{getBlock()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_block}{Block}} $\ast$ World\+::get\+Block (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{_utility_8hpp_ac675fa2b6c79d0be47ae76e5d0ce38a8}{vector3du}} \&}]{pos }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_world_a967df6dfad453fec941be8df521dca15}\label{class_world_a967df6dfad453fec941be8df521dca15}} 
+\index{World@{World}!getSize@{getSize}}
+\index{getSize@{getSize}!World@{World}}
+\subsubsection{\texorpdfstring{getSize()}{getSize()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{_utility_8hpp_ac675fa2b6c79d0be47ae76e5d0ce38a8}{vector3du}} \& World\+::get\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_world_ac9eb168d9faee4243edbee43b8a769bb}\label{class_world_ac9eb168d9faee4243edbee43b8a769bb}} 
+\index{World@{World}!load@{load}}
+\index{load@{load}!World@{World}}
+\subsubsection{\texorpdfstring{load()}{load()}}
+{\footnotesize\ttfamily bool World\+::load (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{\+\_\+file\+Name }\end{DoxyParamCaption})}
+
+Load a map from a file 
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+file\+Name} & (File path) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_world_a589deeba74f3e6cfab5ab4427c4255ed}\label{class_world_a589deeba74f3e6cfab5ab4427c4255ed}} 
+\index{World@{World}!save@{save}}
+\index{save@{save}!World@{World}}
+\subsubsection{\texorpdfstring{save()}{save()}}
+{\footnotesize\ttfamily bool World\+::save (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{\+\_\+file\+Name = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
+
+Save a map in a file 
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+file\+Name} & (File path) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\begin{DoxyRemark}{Remarks}
+Can also work with data() instead of c\+\_\+str() 
+\end{DoxyRemark}
+\mbox{\Hypertarget{class_world_aac8c1fde63c06577ffc648aaefdb37f0}\label{class_world_aac8c1fde63c06577ffc648aaefdb37f0}} 
+\index{World@{World}!update@{update}}
+\index{update@{update}!World@{World}}
+\subsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void World\+::update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Update the map (remove a block if necessary) 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Include/\mbox{\hyperlink{_world_8hpp}{World.\+hpp}}\item 
+Src/\mbox{\hyperlink{_world_8cpp}{World.\+cpp}}\end{DoxyCompactItemize}

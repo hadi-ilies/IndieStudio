@@ -1,9 +1,10 @@
-/*
-** EPITECH PROJECT, 2019
-** OOP_indie_studio_2018
-** File description:
-** JukeBox.hpp
-*/
+/**
+ * @author Corentin Gautier (https://github.com/Adorr29)
+ * @author Hadi Bereksi (https://github.com/hadi-ilies)
+ * @author Camille Police (https://github.com/CamillePolice)
+ * @copyright © 2019, OOP_indie_studio_2018, Zappy group
+ * @file Music singleton
+ */
 
 #ifndef JUKEBOX_HPP
 #define JUKEBOX_HPP
@@ -13,8 +14,10 @@
 #include <SFML/Network.hpp>
 #include <SFML/Audio.hpp>
 
-class JukeBox
-{
+/**
+ * @remark Sound are used for small effect, music for background music
+ */
+class JukeBox {
 public:
     static JukeBox &getInstance();
     bool addMusic(const std::string &name, const std::string &fileName);
