@@ -1,0 +1,91 @@
+\hypertarget{class_juke_box}{}\section{Juke\+Box Class Reference}
+\label{class_juke_box}\index{JukeBox@{JukeBox}}
+
+
+{\ttfamily \#include $<$Juke\+Box.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_juke_box_aea5ad553ffb92d934213501929e653a2}{add\+Music}} (const std\+::string \&name, const std\+::string \&file\+Name)
+\item 
+bool \mbox{\hyperlink{class_juke_box_a889972d76d4c3363d072fd4f66ced001}{add\+Sound}} (const std\+::string \&name, const std\+::string \&file\+Name)
+\item 
+void \mbox{\hyperlink{class_juke_box_a0c813afba79204a479c7606809352031}{play\+Music}} (const std\+::string \&name)
+\item 
+void \mbox{\hyperlink{class_juke_box_a6b440cfeb70a1ab8e24185c9d024fd5f}{play\+Sound}} (const std\+::string \&name)
+\item 
+void \mbox{\hyperlink{class_juke_box_a0893749f1d5a93edbc1ce1e6eb85131a}{pause\+Music}} (const std\+::string \&name)
+\item 
+void \mbox{\hyperlink{class_juke_box_a349531586d25c156c5d3829214b30ee3}{set\+Volume\+Music}} (const float \&volume)
+\item 
+void \mbox{\hyperlink{class_juke_box_a7bf0efbd2d9e35361a345ebeafcfcb08}{set\+Volume\+Sound}} (const float \&volume)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_juke_box}{Juke\+Box}} \& \mbox{\hyperlink{class_juke_box_a11fd5183a9697afbdfa4972cc86d5fda}{get\+Instance}} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyRemark}{Remarks}
+Sound are used for small effect, music for background music 
+\end{DoxyRemark}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_juke_box_aea5ad553ffb92d934213501929e653a2}\label{class_juke_box_aea5ad553ffb92d934213501929e653a2}} 
+\index{JukeBox@{JukeBox}!addMusic@{addMusic}}
+\index{addMusic@{addMusic}!JukeBox@{JukeBox}}
+\subsubsection{\texorpdfstring{addMusic()}{addMusic()}}
+{\footnotesize\ttfamily bool Juke\+Box\+::add\+Music (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{const std\+::string \&}]{file\+Name }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_juke_box_a889972d76d4c3363d072fd4f66ced001}\label{class_juke_box_a889972d76d4c3363d072fd4f66ced001}} 
+\index{JukeBox@{JukeBox}!addSound@{addSound}}
+\index{addSound@{addSound}!JukeBox@{JukeBox}}
+\subsubsection{\texorpdfstring{addSound()}{addSound()}}
+{\footnotesize\ttfamily bool Juke\+Box\+::add\+Sound (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{const std\+::string \&}]{file\+Name }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_juke_box_a11fd5183a9697afbdfa4972cc86d5fda}\label{class_juke_box_a11fd5183a9697afbdfa4972cc86d5fda}} 
+\index{JukeBox@{JukeBox}!getInstance@{getInstance}}
+\index{getInstance@{getInstance}!JukeBox@{JukeBox}}
+\subsubsection{\texorpdfstring{getInstance()}{getInstance()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_juke_box}{Juke\+Box}} \& Juke\+Box\+::get\+Instance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_juke_box_a0893749f1d5a93edbc1ce1e6eb85131a}\label{class_juke_box_a0893749f1d5a93edbc1ce1e6eb85131a}} 
+\index{JukeBox@{JukeBox}!pauseMusic@{pauseMusic}}
+\index{pauseMusic@{pauseMusic}!JukeBox@{JukeBox}}
+\subsubsection{\texorpdfstring{pauseMusic()}{pauseMusic()}}
+{\footnotesize\ttfamily void Juke\+Box\+::pause\+Music (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_juke_box_a0c813afba79204a479c7606809352031}\label{class_juke_box_a0c813afba79204a479c7606809352031}} 
+\index{JukeBox@{JukeBox}!playMusic@{playMusic}}
+\index{playMusic@{playMusic}!JukeBox@{JukeBox}}
+\subsubsection{\texorpdfstring{playMusic()}{playMusic()}}
+{\footnotesize\ttfamily void Juke\+Box\+::play\+Music (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_juke_box_a6b440cfeb70a1ab8e24185c9d024fd5f}\label{class_juke_box_a6b440cfeb70a1ab8e24185c9d024fd5f}} 
+\index{JukeBox@{JukeBox}!playSound@{playSound}}
+\index{playSound@{playSound}!JukeBox@{JukeBox}}
+\subsubsection{\texorpdfstring{playSound()}{playSound()}}
+{\footnotesize\ttfamily void Juke\+Box\+::play\+Sound (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_juke_box_a349531586d25c156c5d3829214b30ee3}\label{class_juke_box_a349531586d25c156c5d3829214b30ee3}} 
+\index{JukeBox@{JukeBox}!setVolumeMusic@{setVolumeMusic}}
+\index{setVolumeMusic@{setVolumeMusic}!JukeBox@{JukeBox}}
+\subsubsection{\texorpdfstring{setVolumeMusic()}{setVolumeMusic()}}
+{\footnotesize\ttfamily void Juke\+Box\+::set\+Volume\+Music (\begin{DoxyParamCaption}\item[{const float \&}]{volume }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_juke_box_a7bf0efbd2d9e35361a345ebeafcfcb08}\label{class_juke_box_a7bf0efbd2d9e35361a345ebeafcfcb08}} 
+\index{JukeBox@{JukeBox}!setVolumeSound@{setVolumeSound}}
+\index{setVolumeSound@{setVolumeSound}!JukeBox@{JukeBox}}
+\subsubsection{\texorpdfstring{setVolumeSound()}{setVolumeSound()}}
+{\footnotesize\ttfamily void Juke\+Box\+::set\+Volume\+Sound (\begin{DoxyParamCaption}\item[{const float \&}]{volume }\end{DoxyParamCaption})}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Include/\mbox{\hyperlink{_juke_box_8hpp}{Juke\+Box.\+hpp}}\item 
+Src/\mbox{\hyperlink{_juke_box_8cpp}{Juke\+Box.\+cpp}}\end{DoxyCompactItemize}

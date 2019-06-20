@@ -1,0 +1,141 @@
+\hypertarget{class_entity}{}\section{Entity Class Reference}
+\label{class_entity}\index{Entity@{Entity}}
+
+
+{\ttfamily \#include $<$Entity.\+hpp$>$}
+
+Inheritance diagram for Entity\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_entity}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_entity_a3aa7f1038f236833533a55440eb35a49}{Entity}} (\mbox{\hyperlink{class_window}{Window}} $\ast$\+\_\+window, const std\+::string \&\+\_\+file\+Name, \mbox{\hyperlink{class_world}{World}} $\ast$\mbox{\hyperlink{class_entity_a038b06c38fe6bb385f37c05a5647c0dc}{world}}, const \mbox{\hyperlink{_utility_8hpp_ac675fa2b6c79d0be47ae76e5d0ce38a8}{vector3du}} \&\+\_\+pos)
+\item 
+virtual \mbox{\hyperlink{class_entity_adf6d3f7cb1b2ba029b6b048a395cc8ae}{$\sim$\+Entity}} ()
+\item 
+const \mbox{\hyperlink{_utility_8hpp_ac675fa2b6c79d0be47ae76e5d0ce38a8}{vector3du}} \& \mbox{\hyperlink{class_entity_a7290deb888c80712ed57aa332f0c78e0}{get\+Position}} () const
+\item 
+const std\+::string \& \mbox{\hyperlink{class_entity_acd53c0e6262c3ca14e16358cb2108edc}{get\+File\+Name}} () const
+\item 
+const std\+::string \& \mbox{\hyperlink{class_entity_afae2e0444ed61facc55756887d725208}{get\+Model}} () const
+\item 
+const std\+::string \& \mbox{\hyperlink{class_entity_a22955fbd8023631114a0a37189ad182b}{get\+Texture}} () const
+\item 
+bool \mbox{\hyperlink{class_entity_a7af4a2f9d919f516d67be4d22a648cae}{change\+Model}} (const std\+::string \&model)
+\item 
+bool \mbox{\hyperlink{class_entity_a4195b26c19b8c13e66f6bf723185d9ec}{change\+Texture}} (const std\+::string \&texture)
+\item 
+virtual void \mbox{\hyperlink{class_entity_a00b6eeaf99b35c8f8b10b5fbfc1baf4f}{update}} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_window}{Window}} $\ast$ \mbox{\hyperlink{class_entity_a1f2791b6a53a16e200a687f843cee7fb}{window}}
+\item 
+I\+Animated\+Mesh\+Scene\+Node $\ast$ \mbox{\hyperlink{class_entity_adb691a1a6673fe33622280d1b51dfd2f}{mesh}}
+\item 
+\mbox{\hyperlink{class_world}{World}} $\ast$ \mbox{\hyperlink{class_entity_a038b06c38fe6bb385f37c05a5647c0dc}{world}}
+\item 
+\mbox{\hyperlink{_utility_8hpp_ac675fa2b6c79d0be47ae76e5d0ce38a8}{vector3du}} \mbox{\hyperlink{class_entity_a17bbbb9c9f1a69803172f6ca830cf2f2}{position}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_entity_a3aa7f1038f236833533a55440eb35a49}\label{class_entity_a3aa7f1038f236833533a55440eb35a49}} 
+\index{Entity@{Entity}!Entity@{Entity}}
+\index{Entity@{Entity}!Entity@{Entity}}
+\subsubsection{\texorpdfstring{Entity()}{Entity()}}
+{\footnotesize\ttfamily Entity\+::\+Entity (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_window}{Window}} $\ast$}]{\+\_\+window,  }\item[{const std\+::string \&}]{\+\_\+file\+Name,  }\item[{\mbox{\hyperlink{class_world}{World}} $\ast$}]{world,  }\item[{const \mbox{\hyperlink{_utility_8hpp_ac675fa2b6c79d0be47ae76e5d0ce38a8}{vector3du}} \&}]{\+\_\+pos }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_entity_adf6d3f7cb1b2ba029b6b048a395cc8ae}\label{class_entity_adf6d3f7cb1b2ba029b6b048a395cc8ae}} 
+\index{Entity@{Entity}!````~Entity@{$\sim$Entity}}
+\index{````~Entity@{$\sim$Entity}!Entity@{Entity}}
+\subsubsection{\texorpdfstring{$\sim$Entity()}{~Entity()}}
+{\footnotesize\ttfamily Entity\+::$\sim$\+Entity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_entity_a7af4a2f9d919f516d67be4d22a648cae}\label{class_entity_a7af4a2f9d919f516d67be4d22a648cae}} 
+\index{Entity@{Entity}!changeModel@{changeModel}}
+\index{changeModel@{changeModel}!Entity@{Entity}}
+\subsubsection{\texorpdfstring{changeModel()}{changeModel()}}
+{\footnotesize\ttfamily bool Entity\+::change\+Model (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{model }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_entity_a4195b26c19b8c13e66f6bf723185d9ec}\label{class_entity_a4195b26c19b8c13e66f6bf723185d9ec}} 
+\index{Entity@{Entity}!changeTexture@{changeTexture}}
+\index{changeTexture@{changeTexture}!Entity@{Entity}}
+\subsubsection{\texorpdfstring{changeTexture()}{changeTexture()}}
+{\footnotesize\ttfamily bool Entity\+::change\+Texture (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{texture }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_entity_acd53c0e6262c3ca14e16358cb2108edc}\label{class_entity_acd53c0e6262c3ca14e16358cb2108edc}} 
+\index{Entity@{Entity}!getFileName@{getFileName}}
+\index{getFileName@{getFileName}!Entity@{Entity}}
+\subsubsection{\texorpdfstring{getFileName()}{getFileName()}}
+{\footnotesize\ttfamily const std\+::string \& Entity\+::get\+File\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_entity_afae2e0444ed61facc55756887d725208}\label{class_entity_afae2e0444ed61facc55756887d725208}} 
+\index{Entity@{Entity}!getModel@{getModel}}
+\index{getModel@{getModel}!Entity@{Entity}}
+\subsubsection{\texorpdfstring{getModel()}{getModel()}}
+{\footnotesize\ttfamily const std\+::string \& Entity\+::get\+Model (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_entity_a7290deb888c80712ed57aa332f0c78e0}\label{class_entity_a7290deb888c80712ed57aa332f0c78e0}} 
+\index{Entity@{Entity}!getPosition@{getPosition}}
+\index{getPosition@{getPosition}!Entity@{Entity}}
+\subsubsection{\texorpdfstring{getPosition()}{getPosition()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{_utility_8hpp_ac675fa2b6c79d0be47ae76e5d0ce38a8}{vector3du}} \& Entity\+::get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_entity_a22955fbd8023631114a0a37189ad182b}\label{class_entity_a22955fbd8023631114a0a37189ad182b}} 
+\index{Entity@{Entity}!getTexture@{getTexture}}
+\index{getTexture@{getTexture}!Entity@{Entity}}
+\subsubsection{\texorpdfstring{getTexture()}{getTexture()}}
+{\footnotesize\ttfamily const std\+::string \& Entity\+::get\+Texture (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_entity_a00b6eeaf99b35c8f8b10b5fbfc1baf4f}\label{class_entity_a00b6eeaf99b35c8f8b10b5fbfc1baf4f}} 
+\index{Entity@{Entity}!update@{update}}
+\index{update@{update}!Entity@{Entity}}
+\subsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Entity\+::update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Update the map position of the entity 
+
+Reimplemented in \mbox{\hyperlink{class_player_a6912bb6e48efb5845d59f0f4582827ef}{Player}}, and \mbox{\hyperlink{class_bomb_a15851182c209713a5946f977a7fb24b8}{Bomb}}.
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_entity_adb691a1a6673fe33622280d1b51dfd2f}\label{class_entity_adb691a1a6673fe33622280d1b51dfd2f}} 
+\index{Entity@{Entity}!mesh@{mesh}}
+\index{mesh@{mesh}!Entity@{Entity}}
+\subsubsection{\texorpdfstring{mesh}{mesh}}
+{\footnotesize\ttfamily I\+Animated\+Mesh\+Scene\+Node$\ast$ Entity\+::mesh\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{class_entity_a17bbbb9c9f1a69803172f6ca830cf2f2}\label{class_entity_a17bbbb9c9f1a69803172f6ca830cf2f2}} 
+\index{Entity@{Entity}!position@{position}}
+\index{position@{position}!Entity@{Entity}}
+\subsubsection{\texorpdfstring{position}{position}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_utility_8hpp_ac675fa2b6c79d0be47ae76e5d0ce38a8}{vector3du}} Entity\+::position\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{class_entity_a1f2791b6a53a16e200a687f843cee7fb}\label{class_entity_a1f2791b6a53a16e200a687f843cee7fb}} 
+\index{Entity@{Entity}!window@{window}}
+\index{window@{window}!Entity@{Entity}}
+\subsubsection{\texorpdfstring{window}{window}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_window}{Window}}$\ast$ Entity\+::window\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{class_entity_a038b06c38fe6bb385f37c05a5647c0dc}\label{class_entity_a038b06c38fe6bb385f37c05a5647c0dc}} 
+\index{Entity@{Entity}!world@{world}}
+\index{world@{world}!Entity@{Entity}}
+\subsubsection{\texorpdfstring{world}{world}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_world}{World}}$\ast$ Entity\+::world\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Include/\mbox{\hyperlink{_entity_8hpp}{Entity.\+hpp}}\item 
+Src/\mbox{\hyperlink{_entity_8cpp}{Entity.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,262 @@
+\hypertarget{class_window}{}\section{Window Class Reference}
+\label{class_window}\index{Window@{Window}}
+
+
+{\ttfamily \#include $<$Window.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_window_aa54dffcc8f2e77ec1b50624e4ea26df1}{Window}} (const std\+::string \&window\+Name, dimension2d$<$ u32 $>$ size, const bool \&fullscreen)
+\item 
+\mbox{\hyperlink{class_window_a245d821e6016fa1f6970ccbbedd635f6}{$\sim$\+Window}} ()
+\item 
+const bool \& \mbox{\hyperlink{class_window_abffc0b8dd358c4b630b6742a02af41af}{get\+Debug\+Mode}} () const
+\item 
+void \mbox{\hyperlink{class_window_af3da99bf3e2c951b6600e5218de588b1}{set\+Debug\+Mode}} (const bool \&active)
+\item 
+I\+Scene\+Manager $\ast$ \mbox{\hyperlink{class_window_a27869844ea5a217d2900240dccfd060e}{get\+Smgr}} ()
+\item 
+void \mbox{\hyperlink{class_window_a35055c04498121d39741bfcd5082705b}{close}} ()
+\item 
+bool \mbox{\hyperlink{class_window_a0530ead23b2c91ef90a5f98e4df41cb8}{is\+Open}} ()
+\item 
+void \mbox{\hyperlink{class_window_afadfafa5a0b9472554759004aafb327e}{display}} ()
+\item 
+I\+Animated\+Mesh $\ast$ \mbox{\hyperlink{class_window_a484652aab3089f622a25592a0a8879f4}{get\+Model}} (const std\+::string \&file\+Name)
+\item 
+I\+Texture $\ast$ \mbox{\hyperlink{class_window_a87adb3354813045de3d5743ef66643d3}{get\+Texture}} (const std\+::string \&file\+Name)
+\item 
+I\+Scene\+Node $\ast$ \mbox{\hyperlink{class_window_a4741a5d47dd6887f7c3b92beda15f0cc}{add\+Cube}} (const std\+::string \&texture)
+\item 
+I\+Animated\+Mesh\+Scene\+Node $\ast$ \mbox{\hyperlink{class_window_acde6f6a5b6c11782ec5e59f895a25ce7}{add\+Animated\+Mesh}} (const std\+::string \&model, const std\+::string \&texture)
+\item 
+I\+Scene\+Node\+Animator $\ast$ \mbox{\hyperlink{class_window_a066dc81fcb73e82697d2bf6ec80dc0f9}{create\+Translation}} (const vector3df \&init\+Pos, const vector3df \&dest\+Pos, const u32 \&timestamp)
+\item 
+I\+Camera\+Scene\+Node $\ast$ \mbox{\hyperlink{class_window_adc3b42a08c076bdb520e57e0c8fac512}{get\+Camera\+Scene\+Node}} (const vector3df \&point\+Of\+View, const vector3df \&look\+At)
+\item 
+bool \mbox{\hyperlink{class_window_af32614f32f93231fb30d8cb59cafce28}{is\+Key\+Pressed}} (const irr\+::\+E\+K\+E\+Y\+\_\+\+C\+O\+DE \&key\+Code) const
+\item 
+void \mbox{\hyperlink{class_window_aa26f12180091bab6982bca0e914eb407}{change\+Skybox}} (const std\+::string \&file\+Name)
+\item 
+I\+Scene\+Node\+Animator $\ast$ \mbox{\hyperlink{class_window_a25b8db7aaca6dbd68d67898fc36de50c}{apply\+Camera\+Move}} (const \mbox{\hyperlink{class_camera_move}{Camera\+Move}} \&camera\+Moove)
+\item 
+void \mbox{\hyperlink{class_window_ace17a7922196ed550729fc965a32c6d9}{can\+Be\+Resized}} (bool is\+Resize)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_window_aa54dffcc8f2e77ec1b50624e4ea26df1}\label{class_window_aa54dffcc8f2e77ec1b50624e4ea26df1}} 
+\index{Window@{Window}!Window@{Window}}
+\index{Window@{Window}!Window@{Window}}
+\subsubsection{\texorpdfstring{Window()}{Window()}}
+{\footnotesize\ttfamily Window\+::\+Window (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{window\+Name,  }\item[{dimension2d$<$ u32 $>$}]{size,  }\item[{const bool \&}]{fullscreen }\end{DoxyParamCaption})}
+
+\mbox{\hyperlink{class_window}{Window}} constructor 
+\begin{DoxyParams}{Parameters}
+{\em window\+Name} & \\
+\hline
+{\em size} & \\
+\hline
+{\em is} & fullscreen \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_window_a245d821e6016fa1f6970ccbbedd635f6}\label{class_window_a245d821e6016fa1f6970ccbbedd635f6}} 
+\index{Window@{Window}!````~Window@{$\sim$Window}}
+\index{````~Window@{$\sim$Window}!Window@{Window}}
+\subsubsection{\texorpdfstring{$\sim$Window()}{~Window()}}
+{\footnotesize\ttfamily Window\+::$\sim$\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_window_acde6f6a5b6c11782ec5e59f895a25ce7}\label{class_window_acde6f6a5b6c11782ec5e59f895a25ce7}} 
+\index{Window@{Window}!addAnimatedMesh@{addAnimatedMesh}}
+\index{addAnimatedMesh@{addAnimatedMesh}!Window@{Window}}
+\subsubsection{\texorpdfstring{addAnimatedMesh()}{addAnimatedMesh()}}
+{\footnotesize\ttfamily I\+Animated\+Mesh\+Scene\+Node $\ast$ Window\+::add\+Animated\+Mesh (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{model,  }\item[{const std\+::string \&}]{texture }\end{DoxyParamCaption})}
+
+Add a mesh to the Animated\+Mesh 
+\begin{DoxyParams}{Parameters}
+{\em model} & \\
+\hline
+{\em texture} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Animated\+Mesh\+Scene\+Node node if success, nullptr otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_window_a4741a5d47dd6887f7c3b92beda15f0cc}\label{class_window_a4741a5d47dd6887f7c3b92beda15f0cc}} 
+\index{Window@{Window}!addCube@{addCube}}
+\index{addCube@{addCube}!Window@{Window}}
+\subsubsection{\texorpdfstring{addCube()}{addCube()}}
+{\footnotesize\ttfamily I\+Scene\+Node $\ast$ Window\+::add\+Cube (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{texture }\end{DoxyParamCaption})}
+
+Add a cube to the Scene\+Node 
+\begin{DoxyParams}{Parameters}
+{\em texture} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Scene if success, nullptr otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_window_a25b8db7aaca6dbd68d67898fc36de50c}\label{class_window_a25b8db7aaca6dbd68d67898fc36de50c}} 
+\index{Window@{Window}!applyCameraMove@{applyCameraMove}}
+\index{applyCameraMove@{applyCameraMove}!Window@{Window}}
+\subsubsection{\texorpdfstring{applyCameraMove()}{applyCameraMove()}}
+{\footnotesize\ttfamily I\+Scene\+Node\+Animator $\ast$ Window\+::apply\+Camera\+Move (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_camera_move}{Camera\+Move}} \&}]{camera\+Move }\end{DoxyParamCaption})}
+
+Move the camera \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{_camera_move_8cpp}{Camera\+Move.\+cpp}} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em \mbox{\hyperlink{class_camera_move}{Camera\+Move}}} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Animation create with the move given in parameter 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_window_ace17a7922196ed550729fc965a32c6d9}\label{class_window_ace17a7922196ed550729fc965a32c6d9}} 
+\index{Window@{Window}!canBeResized@{canBeResized}}
+\index{canBeResized@{canBeResized}!Window@{Window}}
+\subsubsection{\texorpdfstring{canBeResized()}{canBeResized()}}
+{\footnotesize\ttfamily void Window\+::can\+Be\+Resized (\begin{DoxyParamCaption}\item[{bool}]{is\+Resize }\end{DoxyParamCaption})}
+
+Allow or not the resized mode 
+\begin{DoxyParams}{Parameters}
+{\em is\+Resize} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_window_aa26f12180091bab6982bca0e914eb407}\label{class_window_aa26f12180091bab6982bca0e914eb407}} 
+\index{Window@{Window}!changeSkybox@{changeSkybox}}
+\index{changeSkybox@{changeSkybox}!Window@{Window}}
+\subsubsection{\texorpdfstring{changeSkybox()}{changeSkybox()}}
+{\footnotesize\ttfamily void Window\+::change\+Skybox (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+Name }\end{DoxyParamCaption})}
+
+Change window background 
+\begin{DoxyParams}{Parameters}
+{\em Background} & path \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_window_a35055c04498121d39741bfcd5082705b}\label{class_window_a35055c04498121d39741bfcd5082705b}} 
+\index{Window@{Window}!close@{close}}
+\index{close@{close}!Window@{Window}}
+\subsubsection{\texorpdfstring{close()}{close()}}
+{\footnotesize\ttfamily void Window\+::close (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Use to close the window \mbox{\Hypertarget{class_window_a066dc81fcb73e82697d2bf6ec80dc0f9}\label{class_window_a066dc81fcb73e82697d2bf6ec80dc0f9}} 
+\index{Window@{Window}!createTranslation@{createTranslation}}
+\index{createTranslation@{createTranslation}!Window@{Window}}
+\subsubsection{\texorpdfstring{createTranslation()}{createTranslation()}}
+{\footnotesize\ttfamily I\+Scene\+Node\+Animator $\ast$ Window\+::create\+Translation (\begin{DoxyParamCaption}\item[{const vector3df \&}]{init\+Pos,  }\item[{const vector3df \&}]{dest\+Pos,  }\item[{const u32 \&}]{timestamp }\end{DoxyParamCaption})}
+
+Move the Scene nod to init\+Pos to dest\+Pos 
+\begin{DoxyParams}{Parameters}
+{\em init\+Pos} & \\
+\hline
+{\em dest\+Pos} & \\
+\hline
+{\em timestamp} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Animation created (Fly\+Straight\+Animator) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_window_afadfafa5a0b9472554759004aafb327e}\label{class_window_afadfafa5a0b9472554759004aafb327e}} 
+\index{Window@{Window}!display@{display}}
+\index{display@{display}!Window@{Window}}
+\subsubsection{\texorpdfstring{display()}{display()}}
+{\footnotesize\ttfamily void Window\+::display (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Display the window \mbox{\Hypertarget{class_window_adc3b42a08c076bdb520e57e0c8fac512}\label{class_window_adc3b42a08c076bdb520e57e0c8fac512}} 
+\index{Window@{Window}!getCameraSceneNode@{getCameraSceneNode}}
+\index{getCameraSceneNode@{getCameraSceneNode}!Window@{Window}}
+\subsubsection{\texorpdfstring{getCameraSceneNode()}{getCameraSceneNode()}}
+{\footnotesize\ttfamily I\+Camera\+Scene\+Node $\ast$ Window\+::get\+Camera\+Scene\+Node (\begin{DoxyParamCaption}\item[{const vector3df \&}]{point\+Of\+View,  }\item[{const vector3df \&}]{look\+At }\end{DoxyParamCaption})}
+
+Add a camera to the window 
+\begin{DoxyParams}{Parameters}
+{\em point\+Of\+View} & \\
+\hline
+{\em look\+At} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Camera created 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_window_abffc0b8dd358c4b630b6742a02af41af}\label{class_window_abffc0b8dd358c4b630b6742a02af41af}} 
+\index{Window@{Window}!getDebugMode@{getDebugMode}}
+\index{getDebugMode@{getDebugMode}!Window@{Window}}
+\subsubsection{\texorpdfstring{getDebugMode()}{getDebugMode()}}
+{\footnotesize\ttfamily const bool \& Window\+::get\+Debug\+Mode (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_window_a484652aab3089f622a25592a0a8879f4}\label{class_window_a484652aab3089f622a25592a0a8879f4}} 
+\index{Window@{Window}!getModel@{getModel}}
+\index{getModel@{getModel}!Window@{Window}}
+\subsubsection{\texorpdfstring{getModel()}{getModel()}}
+{\footnotesize\ttfamily I\+Animated\+Mesh $\ast$ Window\+::get\+Model (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+Name }\end{DoxyParamCaption})}
+
+Get the mesh given in parameter 
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Mesh 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_window_a27869844ea5a217d2900240dccfd060e}\label{class_window_a27869844ea5a217d2900240dccfd060e}} 
+\index{Window@{Window}!getSmgr@{getSmgr}}
+\index{getSmgr@{getSmgr}!Window@{Window}}
+\subsubsection{\texorpdfstring{getSmgr()}{getSmgr()}}
+{\footnotesize\ttfamily I\+Scene\+Manager $\ast$ Window\+::get\+Smgr (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_window_a87adb3354813045de3d5743ef66643d3}\label{class_window_a87adb3354813045de3d5743ef66643d3}} 
+\index{Window@{Window}!getTexture@{getTexture}}
+\index{getTexture@{getTexture}!Window@{Window}}
+\subsubsection{\texorpdfstring{getTexture()}{getTexture()}}
+{\footnotesize\ttfamily I\+Texture $\ast$ Window\+::get\+Texture (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+Name }\end{DoxyParamCaption})}
+
+Get the texture given in parameter 
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Texture 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_window_af32614f32f93231fb30d8cb59cafce28}\label{class_window_af32614f32f93231fb30d8cb59cafce28}} 
+\index{Window@{Window}!isKeyPressed@{isKeyPressed}}
+\index{isKeyPressed@{isKeyPressed}!Window@{Window}}
+\subsubsection{\texorpdfstring{isKeyPressed()}{isKeyPressed()}}
+{\footnotesize\ttfamily bool Window\+::is\+Key\+Pressed (\begin{DoxyParamCaption}\item[{const irr\+::\+E\+K\+E\+Y\+\_\+\+C\+O\+DE \&}]{key\+Code }\end{DoxyParamCaption}) const}
+
+Getter on the keyboard 
+\begin{DoxyParams}{Parameters}
+{\em key\+Code} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Key pressed 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_window_a0530ead23b2c91ef90a5f98e4df41cb8}\label{class_window_a0530ead23b2c91ef90a5f98e4df41cb8}} 
+\index{Window@{Window}!isOpen@{isOpen}}
+\index{isOpen@{isOpen}!Window@{Window}}
+\subsubsection{\texorpdfstring{isOpen()}{isOpen()}}
+{\footnotesize\ttfamily bool Window\+::is\+Open (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Check if the window is open \begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_window}{Window}} status 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_window_af3da99bf3e2c951b6600e5218de588b1}\label{class_window_af3da99bf3e2c951b6600e5218de588b1}} 
+\index{Window@{Window}!setDebugMode@{setDebugMode}}
+\index{setDebugMode@{setDebugMode}!Window@{Window}}
+\subsubsection{\texorpdfstring{setDebugMode()}{setDebugMode()}}
+{\footnotesize\ttfamily void Window\+::set\+Debug\+Mode (\begin{DoxyParamCaption}\item[{const bool \&}]{active }\end{DoxyParamCaption})}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Include/\mbox{\hyperlink{_window_8hpp}{Window.\+hpp}}\item 
+Src/\mbox{\hyperlink{_window_8cpp}{Window.\+cpp}}\end{DoxyCompactItemize}

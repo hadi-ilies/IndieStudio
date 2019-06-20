@@ -1,0 +1,107 @@
+\hypertarget{class_player}{}\section{Player Class Reference}
+\label{class_player}\index{Player@{Player}}
+
+
+{\ttfamily \#include $<$Player.\+hpp$>$}
+
+Inheritance diagram for Player\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_player}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_player_a834edaa77749cec926a696368ad39cf0}{Player}} (\mbox{\hyperlink{class_window}{Window}} $\ast$\mbox{\hyperlink{class_entity_a1f2791b6a53a16e200a687f843cee7fb}{window}}, const std\+::string \&file\+Name, const std\+::string \&\mbox{\hyperlink{class_character_a6592c35167738421f3e04ca8808d37db}{name}}, \mbox{\hyperlink{class_world}{World}} $\ast$\mbox{\hyperlink{class_entity_a038b06c38fe6bb385f37c05a5647c0dc}{world}}, const \mbox{\hyperlink{_utility_8hpp_ac675fa2b6c79d0be47ae76e5d0ce38a8}{vector3du}} \&pos)
+\item 
+\mbox{\hyperlink{class_player_a749d2c00e1fe0f5c2746f7505a58c062}{$\sim$\+Player}} ()
+\item 
+const uint \& \mbox{\hyperlink{class_player_a76422a66b20f1499ea726245632dbbcb}{get\+Bomb\+Power}} () const
+\item 
+const uint \& \mbox{\hyperlink{class_player_a44887e7850f3c52e4ef95ff8e52c9439}{get\+Nb\+Bomb}} () const
+\item 
+const std\+::list$<$ \mbox{\hyperlink{class_bomb}{Bomb}} $\ast$ $>$ \& \mbox{\hyperlink{class_player_a30ce504fcf084e2e48f87d1b7a408281}{get\+Bomb\+List}} () const
+\item 
+bool \mbox{\hyperlink{class_player_a66e0c55125e2cfb68ceb50dc107ecdb1}{put\+Bomb}} ()
+\item 
+bool \mbox{\hyperlink{class_player_a447b343a103d4d78e298be0201e5fb45}{take\+Power\+Up}} (const \mbox{\hyperlink{class_power_up}{Power\+Up}} \&power\+Up)
+\item 
+void \mbox{\hyperlink{class_player_a6912bb6e48efb5845d59f0f4582827ef}{update}} () override
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_player_a834edaa77749cec926a696368ad39cf0}\label{class_player_a834edaa77749cec926a696368ad39cf0}} 
+\index{Player@{Player}!Player@{Player}}
+\index{Player@{Player}!Player@{Player}}
+\subsubsection{\texorpdfstring{Player()}{Player()}}
+{\footnotesize\ttfamily Player\+::\+Player (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_window}{Window}} $\ast$}]{window,  }\item[{const std\+::string \&}]{file\+Name,  }\item[{const std\+::string \&}]{name,  }\item[{\mbox{\hyperlink{class_world}{World}} $\ast$}]{world,  }\item[{const \mbox{\hyperlink{_utility_8hpp_ac675fa2b6c79d0be47ae76e5d0ce38a8}{vector3du}} \&}]{pos }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_player_a749d2c00e1fe0f5c2746f7505a58c062}\label{class_player_a749d2c00e1fe0f5c2746f7505a58c062}} 
+\index{Player@{Player}!````~Player@{$\sim$Player}}
+\index{````~Player@{$\sim$Player}!Player@{Player}}
+\subsubsection{\texorpdfstring{$\sim$Player()}{~Player()}}
+{\footnotesize\ttfamily Player\+::$\sim$\+Player (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_player_a30ce504fcf084e2e48f87d1b7a408281}\label{class_player_a30ce504fcf084e2e48f87d1b7a408281}} 
+\index{Player@{Player}!getBombList@{getBombList}}
+\index{getBombList@{getBombList}!Player@{Player}}
+\subsubsection{\texorpdfstring{getBombList()}{getBombList()}}
+{\footnotesize\ttfamily const std\+::list$<$ \mbox{\hyperlink{class_bomb}{Bomb}} $\ast$ $>$ \& Player\+::get\+Bomb\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_player_a76422a66b20f1499ea726245632dbbcb}\label{class_player_a76422a66b20f1499ea726245632dbbcb}} 
+\index{Player@{Player}!getBombPower@{getBombPower}}
+\index{getBombPower@{getBombPower}!Player@{Player}}
+\subsubsection{\texorpdfstring{getBombPower()}{getBombPower()}}
+{\footnotesize\ttfamily const uint \& Player\+::get\+Bomb\+Power (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_player_a44887e7850f3c52e4ef95ff8e52c9439}\label{class_player_a44887e7850f3c52e4ef95ff8e52c9439}} 
+\index{Player@{Player}!getNbBomb@{getNbBomb}}
+\index{getNbBomb@{getNbBomb}!Player@{Player}}
+\subsubsection{\texorpdfstring{getNbBomb()}{getNbBomb()}}
+{\footnotesize\ttfamily const uint \& Player\+::get\+Nb\+Bomb (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_player_a66e0c55125e2cfb68ceb50dc107ecdb1}\label{class_player_a66e0c55125e2cfb68ceb50dc107ecdb1}} 
+\index{Player@{Player}!putBomb@{putBomb}}
+\index{putBomb@{putBomb}!Player@{Player}}
+\subsubsection{\texorpdfstring{putBomb()}{putBomb()}}
+{\footnotesize\ttfamily bool Player\+::put\+Bomb (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Put the bomb at the position \begin{DoxyReturn}{Returns}
+True if possible to put the bomb, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_player_a447b343a103d4d78e298be0201e5fb45}\label{class_player_a447b343a103d4d78e298be0201e5fb45}} 
+\index{Player@{Player}!takePowerUp@{takePowerUp}}
+\index{takePowerUp@{takePowerUp}!Player@{Player}}
+\subsubsection{\texorpdfstring{takePowerUp()}{takePowerUp()}}
+{\footnotesize\ttfamily bool Player\+::take\+Power\+Up (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_power_up}{Power\+Up}} \&}]{power\+Up }\end{DoxyParamCaption})}
+
+Take the power up 
+\begin{DoxyParams}{Parameters}
+{\em power\+Up} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if success, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_player_a6912bb6e48efb5845d59f0f4582827ef}\label{class_player_a6912bb6e48efb5845d59f0f4582827ef}} 
+\index{Player@{Player}!update@{update}}
+\index{update@{update}!Player@{Player}}
+\subsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Player\+::update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Update the player\textquotesingle{}s bomb list 
+
+Reimplemented from \mbox{\hyperlink{class_entity_a00b6eeaf99b35c8f8b10b5fbfc1baf4f}{Entity}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Include/\+Entity/\mbox{\hyperlink{_player_8hpp}{Player.\+hpp}}\item 
+Src/\+Entity/\mbox{\hyperlink{_player_8cpp}{Player.\+cpp}}\end{DoxyCompactItemize}

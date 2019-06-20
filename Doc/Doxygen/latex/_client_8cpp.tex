@@ -1,0 +1,157 @@
+\hypertarget{_client_8cpp}{}\section{Src/\+Client.cpp File Reference}
+\label{_client_8cpp}\index{Src/Client.cpp@{Src/Client.cpp}}
+{\ttfamily \#include \char`\"{}Client.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Error.\+hpp\char`\"{}}\newline
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_client_8cpp_a42d08016add451c15209fdd09c1efb40}{N\+O\+S\+ET}}~-\/1
+\item 
+\#define \mbox{\hyperlink{_client_8cpp_ac749b87dd5d843e4add3eb8e8a130f62}{W\+A\+LL}}~-\/2
+\item 
+\#define \mbox{\hyperlink{_client_8cpp_adfe5c8e430e7dbb9c334d36ee161bb59}{F\+I\+RE}}~-\/3
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_client_8cpp_a10c297cfff07e26850df2fead472a0a4}{server\+Loop}} (\mbox{\hyperlink{class_formatted_socket}{Formatted\+Socket}} $\ast$\mbox{\hyperlink{_client_8cpp_a9985dbf5b35995514959d52986dd770b}{client}}, bool $\ast$start\+Turn, bool $\ast$end\+Turn)
+\item 
+void \mbox{\hyperlink{_client_8cpp_a171d17f77ec4c1241bd75e976977fef2}{add\+Victory}} (const std\+::string \&winner\+Name)
+\item 
+int \mbox{\hyperlink{_client_8cpp_a64f477a8f1478be6b8b492984e98f088}{play\+End\+Music}} (vector$<$ unique\+\_\+ptr$<$ \mbox{\hyperlink{class_player}{Player}} $>$$>$ \&player\+List, const size\+\_\+t \&player\+Id, const \mbox{\hyperlink{_client_8hpp_abe590f3c9109f404f003d5d7e4f0fccf}{Player\+Type}} \&player\+Type)
+\item 
+std\+::vector$<$ std\+::vector$<$ std\+::string $>$ $>$ \mbox{\hyperlink{_client_8cpp_a56fba95392d9e0e62159eeb9b7cbe111}{get\+Tab\+From\+World}} (const \mbox{\hyperlink{class_world}{World}} \&world)
+\item 
+vector$<$ \mbox{\hyperlink{_utility_8hpp_aa7e31638d8e10973d6f5cd3f0c8bacd3}{vector2du}} $>$ \mbox{\hyperlink{_client_8cpp_aa832acb74b1f1c1e8e856b7036644eab}{get\+Player\+Pos}} (const vector$<$ unique\+\_\+ptr$<$ \mbox{\hyperlink{class_player}{Player}} $>$$>$ \&player\+List)
+\item 
+vector$<$ \mbox{\hyperlink{_utility_8hpp_aa7e31638d8e10973d6f5cd3f0c8bacd3}{vector2du}} $>$ \mbox{\hyperlink{_client_8cpp_a11b13fa3a4eedca797539cc008a29865}{get\+Power\+Up\+Pos}} (const vector$<$ unique\+\_\+ptr$<$ \mbox{\hyperlink{class_power_up}{Power\+Up}} $>$$>$ \&power\+Up\+List)
+\item 
+std\+::list$<$ \mbox{\hyperlink{class_bomb}{Bomb}} $\ast$ $>$ \mbox{\hyperlink{_client_8cpp_a934a7c8de27fb51db016a0f79465ab17}{get\+Bomb\+List}} (const vector$<$ unique\+\_\+ptr$<$ \mbox{\hyperlink{class_player}{Player}} $>$$>$ \&player\+List)
+\item 
+std\+::vector$<$ std\+::vector$<$ int $>$ $>$ \mbox{\hyperlink{_client_8cpp_ab85f06a4005813a41689e33542da8480}{get\+Move\+Tab}} (const std\+::vector$<$ std\+::vector$<$ std\+::string $>$$>$ \&tab, const \mbox{\hyperlink{_utility_8hpp_aa7e31638d8e10973d6f5cd3f0c8bacd3}{vector2du}} \&origin, const bool fire\+Wall=true)
+\item 
+\mbox{\hyperlink{_client_8hpp_aea132397c26cad8f8637a9422260deca}{Player\+Action}} \mbox{\hyperlink{_client_8cpp_a8a211c7d373f231314c2f1b97899c44d}{move\+To}} (const std\+::vector$<$ std\+::vector$<$ std\+::string $>$$>$ \&tab, const \mbox{\hyperlink{_utility_8hpp_aa7e31638d8e10973d6f5cd3f0c8bacd3}{vector2du}} \&pos, const \mbox{\hyperlink{_utility_8hpp_aa7e31638d8e10973d6f5cd3f0c8bacd3}{vector2du}} \&my\+Pos, const bool put\+Bomb=false, const bool fire\+Wall=true)
+\item 
+\mbox{\hyperlink{_client_8hpp_aea132397c26cad8f8637a9422260deca}{Player\+Action}} \mbox{\hyperlink{_client_8cpp_aa83b407baa9cadfc7fcb4d1775e007c3}{ia\+Corentin}} (const \mbox{\hyperlink{class_world}{World}} \&world, const vector$<$ unique\+\_\+ptr$<$ \mbox{\hyperlink{class_power_up}{Power\+Up}} $>$$>$ \&power\+Up\+List, const vector$<$ unique\+\_\+ptr$<$ \mbox{\hyperlink{class_player}{Player}} $>$$>$ \&player\+List, const size\+\_\+t \&player\+Id)
+\item 
+bool \mbox{\hyperlink{_client_8cpp_a9985dbf5b35995514959d52986dd770b}{client}} (\mbox{\hyperlink{class_window}{Window}} $\ast$window, \mbox{\hyperlink{class_player}{Player}} $\ast$my\+Player, const \mbox{\hyperlink{_client_8hpp_abe590f3c9109f404f003d5d7e4f0fccf}{Player\+Type}} \&player\+Type, const sf\+::\+Ip\+Address \&ip, const ushort \&port)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_client_8cpp_adfe5c8e430e7dbb9c334d36ee161bb59}\label{_client_8cpp_adfe5c8e430e7dbb9c334d36ee161bb59}} 
+\index{Client.cpp@{Client.cpp}!FIRE@{FIRE}}
+\index{FIRE@{FIRE}!Client.cpp@{Client.cpp}}
+\subsubsection{\texorpdfstring{FIRE}{FIRE}}
+{\footnotesize\ttfamily \#define F\+I\+RE~-\/3}
+
+\mbox{\Hypertarget{_client_8cpp_a42d08016add451c15209fdd09c1efb40}\label{_client_8cpp_a42d08016add451c15209fdd09c1efb40}} 
+\index{Client.cpp@{Client.cpp}!NOSET@{NOSET}}
+\index{NOSET@{NOSET}!Client.cpp@{Client.cpp}}
+\subsubsection{\texorpdfstring{NOSET}{NOSET}}
+{\footnotesize\ttfamily \#define N\+O\+S\+ET~-\/1}
+
+\mbox{\Hypertarget{_client_8cpp_ac749b87dd5d843e4add3eb8e8a130f62}\label{_client_8cpp_ac749b87dd5d843e4add3eb8e8a130f62}} 
+\index{Client.cpp@{Client.cpp}!WALL@{WALL}}
+\index{WALL@{WALL}!Client.cpp@{Client.cpp}}
+\subsubsection{\texorpdfstring{WALL}{WALL}}
+{\footnotesize\ttfamily \#define W\+A\+LL~-\/2}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_client_8cpp_a171d17f77ec4c1241bd75e976977fef2}\label{_client_8cpp_a171d17f77ec4c1241bd75e976977fef2}} 
+\index{Client.cpp@{Client.cpp}!addVictory@{addVictory}}
+\index{addVictory@{addVictory}!Client.cpp@{Client.cpp}}
+\subsubsection{\texorpdfstring{addVictory()}{addVictory()}}
+{\footnotesize\ttfamily void add\+Victory (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{winner\+Name }\end{DoxyParamCaption})}
+
+Save score in the score file \begin{DoxySeeAlso}{See also}
+Resources/\+Score 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em winner\+Name} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{_client_8cpp_a9985dbf5b35995514959d52986dd770b}\label{_client_8cpp_a9985dbf5b35995514959d52986dd770b}} 
+\index{Client.cpp@{Client.cpp}!client@{client}}
+\index{client@{client}!Client.cpp@{Client.cpp}}
+\subsubsection{\texorpdfstring{client()}{client()}}
+{\footnotesize\ttfamily bool client (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_window}{Window}} $\ast$}]{window,  }\item[{\mbox{\hyperlink{class_player}{Player}} $\ast$}]{my\+Player,  }\item[{const \mbox{\hyperlink{_client_8hpp_abe590f3c9109f404f003d5d7e4f0fccf}{Player\+Type}} \&}]{player\+Type,  }\item[{const sf\+::\+Ip\+Address \&}]{ip,  }\item[{const ushort \&}]{port }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_client_8cpp_a934a7c8de27fb51db016a0f79465ab17}\label{_client_8cpp_a934a7c8de27fb51db016a0f79465ab17}} 
+\index{Client.cpp@{Client.cpp}!getBombList@{getBombList}}
+\index{getBombList@{getBombList}!Client.cpp@{Client.cpp}}
+\subsubsection{\texorpdfstring{getBombList()}{getBombList()}}
+{\footnotesize\ttfamily std\+::list$<$\mbox{\hyperlink{class_bomb}{Bomb}} $\ast$$>$ get\+Bomb\+List (\begin{DoxyParamCaption}\item[{const vector$<$ unique\+\_\+ptr$<$ \mbox{\hyperlink{class_player}{Player}} $>$$>$ \&}]{player\+List }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_client_8cpp_ab85f06a4005813a41689e33542da8480}\label{_client_8cpp_ab85f06a4005813a41689e33542da8480}} 
+\index{Client.cpp@{Client.cpp}!getMoveTab@{getMoveTab}}
+\index{getMoveTab@{getMoveTab}!Client.cpp@{Client.cpp}}
+\subsubsection{\texorpdfstring{getMoveTab()}{getMoveTab()}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::vector$<$int$>$ $>$ get\+Move\+Tab (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::vector$<$ std\+::string $>$$>$ \&}]{tab,  }\item[{const \mbox{\hyperlink{_utility_8hpp_aa7e31638d8e10973d6f5cd3f0c8bacd3}{vector2du}} \&}]{origin,  }\item[{const bool}]{fire\+Wall = {\ttfamily true} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_client_8cpp_aa832acb74b1f1c1e8e856b7036644eab}\label{_client_8cpp_aa832acb74b1f1c1e8e856b7036644eab}} 
+\index{Client.cpp@{Client.cpp}!getPlayerPos@{getPlayerPos}}
+\index{getPlayerPos@{getPlayerPos}!Client.cpp@{Client.cpp}}
+\subsubsection{\texorpdfstring{getPlayerPos()}{getPlayerPos()}}
+{\footnotesize\ttfamily vector$<$\mbox{\hyperlink{_utility_8hpp_aa7e31638d8e10973d6f5cd3f0c8bacd3}{vector2du}}$>$ get\+Player\+Pos (\begin{DoxyParamCaption}\item[{const vector$<$ unique\+\_\+ptr$<$ \mbox{\hyperlink{class_player}{Player}} $>$$>$ \&}]{player\+List }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_client_8cpp_a11b13fa3a4eedca797539cc008a29865}\label{_client_8cpp_a11b13fa3a4eedca797539cc008a29865}} 
+\index{Client.cpp@{Client.cpp}!getPowerUpPos@{getPowerUpPos}}
+\index{getPowerUpPos@{getPowerUpPos}!Client.cpp@{Client.cpp}}
+\subsubsection{\texorpdfstring{getPowerUpPos()}{getPowerUpPos()}}
+{\footnotesize\ttfamily vector$<$\mbox{\hyperlink{_utility_8hpp_aa7e31638d8e10973d6f5cd3f0c8bacd3}{vector2du}}$>$ get\+Power\+Up\+Pos (\begin{DoxyParamCaption}\item[{const vector$<$ unique\+\_\+ptr$<$ \mbox{\hyperlink{class_power_up}{Power\+Up}} $>$$>$ \&}]{power\+Up\+List }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_client_8cpp_a56fba95392d9e0e62159eeb9b7cbe111}\label{_client_8cpp_a56fba95392d9e0e62159eeb9b7cbe111}} 
+\index{Client.cpp@{Client.cpp}!getTabFromWorld@{getTabFromWorld}}
+\index{getTabFromWorld@{getTabFromWorld}!Client.cpp@{Client.cpp}}
+\subsubsection{\texorpdfstring{getTabFromWorld()}{getTabFromWorld()}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::vector$<$std\+::string$>$ $>$ get\+Tab\+From\+World (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_world}{World}} \&}]{world }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_client_8cpp_aa83b407baa9cadfc7fcb4d1775e007c3}\label{_client_8cpp_aa83b407baa9cadfc7fcb4d1775e007c3}} 
+\index{Client.cpp@{Client.cpp}!iaCorentin@{iaCorentin}}
+\index{iaCorentin@{iaCorentin}!Client.cpp@{Client.cpp}}
+\subsubsection{\texorpdfstring{iaCorentin()}{iaCorentin()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_client_8hpp_aea132397c26cad8f8637a9422260deca}{Player\+Action}} ia\+Corentin (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_world}{World}} \&}]{world,  }\item[{const vector$<$ unique\+\_\+ptr$<$ \mbox{\hyperlink{class_power_up}{Power\+Up}} $>$$>$ \&}]{power\+Up\+List,  }\item[{const vector$<$ unique\+\_\+ptr$<$ \mbox{\hyperlink{class_player}{Player}} $>$$>$ \&}]{player\+List,  }\item[{const size\+\_\+t \&}]{player\+Id }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_client_8cpp_a8a211c7d373f231314c2f1b97899c44d}\label{_client_8cpp_a8a211c7d373f231314c2f1b97899c44d}} 
+\index{Client.cpp@{Client.cpp}!moveTo@{moveTo}}
+\index{moveTo@{moveTo}!Client.cpp@{Client.cpp}}
+\subsubsection{\texorpdfstring{moveTo()}{moveTo()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_client_8hpp_aea132397c26cad8f8637a9422260deca}{Player\+Action}} move\+To (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::vector$<$ std\+::string $>$$>$ \&}]{tab,  }\item[{const \mbox{\hyperlink{_utility_8hpp_aa7e31638d8e10973d6f5cd3f0c8bacd3}{vector2du}} \&}]{pos,  }\item[{const \mbox{\hyperlink{_utility_8hpp_aa7e31638d8e10973d6f5cd3f0c8bacd3}{vector2du}} \&}]{my\+Pos,  }\item[{const bool}]{put\+Bomb = {\ttfamily false},  }\item[{const bool}]{fire\+Wall = {\ttfamily true} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_client_8cpp_a64f477a8f1478be6b8b492984e98f088}\label{_client_8cpp_a64f477a8f1478be6b8b492984e98f088}} 
+\index{Client.cpp@{Client.cpp}!playEndMusic@{playEndMusic}}
+\index{playEndMusic@{playEndMusic}!Client.cpp@{Client.cpp}}
+\subsubsection{\texorpdfstring{playEndMusic()}{playEndMusic()}}
+{\footnotesize\ttfamily int play\+End\+Music (\begin{DoxyParamCaption}\item[{vector$<$ unique\+\_\+ptr$<$ \mbox{\hyperlink{class_player}{Player}} $>$$>$ \&}]{player\+List,  }\item[{const size\+\_\+t \&}]{player\+Id,  }\item[{const \mbox{\hyperlink{_client_8hpp_abe590f3c9109f404f003d5d7e4f0fccf}{Player\+Type}} \&}]{player\+Type }\end{DoxyParamCaption})}
+
+Play the music and dislay the victory/defeat screen 
+\begin{DoxyParams}{Parameters}
+{\em player\+List} & \\
+\hline
+{\em player\+Id} & \\
+\hline
+{\em player\+Type} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Success status 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_client_8cpp_a10c297cfff07e26850df2fead472a0a4}\label{_client_8cpp_a10c297cfff07e26850df2fead472a0a4}} 
+\index{Client.cpp@{Client.cpp}!serverLoop@{serverLoop}}
+\index{serverLoop@{serverLoop}!Client.cpp@{Client.cpp}}
+\subsubsection{\texorpdfstring{serverLoop()}{serverLoop()}}
+{\footnotesize\ttfamily void server\+Loop (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_formatted_socket}{Formatted\+Socket}} $\ast$}]{client,  }\item[{bool $\ast$}]{start\+Turn,  }\item[{bool $\ast$}]{end\+Turn }\end{DoxyParamCaption})}
+
+\mbox{\hyperlink{class_server}{Server}} loop function 
+\begin{DoxyParams}{Parameters}
+{\em client} & \\
+\hline
+{\em start\+Turn} & \\
+\hline
+{\em end\+Turn} & \\
+\hline
+\end{DoxyParams}

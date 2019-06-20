@@ -1,0 +1,117 @@
+\hypertarget{class_a_button}{}\section{A\+Button Class Reference}
+\label{class_a_button}\index{AButton@{AButton}}
+
+
+{\ttfamily \#include $<$A\+Button.\+hpp$>$}
+
+Inheritance diagram for A\+Button\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_a_button}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_a_button_a6882412288f95e71e2d3eaaac18dacfb}{A\+Button}} (\mbox{\hyperlink{class_window}{Window}} \&\+\_\+window, const vector3df \&\mbox{\hyperlink{class_a_button_a71db15822a0eeb093a07e2ac7ff76cd8}{position}}, std\+::string \mbox{\hyperlink{class_a_button_aad1d2351e9dc41d747726be929fdb459}{name}}, std\+::string type)
+\item 
+virtual \mbox{\hyperlink{class_a_button_ade4e33830c20aee1b587d56a01689de5}{$\sim$\+A\+Button}} ()
+\item 
+const std\+::string \mbox{\hyperlink{class_a_button_a3c6b399f37adccb376c2a22d3448be1a}{get\+Name}} () const
+\item 
+vector3df \mbox{\hyperlink{class_a_button_a268ae43108368ac706654f306da2ef15}{get\+Position}} () const
+\item 
+bool \mbox{\hyperlink{class_a_button_a62ececbb41f1aa6807f5d5ed5dcf59a1}{is\+Animation\+Finished}} () const
+\item 
+virtual bool \mbox{\hyperlink{class_a_button_a6ceaa1f1062009f1206fad570d07afbc}{animation}} (const vector3df \&dest\+Pos, const f32 \&timestamps)=0
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_window}{Window}} \& \mbox{\hyperlink{class_a_button_ab8b7ee994bd3b81cfd4ad639733c19df}{window}}
+\item 
+vector3df \mbox{\hyperlink{class_a_button_a71db15822a0eeb093a07e2ac7ff76cd8}{position}}
+\item 
+const std\+::string \mbox{\hyperlink{class_a_button_aad1d2351e9dc41d747726be929fdb459}{name}}
+\item 
+I\+Scene\+Node\+Animator $\ast$ \mbox{\hyperlink{class_a_button_a8b1ae0e0646651af3863e0ae6838eddf}{anim}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_a_button_a6882412288f95e71e2d3eaaac18dacfb}\label{class_a_button_a6882412288f95e71e2d3eaaac18dacfb}} 
+\index{AButton@{AButton}!AButton@{AButton}}
+\index{AButton@{AButton}!AButton@{AButton}}
+\subsubsection{\texorpdfstring{AButton()}{AButton()}}
+{\footnotesize\ttfamily A\+Button\+::\+A\+Button (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_window}{Window}} \&}]{\+\_\+window,  }\item[{const vector3df \&}]{position,  }\item[{std\+::string}]{name,  }\item[{std\+::string}]{type }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_a_button_ade4e33830c20aee1b587d56a01689de5}\label{class_a_button_ade4e33830c20aee1b587d56a01689de5}} 
+\index{AButton@{AButton}!````~AButton@{$\sim$AButton}}
+\index{````~AButton@{$\sim$AButton}!AButton@{AButton}}
+\subsubsection{\texorpdfstring{$\sim$AButton()}{~AButton()}}
+{\footnotesize\ttfamily A\+Button\+::$\sim$\+A\+Button (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_a_button_a6ceaa1f1062009f1206fad570d07afbc}\label{class_a_button_a6ceaa1f1062009f1206fad570d07afbc}} 
+\index{AButton@{AButton}!animation@{animation}}
+\index{animation@{animation}!AButton@{AButton}}
+\subsubsection{\texorpdfstring{animation()}{animation()}}
+{\footnotesize\ttfamily virtual bool A\+Button\+::animation (\begin{DoxyParamCaption}\item[{const vector3df \&}]{dest\+Pos,  }\item[{const f32 \&}]{timestamps }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{class_button_a0bd4601e48eb6ef67ee192561fa4cfd0}{Button}}, and \mbox{\hyperlink{class_font_button_aa5855d430b2f25d72a847c60a03ff159}{Font\+Button}}.
+
+\mbox{\Hypertarget{class_a_button_a3c6b399f37adccb376c2a22d3448be1a}\label{class_a_button_a3c6b399f37adccb376c2a22d3448be1a}} 
+\index{AButton@{AButton}!getName@{getName}}
+\index{getName@{getName}!AButton@{AButton}}
+\subsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily const std\+::string A\+Button\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_a_button_a268ae43108368ac706654f306da2ef15}\label{class_a_button_a268ae43108368ac706654f306da2ef15}} 
+\index{AButton@{AButton}!getPosition@{getPosition}}
+\index{getPosition@{getPosition}!AButton@{AButton}}
+\subsubsection{\texorpdfstring{getPosition()}{getPosition()}}
+{\footnotesize\ttfamily vector3df A\+Button\+::get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_a_button_a62ececbb41f1aa6807f5d5ed5dcf59a1}\label{class_a_button_a62ececbb41f1aa6807f5d5ed5dcf59a1}} 
+\index{AButton@{AButton}!isAnimationFinished@{isAnimationFinished}}
+\index{isAnimationFinished@{isAnimationFinished}!AButton@{AButton}}
+\subsubsection{\texorpdfstring{isAnimationFinished()}{isAnimationFinished()}}
+{\footnotesize\ttfamily bool A\+Button\+::is\+Animation\+Finished (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_a_button_a8b1ae0e0646651af3863e0ae6838eddf}\label{class_a_button_a8b1ae0e0646651af3863e0ae6838eddf}} 
+\index{AButton@{AButton}!anim@{anim}}
+\index{anim@{anim}!AButton@{AButton}}
+\subsubsection{\texorpdfstring{anim}{anim}}
+{\footnotesize\ttfamily I\+Scene\+Node\+Animator$\ast$ A\+Button\+::anim\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{class_a_button_aad1d2351e9dc41d747726be929fdb459}\label{class_a_button_aad1d2351e9dc41d747726be929fdb459}} 
+\index{AButton@{AButton}!name@{name}}
+\index{name@{name}!AButton@{AButton}}
+\subsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily const std\+::string A\+Button\+::name\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{class_a_button_a71db15822a0eeb093a07e2ac7ff76cd8}\label{class_a_button_a71db15822a0eeb093a07e2ac7ff76cd8}} 
+\index{AButton@{AButton}!position@{position}}
+\index{position@{position}!AButton@{AButton}}
+\subsubsection{\texorpdfstring{position}{position}}
+{\footnotesize\ttfamily vector3df A\+Button\+::position\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{class_a_button_ab8b7ee994bd3b81cfd4ad639733c19df}\label{class_a_button_ab8b7ee994bd3b81cfd4ad639733c19df}} 
+\index{AButton@{AButton}!window@{window}}
+\index{window@{window}!AButton@{AButton}}
+\subsubsection{\texorpdfstring{window}{window}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_window}{Window}}\& A\+Button\+::window\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Include/\+User\+Interface/\mbox{\hyperlink{_a_button_8hpp}{A\+Button.\+hpp}}\item 
+Src/\+User\+Interface/\mbox{\hyperlink{_a_button_8cpp}{A\+Button.\+cpp}}\end{DoxyCompactItemize}

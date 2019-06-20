@@ -1,0 +1,140 @@
+\hypertarget{class_character}{}\section{Character Class Reference}
+\label{class_character}\index{Character@{Character}}
+
+
+{\ttfamily \#include $<$Character.\+hpp$>$}
+
+Inheritance diagram for Character\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_character}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_character_a0c05e7e4b128d95737c892adb5cd7a7c}{Character}} (\mbox{\hyperlink{class_window}{Window}} $\ast$\mbox{\hyperlink{class_entity_a1f2791b6a53a16e200a687f843cee7fb}{window}}, const std\+::string \&file\+Name, \mbox{\hyperlink{class_world}{World}} $\ast$\mbox{\hyperlink{class_entity_a038b06c38fe6bb385f37c05a5647c0dc}{world}}, const std\+::string \&\+\_\+name, const \mbox{\hyperlink{_utility_8hpp_ac675fa2b6c79d0be47ae76e5d0ce38a8}{vector3du}} \&pos)
+\item 
+virtual \mbox{\hyperlink{class_character_a9e9be564d05ded80962b2045aa70b3fc}{$\sim$\+Character}} ()
+\item 
+const std\+::string \& \mbox{\hyperlink{class_character_a631dd8d1785ff701f0fc51615bb017b2}{get\+Name}} () const
+\item 
+const uint \& \mbox{\hyperlink{class_character_a40f5b2baaf938cfb0652d249d7b5cc21}{get\+Hp}} () const
+\item 
+bool \mbox{\hyperlink{class_character_a0859c556bbe019f325b2ec889331c256}{anim\+Has\+Finished}} () const
+\item 
+bool \mbox{\hyperlink{class_character_a1b026957e83da9071075228efd11855f}{take\+Damage}} ()
+\item 
+bool \mbox{\hyperlink{class_character_a21ce12e24615da73ddc5877f585cb82b}{check\+Move}} (const vector2di \&dir) const
+\item 
+bool \mbox{\hyperlink{class_character_af471f57bd2e938261da62ff3ea98e843}{move}} (const vector2di \&dir)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+scene\+::\+I\+Scene\+Node\+Animator $\ast$ \mbox{\hyperlink{class_character_a21f61734adec2f02e29027c7750d00d0}{anim}}
+\item 
+std\+::string \mbox{\hyperlink{class_character_a6592c35167738421f3e04ca8808d37db}{name}}
+\item 
+uint \mbox{\hyperlink{class_character_a1f1db0752324d315af1029a7b08bdea7}{hp}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_character_a0c05e7e4b128d95737c892adb5cd7a7c}\label{class_character_a0c05e7e4b128d95737c892adb5cd7a7c}} 
+\index{Character@{Character}!Character@{Character}}
+\index{Character@{Character}!Character@{Character}}
+\subsubsection{\texorpdfstring{Character()}{Character()}}
+{\footnotesize\ttfamily Character\+::\+Character (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_window}{Window}} $\ast$}]{window,  }\item[{const std\+::string \&}]{file\+Name,  }\item[{\mbox{\hyperlink{class_world}{World}} $\ast$}]{world,  }\item[{const std\+::string \&}]{\+\_\+name,  }\item[{const \mbox{\hyperlink{_utility_8hpp_ac675fa2b6c79d0be47ae76e5d0ce38a8}{vector3du}} \&}]{pos }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_character_a9e9be564d05ded80962b2045aa70b3fc}\label{class_character_a9e9be564d05ded80962b2045aa70b3fc}} 
+\index{Character@{Character}!````~Character@{$\sim$Character}}
+\index{````~Character@{$\sim$Character}!Character@{Character}}
+\subsubsection{\texorpdfstring{$\sim$Character()}{~Character()}}
+{\footnotesize\ttfamily Character\+::$\sim$\+Character (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_character_a0859c556bbe019f325b2ec889331c256}\label{class_character_a0859c556bbe019f325b2ec889331c256}} 
+\index{Character@{Character}!animHasFinished@{animHasFinished}}
+\index{animHasFinished@{animHasFinished}!Character@{Character}}
+\subsubsection{\texorpdfstring{animHasFinished()}{animHasFinished()}}
+{\footnotesize\ttfamily bool Character\+::anim\+Has\+Finished (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Check the status of the current animation \begin{DoxyReturn}{Returns}
+Animation status 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_character_a21ce12e24615da73ddc5877f585cb82b}\label{class_character_a21ce12e24615da73ddc5877f585cb82b}} 
+\index{Character@{Character}!checkMove@{checkMove}}
+\index{checkMove@{checkMove}!Character@{Character}}
+\subsubsection{\texorpdfstring{checkMove()}{checkMove()}}
+{\footnotesize\ttfamily bool Character\+::check\+Move (\begin{DoxyParamCaption}\item[{const vector2di \&}]{dir }\end{DoxyParamCaption}) const}
+
+Check if the character move is possible 
+\begin{DoxyParams}{Parameters}
+{\em dir} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the move is possible, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_character_a40f5b2baaf938cfb0652d249d7b5cc21}\label{class_character_a40f5b2baaf938cfb0652d249d7b5cc21}} 
+\index{Character@{Character}!getHp@{getHp}}
+\index{getHp@{getHp}!Character@{Character}}
+\subsubsection{\texorpdfstring{getHp()}{getHp()}}
+{\footnotesize\ttfamily const uint \& Character\+::get\+Hp (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_character_a631dd8d1785ff701f0fc51615bb017b2}\label{class_character_a631dd8d1785ff701f0fc51615bb017b2}} 
+\index{Character@{Character}!getName@{getName}}
+\index{getName@{getName}!Character@{Character}}
+\subsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily const std\+::string \& Character\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_character_af471f57bd2e938261da62ff3ea98e843}\label{class_character_af471f57bd2e938261da62ff3ea98e843}} 
+\index{Character@{Character}!move@{move}}
+\index{move@{move}!Character@{Character}}
+\subsubsection{\texorpdfstring{move()}{move()}}
+{\footnotesize\ttfamily bool Character\+::move (\begin{DoxyParamCaption}\item[{const vector2di \&}]{dir }\end{DoxyParamCaption})}
+
+Move the character 
+\begin{DoxyParams}{Parameters}
+{\em dir} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if success, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_character_a1b026957e83da9071075228efd11855f}\label{class_character_a1b026957e83da9071075228efd11855f}} 
+\index{Character@{Character}!takeDamage@{takeDamage}}
+\index{takeDamage@{takeDamage}!Character@{Character}}
+\subsubsection{\texorpdfstring{takeDamage()}{takeDamage()}}
+{\footnotesize\ttfamily bool Character\+::take\+Damage (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_character_a21f61734adec2f02e29027c7750d00d0}\label{class_character_a21f61734adec2f02e29027c7750d00d0}} 
+\index{Character@{Character}!anim@{anim}}
+\index{anim@{anim}!Character@{Character}}
+\subsubsection{\texorpdfstring{anim}{anim}}
+{\footnotesize\ttfamily scene\+::\+I\+Scene\+Node\+Animator$\ast$ Character\+::anim\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{class_character_a1f1db0752324d315af1029a7b08bdea7}\label{class_character_a1f1db0752324d315af1029a7b08bdea7}} 
+\index{Character@{Character}!hp@{hp}}
+\index{hp@{hp}!Character@{Character}}
+\subsubsection{\texorpdfstring{hp}{hp}}
+{\footnotesize\ttfamily uint Character\+::hp\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{class_character_a6592c35167738421f3e04ca8808d37db}\label{class_character_a6592c35167738421f3e04ca8808d37db}} 
+\index{Character@{Character}!name@{name}}
+\index{name@{name}!Character@{Character}}
+\subsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily std\+::string Character\+::name\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Include/\+Entity/\mbox{\hyperlink{_character_8hpp}{Character.\+hpp}}\item 
+Src/\+Entity/\mbox{\hyperlink{_character_8cpp}{Character.\+cpp}}\end{DoxyCompactItemize}

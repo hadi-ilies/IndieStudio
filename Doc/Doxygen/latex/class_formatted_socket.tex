@@ -1,0 +1,211 @@
+\hypertarget{class_formatted_socket}{}\section{Formatted\+Socket Class Reference}
+\label{class_formatted_socket}\index{FormattedSocket@{FormattedSocket}}
+
+
+{\ttfamily \#include $<$Formatted\+Socket.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_formatted_socket_a0c1d95da4ef859d754e634df0d2d80a2}{Formatted\+Socket}} ()
+\item 
+\mbox{\hyperlink{class_formatted_socket_a57919c89221556fbd836c61f9ee3d62c}{$\sim$\+Formatted\+Socket}} ()
+\item 
+ushort \mbox{\hyperlink{class_formatted_socket_a92c58f5322606d1dbcd61cea00ee4da5}{get\+Local\+Port}} () const
+\item 
+sf\+::\+Ip\+Address \mbox{\hyperlink{class_formatted_socket_af9aee61bd02f369a9980b2402fef1db9}{get\+Remote\+Address}} () const
+\item 
+ushort \mbox{\hyperlink{class_formatted_socket_af2b9a1624c78a3117cceb313d9b1eb50}{get\+Remote\+Port}} () const
+\item 
+bool \mbox{\hyperlink{class_formatted_socket_a41c035d03d50a2a0b971e0ff2b8aadeb}{connect}} (const sf\+::\+Ip\+Address \&remote\+Address, const ushort \&remote\+Port, const sf\+::\+Time \&timeout=sf\+::\+Time\+::\+Zero)
+\item 
+bool \mbox{\hyperlink{class_formatted_socket_a857affefd4b2a9e37acdf9bac488ada0}{accept}} (sf\+::\+Tcp\+Listener \&listener)
+\item 
+void \mbox{\hyperlink{class_formatted_socket_a4b64885e3fb07ac50107facd1114050d}{disconnect}} ()
+\item 
+bool \mbox{\hyperlink{class_formatted_socket_a4722eb52bc78fab1d1ac7f374e35ebb7}{is\+Connected}} () const
+\item 
+bool \mbox{\hyperlink{class_formatted_socket_a5c58704fe70fe65a7fd792b525f91fba}{send\+Start\+Turn}} ()
+\item 
+bool \mbox{\hyperlink{class_formatted_socket_ab98014a2e9e3125a2cf16b0a796c9565}{send\+End\+Turn}} ()
+\item 
+bool \mbox{\hyperlink{class_formatted_socket_aacfbf336982a59ad769e7f640cee630f}{send\+Message}} (const std\+::string \&msg)
+\item 
+bool \mbox{\hyperlink{class_formatted_socket_a7114490f0ae9b7e7e2f3a2d7a4f64b3c}{send\+Number}} (const sf\+::\+Uint32 \&num)
+\item 
+bool \mbox{\hyperlink{class_formatted_socket_a6acbe9fe124185752a3ff4f62f73be57}{send\+Position}} (const \mbox{\hyperlink{_utility_8hpp_ac675fa2b6c79d0be47ae76e5d0ce38a8}{vector3du}} \&pos)
+\item 
+bool \mbox{\hyperlink{class_formatted_socket_ae413116b058bbf12c36f6dcacc202b13}{send\+Player\+Move}} (const vector2di \&dir)
+\item 
+bool \mbox{\hyperlink{class_formatted_socket_a860290cd091d23c760666d3f03defa15}{send\+Player\+Put\+Bomb}} ()
+\item 
+bool \mbox{\hyperlink{class_formatted_socket_a4e6b793dfa9397dae4c3dcd56cc63144}{send\+Player\+Disconnect}} ()
+\item 
+bool \mbox{\hyperlink{class_formatted_socket_aa2beb732bfaf5bba6a424f16b6ffa41e}{receive}} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_formatted_socket_8hpp_ad8ed01ff3ff33333d8e19db4d2818bb6}{Data\+Type}} \mbox{\hyperlink{class_formatted_socket_a167e37871d020747121819c2bdc746e5}{type}}
+\item 
+std\+::string \mbox{\hyperlink{class_formatted_socket_ae111688faa88e06c0f3ab88ff75f1999}{message}}
+\item 
+sf\+::\+Uint32 \mbox{\hyperlink{class_formatted_socket_a7bc9148b0076701f1f11af04e56f2b5c}{number}}
+\item 
+\mbox{\hyperlink{_utility_8hpp_ac675fa2b6c79d0be47ae76e5d0ce38a8}{vector3du}} \mbox{\hyperlink{class_formatted_socket_a28cddb0857e5bcd570087aa81dd25722}{position}}
+\item 
+vector2di \mbox{\hyperlink{class_formatted_socket_a8dd9c5e8aa0ea113bb94cc516b548373}{direction}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_formatted_socket_a0c1d95da4ef859d754e634df0d2d80a2}\label{class_formatted_socket_a0c1d95da4ef859d754e634df0d2d80a2}} 
+\index{FormattedSocket@{FormattedSocket}!FormattedSocket@{FormattedSocket}}
+\index{FormattedSocket@{FormattedSocket}!FormattedSocket@{FormattedSocket}}
+\subsubsection{\texorpdfstring{FormattedSocket()}{FormattedSocket()}}
+{\footnotesize\ttfamily Formatted\+Socket\+::\+Formatted\+Socket (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_formatted_socket_a57919c89221556fbd836c61f9ee3d62c}\label{class_formatted_socket_a57919c89221556fbd836c61f9ee3d62c}} 
+\index{FormattedSocket@{FormattedSocket}!````~FormattedSocket@{$\sim$FormattedSocket}}
+\index{````~FormattedSocket@{$\sim$FormattedSocket}!FormattedSocket@{FormattedSocket}}
+\subsubsection{\texorpdfstring{$\sim$FormattedSocket()}{~FormattedSocket()}}
+{\footnotesize\ttfamily Formatted\+Socket\+::$\sim$\+Formatted\+Socket (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_formatted_socket_a857affefd4b2a9e37acdf9bac488ada0}\label{class_formatted_socket_a857affefd4b2a9e37acdf9bac488ada0}} 
+\index{FormattedSocket@{FormattedSocket}!accept@{accept}}
+\index{accept@{accept}!FormattedSocket@{FormattedSocket}}
+\subsubsection{\texorpdfstring{accept()}{accept()}}
+{\footnotesize\ttfamily bool Formatted\+Socket\+::accept (\begin{DoxyParamCaption}\item[{sf\+::\+Tcp\+Listener \&}]{listener }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_formatted_socket_a41c035d03d50a2a0b971e0ff2b8aadeb}\label{class_formatted_socket_a41c035d03d50a2a0b971e0ff2b8aadeb}} 
+\index{FormattedSocket@{FormattedSocket}!connect@{connect}}
+\index{connect@{connect}!FormattedSocket@{FormattedSocket}}
+\subsubsection{\texorpdfstring{connect()}{connect()}}
+{\footnotesize\ttfamily bool Formatted\+Socket\+::connect (\begin{DoxyParamCaption}\item[{const sf\+::\+Ip\+Address \&}]{remote\+Address,  }\item[{const ushort \&}]{remote\+Port,  }\item[{const sf\+::\+Time \&}]{timeout = {\ttfamily sf\+:\+:Time\+:\+:Zero} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_formatted_socket_a4b64885e3fb07ac50107facd1114050d}\label{class_formatted_socket_a4b64885e3fb07ac50107facd1114050d}} 
+\index{FormattedSocket@{FormattedSocket}!disconnect@{disconnect}}
+\index{disconnect@{disconnect}!FormattedSocket@{FormattedSocket}}
+\subsubsection{\texorpdfstring{disconnect()}{disconnect()}}
+{\footnotesize\ttfamily void Formatted\+Socket\+::disconnect (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_formatted_socket_a92c58f5322606d1dbcd61cea00ee4da5}\label{class_formatted_socket_a92c58f5322606d1dbcd61cea00ee4da5}} 
+\index{FormattedSocket@{FormattedSocket}!getLocalPort@{getLocalPort}}
+\index{getLocalPort@{getLocalPort}!FormattedSocket@{FormattedSocket}}
+\subsubsection{\texorpdfstring{getLocalPort()}{getLocalPort()}}
+{\footnotesize\ttfamily ushort Formatted\+Socket\+::get\+Local\+Port (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_formatted_socket_af9aee61bd02f369a9980b2402fef1db9}\label{class_formatted_socket_af9aee61bd02f369a9980b2402fef1db9}} 
+\index{FormattedSocket@{FormattedSocket}!getRemoteAddress@{getRemoteAddress}}
+\index{getRemoteAddress@{getRemoteAddress}!FormattedSocket@{FormattedSocket}}
+\subsubsection{\texorpdfstring{getRemoteAddress()}{getRemoteAddress()}}
+{\footnotesize\ttfamily sf\+::\+Ip\+Address Formatted\+Socket\+::get\+Remote\+Address (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_formatted_socket_af2b9a1624c78a3117cceb313d9b1eb50}\label{class_formatted_socket_af2b9a1624c78a3117cceb313d9b1eb50}} 
+\index{FormattedSocket@{FormattedSocket}!getRemotePort@{getRemotePort}}
+\index{getRemotePort@{getRemotePort}!FormattedSocket@{FormattedSocket}}
+\subsubsection{\texorpdfstring{getRemotePort()}{getRemotePort()}}
+{\footnotesize\ttfamily ushort Formatted\+Socket\+::get\+Remote\+Port (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_formatted_socket_a4722eb52bc78fab1d1ac7f374e35ebb7}\label{class_formatted_socket_a4722eb52bc78fab1d1ac7f374e35ebb7}} 
+\index{FormattedSocket@{FormattedSocket}!isConnected@{isConnected}}
+\index{isConnected@{isConnected}!FormattedSocket@{FormattedSocket}}
+\subsubsection{\texorpdfstring{isConnected()}{isConnected()}}
+{\footnotesize\ttfamily bool Formatted\+Socket\+::is\+Connected (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_formatted_socket_aa2beb732bfaf5bba6a424f16b6ffa41e}\label{class_formatted_socket_aa2beb732bfaf5bba6a424f16b6ffa41e}} 
+\index{FormattedSocket@{FormattedSocket}!receive@{receive}}
+\index{receive@{receive}!FormattedSocket@{FormattedSocket}}
+\subsubsection{\texorpdfstring{receive()}{receive()}}
+{\footnotesize\ttfamily bool Formatted\+Socket\+::receive (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_formatted_socket_ab98014a2e9e3125a2cf16b0a796c9565}\label{class_formatted_socket_ab98014a2e9e3125a2cf16b0a796c9565}} 
+\index{FormattedSocket@{FormattedSocket}!sendEndTurn@{sendEndTurn}}
+\index{sendEndTurn@{sendEndTurn}!FormattedSocket@{FormattedSocket}}
+\subsubsection{\texorpdfstring{sendEndTurn()}{sendEndTurn()}}
+{\footnotesize\ttfamily bool Formatted\+Socket\+::send\+End\+Turn (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_formatted_socket_aacfbf336982a59ad769e7f640cee630f}\label{class_formatted_socket_aacfbf336982a59ad769e7f640cee630f}} 
+\index{FormattedSocket@{FormattedSocket}!sendMessage@{sendMessage}}
+\index{sendMessage@{sendMessage}!FormattedSocket@{FormattedSocket}}
+\subsubsection{\texorpdfstring{sendMessage()}{sendMessage()}}
+{\footnotesize\ttfamily bool Formatted\+Socket\+::send\+Message (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{msg }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_formatted_socket_a7114490f0ae9b7e7e2f3a2d7a4f64b3c}\label{class_formatted_socket_a7114490f0ae9b7e7e2f3a2d7a4f64b3c}} 
+\index{FormattedSocket@{FormattedSocket}!sendNumber@{sendNumber}}
+\index{sendNumber@{sendNumber}!FormattedSocket@{FormattedSocket}}
+\subsubsection{\texorpdfstring{sendNumber()}{sendNumber()}}
+{\footnotesize\ttfamily bool Formatted\+Socket\+::send\+Number (\begin{DoxyParamCaption}\item[{const sf\+::\+Uint32 \&}]{num }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_formatted_socket_a4e6b793dfa9397dae4c3dcd56cc63144}\label{class_formatted_socket_a4e6b793dfa9397dae4c3dcd56cc63144}} 
+\index{FormattedSocket@{FormattedSocket}!sendPlayerDisconnect@{sendPlayerDisconnect}}
+\index{sendPlayerDisconnect@{sendPlayerDisconnect}!FormattedSocket@{FormattedSocket}}
+\subsubsection{\texorpdfstring{sendPlayerDisconnect()}{sendPlayerDisconnect()}}
+{\footnotesize\ttfamily bool Formatted\+Socket\+::send\+Player\+Disconnect (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_formatted_socket_ae413116b058bbf12c36f6dcacc202b13}\label{class_formatted_socket_ae413116b058bbf12c36f6dcacc202b13}} 
+\index{FormattedSocket@{FormattedSocket}!sendPlayerMove@{sendPlayerMove}}
+\index{sendPlayerMove@{sendPlayerMove}!FormattedSocket@{FormattedSocket}}
+\subsubsection{\texorpdfstring{sendPlayerMove()}{sendPlayerMove()}}
+{\footnotesize\ttfamily bool Formatted\+Socket\+::send\+Player\+Move (\begin{DoxyParamCaption}\item[{const vector2di \&}]{dir }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_formatted_socket_a860290cd091d23c760666d3f03defa15}\label{class_formatted_socket_a860290cd091d23c760666d3f03defa15}} 
+\index{FormattedSocket@{FormattedSocket}!sendPlayerPutBomb@{sendPlayerPutBomb}}
+\index{sendPlayerPutBomb@{sendPlayerPutBomb}!FormattedSocket@{FormattedSocket}}
+\subsubsection{\texorpdfstring{sendPlayerPutBomb()}{sendPlayerPutBomb()}}
+{\footnotesize\ttfamily bool Formatted\+Socket\+::send\+Player\+Put\+Bomb (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_formatted_socket_a6acbe9fe124185752a3ff4f62f73be57}\label{class_formatted_socket_a6acbe9fe124185752a3ff4f62f73be57}} 
+\index{FormattedSocket@{FormattedSocket}!sendPosition@{sendPosition}}
+\index{sendPosition@{sendPosition}!FormattedSocket@{FormattedSocket}}
+\subsubsection{\texorpdfstring{sendPosition()}{sendPosition()}}
+{\footnotesize\ttfamily bool Formatted\+Socket\+::send\+Position (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{_utility_8hpp_ac675fa2b6c79d0be47ae76e5d0ce38a8}{vector3du}} \&}]{pos }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_formatted_socket_a5c58704fe70fe65a7fd792b525f91fba}\label{class_formatted_socket_a5c58704fe70fe65a7fd792b525f91fba}} 
+\index{FormattedSocket@{FormattedSocket}!sendStartTurn@{sendStartTurn}}
+\index{sendStartTurn@{sendStartTurn}!FormattedSocket@{FormattedSocket}}
+\subsubsection{\texorpdfstring{sendStartTurn()}{sendStartTurn()}}
+{\footnotesize\ttfamily bool Formatted\+Socket\+::send\+Start\+Turn (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_formatted_socket_a8dd9c5e8aa0ea113bb94cc516b548373}\label{class_formatted_socket_a8dd9c5e8aa0ea113bb94cc516b548373}} 
+\index{FormattedSocket@{FormattedSocket}!direction@{direction}}
+\index{direction@{direction}!FormattedSocket@{FormattedSocket}}
+\subsubsection{\texorpdfstring{direction}{direction}}
+{\footnotesize\ttfamily vector2di Formatted\+Socket\+::direction}
+
+\mbox{\Hypertarget{class_formatted_socket_ae111688faa88e06c0f3ab88ff75f1999}\label{class_formatted_socket_ae111688faa88e06c0f3ab88ff75f1999}} 
+\index{FormattedSocket@{FormattedSocket}!message@{message}}
+\index{message@{message}!FormattedSocket@{FormattedSocket}}
+\subsubsection{\texorpdfstring{message}{message}}
+{\footnotesize\ttfamily std\+::string Formatted\+Socket\+::message}
+
+\mbox{\Hypertarget{class_formatted_socket_a7bc9148b0076701f1f11af04e56f2b5c}\label{class_formatted_socket_a7bc9148b0076701f1f11af04e56f2b5c}} 
+\index{FormattedSocket@{FormattedSocket}!number@{number}}
+\index{number@{number}!FormattedSocket@{FormattedSocket}}
+\subsubsection{\texorpdfstring{number}{number}}
+{\footnotesize\ttfamily sf\+::\+Uint32 Formatted\+Socket\+::number}
+
+\mbox{\Hypertarget{class_formatted_socket_a28cddb0857e5bcd570087aa81dd25722}\label{class_formatted_socket_a28cddb0857e5bcd570087aa81dd25722}} 
+\index{FormattedSocket@{FormattedSocket}!position@{position}}
+\index{position@{position}!FormattedSocket@{FormattedSocket}}
+\subsubsection{\texorpdfstring{position}{position}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_utility_8hpp_ac675fa2b6c79d0be47ae76e5d0ce38a8}{vector3du}} Formatted\+Socket\+::position}
+
+\mbox{\Hypertarget{class_formatted_socket_a167e37871d020747121819c2bdc746e5}\label{class_formatted_socket_a167e37871d020747121819c2bdc746e5}} 
+\index{FormattedSocket@{FormattedSocket}!type@{type}}
+\index{type@{type}!FormattedSocket@{FormattedSocket}}
+\subsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_formatted_socket_8hpp_ad8ed01ff3ff33333d8e19db4d2818bb6}{Data\+Type}} Formatted\+Socket\+::type}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Include/\mbox{\hyperlink{_formatted_socket_8hpp}{Formatted\+Socket.\+hpp}}\item 
+Src/\mbox{\hyperlink{_formatted_socket_8cpp}{Formatted\+Socket.\+cpp}}\end{DoxyCompactItemize}
