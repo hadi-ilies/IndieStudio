@@ -10,7 +10,6 @@
 #ifndef IRRFONTBUFFER_HPP
 #define IRRFONTBUFFER_HPP
 
-#include <iostream> // tmp
 #include "IrrFont.hpp"
 
 class IrrFontBuffer {
